@@ -1,0 +1,1109 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head><title>
+	Road Architect Manual - MicroGSD
+</title>
+
+    <style type="text/css">
+    body   
+    {
+        background-color:#404040;
+        font-size:12px;
+        font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+        margin: 0px;
+        padding: 0px;
+        color: #000;
+    }
+
+    .main
+    {
+        background-color:#E6E6E6;
+    }
+
+    .mainwrapper1
+    {
+        background-color:#F0F0F0;
+        margin:auto;
+        width:1000px;
+    }
+
+    .maincontent
+    {
+        background-color:#F0F0F0;
+        margin:auto;
+        width:960px;
+    }
+
+
+
+
+    .topbar{
+        font-size:15px;
+        color:#FFFFFF;
+        text-shadow: 1px 1px #222222;
+        width:100%;
+    }
+
+    .topbarcontent
+    {
+        margin:auto;
+        width:960px;
+        padding:4px 0px;
+    }
+
+    .topbartext
+    {
+        border-color:#222;
+        border:0px solid rgba(0, 0, 0, .75);
+   
+        color:#FFFFFF;
+        padding:10px 8px;
+        text-decoration:none;
+    }
+
+    .topbartext:hover
+    {
+        background-color:#888888;
+        box-shadow: 1px 1px 2px #000;  
+    }
+
+    .topbartext a:link,.topbartext a:visited,.topbartext a:hover
+    {
+        color:#FFF; 
+        text-decoration:none;
+    }
+
+    .topbartexta
+    {
+        border-color:#222;
+        border:0px solid rgba(0, 0, 0, .75);
+
+        background-color:#F0F0F0;
+        color:#000;
+        padding:10px 8px;
+        text-shadow: none;
+        text-decoration:none;
+        font-weight:700;
+    
+    }
+
+    .topbartexta a:link,.topbartexta a:visited,.topbartexta a:hover
+    {
+        color:#000;
+        text-decoration:none;
+    }
+
+    .zfixer
+    {
+        position:relative;
+        z-index:11;
+    }
+
+    .zfixerBN
+    {
+        z-index:10;
+    }
+    .zfixerBNtext
+    {
+        z-index:12;
+    }
+
+    .topbarpad
+    {
+        padding:0px 5px;
+    }
+
+    .footer
+    {
+
+    }
+    .footercontent
+    {
+        margin:auto;
+        width:960px;
+        padding:4px 0px;
+        color:#999;
+    }
+
+    .blackline
+    {
+        background-color:#000;
+        height:2px;
+        width:100%;
+    }
+
+    .featurebox
+    {
+        width:320px;
+        color:#000;
+        height:320px;
+        vertical-align:top;
+        padding:0px 5px;
+        text-align:left;
+    }
+    .featureboxnpl
+    {
+        padding-left:0px;
+    }
+    .featureboxnpl
+    {
+        padding-right:0px;
+    }
+    .center{ text-align:center; }
+
+    .featureheader
+    {
+        font-size:18px;
+        color:#000;
+        font-weight:700;
+    }
+    .featuresubheader
+    {
+        font-size:14px;
+        color:#000;
+        font-weight:700;
+    }
+
+    .buynow
+    {
+        background-image:url('ManualImages/buynow1.png');
+        float:right;  
+        z-index:1;
+        width:130px;
+        height:130px;
+        position:relative;
+    }
+
+    .featurebox img,.imgboxshadow
+    {
+        box-shadow: 2px 2px 2px #000;
+    }
+    .featurebox img,.imgboxshadow,.tocLevel1 img.w,.tocLevel2 img.w
+    {
+         box-shadow: 4px 4px 6px #111;
+    }
+
+    .topimgtest
+    {
+        box-shadow: 4px 4px 6px #111;
+    }
+
+    ul.toc1
+    {
+        list-style-type:upper-roman;
+    }
+
+    ul.num
+    {
+        list-style-type:decimal;
+    }
+
+    ul.toc2
+    {
+        list-style-type:lower-alpha;
+        margin-left:-16px;
+    }
+    ul.toc3
+    {
+        list-style-type:lower-roman;
+        margin-left:-16px;
+    }
+    div.toc1title{
+        font-size:20px; 
+        font-weight:700;
+        padding-bottom:4px;
+        padding-left:2px;
+        padding-top:2px;
+    }
+    div.toc2title{
+        font-size:17px;
+        font-weight:700;
+        padding-bottom:4px;
+        padding-top:8px;
+    }
+    div.toc3title{
+        font-weight:700;
+        padding-bottom:4px;
+        font-size:14px;
+        padding-top:8px;
+    }
+
+
+
+
+    div.tocLevel1
+    {
+        padding: 4px 8px 8px 8px;
+        box-shadow: 0px 0px 3px #000;
+        background-color:#F2F2F2;
+    }
+    div.tocLevel2
+    {
+        padding: 2px 8px 2px 8px;
+    }
+
+    div.tocLevel3
+    {
+        padding-left:10px;
+    }
+    div.tocspacer
+    {
+        height:8px;
+    }
+
+    div.toc
+    {
+        font-size:13px;
+    }
+    span.b
+    {
+        font-weight:700;
+    }
+    div.b
+    {
+        font-weight:700;
+    }
+    span.i
+    {
+        font-style:italic;
+    }
+    div.i
+    {
+        font-style:italic;
+    }
+    span.s
+    {
+        font-size:10px;
+    }
+
+    div.tocfont
+    {
+        font-size:13px;
+    }
+
+    .tocTC
+    {
+        text-align:left;
+        vertical-align:top;
+    }
+
+    .tocTCc
+    {
+        text-align:left;
+        vertical-align:top;
+        padding-left:20px;
+    }
+    .tocTCcD
+    {
+        text-align:left;
+        vertical-align:top;
+    }
+
+    .tocSmallImage
+    {
+        background-color:#383838;
+        padding:2px;
+        box-shadow: 2px 2px 2px #000;
+    }
+
+    .tocTCc div,.tocTCcD div 
+    {
+        padding:2px 0px;
+    }
+
+    .manH1{
+        padding:0px 0px;
+        font-size:24px;
+        font-weight:700;
+    }
+
+     /* Prevents slides from flashing */
+    #slides {
+        display:none;
+    }
+
+    .slidesjs-pagination,.slidesjs-play,.slidesjs-stop{ display:none !important; }
+
+    .textholder
+    {
+    
+    }
+
+    .i
+    {
+        font-style:italic;
+        font-size:12px;
+    }
+
+    .keybox
+    {
+        padding:8px;
+        background-color:#F2F2F2;
+        border:2px solid;
+        border-radius:8px;
+        border-color:#222;
+    }
+    .keyboxspace
+    {
+        padding:0px 6px;
+    }
+
+    .qsimg
+    {
+        border: 1px solid #000;
+    }
+    </style>
+
+
+
+</head>
+<body>
+    <form method="post" action="RoadArchitectManual.aspx" id="ctl01">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1MmRkIqyuT5OoA3TBe4rVml3F+RHEj7kXYRlmLEwvTWBik4Y=" />
+</div>
+
+        <div class="topbar">
+           <div class="topbarcontent">
+            <a href="http://microgsd.com/" id="link_main" class="topbartext zfixer">MicroGSD <img src="ManualImages/MicroGSD20.png" alt="" /></a>
+            <span class="topbarpad"></span>
+            <a href="http://microgsd.com/RoadArchitect.aspx" id="link_gsdroad" class="topbartext zfixer">Road Architect</a>
+            <span class="topbarpad"></span>
+            <a href="http://microgsd.com/Support.aspx" id="link_support" class="topbartext zfixer">Support</a>
+            <span class="topbarpad"></span>
+            <a href="http://microgsd.com/Contact.aspx" id="link_contact" class="topbartext zfixer">Contact</a>
+           </div>
+           <div class="blackline"></div>
+        </div>
+        
+        <div class="main">
+            <div class="mainwrapper1">
+                <div class="maincontent">
+                    <div style="padding:20px 0px;">
+<div class="tocfont">
+
+<div class="manH1">Road Architect <span style="text-decoration:underline;">Offline</span> Manual</div>
+
+<div class="manH1"><a href="http://microgsd.com/Support/RoadArchitectManual.aspx" style="color:Blue !important;">Click for online manual</a></div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="Div2">Table of contents</div>
+<div class="tocLevel2">
+
+<div class="toc">
+<ul class="toc1" style="margin-top:-5px;margin-bottom:2px;">
+<li><a href="#OV">Overview</a></li>
+<li><a href="#QSG">Quick start guides</a>
+    <ul class="toc2">
+    <li><a href="#QSRoad">Building a road</a></li>
+    <li><a href="#QSInter">Building an intersection</a></li>
+    <li><a href="#QSBridge">Building a bridge</a></li>
+    <li><a href="#QSWizard">Using the Wizard</a></li>
+    </ul>
+</li>
+<li><a href="#quicktips">Quick tips</a></li>
+<li><a href="#RoadArchitectGameObject">Road Architect GameObject</a></li>
+<li><a href="#RoadGameObject">Road GameObject</a>
+    <ul class="toc2">
+    <li><a href="#Roadoptions">Road options</a></li>
+    <li><a href="#RoadTerrainoptions">Terrain options</a></li>
+    <li><a href="#Roadandshouldersplitting">Road and shoulder splitting</a></li>
+    <li><a href="#RoadEditorcamera">Editor camera</a></li>
+    <li><a href="#Roadmaterials">Road materials</a></li>
+    <li><a href="#RoadMisc">Misc</a></li>
+    </ul>
+</li>
+<li><a href="#NodeGameObject">Node GameObject</a>
+    <ul class="toc2">
+        <li><a href="#SMM">Extrusion objects</a>
+            <ul class="toc3">
+                <li><a href="#SMMi">General options</a></li>
+                <li><a href="#SMMii">Vertical & horizontal curve options</a></li>
+                <li><a href="#SMMiii">Vertical cutoff options</a></li>
+                <li><a href="#SMMiv">Start & end object options</a></li>
+                <li><a href="#SMMv">Collision options</a></li>
+                <li><a href="#SMMvi">Rotation & deprecated options</a></li>
+            </ul>
+        </li>
+         <li><a href="#SMM">Edge objects</a>
+            <ul class="toc3">
+                <li><a href="#EOMi">General options</a></li>
+                <li><a href="#EOMii">Vertical, horizontal and rotation options</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
+
+<li><a href="#InterGameObject">Intersection GameObject</a>
+    <ul class="toc2">
+    <li><a href="#Inter1">Intersection options</a></li>
+    <li><a href="#Inter2">Intersection materials</a></li>
+    </ul>
+</li>
+<li><a href="#ExportSplatmap">Exporting a splatmap</a></li>
+
+<li><a href="#ExportMeshes">Exporting meshes</a></li>
+<li><a href="#FAQ">Frequently asked questions ( FAQ / F.A.Q. )</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="OV">I. Quick overview</div>
+<div class="tocLevel2">
+Road Architect's primary game objects:
+<ul style="margin-left:-20px;">
+    <li><span class="b">"Road Architect System"</span> <span class="i s">(RoadArchitectSystem.cs)</span> - this script component is treated as the master GameObject for organization purposes. Located at the root level of the hierarchy.</li>
+    <li><span class="b">"Road Object"</span> <span class="i s">(GSDRoad.cs)</span> - this script component is attached to each road created. Contains 42+ options including road width, lane count and terrain options. Located as a child of a Road Architect System GameObject.</li>
+    <li><span class="b">"Road Node"</span> <span class="i s">(GSDSplineN.cs)</span> - this script component is attached to each road node on a road. Contains 100+ options and is the primary place in which bridges, edge objects and more are created. Located as a child of a Spline GameObject, which is a child of a Road GameObject.</li>
+    <li><span class="b">"Intersection Object"</span> <span class="i s">(GSDRoadIntersection.cs)</span> - this script component is attached to each intersection object. Contains dozens of intersection options. Located as a child of the "Intersections" GameObject, which is a child of a Road Architect System GameObject.</li>
+    <li><span class="b">"Splatmap Creator"</span> <span class="i s">(GSDTerrain.cs)</span> - this script component is attached to each terrain in the scene. Contains 8 options for creating and exporting splat maps. Located on each Terrain GameObject.</li>
+</ul>
+</div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="QSG">II. Quick start guides</div>
+    <div class="tocLevel2">
+        <div class="toc2title" id="QSRoad">a. Building a road</div>
+
+            <ul class="num" style="margin-left:-15px;">
+            <li>Create a Road Architect System GameObject via the Road Architect file menu.</li>
+            <li>Select the newly created Road Architect System GameObject and click "Add road" to add a road (located in the Road Architect System's inspector window).</li>
+            <li style="font-weight:700;">While a road object is selected:</li>
+            </ul>
+
+            <div style="padding:8px 0px 0px 40px;height:40px;">
+              <span class="keybox">CTRL</span>
+              <span class="keyboxspace"> + </span>
+              <span class="keybox">LEFT-CLICK</span>
+              = Add road nodes on the terrain while holding ctrl and left-clicking on the terrain location.
+            </div>
+
+            <div style="padding:8px 0px 14px 40px;">
+              <span class="keybox">SHIFT</span>
+              <span class="keyboxspace"> + </span>
+              <span class="keybox">LEFT-CLICK</span>
+              = Insertion mode: Insert road nodes on the terrain while holding shift and left-clicking on the terrain location.
+            </div>
+           
+
+        <div class="toc2title" id="QSInter">b. Building an intersection</div>
+
+            <ul class="num" style="margin-left:-15px;">
+            <li>Drag a node on top of another node. Can be from the same road or different roads. To create a 3-way intersection, utilize an end node (a road's first or last node) to create the intersection. Note: You can't create an intersection out of consecutive nodes of the same road.</li>
+            </ul>
+
+        <div class="toc2title" id="QSBridge">c. Building a bridge</div>
+
+            <ul class="num" style="margin-left:-15px;">
+            <li>Select the road node where the bridge is to start. 
+
+                <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge1a.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+
+            </li>
+
+            <li>At the top of the node's inspector window, check "Bridge start".
+                   <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge1b.png" alt="" class="qsimg" />
+                <img src="ManualImages/ArrowRight.png" alt="" class="" />
+                <img src="ManualImages/QuickStartBridge1c.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+            </li>
+
+            <li>Select the road node where the bridge is to end.
+                <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge2a.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+            </li>
+
+            <li>At the top of the node's inspector window, check "Bridge end".
+                <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge2b.png" alt="" class="qsimg" />
+                <img src="ManualImages/ArrowRight.png" alt="" class="" />
+                <img src="ManualImages/QuickStartBridge2c.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+            </li>
+
+            <li>Select the bridge start node.
+                 <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge1a.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+            </li>
+
+            <li>Click "Open Wizard" (the blue button) in the inspector panel. This will open the creation wizard. 
+                <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge3a.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+            </li>
+
+            <li>Make sure "Completed Bridges" is selected in the creation wizard drop-down.
+
+                <ul style="list-style:none;">
+                <li>
+                <div style="padding:4px 0px 8px 0px;">
+                <img src="ManualImages/QuickStartBridge4a.png" alt="" class="qsimg" />
+                </div>
+                </li>
+                </ul>
+
+            </li>
+            <li>Single-click on which bridge type to add. Adjust the bridge start and end nodes' heights for desired effect.</li>
+            </ul>
+
+
+        <div class="toc2title" id="QSWizard">d. Using the Wizard</div>
+            <ul class="num" style="margin-left:-15px;">
+            <li>Select the node in which you wish to add an extruded, repeated object or singular object.</li>
+            <li>Switch back to the node where you want the bridge to start. Click "Open Wizard" (the blue button). This will open the creation wizard. </li>
+            <li>Select "Extrusion Objects" or "Edge Objects" from the the creation wizard drop-down.</li>
+            <li>Experiment with the drop-down and its options to explore all of the included assets</li>
+            </ul>
+    </div>
+</div>
+
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="quicktips">III. Quick tips</div>
+<div class="tocLevel2" style="padding-top:0px;margin-top:-5px;">
+<ul style="margin-left:-20px;">
+    <li>Look at the example scenes to see entire road layouts with bridges and more.</li>
+    <li>Nodes are the only GameObject to add bridges, railings, signs and similar items. In other words: To add any non-road item you must do so from a Node.</li>
+    <li>To add nodes, you must have a road selected. Ctrl-left-click to add a node to the end of the road. Shift-left-click to insert a node anywhere along the spline.</li>
+    <li>Creating a custom extrusion and edge objects is performed by clicking the "Create a custom extrusion object" and "Create a custom edge object" in a Node's inspector window.</li>
+    <li>Confused? Watch the tutorial videos. Still confused? Email <a href="support@microgsd.com">support@microgsd.com</a> and you will received a response within 48 hours.</li>
+</ul>
+</div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="RoadArchitectGameObject">IV. Road Architect System GameObject</div>
+    <div class="tocLevel2">
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td class="tocTC">
+        <img class="w" src="ManualImages/RoadArchitectSystem.png" alt="RoadArchitectSystem UI image" />
+    </td><td class="tocTCc">
+        <div><span class="b">Add road:</span> Adds a road to the system. After clicking this button, the new road will automatically be selected as the active GameObject.</div>
+        <div><span class="b">Multithreading:</span> Enables or disables multithreading during road generation.</div>
+        <div><span class="b">Save mesh assets:</span> Enables or disables saving of meshes as unity assets.</div>
+        <div><span class="b">Update all roads:</span> Updates all roads in the scene. This may take a while depending on the number of roads in the scene.</div>
+        <div><span class="b">View next intersection:</span> Changes the sceneview to the next valid intersection. Hotkey "K" works while the Road Architect System GameObject is selected.</div>
+        <div><span class="b">View next bridge:</span> Changes the sceneview to the next valid bridge. Hotkey "L" works while the Road Architect System GameObject is selected.</div>
+    </td></tr>
+    </table>
+    </div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="RoadGameObject">V. Road GameObject</div>
+    <div class="tocLevel2">
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Roadoptions" style="padding-top:0px !important;">a. Road options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject1.png" alt="RoadObject1 UI image" /></div>
+        
+    </td><td class="tocTCc">
+        <div><span class="b">Gizmos:</span> Enable or disable most gizmos for this road. Disable mesh collider gizmos via the unity menu if necessary or desired.</div>
+		<div><span class="b">Lanes:</span> Select the number of lanes for this road.</div>
+		<div><span class="b">Lane width:</span> Modify the width per lane, in meters.</div>
+		<div><span class="b">Road width:</span> Displays the road width without considering shoulders, in meters.</div>
+		<div><span class="b">Shoulders enabled:</span> Enables or disables shoulders.</div>
+		<div><span class="b">Shoulders width:</span> Modify the width of shoulders, in meters.</div>
+		<div><span class="b">Road definition:</span> The meter spacing between mesh triangles on the road and shoulder.</div>
+		<div><span class="b">Use default materials:</span> When enabled will use default materials for the road system, allowing certain aspects of generation to automatically determine the correct materials to utilize.</div>
+		<div><span class="b">Max grade enforced:</span> When enabled enforces a maximum grade on a per node basis.</div>
+		<div><span class="b">Max road grade:</span> The maximum road grade allowed on a per node basis.</div>
+		<div><span class="b">Multithreading:</span> When enabled allows for multi-threaded road generation.</div>
+		<div><span class="b">Save mesh assets:</span> When enabled saves all generated meshes as .asset files.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="RoadTerrainoptions">b. Terrain options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject2.png" alt="RoadObject2 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Terrain subtraction:</span>  This value, in meters, will be subtracted from the terrain match height to prevent z-fighting.</div>
+		<div><span class="b">Spline magnitude limit:</span>  Limits the magnitude of the spline nodes. Lower limit is better for typical roads with node separation of around 100 to 300 meters. Higher limits will allow for less tension when using very spread out nodes.</div>
+		<div><span class="b">Height Modification:</span> Enables or disables height matching for the terrain.</div>
+		<div><span class="b">Active detail removal:</span> Enables or disables active detail removal. Memory intensive on large terrains with large amounts of details. Recommended to not use this option and instead remove details and trees via splat maps with other addons.</div>
+		<div><span class="b">Active tree removal:</span> Enables or disables active tree removal. Memory intensive on large terrains with large amounts of trees. Recommended to not use this option and instead remove details and trees via splat maps with other addons.</div>
+        <div><span class="b">Heights match width:</span> The distance to the left and right of the road in which terrain heights will be matched to the road.</div>
+    </td></tr>
+    </table><table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2" class="tocTCcD">
+		<div><span class="b">Details clear width:</span> The distance between the road and detail, width wise, in which details will be removed.</div>
+		<div><span class="b">Details clear height:</span> The distance between the road and detail, height wise, in which details will be removed.</div>
+		<div><span class="b">Tree clear width:</span> The distance between the road and tree, width wise, in which trees will be removed.</div>
+		<div><span class="b">Tree clear height:</span> The distance between the road and tree, height wise, in which trees will be removed.</div>
+		<div><span class="b">Store terrain history separate from scene:</span> If enabled, stores the terrain history immediately on disk after use, saving memory while in editor.</div>
+		<div><span class="b">Terrain history size:</span> Shows the size, in kilobytes, of the terrain history in memory or on disk.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Roadandshouldersplitting">c. Road and shoulder splitting:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject3.png" alt="RoadObject3 UI image" /></div>
+    </td><td class="tocTCc">
+    	<div class="b">Typically auto-split will be the best choice for performance and other reasons.</div>
+		<div>Choosing split options will split the road/shoulder up into pieces mirroring the road segments between nodes.</div>
+		<div>Splitting makes mesh collider bound calculations more efficient and fast. Splitting also allows for more detailed and flexible road texturing options such as passing sections, other different road lines per section, road debris and more.</div>
+    </td></tr>
+    </table><table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td class="tocTCcD">
+    	<div class="b">Which splitting option to choose?</div>
+        <div class="i">Recommended option: auto-split enabled for roads and shoulders.</div>
+		<div>Choose no splitting if you desire a single material set for this entire road and your game experiences no collision processing slowdowns from one large mesh collider. This option will create less game objects than automatic and manual splitting.</div>
+		<div>Choose automatic road and shoulder splitting if you desire multiple materials (such as yellow double lines for certain sections and white dotted for others) for this road and or your game experiences collision processing slowdowns from one large mesh collider.</div>
+		<div>Choose manual road and shoulder splitting if you desire the same as automatic splitting and desire more freedom over the process. This option will result in less GameObjects and larger mesh colliders when compared to automatic splitting.</div>
+
+		<div class="b">Manual splitting information:</div>
+		<div>Choosing manual splitting will force the user to select individual nodes to cut instead of the cuts being performed automatically. This option is recommended if bigger mesh colliders do not cause a slowdown in performance, as it lowers the overall GameObject count.</div>
+		<div>Manual splitting will not split up the mesh colliders like automatic cuts, so the colliders may get large & complex and cost more CPU to process collisions. If this option is chosen, please verify your game's collision processing speed and if you run into long collision processing times split more road sections.</div>
+			
+		<div class="b">Example usages of manual splitting:</div>
+		<div><span class="i">Example hill:</span> Goal is to have double yellow no passing lines on a two lane road but only while the road is near or on the hill. 
+			Pick nodes on either sides of the hill and mark both as road cut. Everything between these two nodes will be its own section 
+			allowing you to apply double yellow no passing lines for just the hill.</div>	
+		<div><span class="i">Example mountains:</span> In the mountains, the road is curvy and the grade is high. 
+			There's a flat straight spot that you want to allow passing in, by marking the road with white dotted passing lines. 
+			At the beginning of the flat straight section, mark the node as road cut. Now at the end of the flat straight section, mark this node as road cut. 
+			This will create a road section between the two nodes, allowing you to apply white dotted passing lines for just the flat straight section.
+            </div>	
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="RoadEditorcamera">d. Editor camera:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject4.png" alt="RoadObject4 UI image" /></div>
+    </td><td class="tocTCc">
+    	<div>Use this section to travel along the road while in the editor sceneview.</div>
+		<div><span class="b">Camera meters/sec</span> is the speed at which the camera moves along the road.</div>
+		<div><span class="b">Auto rotate</span> will automatically rotate the camera to look forward at the current road's tangent. Note: You can still zoom in and out with the camera with this option selected.</div>
+		<div><span class="b">Note:</span> Materials act differently in the editor scene view compared to actual gameplay. Try the game camera if the materials are z fighting and having other issues.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Roadmaterials">e. Road materials:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject5.png" alt="RoadObject5 UI image" /></div>
+    </td><td class="tocTCc">
+    		<div>These default materials will be applied by default to their respective generated meshes. If using split roads and or shoulders, you can specific specific materials to use on them (on the mesh renderers of the cuts) and they will be used instead of the default materials listed above.</div>
+			<div><span class="b">Road base material</span> is UV mapped on a world vector basis for seamless tiles.</div>
+			<div><span class="b">Road marker material</span> is UV mapped to fit roads. Use these materials to place road lines and other road texture details. Note: if using road cuts, these are the materials which will be placed by default at the initial generation.</div>
+			<div><span class="b">Shoulder base material</span> is UV mapped on a world vector basis for seamless tiles.</div>
+			<div><span class="b">Shoulder marker material</span> is UV mapped on a world vector basis for seamless tiles. For intended use with transparent shadow receiving shaders. Marker materials are applied, optionally, on shoulder cuts.</div>
+			<div><span class="b">Physical material</span> for road will be used on all road colliders. The physical material for shoulder will be used on all shoulder colliders. If using road and or shoulder cuts, you can specify unique physics materials which will be used instead of the default physics materials.</div>
+			<div><span class="b">Apply above materials button</span> will clear all saved materials on the roads and all road and shoulder meshes will use the materials listed above.</div>
+			<div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="RoadMisc">f. Miscellaneous:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/RoadObject6.png" alt="RoadObject6 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Reset terrain history</span> Resetting the terrain history will make the road system "forget" all terrain height,detail and tree history.</div>
+        <div><span class="b">WARNING:</span> Only reset the terrain history if you have changed terrain resolution data such as heightmap or detail resolutions. A rare event may occur when editing and compiling this addon's scripts that a terrain history reset may be necessary. Treat this reset as a last resort.</div>
+    </td></tr>
+    </table>
+    </div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="NodeGameObject">VI. Node GameObject</div>
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Div1">a. Node basic options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node1.png" alt="Node1 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Gizmos:</span> Enable or disable most gizmos for this node. Disable mesh collider gizmos via the unity menu if necessary or desired.</div>
+        <div><span class="b">Save group:</span> Allows the saving of a group of items for easy replication.</div>
+        <div><span class="b">Open wizard:</span> Opens the creation wizard, allowing the user to easily create prefabricated bridges, systems, railing, signs and more.</div>
+
+        <div><span class="b">Add custom extrusion object:</span> Adds a custom extrusion object to the node.</div>
+        <div><span class="b">Add custom edge object:</span> Adds a custom edge object to the node.</div>
+
+        <div><span class="b">Statistics:</span> Displays general statistics about the node.</div>
+    </td></tr>
+    </table>
+
+    <div class="toc2title" id="SMM">a. Extrusion objects:</div>
+    <div class="tocLevel2">
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMi" style="padding-top:0px;">i. General options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM1.png" alt="Node1SMM1 UI image" /></div>
+    </td><td class="tocTCc">
+
+
+
+        <div><span class="b">Name:</span> The name of the extrusion object.</div>
+        <div><span class="b">Prefab:</span> The prefab or FBX file to repeat along the spline.</div>
+        <div><span class="b">Prefab start cap:</span> The start cap of the prefab. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Prefab end cap:</span> The end cap of the prefab. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Material override:</span> If enabled, instead of using the prefab's material, the extrusion object will use the override materials listed below.</div>
+        <div style="padding-left:20px;"><span class="b">Override mat #1:</span> The first override material.</div>
+        <div style="padding-left:20px;"><span class="b">Override mat #2:</span> The second override material.</div>
+        <div><span class="b">Extrusion axis:</span> The axis in which the prefab is extruded, either the X-axis or Z-axis. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Start param:</span> The start parameter of the extrusion object. Corresponds to the parameter of the spline.</div>
+        <div><span class="b">End param:</span> The end parameter of the extrusion object. Corresponds to the parameter of the spline.</div>
+        <div><span class="b">Trim start:</span> Trims the start of the extrusion object by one length of the extrusion object.</div>
+        <div><span class="b">Trim end:</span> Trims the end of the extrusion object by one length of the extrusion object.</div>
+        <div><span class="b">Static:</span> Marks the created object as static.</div>
+        <div><span class="b">Match ground:</span> If enabled, makes the extrusion object hug the terrain, road or whichever object is directly beneath the extrusion object.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td style="padding-top:10px;padding-left:10px;">
+   
+
+        <div><span class="b">Vertex min/max:</span> This value is the threshold in which the start and end vertices are detected on the base prefab. For example, a value of 0.002f (or 2mm) will retrieve the outermost values along the extrusion axis and then reflect inward 2mm and mark all detected vertices and start and end vertices. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Vertex matching:</span> This value is the allowable error rate when attempting to match mirrored vertices. For example, a value of 0.005f (or 5mm) will allow an error of 5mm in determining matching vertices. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+
+        <div><span class="b">UV repeat axis:</span> Determines which axis the UV will repeat. This option is typically used in conjunction with the match road definition option.</div>
+        <div><span class="b">Match road definition:</span> If enabled, attempts to match the length of the object to the road definition value. This option should only be used for objects without any middle vertices.</div>
+        <div><span class="b">Flip Y rotation:</span> Flips the Y rotation of the extrusion object by 180 degrees.</div>
+
+        <div style="padding-top:10px;">
+        <table cellpadding="0" cellspacing="0" style="margin:0;">
+        <tr><td>
+            <div><img class="tocSmallImage" src="ManualImages/extrude.png" alt="Extrude icon" /> = Indicates this is an extrusion object.</div>
+            <div><img class="tocSmallImage" src="ManualImages/refresh.png" alt="Refresh icon" /> = Manually updates the object.</div>
+        </td><td style="padding-left:20px;">
+            <div><img class="tocSmallImage" src="ManualImages/copy.png" alt="Copy icon" /> = Duplicates the extrusion object.</div>
+            <div><img class="tocSmallImage" src="ManualImages/delete.png" alt="Delete icon" /> = Deletes the extrusion object.</div>
+        </td></tr>
+        </table>
+        </div>
+
+        <div><img class="tocSmallImage" src="ManualImages/save.png" alt="Save icon" /> = Allows saving of this extrusion object via a save dialog. This saved item can then be loaded onto other nodes via the creation wizard.</div>
+
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMii">ii. Vertical and horizontal curve options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM2.png" alt="Node1SMM2 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Vertical raise magnitude:</span> The magnitude of vertical rise given to the extrusion object. This magnitude is interpolated along the extrusion length as the value of the Vertical Curve. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Horizontal offset magnitude:</span> The magnitude of horizontal offset given to the extrusion object. This magnitude is interpolated along the extrusion length as the value of the Horizontal Curve. Please watch all extrusion object tutorial videos for more comprehensive information.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMiii">iii. Vertical cutoff options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM3-1.png" alt="Node1SMM31 UI image" /></div>
+        <div><img class="w" src="ManualImages/Node-SMM3-2.png" alt="Node1SMM32 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Vertical cutoff:</span> Vertical cutoff options allow for suspension bridge cables and arch bridges. The vertical cutoff options are not utilized for any other purpose.</div>
+        <div><span class="b">Match spline height:</span> Attempts to match the spline's height. If the cut direction toggle is enabled, the match spline height is applied to the base. If the cut direction toggle is disabled, the match spline height is applied to the top.</div>
+        <div><span class="b">Cut direction toggle:</span> Toggles the direction of the cut, either top or bottom. For example, a suspension bridge will need to be "cut" at the top and an arch bridge will need to be "cut" in the opposite direction.</div>
+
+        <div><span class="b">Height cut offset:</span> Offsets the base cut level. For example, this setting will affect a suspension bridge cable's bottom area and will affect an arch bridge's top area.</div>
+        <div><span class="b">Opposite dir cut:</span> If enabled, flips the mesh before cutting.</div>
+        <div><span class="b">Mesh cut offset:</span> The vertical height cut offset which is applied to the cut ends of the mesh. Allows fine tuning of the cuts. For example, sometimes your suspension bridge cables may stick through the top of the main cable and might need fine tuned.</div>
+    </td></tr>
+    </table>
+
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMiv">iv. Start & end object options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM4.png" alt="Node1SMM4 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Push endings down:</span> If enables, pushes the endings of the extrusion object down into the ground. Creates realistic effects with KRails, WBeams and other types of railing.</div>
+        <div style="padding-left:20px;"><span class="b">Override down value:</span> If enabled, overrides the down value with the below option.</div>
+        <div style="padding-left:20px;"><span class="b">Downward movement:</span> The override down value.</div>
+
+        <div><span class="b">Match objects to ends:</span> If enabled, attempts to place the start/end extra objects with the proper end placement.</div>
+        <div><span class="b">Force origins to ground:</span> If enabled, attempts to force the extra objects to hug the ground.</div>
+
+        <div><span class="b">Start object:</span> Allows placement of an extra object at the start of the extrusion. Excellent for sand barrels, warning signs or attenuators.</div>
+        <div style="padding-left:20px;"><span class="b">Start quick select:</span> A drop-down which features quick selection of extra objects.</div>
+        <div style="padding-left:20px;"><span class="b">Start prefab:</span> The prefab used to generate the start object.</div>
+        <div style="padding-left:20px;"><span class="b">Start position offset:</span> Adds a positional offset to the start object.</div>
+        <div style="padding-left:20px;"><span class="b">Start rotation offset:</span> Adds a rotational offset to the start object.</div>
+
+        <div><span class="b">End object:</span> Allows placement of an extra object at the end of the extrusion. Excellent for sand barrels, warning signs or attenuators..</div>
+        <div style="padding-left:20px;"><span class="b">End quick select:</span> A drop-down which features quick selection of extra objects.</div>
+        <div style="padding-left:20px;"><span class="b">End prefab:</span> The prefab used to generate the end object.</div>
+        <div style="padding-left:20px;"><span class="b">End position offset:</span> Adds a positional offset to the end object.</div>
+        <div style="padding-left:20px;"><span class="b">End rotation offset:</span> Adds a rotational offset to the end object.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMv">v. Collision options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM5-1.png" alt="Node1SMM51 UI image" /></div>
+        <div><img class="w" src="ManualImages/Node-SMM5-2.png" alt="Node1SMM52 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Collision type drop-down:</span> Select the collision type.</div>
+        <div style="padding-left:20px;"><span class="b">None:</span> Disables all collision on this extrusion object.</div>
+        <div style="padding-left:20px;"><span class="b">Simple mesh triangle:</span> Uses a dynamically created simple mesh triangle as the collider for the extrusion object.</div>
+        <div style="padding-left:20px;"><span class="b">Simple mesh trapezoid:</span> Uses a dynamically created simple mesh trapezoid as the collider for the extrusion object.</div>
+        <div style="padding-left:20px;"><span class="b">Base Mesh collision:</span> Uses the extrusion object's mesh filter as the collider for the extrusion object.</div>
+        <div style="padding-left:20px;"><span class="b">Box collision:</span> When using the straight line option for bridges, a box collider can be used as the collider.</div>
+
+        <div><span class="b">Convex:</span> Corresponds to the convex option on mesh colliders.</div>
+        <div><span class="b">Trigger:</span> Corresponds to the trigger option on mesh colliders.</div>
+        <div><span class="b">Automatic simple:</span></div>
+        <div style="padding-left:20px;"><span class="b">Enabled:</span> If simple triangle or trapezoid is selected and this option is enabled, the mesh collider dimensions will automatically created.</div>
+        <div style="padding-left:20px;"><span class="b">Disabled:</span> If disabled and simple triangle or trapezoid is selected, allows the user to customize the dimensions of the dynamically created mesh collider.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="SMMvi">vi. Rotation and deprecated:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-SMM6.png" alt="Node1SMM6 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Custom rotation:</span> Rotates the base prefab before extrusion takes place.</div>
+        <div><span class="b">Directional extrusion:</span> A deprecated option, extrudes the objects by different methods.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    </div>
+
+
+    <div class="toc2title" id="EOM">b. Edge objects:</div>
+    <div class="tocLevel2">
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" style="padding-top:0px;" id="EOMi">i. General options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-EOM1-Multi.png" alt="Node1EOM1Multi UI image" /></div>
+        <div><img class="w" src="ManualImages/Node-EOM1-Single.png" alt="Node1EOM1Single UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Name:</span> The name of the edge object instance.</div>
+        <div><span class="b">Edge object:</span> The prefab or FBX file representing this edge object.</div>
+        <div><span class="b">Material override:</span> If enabled, instead of using the prefab's material, the edge object will use the override materials listed below.</div>
+        <div style="padding-left:20px;"><span class="b">Override mat #1:</span> The first override material.</div>
+        <div style="padding-left:20px;"><span class="b">Override mat #2:</span> The second override material.</div>
+
+        <div><span class="b">Combine meshes:</span> If enabled, combines all edge objects into one mesh.</div>
+        <div><span class="b">Combined mesh collider:</span> If enabled, uses a mesh collider for the combined mesh.</div>
+
+        <div><span class="b">Single object only:</span> If enabled, only creates a single edge object.</div>
+        <div><span class="b">Single location:</span> If a single edge object, then use this value to place the single edge object along the spline.</div>
+
+        <div><span class="b">Static:</span> Marks the created edge object(s) as static.</div>
+        <div><span class="b">Match ground height:</span> If enabled, the edge object(s) hug the ground.</div>
+        <div><span class="b">Dist between objects:</span> The distance between each edge object.</div>
+        <div><span class="b">Match road definition:</span> Attempts to match the road definition in terms of distance between objects. For example, if the road definition is 5 meters, the distance between objects will be 5 meters while attempting to start at a road definition segment.</div>
+        <div><span class="b">Position fine tuning:</span> Fine tunes the start distance on a scale of 0 meters to the road definition meters.</div>
+        <div><span class="b">Start param:</span> The start location of the edge objects.</div>
+        <div><span class="b">End param:</span> The end location of the edge objects.</div>
+
+        <div style="padding-top:10px;">
+        <table cellpadding="0" cellspacing="0" style="margin:0;">
+        <tr><td>
+            <div><img class="tocSmallImage" src="ManualImages/edge.png" alt="Extrude icon" /> = Indicates this is an edge object(s).</div>
+            <div><img class="tocSmallImage" src="ManualImages/refresh.png" alt="Refresh icon" /> = Manually updates the edge object(s).</div>
+        </td><td style="padding-left:20px;">
+            <div><img class="tocSmallImage" src="ManualImages/copy.png" alt="Copy icon" /> = Duplicates the edge object(s).</div>
+            <div><img class="tocSmallImage" src="ManualImages/delete.png" alt="Delete icon" /> = Deletes the edge object(s).</div>
+        </td></tr>
+        </table>
+        </div>
+
+        <div><img class="tocSmallImage" src="ManualImages/save.png" alt="Save icon" /> = Allows saving of this edge object(s) via a save dialog. This saved item can then be loaded onto other nodes via the creation wizard.</div>
+
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc3title" id="EOMii">ii. Vertical, horizontal and rotation options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Node-EOM2.png" alt="Node1EOM2 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Vertical raise magnitude:</span> The magnitude of vertical rise given to the edge object. This magnitude is interpolated along the edge object repeat length as the value of the Vertical Curve. Please watch all edge object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Select horizontal preset:</span> Offers horizontal offset magnitude presets such as road edges and shoulder edges for easy placement of railing and signs.</div>
+        <div><span class="b">Horizontal offset magnitude:</span> The magnitude of horizontal offset given to the edge object. This magnitude is interpolated along the edge object repeat length as the value of the Horizontal Curve. Please watch all edge object tutorial videos for more comprehensive information.</div>
+        <div><span class="b">Auto-rotate incoming:</span> Automatically rotates the object 180 degrees around the y-axis if placed on the left side of the road (negative horizontal offset magnitude).</div>
+        <div><span class="b">Custom rotation:</span> Rotates the base prefab before edge object repetition takes place.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+
+    </div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="InterGameObject">VII. Intersection GameObject</div>
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Inter1">a. Intersection options:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Inter1.png" alt="Intersection1 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Auto-update: </span>Enables or disables auto updating of this intersection when changing options.</div>
+        <div><span class="b">Gizmo: </span>Enables or disables most gizmo drawing on all objects related to this intersection.</div>
+        <div><span class="b">Intersection turn lane options: </span></div>
+        <div style="padding-left:20px;"><span class="b">No turn lanes: </span>Creates an intersection with no turn lanes.</div>
+        <div style="padding-left:20px;"><span class="b">Left turn lane only: </span>Creates an intersection with a left turn lane.</div>
+        <div style="padding-left:20px;"><span class="b">Both turn lanes: </span>Creates an intersection with left turn and right turn lanes.</div>
+
+    	<div><span class="b">Left yield on green: </span>If checked, replaces the standard 3-light left turn light with a five-light yield on green left turn signal structure and sign.</div>
+        <div><span class="b">Street lights: </span>If checked, attaches street lights to each intersection pole. Point lights optional and can be manipulated in the next option segment.</div>
+		<div><span class="b">Gray color: </span>If checked, sets the traffic light pole base materials to gray galvanized steel. If unchecked the material used is black metal paint.</div>
+		<div><span class="b">Normal pole alignment: </span>Recommended to keep this option on unless abnormal twisting of light objects is occurring. Turn this option off if the roads immediately surrounding your intersection are curved at extreme angles and cause irregular twisting of the traffic light objects. Turning this option off will attempt to align the poles perpendicular to the adjacent relevant road without any part existing over the main intersection bounds.</div>
+		<div><span class="b">Point lights: </span>Enabled means that point lights for the traffic lights (and street lights, if enabled) will be turned on. This is accessible via script \"bLightsEnabled\"</div>
+		<div><span class="b">If street pole lights enabled: </span>Street light range, intensity and color: These settings directly correlate to the standard point light settings.</div>
+		<div><span class="b">Traffic light scale sensitivity: </span>Increasing this value will increase the scaling sensitivity relative to the size of the intersection. Higher scaling value = bigger traffic lights at further distances. Default value is 170.</div>
+        <div><span class="b">Grade correction:</span> If using extreme road grades immediately surrounding the intersection, terrain height matching errors may occur at the point of road expansion leading to the intersection.</div>
+		<div style="padding-left:20px;">Raise this value if you see terrain poking through the road at the road expansion areas.</div>
+		<div style="padding-left:20px;">Lower this value if you are not using road mesh colliders and notice dips at the expansion points.</div>
+		<div style="padding-left:20px;">Default value is 0.375 meters, which is the maximum value for a linear range of 0% to 20% grade.</div>
+		<div style="padding-left:20px;">Recommended to keep grades and angles small leading up to intersections.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+        
+    </td></tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td colspan="2"><div class="toc2title" id="Inter2">b. Intersection materials:</div></td></tr>
+    <tr><td class="tocTC">
+        <div><img class="w" src="ManualImages/Inter2.png" alt="Intersection2 UI image" /></div>
+    </td><td class="tocTCc">
+        <div><span class="b">Center marker materials:</span> Center marker materials require transparent shaders. Covers the center area of the intersection. Displayed in order #1 on bottom to #4 on top. Combine with transparent shaders which accept shadows to allow for easy marking. Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.</div>
+        <div><span class="b">Exterior fitted marker materials:</span> Fitted marker materials require transparent shaders. Covers the exterior area of the intersection with the UV's stretched to match at a 1:1 ratio. Should be use for intersection markings and any visual effects like dirt. Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.</div>
+        <div><span class="b">Exterior tiled marker materials:</span> Covers the exterior area of the intersection with the UV's tiled matching world coordinates. Tiled and used for road pavement textures. UV coordinates will match up seamlessly with road pavement. Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.</div>
+
+        <div><span class="b">Lanes marker materials:</span> Covers individual lane sections in the intersection. Used for high-definition line marking. Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.</div>
+			<div style="padding-left:20px;"><span class="b">Lane section 0:</span> Left side of the intersection where oncoming traffic travels. Use lane texture which matches the number of lanes used on the road system, with a white left line and a yellow right line.</div>
+			<div style="padding-left:20px;"><span class="b">Lane section 1:</span> Left turn lane. Use a single lane texture with a yellow left line and a white right line.</div>
+			<div style="padding-left:20px;"><span class="b">Lane section 2:</span> Right outgoing traffic lane. Use lane texture which matches the number of lanes used on the road system with a white right line.</div>
+			<div style="padding-left:20px;"><span class="b">Lane section 3:</span> Right turn lane. Use a single lane texture with a white right line.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+        <div><img class="tocSmallImage" src="ManualImages/delete.png" alt="Delete icon" /> = Deletes the edge object(s).</div>
+    </td></tr>
+    </table>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="ExportSplatmap">VIII. Exporting a splatmap</div>
+    <div class="tocLevel2">
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td class="tocTC">
+        <img class="w" src="ManualImages/Splatmap.png" alt="Splatmap UI image" />
+    </td><td class="tocTCc">
+        <div><span class="b">Match resolutions:</span> Select from a pre-populated list of resolutions. This resolution corresponds to the image size of the generated splatmap.</div>
+        <div><span class="b">Splat image width  & height:</span> Corresponds to the image resolution of the generated splatmap.</div>
+        <div><span class="b">Splat foreground:</span> Changes the foreground color which represents the road(s) in the splatmap.</div>
+        <div><span class="b">Splat background:</span> Changes the background color which represents the non road covered areas in the splatmap.</div>
+        <div><span class="b">Splat width:</span> Changes the width of the road splat. Example: If you wanted a splatmap width of 60 meters surrounding the road, set the value to 60.</div>
+        <div><span class="b">Skip bridges:</span> Disables or enables the splat generation of bridge sections.</div>
+        <div><span class="b">Skip tunnels:</span> Disables or enables the splat generation of tunnel sections.</div>
+        <div><span class="b">Splat a single road:</span> Enables the selection of a single specific road to splat.</div>
+        <div><span class="b">Generate splatmap:</span> Creates the splatmap and prompts where to save the image.</div>
+        <div><img class="tocSmallImage" src="ManualImages/refresh2.png" alt="Reset to default icon" /> = Reset to default value.</div>
+    </td></tr>
+    </table>
+    </div>
+</div>
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="ExportMeshes">IX. Exporting meshes</div>
+    <div class="tocLevel2">
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td class="tocTC">
+    <div>To export any mesh, utilize the main menu toolbar at "Road Architect" -> "Export".</div> 
+    <div style="padding-top:10px;">Utilizes "Exporters by Hrafnkell Freyr Hlooversson" from Unity3D wiki: <a href="http://wiki.unity3d.com/index.php?title=ObjExporter">http://wiki.unity3d.com/index.php?title=ObjExporter</a>.</div> 
+    </td></tr>
+    </table>
+    </div>
+</div>
+
+
+<div class="tocspacer"></div><div class="tocLevel1">
+<div class="toc1title" id="FAQ">X. Frequently asked questions ( FAQ / F.A.Q. )</div>
+    <div class="tocLevel2">
+    <table cellpadding="0" cellspacing="0" style="margin:0;">
+    <tr><td class="tocTC">
+    
+        <div class="b">Why does the information message "Mesh has been leaked X times message" appear in the console occasionally? 02/02/2014</div> 
+        <div>All meshes are getting properly marked for garbage collection but due to the way Unity Editor handles mesh creation and nullification, it may not happen in a predictable fashion. This message is not harmful and you can safely ignore it: The message informs of proper cleanup of a leaked mesh during editor mode and it has zero effect on gameplay modes.</div>
+        
+        <div class="b" style="padding-top:10px;">Some of my roads turn too sharp or bunch up inexplicably. 02/02/2014</div> 
+        <div>Try manipulating the "Spline Magnitude Limit" listed in the terrain options of the "Road Object".</div>
+
+        <div class="b" style="padding-top:10px;">What builds are supported? 02/02/2014</div> 
+        <div>Windows, Web, MAC, Linux. Other builds probably work but we don't know. Email support@microgsd.com if you run into any problems.</div>
+
+        <div class="b" style="padding-top:10px;">Sometimes my 3-way intersection looks wrong, what do I do? 02/25/2014</div> 
+        <div>Try manually updating the intersection by clicking on the "Update Intersection" button while the intersection gameobject is selected in the hierarchy. If the problem persists, please contact us at <a href="mailto:support@microgsd.com">support@microgsd.com</a></div>
+
+        <div class="b" style="padding-top:10px;">Why did my terrain history get reset or altered? 02/25/2014</div> 
+        <div>If the terrain history is saved on the disk, the saving scheme uses the scene name, the road name and then the road system name. Don't name your scenes the same name.</div>
+
+        <div class="b" style="padding-top:10px;">Sometimes when using the road grade enforcement the grade between nodes is higher than the limit, why? 02/25/2014</div> 
+        <div>If you adjust the height of nodes along the spline there is a small chance that the limitation will be exceeded from the adjustment node to the next node. To avoid unintentional rolling changes to the entire road it is advised to manually examine the next node and adjust it's height next.</div>
+
+        <div class="b" style="padding-top:10px;">My intersection looks messed up, what can I do to fix it? 02/26/2014</div> 
+        <div>Try clicking "Update intersection" in the inspector window while having the intersection selected in the hierarchy. If the problem persists, please contact us at <a href="mailto:support@microgsd.com">support@microgsd.com</a></div>
+    </td></tr>
+    </table>
+    </div>
+</div>
+
+</div>
+</div>
+                </div>
+            </div>
+        </div>
+    <div class="footer">
+        <div class="blackline"></div>
+        <div class="footercontent">
+            &copy; 2009-2014 MicroGSD LLC, All rights reserved 
+            <span style="float:right"><img src="ManualImages/MicroGSD12.png" alt="" /></span>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
