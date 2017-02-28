@@ -1,6 +1,16 @@
 # RoadArchitect
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
+## Videos
+- Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
+- 2.5 minutes: https://www.youtube.com/watch?v=DZWYfgDNSoo
+- Road Architect Tutorial #1: Road Creation: http://youtu.be/IR4lwbnuPVQ
+- Road Architect Tutorial #2: Bridges: http://youtu.be/Dq4c2Q0wlAs
+- Road Architect Tutorial #3: Intersections: http://youtu.be/05Pg7U1FHyg
+- Road Architect Tutorial #4: Extrusion & Edge Objects: http://youtu.be/jQT15NlWIV4
+- Road Architect Tutorial #5: Splatmap Creation: http://youtu.be/qy71HXR4VBg
+- Tutorial playlist: http://www.youtube.com/playlist?list=PLr4BO0oWm3C85qgyakKca4pGSAgZyS3nl
+
 ## Intersections
 ![Intersections](ManualImages/Extra/SS6-640.jpg)
 - Dynamic Procedurally generated based upon lanes, road width and angle of attack.
@@ -33,4 +43,3 @@ Road Architect for Unity. Road architect is a professional quality road system c
 ![Quality](ManualImages/Extra/SS2-640.jpg)
 - Speed All mesh extrusion, bridge extrusion and road asset placement actions are instantaneous. Optimized road generation results in an average 100ms per (2km road + 1 intersection). Multithreaded support.
 - Quality Most road textures at least 1024x1024 resolution. Most materials include normal and specular maps. Most assets created to federal or state specification.
-- Customization Full customization is available. Hundreds of customization options. Full source code.
