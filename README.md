@@ -15,6 +15,7 @@ Working with 5.5.0f3. If interested in contributing contact support@microgsd.com
 
 ## Roadmap
 Features that may be included in the future.
+- Change TranShadow shaders to variant of Unity 5 Standard shader (cutout).
 - Convert most materials to PBR.
 - Convert intersections to place objects with nodes.
 - Better system for road lines.
