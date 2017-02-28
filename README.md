@@ -1,7 +1,7 @@
 # RoadArchitect
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
-Working with 5.5.0f3.
+Working with 5.5.0f3. If interested in contributing contact support@microgsd.com .
 
 ## Videos
 - Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
