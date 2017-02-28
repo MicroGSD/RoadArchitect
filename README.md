@@ -1,6 +1,8 @@
 # RoadArchitect
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
+Working with 5.5.0f3.
+
 ## Videos
 - Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
 - 2.5 minutes: https://www.youtube.com/watch?v=DZWYfgDNSoo
@@ -10,6 +12,14 @@ Road Architect for Unity. Road architect is a professional quality road system c
 - Road Architect Tutorial #4: Extrusion & Edge Objects: http://youtu.be/jQT15NlWIV4
 - Road Architect Tutorial #5: Splatmap Creation: http://youtu.be/qy71HXR4VBg
 - Tutorial playlist: http://www.youtube.com/playlist?list=PLr4BO0oWm3C85qgyakKca4pGSAgZyS3nl
+
+## Roadmap
+Features that may be included in the future.
+- Convert most materials to PBR.
+- Convert intersections to place objects with nodes.
+- Better system for road lines.
+- New system for road decals and road decal placement.
+- Improve export system for use with other game engines.
 
 ## Intersections
 ![Intersections](ManualImages/Extra/SS6-640.jpg)
