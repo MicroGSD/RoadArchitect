@@ -29,3 +29,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Custom
+*.crt
+*.pfx
+*.kbx
+*.axx
