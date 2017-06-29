@@ -1,4 +1,9 @@
 # RoadArchitect
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MicroGSD/RoadArchitect/master/LICENSE.txt)
+[![GitHub release](https://img.shields.io/github/release/MicroGSD/RoadArchitect.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/MicroGSD/RoadArchitect/total.svg)]()
+[![GitHub contributors](https://img.shields.io/github/contributors/MicroGSD/RoadArchitect.svg)]()
+
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
 Working with 5.5.0f3. If interested in contributing contact support@microgsd.com .
