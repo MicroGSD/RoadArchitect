@@ -3,6 +3,10 @@ Road Architect for Unity. Road architect is a professional quality road system c
 
 Working with 5.5.0f3. If interested in contributing contact support@microgsd.com .
 
+##
+- The recommended way to install Road Architect is to use the unity package on the releases page. 
+- https://github.com/MicroGSD/RoadArchitect/releases
+
 ## Videos
 - Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
 - 2.5 minutes: https://www.youtube.com/watch?v=DZWYfgDNSoo
