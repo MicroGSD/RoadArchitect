@@ -1091,62 +1091,64 @@ public class GSDRoadEditor : Editor {
 		if(Selection.Contains(RS.transform.gameObject) && Selection.objects.Length > 1){
 			SetSelectionToRoad();
 		}
-		
-		//Detects if ctrl is presses and mouse over:
+
+		// Handle Ctrl and Shift when road is selected
 		if(Selection.activeGameObject == RS.transform.gameObject){
 			RS.Editor_bSelected = true;
-			if (current.control && (Event.current.type == EventType.MouseMove || Event.current.type == EventType.MouseDrag)){
-				Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
-				RaycastHit hitInfo;
-				if (Physics.Raycast (worldRay, out hitInfo)){
-					if(hitInfo.collider.transform.GetComponent<Terrain>() != null || hitInfo.collider.transform.name.ToLower().Contains("terrain")){
-						RS.Editor_MousePos = hitInfo.point;
-						RS.Editor_MouseTerrainHit = true;
-						if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){
-							//Debug.Log("Drawing new node");
-							if(RS.GSDSpline.PreviewSpline.mNodes == null || RS.GSDSpline.PreviewSpline.mNodes.Count < 1){ RS.GSDSpline.Setup(); }
-							RS.GSDSpline.PreviewSpline.MousePos = hitInfo.point;
-							RS.GSDSpline.PreviewSpline.bGizmoDraw = true;
-							SceneView.RepaintAll();
+			// Only handle MouseMove and MouseDrag events
+			if (Event.current.type == EventType.MouseMove || Event.current.type == EventType.MouseDrag){
+				if (current.control){
+					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
+					RaycastHit hitInfo;
+					if (Physics.Raycast (worldRay, out hitInfo)){
+						if(hitInfo.collider.transform.GetComponent<Terrain>() != null || hitInfo.collider.transform.name.ToLower().Contains("terrain")){
+							RS.Editor_MousePos = hitInfo.point;
+							RS.Editor_MouseTerrainHit = true;
+							if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){
+								//Debug.Log("Drawing new node");
+								if(RS.GSDSpline.PreviewSpline.mNodes == null || RS.GSDSpline.PreviewSpline.mNodes.Count < 1){ RS.GSDSpline.Setup(); }
+								RS.GSDSpline.PreviewSpline.MousePos = hitInfo.point;
+								RS.GSDSpline.PreviewSpline.bGizmoDraw = true;
+								SceneView.RepaintAll();
+							}
+						}else{
+							RS.Editor_MouseTerrainHit = false;	
 						}
-					}else{
-						RS.Editor_MouseTerrainHit = false;	
 					}
-				}
-				
-				GUI.changed = true;
-			}else if(current.shift && (Event.current.type == EventType.MouseMove || Event.current.type == EventType.MouseDrag)){
-				Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
-				RaycastHit hitInfo;
-				if (Physics.Raycast (worldRay, out hitInfo)){
-					if(hitInfo.collider.transform.GetComponent<Terrain>() != null){
-//					if(hitInfo.collider.transform.name.ToLower().Contains("terrain")){
-						RS.Editor_MousePos = hitInfo.point;
-						RS.Editor_MouseTerrainHit = true;
-						if(RS.GSDSpline && RS.GSDSpline.PreviewSplineInsert){
-							//Debug.Log("Drawing insert node");
-							if(RS.GSDSpline.PreviewSplineInsert.mNodes == null || RS.GSDSpline.PreviewSplineInsert.mNodes.Count < 1){ RS.GSDSpline.PreviewSplineInsert.DetermineInsertNodes(); }
-							RS.GSDSpline.PreviewSplineInsert.MousePos = hitInfo.point;
-							RS.GSDSpline.PreviewSplineInsert.bGizmoDraw = true;
-							RS.GSDSpline.PreviewSplineInsert.UpdateActionNode();
-							SceneView.RepaintAll();
+					
+					GUI.changed = true;
+				}else if(current.shift){
+					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
+					RaycastHit hitInfo;
+					if (Physics.Raycast (worldRay, out hitInfo)){
+						if(hitInfo.collider.transform.GetComponent<Terrain>() != null){
+	//					if(hitInfo.collider.transform.name.ToLower().Contains("terrain")){
+							RS.Editor_MousePos = hitInfo.point;
+							RS.Editor_MouseTerrainHit = true;
+							if(RS.GSDSpline && RS.GSDSpline.PreviewSplineInsert){
+								//Debug.Log("Drawing insert node");
+								if(RS.GSDSpline.PreviewSplineInsert.mNodes == null || RS.GSDSpline.PreviewSplineInsert.mNodes.Count < 1){ RS.GSDSpline.PreviewSplineInsert.DetermineInsertNodes(); }
+								RS.GSDSpline.PreviewSplineInsert.MousePos = hitInfo.point;
+								RS.GSDSpline.PreviewSplineInsert.bGizmoDraw = true;
+								RS.GSDSpline.PreviewSplineInsert.UpdateActionNode();
+								SceneView.RepaintAll();
+							}
+						}else{
+							RS.Editor_MouseTerrainHit = false;	
 						}
-					}else{
-						RS.Editor_MouseTerrainHit = false;	
 					}
-				}
-				
-				GUI.changed = true;
-			}
-			if(!current.control && !current.shift){
-				if(RS.Editor_MouseTerrainHit){ RS.Editor_MouseTerrainHit = false; GUI.changed = true; }	
-				if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){
-					//Debug.Log("not drawing new node");
-					RS.GSDSpline.PreviewSpline.bGizmoDraw = false;
-				}
-				if(RS.GSDSpline && RS.GSDSpline.PreviewSplineInsert){
-					//Debug.Log("not drawing insert node");
-					RS.GSDSpline.PreviewSplineInsert.bGizmoDraw = false;
+					
+					GUI.changed = true;
+				}else{
+					if(RS.Editor_MouseTerrainHit){ RS.Editor_MouseTerrainHit = false; GUI.changed = true; }	
+					if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){
+						//Debug.Log("not drawing new node");
+						RS.GSDSpline.PreviewSpline.bGizmoDraw = false;
+					}
+					if(RS.GSDSpline && RS.GSDSpline.PreviewSplineInsert){
+						//Debug.Log("not drawing insert node");
+						RS.GSDSpline.PreviewSplineInsert.bGizmoDraw = false;
+					}
 				}
 			}
 		}else{
