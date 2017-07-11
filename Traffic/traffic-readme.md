@@ -26,7 +26,7 @@ The code is 4 years old and needs work before including in the repo.
 ## Technical details
 * Each car is their own agent, with vision cones/cylinders via ray casting ( https://docs.unity3d.com/ScriptReference/Physics.Raycast.html )
 * This system gracefully degrades if user is further away from vehicles. e.g. they go on "rails" without collision.
-* There is caching on spline lookups on Road Architect explicitly  written for the traffic system. "Buckets" are established to facilitate faster lookups. Line ~428 at https://github.com/MicroGSD/RoadArchitect/blob/master/Spline/GSDSplineC.cs . This caching is handled internally by RA.
+* There is caching on spline lookups on Road Architect explicitly  written for the traffic system. "Buckets" are established to facilitate faster lookups. Line ~428 at https://github.com/MicroGSD/RoadArchitect/blob/master/Spline/GSDSplineC.cs#L428 . This caching is handled internally by RA.
 
 ## Active Issues
 * System was written in early development of RA and needs updated heavily. Organizing and pruning old code is necessary before inclusion of the code files.
