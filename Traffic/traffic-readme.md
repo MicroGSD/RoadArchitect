@@ -11,7 +11,7 @@ https://github.com/MicroGSD/RoadArchitect/projects/3
 The code is 4 years old and needs work before including in the repo.
 
 ## Features of current implementation
-* Hundreds of cars at once acrosss many square km
+* Hundreds of cars at once across many square km
 * Each agent (car) is capable of the following:
 ..* Traveling from one node to another node.
 ..* Evasion of objects in the road.
