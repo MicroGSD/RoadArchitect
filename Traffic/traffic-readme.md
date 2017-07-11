@@ -2,6 +2,8 @@
 # Directory
 This directory contains experimental traffic implementations not ready for production and contains the code for the traffic project. This will be contained within the Road Architect project due to its heavy integration with the Road Architect system, but should be able to be used on other implementations.
 
+https://github.com/MicroGSD/RoadArchitect/projects/3
+
 # State summary
 The code is 4 years old but used the following methods for hundreds of cars at once acrosss many square km:
 * Each car is their own agent, with vision cones/cylinders via ray casting ( https://docs.unity3d.com/ScriptReference/Physics.Raycast.html ) 
