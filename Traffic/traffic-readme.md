@@ -15,13 +15,13 @@ The code is 4 years old and needs work before including in the repo.
 * Uses forward cached bucket lookups of spline system to facilitate tracing. 
 * Except for the forward lookups on the spline, it works very similar to real-life lidar systems.
 * Each agent (car) is capable of the following:
-..* Traveling from one node to another node.
-..* Evasion of objects in the road.
-..* Evasion of objects in non-road parts (shoulders) when already evading other objects.
-..* Stopping at intersections gracefully with other vehicles.
-..* Communicating with other agents on who should go first in situations (object in road).
-..* LOD like system which degrades CPU requirements per agent the further they are away from player (single player implementation only).
-..* Pull over to shoulder for arbitrary reasons (emergency etc).
+ * Traveling from one node to another node.
+ * Evasion of objects in the road.
+ * Evasion of objects in non-road parts (shoulders) when already evading other objects.
+ * Stopping at intersections gracefully with other vehicles.
+ * Communicating with other agents on who should go first in situations (object in road).
+ * LOD like system which degrades CPU requirements per agent the further they are away from player (single player implementation only).
+ * Pull over to shoulder for arbitrary reasons (emergency etc).
 
 ## Technical details
 * Each car is their own agent, with vision cones/cylinders via ray casting ( https://docs.unity3d.com/ScriptReference/Physics.Raycast.html )
