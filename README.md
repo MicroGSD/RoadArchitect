@@ -12,6 +12,7 @@ Working with 5.5.0f3. If interested in contributing contact support@microgsd.com
 - The recommended way to install Road Architect is to use the unity package on the releases page. 
 - https://github.com/MicroGSD/RoadArchitect/releases
 - Documentation https://github.com/MicroGSD/RoadArchitect/wiki/Documentation
+- Note: The Road Architect menu is located under the "Window" menu.
 
 ## Videos
 - Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
