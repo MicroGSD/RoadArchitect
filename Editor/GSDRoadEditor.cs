@@ -80,14 +80,13 @@ public class GSDRoadEditor : Editor {
 	bool bShowCameraHelp = false;
 	GUIStyle GSDLoadButton = null;
 	bool bResetTH = false;
-	public enum tempEnum{One,Two,Four,Six};
+	public enum tempEnum{Two,Four,Six};
 	Texture btnRefreshText = null;
 	Texture btnDeleteText = null;
 	Texture btnRefreshTextReal = null;
 	tempEnum LanesEnum = tempEnum.Two;
 	tempEnum tLanesEnum = tempEnum.Two;
 	private static string[] tempEnumDescriptions = new string[]{
-		"One",
 		"Two",
 		"Four",
 		"Six"
@@ -265,9 +264,7 @@ public class GSDRoadEditor : Editor {
 		EditorGUILayout.EndHorizontal();
 		
 		//Option: Lane count:
-		if(RS.opt_Lanes == 1){
-			LanesEnum = tempEnum.One;
-		}else if(RS.opt_Lanes == 2){
+		if(RS.opt_Lanes == 2){
 			LanesEnum = tempEnum.Two;
 		}else if(RS.opt_Lanes == 4){
 			LanesEnum = tempEnum.Four;
@@ -275,9 +272,7 @@ public class GSDRoadEditor : Editor {
 			LanesEnum = tempEnum.Six;
 		}
 		tLanesEnum = (tempEnum)EditorGUILayout.Popup("Lanes: ",(int)LanesEnum,tempEnumDescriptions);
-		if(tLanesEnum == tempEnum.One){
-			t_opt_Lanes.intValue = 1;
-		}else if(tLanesEnum == tempEnum.Two){
+		if(tLanesEnum == tempEnum.Two){
 			t_opt_Lanes.intValue = 2;
 		}else if(tLanesEnum == tempEnum.Four){
 			t_opt_Lanes.intValue = 4;
