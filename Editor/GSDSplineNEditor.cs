@@ -1770,7 +1770,7 @@ public class GSDSplineNEditor : Editor {
 		bCreateIntersection = true;
 		iNode1 = tNode1;
 		iNode2 = tNode2;
-//    	Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(tNode1,tNode2);
+		Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(tNode1,tNode2);
 	}
 	
 	private void TriggerRoadUpdate(){
