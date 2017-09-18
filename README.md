@@ -1,6 +1,7 @@
 # RoadArchitect
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MicroGSD/RoadArchitect/master/LICENSE.txt)
 [![GitHub release](https://img.shields.io/github/release/MicroGSD/RoadArchitect.svg)]()
+[![Gendarme issues](https://img.shields.io/badge/Gendarme_Issues-3056-red.svg)]()
 [![Github All Releases](https://img.shields.io/github/downloads/MicroGSD/RoadArchitect/total.svg)]()
 [![GitHub contributors](https://img.shields.io/github/contributors/MicroGSD/RoadArchitect.svg)]()
 
