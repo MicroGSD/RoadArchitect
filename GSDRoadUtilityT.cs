@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GSD;
+using GSD.Roads;
 #endif
 namespace GSD.Threaded{
 	#if UNITY_EDITOR

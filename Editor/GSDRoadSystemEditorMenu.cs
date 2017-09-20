@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using GSD.Roads;
 
 public class GSDRoadSystemEditorMenu : ScriptableObject{
 	private const bool bRoadTestCubes = false;

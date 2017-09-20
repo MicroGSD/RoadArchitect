@@ -7,7 +7,7 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 #endif
-namespace GSD.Roads {
+namespace GSD.Roads.Automation {
 #if UNITY_EDITOR
     // Proper automation flow:
     // 1. Make sure opt_bAllowRoadUpdates in the scene's GSDRoadSystem is set to FALSE.
