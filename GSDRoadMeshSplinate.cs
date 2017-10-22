@@ -11,8 +11,8 @@ namespace GSD.Roads.Splination{
 	public enum AxisTypeEnum {X,Z};
 	public enum CollisionTypeEnum {None,SimpleMeshTriangle,SimpleMeshTrapezoid,MeshCollision,BoxCollision};
 	public enum RepeatUVTypeEnum {None,X,Y};
-	
-	#if UNITY_EDITOR
+
+#if UNITY_EDITOR
 	
 	[System.Serializable]
 	public class SplinatedMeshMaker{
@@ -371,11 +371,11 @@ namespace GSD.Roads.Splination{
 		}
 		
 		public static void GetLibraryFiles(out string[] tNames, out string[] tPaths, bool bIsDefault = false){
-			#if UNITY_WEBPLAYER
+#if UNITY_WEBPLAYER
 			tNames = null;
 			tPaths = null;
 			return;
-			#else
+#else
 			
 			tNames = null;
 			tPaths = null;
@@ -404,7 +404,7 @@ namespace GSD.Roads.Splination{
 					tCount+=1;
 				}
 			}
-			#endif
+#endif
 		}
 
 		public void Kill(){
@@ -640,7 +640,7 @@ namespace GSD.Roads.Splination{
 			}
 			
 			public void LoadToSMM(SplinatedMeshMaker SMM){
-				#if UNITY_EDITOR
+#if UNITY_EDITOR
 				SMM.CurrentSplinationString = CurrentSplinationString;
 				SMM.CurrentSplination = (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(CurrentSplinationString,typeof(GameObject));
 
@@ -765,7 +765,7 @@ namespace GSD.Roads.Splination{
 				SMM.ThumbString = ThumbString;
 				SMM.Desc = Desc;
 				SMM.DisplayName = DisplayName;
-				#endif
+#endif
 			}
 		}
 	
@@ -952,7 +952,7 @@ namespace GSD.Roads.Splination{
 			}
 			
 			public void LoadToSMM(SplinatedMeshMaker SMM){
-				#if UNITY_EDITOR
+#if UNITY_EDITOR
 				SMM.CurrentSplination = CurrentSplination; // (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(CurrentSplinationString,typeof(GameObject));
 				SMM.CurrentSplinationCap1 = CurrentSplinationCap1;// (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(CurrentSplinationCap1String,typeof(GameObject));
 				SMM.CurrentSplinationCap2 = CurrentSplinationCap2;// (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(CurrentSplinationCap2String,typeof(GameObject));
@@ -1044,7 +1044,7 @@ namespace GSD.Roads.Splination{
 				SMM.CollisionTriT = CollisionTriT;
 				
 				SMM.tName = tName;
-				#endif
+#endif
 			}
 			
 			public bool IsEqualToSMM(SplinatedMeshMaker SMM){
@@ -1145,7 +1145,7 @@ namespace GSD.Roads.Splination{
 		}
 		
 		
-		#region "Static util"
+#region "Static util"
 		public void SetupUniqueIdentifier(){
 			if(UID == null || UID.Length < 4){
 				UID = System.Guid.NewGuid().ToString();
@@ -1383,11 +1383,11 @@ namespace GSD.Roads.Splination{
 
 			return tVect.y;
 		}	
-		#endregion	
+#endregion
 	
 		
 		public void Setup(bool bGetStrings = false, bool bCollect = true){
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			GameObject[] tObj = new GameObject[5];
 			try{
 				SplinateMesh_Do(bGetStrings, ref tObj,bCollect);
@@ -1401,10 +1401,10 @@ namespace GSD.Roads.Splination{
 				}
 				throw e;
 			}
-			#endif
+#endif
 		}
 		private void SplinateMesh_Do(bool bGetStrings, ref GameObject[] ErrortObj, bool bCollect){
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			bNeedsUpdate = false;
 			SetupUniqueIdentifier();
 
@@ -2156,9 +2156,16 @@ namespace GSD.Roads.Splination{
 //			float yDiff = 0f;
 //			float tDistance = 0f;
 			int MVL = MeshCount * OrigMVL;
+#if UNITY_2017_3_OR_NEWER
+			if(MVL > 4000000){
+				throw new System.Exception("Over 4000000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
+			}
+#else
 			if(MVL > 64900){
 				throw new System.Exception("Over 65000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
 			}
+#endif
+
 			int MaxCount = MaxVectorIndices.Count;
 			int MinCount = MinVectorIndices.Count;
 			int TriCount = MeshCount * OrigTriCount;
@@ -2987,11 +2994,11 @@ namespace GSD.Roads.Splination{
 			if(bCollect){
 				tNode.GSDSpline.tRoad.bTriggerGC = true;
 			}
-			#endif
+#endif
 		}	
 		
 		private void SaveMesh(ref Mesh tMesh, bool bIsCollider){
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			if(!tNode.GSDSpline.tRoad.GSDRS.opt_bSaveMeshes){ return; }
 			//string tSceneName = System.IO.Path.GetFileName(UnityEditor.EditorApplication.currentScene).ToLower().Replace(".unity","");
             string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
@@ -3012,7 +3019,7 @@ namespace GSD.Roads.Splination{
 			
 			UnityEditor.AssetDatabase.CreateAsset(tMesh,FinalName);
 			UnityEditor.AssetDatabase.SaveAssets();
-			#endif
+#endif
 		}
 		
 		void DoStretch(ref Vector3[] OrigVerts,ref Vector2[] OrigUV, ref int[] OrigTris,ref List<int> MaxVectorIndices,ref List<int> MinVectorIndices,float mMaxDiff, out Vector3[] tVerts, out Vector2[] tUV, out Vector3[] tNormals, out int[] tTris){
@@ -3135,5 +3142,5 @@ namespace GSD.Roads.Splination{
 		}
 	}
 	
-	#endif
+#endif
 }
