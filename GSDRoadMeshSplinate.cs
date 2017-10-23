@@ -2156,9 +2156,15 @@ namespace GSD.Roads.Splination{
 //			float yDiff = 0f;
 //			float tDistance = 0f;
 			int MVL = MeshCount * OrigMVL;
+			#if UNITY_2017_3_OR_NEWER
+			if(MVL > 4000000){
+				throw new System.Exception("Over 4000000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
+			}
+			#else
 			if(MVL > 64900){
 				throw new System.Exception("Over 65000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
 			}
+			#endif
 			int MaxCount = MaxVectorIndices.Count;
 			int MinCount = MinVectorIndices.Count;
 			int TriCount = MeshCount * OrigTriCount;
