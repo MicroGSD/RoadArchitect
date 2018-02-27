@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using GSD.Roads.Automation;
 #endif
 namespace GSD.Roads {
 #if UNITY_EDITOR

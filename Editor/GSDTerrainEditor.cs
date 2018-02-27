@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 using GSD;
+using GSD.Roads;
+
 [CustomEditor(typeof(GSDTerrain))] 
 public class GSDTerrainEditor : Editor{
 	protected GSDTerrain GSDT { get { return (GSDTerrain) target; } }
