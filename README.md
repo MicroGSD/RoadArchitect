@@ -1,4 +1,5 @@
 # RoadArchitect
+[![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MicroGSD/RoadArchitect/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/RoadArchitect/Lobby.svg)](https://gitter.im/RoadArchitect/Lobby)
 [![GitHub release](https://img.shields.io/github/release/MicroGSD/RoadArchitect.svg)]()
