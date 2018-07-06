@@ -125,6 +125,9 @@ namespace GSD.Roads.Splination{
 		public Vector3 EndCapCustomRotOffsetStart = default(Vector3);
 		public Vector3 EndCapCustomRotOffsetEnd = new Vector3(0f,180f,0f);
 		//Endings down:
+		public bool bStartDown = false;
+		public bool bStartTypeDownOverride = false;
+		public float StartTypeDownOverride = 0f;
 		public bool bEndDown = false;
 		public bool bEndTypeDownOverride = false;
 		public float EndTypeDownOverride = 0f;
@@ -258,6 +261,9 @@ namespace GSD.Roads.Splination{
 			SMM.bEndObjectsMatchGround = bEndObjectsMatchGround;
 			SMM.bIsBridge = bIsBridge;
 			//End down:
+			SMM.bStartDown = bStartDown;
+			SMM.bStartTypeDownOverride = bStartTypeDownOverride;
+			SMM.StartTypeDownOverride = StartTypeDownOverride;
 			SMM.bEndDown = bEndDown;
 			SMM.bEndTypeDownOverride = bEndTypeDownOverride;
 			SMM.EndTypeDownOverride = EndTypeDownOverride;
@@ -488,6 +494,9 @@ namespace GSD.Roads.Splination{
 			public Vector3 EndCapCustomRotOffsetEnd = default(Vector3);
 			public bool bEndObjectsMatchGround = false;
 			//Endings down:
+			public bool bStartDown = false;
+			public bool bStartTypeDownOverride = false;
+			public float StartTypeDownOverride = 0f;
 			public bool bEndDown = false;
 			public bool bEndTypeDownOverride = false;
 			public float EndTypeDownOverride = 0f;
@@ -602,6 +611,9 @@ namespace GSD.Roads.Splination{
 				EndCapCustomRotOffsetEnd = SMM.EndCapCustomRotOffsetEnd;
 				bEndObjectsMatchGround = SMM.bEndObjectsMatchGround;
 				//Endings down:
+				bStartDown = SMM.bStartDown;
+				bStartTypeDownOverride = SMM.bStartTypeDownOverride;
+				StartTypeDownOverride = SMM.StartTypeDownOverride;
 				bEndDown = SMM.bEndDown;
 				bEndTypeDownOverride = SMM.bEndTypeDownOverride;
 				EndTypeDownOverride = SMM.EndTypeDownOverride;
@@ -727,6 +739,9 @@ namespace GSD.Roads.Splination{
 				SMM.bEndObjectsMatchGround = bEndObjectsMatchGround;
 
 				//Endings down:
+				SMM.bStartDown = bStartDown;
+				SMM.bStartTypeDownOverride = bStartTypeDownOverride;
+				SMM.StartTypeDownOverride = StartTypeDownOverride;
 				SMM.bEndDown = bEndDown;
 				SMM.bEndTypeDownOverride = bEndTypeDownOverride;
 				SMM.EndTypeDownOverride = EndTypeDownOverride;
@@ -821,6 +836,9 @@ namespace GSD.Roads.Splination{
 			public Vector3 EndCapCustomRotOffsetEnd = default(Vector3);
 			public bool bEndObjectsMatchGround = false;
 			//Endings down:
+			public bool bStartDown = false;
+			public bool bStartTypeDownOverride = false;
+			public float StartTypeDownOverride = 0f;
 			public bool bEndDown = false;
 			public bool bEndTypeDownOverride = false;
 			public float EndTypeDownOverride = 0f;
@@ -908,6 +926,9 @@ namespace GSD.Roads.Splination{
 				EndCapCustomRotOffsetEnd = SMM.EndCapCustomRotOffsetEnd;
 				bEndObjectsMatchGround = SMM.bEndObjectsMatchGround;
 				//Endings down:
+				bStartDown = SMM.bStartDown;
+				bStartTypeDownOverride = SMM.bStartTypeDownOverride;
+				StartTypeDownOverride = SMM.StartTypeDownOverride;
 				bEndDown = SMM.bEndDown;
 				bEndTypeDownOverride = SMM.bEndTypeDownOverride;
 				EndTypeDownOverride = SMM.EndTypeDownOverride;
@@ -1000,6 +1021,9 @@ namespace GSD.Roads.Splination{
 				SMM.bEndObjectsMatchGround = bEndObjectsMatchGround;
 
 				//Endings down:
+				SMM.bStartDown = bStartDown;
+				SMM.bStartTypeDownOverride = bStartTypeDownOverride;
+				SMM.StartTypeDownOverride = StartTypeDownOverride;
 				SMM.bEndDown = bEndDown;
 				SMM.bEndTypeDownOverride = bEndTypeDownOverride;
 				SMM.EndTypeDownOverride = EndTypeDownOverride;
@@ -1092,6 +1116,9 @@ namespace GSD.Roads.Splination{
 				if(SMM.bEndObjectsMatchGround != bEndObjectsMatchGround){ return false; }
 
 				//Endings down:
+				if(SMM.bStartDown != bStartDown){ return false; }
+				if(SMM.bStartTypeDownOverride != bStartTypeDownOverride){ return false; }
+				if(!GSDRootUtil.IsApproximately(SMM.StartTypeDownOverride,StartTypeDownOverride,0.0001f)){ return false; }
 				if(SMM.bEndDown != bEndDown){ return false; }
 				if(SMM.bEndTypeDownOverride != bEndTypeDownOverride){ return false; }
 				if(!GSDRootUtil.IsApproximately(SMM.EndTypeDownOverride,EndTypeDownOverride,0.0001f)){ return false; }
@@ -2129,9 +2156,15 @@ namespace GSD.Roads.Splination{
 //			float yDiff = 0f;
 //			float tDistance = 0f;
 			int MVL = MeshCount * OrigMVL;
+			#if UNITY_2017_3_OR_NEWER
+			if(MVL > 4000000){
+				throw new System.Exception("Over 4000000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
+			}
+			#else
 			if(MVL > 64900){
 				throw new System.Exception("Over 65000 vertices detected, exiting extrusion. Try switching splination axis and make sure your imported FBX file has proper import scale. Make sure the mesh isn't too small and make sure the distance isn't too large.");
 			}
+			#endif
 			int MaxCount = MaxVectorIndices.Count;
 			int MinCount = MinVectorIndices.Count;
 			int TriCount = MeshCount * OrigTriCount;
@@ -2387,17 +2420,17 @@ namespace GSD.Roads.Splination{
 				
 				
 				//Ending push down:
-				if(bEndDown){
+				if(bStartDown){
 					tFloat1 = mMaxHeight*1.05f;
-					if(bEndTypeDownOverride){
-						tFloat1 = EndTypeDownOverride;	
+					if(bStartTypeDownOverride){
+						tFloat1 = StartTypeDownOverride;	
 					}
 					if(j==0){
 						for(int i=0;i<MinCount;i++){
 							tIntBuffer1 = MinVectorIndices[i];
 							tVerts[vManuver+tIntBuffer1].y -= tFloat1;
 						}
-						
+
 						float tTotalDistDown = 0f;
 						Vector3 pVect1 = default(Vector3);
 						Vector3 pVect2 = default(Vector3);
@@ -2411,10 +2444,9 @@ namespace GSD.Roads.Splination{
 						for(int i=0;i<MiddleCount;i++){
 							tIntBuffer1 = MiddleVectorIndicies[i];
 							float tDistTo1 = Vector3.Distance(tVerts[vManuver+tIntBuffer1],pVect1);
-//							float ajlsfhaskjdfs = (tDistTo1/tTotalDistDown);
 							tVerts[vManuver+tIntBuffer1].y -= (tFloat1*(tDistTo1/tTotalDistDown));
 						}
-						
+
 						if(CollisionType == CollisionTypeEnum.SimpleMeshTriangle){
 							cVerts[0+(j*3)].y -= tFloat1;
 							cVerts[1+(j*3)].y -= tFloat1;
@@ -2425,15 +2457,20 @@ namespace GSD.Roads.Splination{
 							cVerts[2+(j*4)].y -= tFloat1;
 							cVerts[3+(j*4)].y -= tFloat1;
 						}	
-						
-					}else if(j==(MeshCount-1)){
+					}
+				}
+
+				if(bEndDown){
+					tFloat1 = mMaxHeight*1.05f;
+					if(bEndTypeDownOverride){
+						tFloat1 = EndTypeDownOverride;	
+					}
+					if(j==(MeshCount-1)){
 						for(int i=0;i<MaxCount;i++){
 							tIntBuffer1 = MaxVectorIndices[i];
 							tVerts[vManuver+tIntBuffer1].y -= tFloat1;
 						}
-						
-						
-						
+
 						float tTotalDistDown = 0f;
 						Vector3 pVect1 = default(Vector3);
 						Vector3 pVect2 = default(Vector3);
@@ -2447,7 +2484,6 @@ namespace GSD.Roads.Splination{
 						for(int i=0;i<MiddleCount;i++){
 							tIntBuffer1 = MiddleVectorIndicies[i];
 							float tDistTo1 = Vector3.Distance(tVerts[vManuver+tIntBuffer1],pVect2);
-//							float ajlsfhaskjdfs = (tDistTo1/tTotalDistDown);
 							tVerts[vManuver+tIntBuffer1].y -= (tFloat1*(tDistTo1/tTotalDistDown));
 						}
 

@@ -864,9 +864,16 @@ public class GSDSplineNEditor : Editor {
 			//End type:
 			EditorGUILayout.LabelField("Extrusion ending options:");
 			EditorGUILayout.BeginVertical("box");
-			SMM.EM.bEndDown = EditorGUILayout.Toggle("Push endings down:",SMM.bEndDown); 
+			SMM.EM.bStartDown = EditorGUILayout.Toggle("Push start down:",SMM.bStartDown); 
+			SMM.EM.bEndDown = EditorGUILayout.Toggle("Push end down:",SMM.bEndDown); 
+			if(SMM.bStartDown){
+				SMM.EM.bStartTypeDownOverride = EditorGUILayout.Toggle("Override start down value: ",SMM.bStartTypeDownOverride); 
+				if(SMM.bStartTypeDownOverride){
+					SMM.EM.StartTypeDownOverride = EditorGUILayout.Slider("Downward movement: ",SMM.StartTypeDownOverride,-10f,10f);	
+				}
+			}
 			if(SMM.bEndDown){
-				SMM.EM.bEndTypeDownOverride = EditorGUILayout.Toggle("Override down value: ",SMM.bEndTypeDownOverride); 
+				SMM.EM.bEndTypeDownOverride = EditorGUILayout.Toggle("Override end down value: ",SMM.bEndTypeDownOverride); 
 				if(SMM.bEndTypeDownOverride){
 					SMM.EM.EndTypeDownOverride = EditorGUILayout.Slider("Downward movement: ",SMM.EndTypeDownOverride,-10f,10f);	
 				}
@@ -1039,6 +1046,7 @@ public class GSDSplineNEditor : Editor {
 							SMM.bMatchRoadDefinition = false;
 							SMM.bMatchTerrain = false;
 							SMM.bCollisionConvex = false;
+							SMM.bStartDown = false;
 							SMM.bEndDown = false;
 							SMM.bVerticalCutoff = false;
 							SMM.bExactSplination = false;
@@ -1073,6 +1081,7 @@ public class GSDSplineNEditor : Editor {
 					SMM.bMatchRoadDefinition = false;
 					SMM.bMatchTerrain = false;
 					SMM.bCollisionConvex = false;
+					SMM.bStartDown = false;	
 					SMM.bEndDown = false;
 					SMM.bVerticalCutoff = false;
 					SMM.bExactSplination = false;
@@ -1770,7 +1779,7 @@ public class GSDSplineNEditor : Editor {
 		bCreateIntersection = true;
 		iNode1 = tNode1;
 		iNode2 = tNode2;
-//    	Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(tNode1,tNode2);
+		Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(tNode1,tNode2);
 	}
 	
 	private void TriggerRoadUpdate(){
