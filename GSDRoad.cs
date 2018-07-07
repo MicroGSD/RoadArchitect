@@ -136,9 +136,13 @@ public class GSDRoad : MonoBehaviour{
 //		if(Application.isEditor && !UnityEditor.EditorApplication.isPlaying){
 			Editor_bIsConstructing = false;
 			UnityEditor.EditorApplication.update += delegate { EditorUpdate(); };
-			UnityEditor.EditorApplication.hierarchyWindowChanged += delegate { hWindowChanged(); };
-//		}
-		if(GSDSpline == null || GSDSpline.mNodes == null){
+#if UNITY_2018_1_OR_NEWER
+        UnityEditor.EditorApplication.hierarchyChanged += delegate { hWindowChanged(); };
+#else
+        UnityEditor.EditorApplication.hierarchyWindowChanged += delegate { hWindowChanged(); };
+#endif
+        //		}
+        if (GSDSpline == null || GSDSpline.mNodes == null){
 			MostRecentNodeCount = 0;
 		}else{
 			MostRecentNodeCount = GSDSpline.GetNodeCount();
@@ -349,9 +353,13 @@ public class GSDRoad : MonoBehaviour{
 
 	private void hWindowChanged(){
 		if(!Application.isEditor){
-			UnityEditor.EditorApplication.hierarchyWindowChanged -= delegate { hWindowChanged(); };
-		}
-		if(Application.isPlaying || !Application.isEditor){ return; }
+#if UNITY_2018_1_OR_NEWER
+            UnityEditor.EditorApplication.hierarchyChanged -= delegate { hWindowChanged(); };
+#else
+            UnityEditor.EditorApplication.hierarchyWindowChanged -= delegate { hWindowChanged(); };
+#endif
+        }
+        if (Application.isPlaying || !Application.isEditor){ return; }
 		if(Application.isEditor && UnityEditor.EditorApplication.isPlaying){ return; }
 		if(Application.isEditor && UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode){ return; }
 		
@@ -583,7 +591,7 @@ public class GSDRoad : MonoBehaviour{
 		}
 	}
 	
-	#region "Terrain history"
+            #region "Terrain history"
 	public void ConstructRoad_StoreTerrainHistory(bool bDiskOnly = false){
 		if(!bDiskOnly){
         	GSDRoad tRoad = this;
@@ -628,10 +636,10 @@ public class GSDRoad : MonoBehaviour{
 			GSDGeneralEditor.TerrainHistory_Delete(this);	
 		}
 	}
-	#endregion
+            #endregion
 	
-	#region "Construction process"
-	#region "No multithread"
+            #region "Construction process"
+            #region "No multithread"
 	private void UpdateRoad_NoMultiThreading(){
 		if(opt_HeightModEnabled || opt_DetailModEnabled || opt_TreeModEnabled){
 			if(bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Terrain"); }
@@ -682,7 +690,7 @@ public class GSDRoad : MonoBehaviour{
 		if(bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
 		Construction_Cleanup();
 	}
-	#endregion
+            #endregion
 	
 	private void ConstructRoad2(){
 		EditorProgress = 40;
@@ -721,7 +729,7 @@ public class GSDRoad : MonoBehaviour{
 		RCS.MeshSetup2();
 		Construction_Cleanup();
 	}
-	#endregion
+            #endregion
 	
 	private void Construction_Cleanup(){
         FixZ();
@@ -802,9 +810,9 @@ public class GSDRoad : MonoBehaviour{
 	public void EditorTerrainCalcs(ref List<GSDTerraforming.TempTerrainData> tList){
 		EditorTTDList = tList;
 	}
-	#endregion
+#endregion
 	
-	#region "Gizmos"
+            #region "Gizmos"
 	public bool Editor_bIsConstructing = false;
 	public int Editor_bConstructionID = 0;
 	public bool Editor_bSelected = false;
@@ -819,7 +827,7 @@ public class GSDRoad : MonoBehaviour{
 			Gizmos.DrawCube(Editor_MousePos, new Vector3(10f,4f,10f));
 		}
 	}
-	#endregion
+            #endregion
 	
 	public float RoadWidth(){
 		return (opt_LaneWidth * (float)opt_Lanes);
@@ -895,7 +903,7 @@ public class GSDRoad : MonoBehaviour{
 		}
 	}
 	
-	#region "Default materials retrieval"
+            #region "Default materials retrieval"
 	public bool DetectInvalidDefaultMatsForUndo(){
 		string tNameLower = "";
 		int tCounter = 0;
@@ -1133,9 +1141,9 @@ public class GSDRoad : MonoBehaviour{
 			return null;	
 		}
 	}
-	#endregion
+            #endregion
 	
-	#region "Materials"
+            #region "Materials"
 	void CheckMats(){
 		if(!opt_UseDefaultMaterials){
 			return;
@@ -1245,7 +1253,7 @@ public class GSDRoad : MonoBehaviour{
 			}
 		}
 	}
-	#endregion
+            #endregion
 	
 	public void Wireframes_Toggle(){
 		MeshRenderer[] tMRs = transform.GetComponentsInChildren<MeshRenderer>();
@@ -1264,9 +1272,9 @@ public class GSDRoad : MonoBehaviour{
 		}
 	}
 	
-	#endif
-	
-	void Start(){
+#endif
+
+            void Start(){
 		#if UNITY_EDITOR
 			if(Application.isPlaying){
 				CleanRunTime();

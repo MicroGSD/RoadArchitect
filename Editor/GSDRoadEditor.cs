@@ -1213,7 +1213,7 @@ public class GSDRoadEditor : Editor {
 		if(bUsed){
 			SetSelectionToRoad();
 			switch(current.type){
-				case EventType.layout:
+				case EventType.Layout:
 			        HandleUtility.AddDefaultControl(controlID);
 			    break;
 			}

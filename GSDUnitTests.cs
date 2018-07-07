@@ -11,43 +11,96 @@ namespace GSD.Roads {
 #if UNITY_EDITOR
     public static class GSDUnitTests
     {
+        private static GSDRoadSystem RoadSystem;
+
         /// <summary>
         /// WARNING: Only call this on an empty scene that has some terrains on it. MicroGSD LLC is not responsbile for data loss if this function is called by user.
         /// </summary>
         public static void RoadArchitectUnitTests() {
-            //Get the existing road system, if it exists:
-            GameObject GSDRS = (GameObject)GameObject.Find("RoadArchitectSystem1");
-
-            //Destroy the terrain histories:
-            if (GSDRS != null) {
-                Object[] tRoads = GSDRS.GetComponents<GSDRoad>();
-                foreach (GSDRoad xRoad in tRoads) {
-                    GSD.Roads.GSDTerraforming.TerrainsReset(xRoad);
-                }
-                Object.DestroyImmediate(GSDRS);
-            }
-
-            //Reset all terrains to 0,0
-            Object[] zTerrains = Object.FindObjectsOfType<Terrain>();
-            foreach (Terrain xTerrain in zTerrains) {
-                xTerrain.terrainData.SetHeights(0, 0, new float[513, 513]);
-            }
+            CleanupTests();
 
             //Create new road system and turn off updates:
             GameObject tRoadSystemObj = new GameObject("RoadArchitectSystem1");
-            GSDRoadSystem roadSystem = tRoadSystemObj.AddComponent<GSDRoadSystem>(); 	//Add road system component.
-            roadSystem.opt_bAllowRoadUpdates = false;
+            RoadSystem = tRoadSystemObj.AddComponent<GSDRoadSystem>(); 	//Add road system component.
+            RoadSystem.opt_bAllowRoadUpdates = false;
 
-            //Perform unit tests:
-            RoadArchitectUnitTest1();   //Bridges
-            RoadArchitectUnitTest2();   //2L intersections
-            RoadArchitectUnitTest3();   //4L intersections
-            RoadArchitectUnitTest4();   //Large suspension bridge
-            RoadArchitectUnitTest5();   //Long road:
+            int numTests = 5;
+            double totalTestTime = 0f;
+            for (int i = 1; i <= numTests; i++)
+            {
+                UnityEngine.Debug.Log("Running test " + i);
+                double testTime = RunTest(i);
+                totalTestTime += testTime;
+                UnityEngine.Debug.Log("Test " + i + " complete.  Test time: " + testTime + "ms");
+            }
+            UnityEngine.Debug.Log("All tests completed.  Total test time: " + totalTestTime + "ms");
 
             //Turn updates back on and update road:
-            roadSystem.opt_bAllowRoadUpdates = true;
-            roadSystem.UpdateAllRoads();
+            RoadSystem.opt_bAllowRoadUpdates = true;
+            RoadSystem.UpdateAllRoads();
+        }
+
+
+        private static long RunTest(int test)
+        {
+            System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            switch(test)
+            {
+                case 1:
+                    RoadArchitectUnitTest1();   //Bridges
+                    break;
+                case 2:
+                    RoadArchitectUnitTest2();   //2L intersections
+                    break;
+                case 3:
+                    RoadArchitectUnitTest3();   //4L intersections
+                    break;
+                case 4:
+                    RoadArchitectUnitTest4();   //Large suspension bridge
+                    break;
+                case 5:
+                    RoadArchitectUnitTest5();   //Long road:
+                    break;
+            }
+            stopwatch.Stop();
+            long testTime = stopwatch.ElapsedMilliseconds;
+            return testTime;
+        }
+
+
+        public static void CleanupTests()
+        {
+            Debug.Log("Cleaning up tests");
+            //Get the existing road system, if it exists:
+            GameObject GSDRS = (GameObject)GameObject.Find("RoadArchitectSystem1");
+            DestroyTerrainHistory(GSDRS);
+            Object.DestroyImmediate(GSDRS);
+            FlattenTerrains();
+        }
+
+
+        private static void DestroyTerrainHistory(GameObject GSDRS)
+        {
+            //Destroy the terrain histories:
+            if (GSDRS != null)
+            {
+                Object[] tRoads = GSDRS.GetComponents<GSDRoad>();
+                foreach (GSDRoad xRoad in tRoads)
+                {
+                    GSD.Roads.GSDTerraforming.TerrainsReset(xRoad);
+                }
+            }
+        }
+
+
+        private static void FlattenTerrains()
+        {
+            //Reset all terrains to 0,0
+            Object[] zTerrains = Object.FindObjectsOfType<Terrain>();
+            foreach (Terrain xTerrain in zTerrains)
+            {
+                xTerrain.terrainData.SetHeights(0, 0, new float[513, 513]);
+            }
         }
 
         private static void RoadArchitectUnitTest1() {
@@ -62,8 +115,7 @@ namespace GSD.Roads {
             }
 
             //Get road system create road:
-            GSDRoadSystem GSDRS = (GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>();
-            GSDRoad tRoad = GSDRoadAutomation.CreateRoad_Programmatically(GSDRS, ref nodeLocations);
+            GSDRoad tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
 
             //Bridge0: (Arch)
             tRoad.GSDSpline.mNodes[4].bIsBridgeStart = true;
@@ -115,14 +167,14 @@ namespace GSD.Roads {
             for (int i = 0; i < 9; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (i * 200f), tHeight, 600f));
             }
-            bRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            bRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
 
             //Get road system, create road #1:
             nodeLocations.Clear();
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX, tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             //UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
             //Get road system, create road #2:
@@ -130,7 +182,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 2f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             //UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.TurnLane);
 
             //Get road system, create road #3:
@@ -138,7 +190,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 4f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             //UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.BothTurnLanes);
 
             //Get road system, create road #4:
@@ -146,7 +198,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 6f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             //UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.TurnLane);
 
             //Get road system, create road #4:
@@ -154,7 +206,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 8f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             //UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.TurnLane);
 
             GSDRoadAutomation.CreateIntersections_ProgrammaticallyForRoad(bRoad, GSDRoadIntersection.iStopTypeEnum.None, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
@@ -214,7 +266,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 9; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (i * StartLocYSep), tHeight, StartLocY + (StartLocYSep * 2f)));
             }
-            bRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            bRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             bRoad.opt_Lanes = 4;
 
 
@@ -223,7 +275,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX, tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             tRoad.opt_Lanes = 4;
             UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
@@ -232,7 +284,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 2f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             tRoad.opt_Lanes = 4;
             UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
@@ -241,7 +293,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 4f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             tRoad.opt_Lanes = 4;
             UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
@@ -250,7 +302,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 6f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             tRoad.opt_Lanes = 4;
             UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
@@ -259,7 +311,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(StartLocX + (StartLocYSep * 8f), tHeight, StartLocY + (i * StartLocYSep)));
             }
-            tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
             tRoad.opt_Lanes = 4;
             UnitTest_IntersectionHelper(bRoad, tRoad, GSDRoadIntersection.iStopTypeEnum.TrafficLight1, GSDRoadIntersection.RoadTypeEnum.NoTurnLane);
 
@@ -282,7 +334,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 5; i++) {
                 nodeLocations.Add(new Vector3(3500f, 90f, 200f + (800f * i)));
             }
-            GSDRoad tRoad = GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            GSDRoad tRoad = GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
 
             //Suspension bridge:
             tRoad.GSDSpline.mNodes[1].bIsBridgeStart = true;
@@ -306,7 +358,7 @@ namespace GSD.Roads {
             for (int i = 0; i < 40; i++) {
                 nodeLocations.Add(new Vector3(30, 30f, 3960f - (79f * i)));
             }
-            GSDRoadAutomation.CreateRoad_Programmatically((GSDRoadSystem)GameObject.Find("RoadArchitectSystem1").GetComponent<GSDRoadSystem>(), ref nodeLocations);
+            GSDRoadAutomation.CreateRoad_Programmatically(RoadSystem, ref nodeLocations);
         }
     }
 #endif

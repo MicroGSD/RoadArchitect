@@ -319,7 +319,7 @@ public class GSDRoadSystemEditor : Editor {
 
 		if(bUsed){
 			switch(current.type){
-				case EventType.layout:
+				case EventType.Layout:
 			        HandleUtility.AddDefaultControl(controlID);
 			    break;
 			}
