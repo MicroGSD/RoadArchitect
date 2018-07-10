@@ -73,12 +73,16 @@ namespace GSD{
 			if(tObj != null){
 				tString = UnityEditor.AssetDatabase.GetAssetPath( tObj );
 				if(tString == null || tString.Length < 1){
-					Object parentObject = UnityEditor.PrefabUtility.GetPrefabParent(tObj); 
-					tString = UnityEditor.AssetDatabase.GetAssetPath(parentObject);
+#if UNITY_2018_1_OR_NEWER
+                    Object parentObject = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(tObj); 
+#else
+                    Object parentObject = UnityEditor.PrefabUtility.GetPrefabParent(tObj);
+#endif
+                    tString = UnityEditor.AssetDatabase.GetAssetPath(parentObject);
 				}
 			}
-			#endif	
-			return tString;
+#endif
+                    return tString;
 		}
 		
 		#region "Float comparisons"

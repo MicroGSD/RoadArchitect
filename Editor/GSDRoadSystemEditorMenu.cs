@@ -83,6 +83,17 @@ public class GSDRoadSystemEditorMenu : ScriptableObject{
     }
 
     /// <summary>
+    /// WARNING: Only call this on an empty scene that has some terrains on it. MicroGSD LLC is not responsbile for data loss if this function is called by user.
+    /// </summary>
+    [MenuItem("Window/Road Architect/Testing/Clean up tests (caution)")]
+    public static void TestCleanup()
+    {
+        GSD.Roads.GSDUnitTests.CleanupTests();
+    }
+
+
+
+    /// <summary>
     /// Get code line count for RA project.
     /// </summary>
     [MenuItem("Window/Road Architect/Testing/Get line count of RA")]
