@@ -1919,13 +1919,14 @@ namespace GSD.Roads{
 					vMesh.RecalculateNormals();
 					RoadConnections_normals[i] = vMesh.normals;
 					vMesh.tangents = GSDRootUtil.ProcessTangents(vMesh.triangles,vMesh.normals,vMesh.uv,vMesh.vertices);
+					// Themba was here
 					tObj = new GameObject("RoadConnectionBase");
 					MF = tObj.AddComponent<MeshFilter>();
 					MR = tObj.AddComponent<MeshRenderer>();
 					MeshCollider MC = tObj.AddComponent<MeshCollider>();
 					MF.sharedMesh = vMesh;
 					MC.sharedMesh = MF.sharedMesh;
-					GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/GSDRoad6.mat",MR);
+					GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat",MR);
 					tObj.transform.parent = tRoad.MeshRoad.transform;
 					
 					SaveMesh(SaveMeshTypeEnum.RoadConn,vMesh,tRoad,"RoadConn" + i.ToString());
@@ -2258,7 +2259,7 @@ namespace GSD.Roads{
 				tUV = iBMainPlates_uv[i];
 				tTangents = iBMainPlates_tangents[i];
 				xMesh = tMesh_iBMainPlates[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateB","Assets/RoadArchitect/Materials/GSDRoad6.mat", false);
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateB","Assets/RoadArchitect/Materials/GSDRoad1.mat", false);
 				if(!tCombineDict_MainPlate.ContainsKey(iBMainPlates_tID[i])){
 					tCombineDict_MainPlate.Add(iBMainPlates_tID[i], new List<MeshFilter>());
 				}
@@ -2281,7 +2282,7 @@ namespace GSD.Roads{
 				tUV = iFMainPlates_uv[i];
 				tTangents = iFMainPlates_tangents[i];
 				xMesh = tMesh_iFMainPlates[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM","Assets/RoadArchitect/Materials/GSDRoad6.mat", false);
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM","Assets/RoadArchitect/Materials/GSDRoad1.mat", false);
 				
 				if(!tCombineDict_MainPlate.ContainsKey(iFMainPlates_tID[i])){
 					tCombineDict_MainPlate.Add(iFMainPlates_tID[i], new List<MeshFilter>());
@@ -4305,6 +4306,11 @@ namespace GSD.Roads{
 		public static void CreateStopSignsAllWay(GameObject MasterGameObj, bool bIsRB = true){
 			CreateStopSignsAllWay_Do(ref MasterGameObj, bIsRB);
 		}
+		private static void T_FixSigns(GameObject tObj) {
+			Rigidbody rigidbody = tObj.GetComponent<Rigidbody>();
+			rigidbody.useGravity = false;
+			rigidbody.isKinematic = true;
+		}
 		private static void CreateStopSignsAllWay_Do(ref GameObject MasterGameObj, bool bIsRB){
 			Object prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDSignStopAllway.prefab", typeof(GameObject));
 	
@@ -4345,6 +4351,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosRR;
 			tObj.name = "StopSignRR";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 0){ Object.DestroyImmediate(tObj); }
 			
 			//LL:
@@ -4361,6 +4368,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosLL;
 			tObj.name = "StopSignLL";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 2){ Object.DestroyImmediate(tObj); }
 			
 			//RL:
@@ -4377,6 +4385,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosRL;
 			tObj.name = "StopSignRL";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 1){ Object.DestroyImmediate(tObj); }
 			
 			//LR:
@@ -4393,6 +4402,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosLR;
 			tObj.name = "StopSignLR";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 3){ Object.DestroyImmediate(tObj); }
 		}
 		

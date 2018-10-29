@@ -1419,7 +1419,7 @@ public class GSDRoad : MonoBehaviour{
                 tVect = new Vector3(0f, 0.02f, 0f);
                 MR.transform.localPosition = tVect;
             } else if (MR.transform.name.Contains("-Inter") && MR.transform.name.Contains("-Stretch")) {
-                tVect = new Vector3(0f, 0.02f, 0f);
+                tVect = new Vector3(0f, 0.03f, 0f);
                 MR.transform.localPosition = tVect;
             } else if (MR.transform.name.Contains("-Inter") && MR.transform.name.Contains("-Tiled")) {
                 tVect = new Vector3(0f, 0.01f, 0f);
