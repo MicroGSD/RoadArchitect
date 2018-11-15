@@ -1173,7 +1173,7 @@ public class GSDSplineNEditor : Editor {
 				EOM.EM.EdgeMaterial2 = null;
 			}
 
-			if(!EOM.bEdgeSignLabelInit){
+			if(!EOM.bEdgeSignLabelInit && EOM.EM.EdgeObject != null){
 				EOM.bEdgeSignLabel = false;
 				if(string.CompareOrdinal(EOM.EM.EdgeObject.name,"GSDSignDiamond") == 0){
 					EOM.bEdgeSignLabel = true;
@@ -1826,6 +1826,8 @@ public class GSDSplineNEditor : Editor {
 	}
 	
 	void EnforceCurve(ref AnimationCurve tCurve){
+		if(tCurve == null)
+			return;
 		if(tCurve.keys.Length == 0){
 			tCurve.AddKey(0f,1f);
 			tCurve.AddKey(1f,1f);
