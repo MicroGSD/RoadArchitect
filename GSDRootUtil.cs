@@ -1,13 +1,10 @@
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections;
 using System.Xml; 
 using System.Xml.Serialization; 
 using System.IO; 
 using System.Text;
-#endif
 namespace GSD{
-	#if UNITY_EDITOR
 	public static class GSDRootUtil{
 		/// <summary>
 		/// Smooths the input parameter t.
@@ -320,5 +317,4 @@ namespace GSD{
 			#endif
 		}
 	}
-	#endif
 }

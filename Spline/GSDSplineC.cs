@@ -1,12 +1,10 @@
 #region "Imports"
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections.Generic;
 using GSD;
-#endif
 #endregion
 public class GSDSplineC : MonoBehaviour{
-	#if UNITY_EDITOR
+	//#if  UNITY_EDITOR
 	public List<GSDSplineN> mNodes = new List<GSDSplineN>();
 	public GameObject mSplineRoot;
 	public GSDRoad tRoad;
@@ -56,9 +54,9 @@ public class GSDSplineC : MonoBehaviour{
 	public Vector2 RoadV1 = default(Vector2);
 	public Vector2 RoadV2 = default(Vector2);
 	public Vector2 RoadV3 = default(Vector2);
-	
-	#region "Setup"
-	public void Setup_Trigger(){
+#if UNITY_EDITOR
+    #region "Setup"
+    public void Setup_Trigger(){
 		#if UNITY_EDITOR
 		if(!tRoad){ 
 			if(mSplineRoot != null){
@@ -263,7 +261,7 @@ public class GSDSplineC : MonoBehaviour{
 		return i1.idOnSpline.CompareTo(i2.idOnSpline);
 	}
 
-	private void Setup_Nodes(ref GSDSplineN[] tNodesRaw){
+    private void Setup_Nodes(ref GSDSplineN[] tNodesRaw){
 		//Process nodes:
 		int i=0;
 		List<GSDSplineN> tNodes = new List<GSDSplineN>();
@@ -438,10 +436,10 @@ public class GSDSplineC : MonoBehaviour{
 		
 		RoadDefCalcs();
 	}
-	#endregion
-	
-	#region "Road definition cache and translation"
-	private void RoadDefCalcs(){		
+    #endregion
+#endif
+    #region "Road definition cache and translation"
+    private void RoadDefCalcs(){		
 //		float tNanCheck = 0f;
 		float tMod = Mathf.Lerp(0.05f,0.2f,distance/9000f);
 		float step = tMod / distance;
@@ -1437,10 +1435,10 @@ public class GSDSplineC : MonoBehaviour{
 		}
 		return -1f;
 	}
-	#endregion
-	
-	#region "Road connections"
-	public void ActivateEndNodeConnection(GSDSplineN tNode1, GSDSplineN tNode2){
+    #endregion
+#if UNITY_EDITOR
+    #region "Road connections"
+    public void ActivateEndNodeConnection(GSDSplineN tNode1, GSDSplineN tNode2){
 		ActivateEndNodeConnection_Do(tNode1,tNode2);
 	}
 	private void ActivateEndNodeConnection_Do(GSDSplineN tNode1, GSDSplineN tNode2){
@@ -1601,10 +1599,10 @@ public class GSDSplineC : MonoBehaviour{
 			tNode1.GSDSpline.tRoad.EditorUpdateMe = true;
 		}
 	}
-	#endregion
-
-	#region "General Util"
-	public int GetNodeCount(){
+    #endregion
+#endif
+    #region "General Util"
+    public int GetNodeCount(){
         return mNodes.Count;
 	}
 	
@@ -1711,21 +1709,22 @@ public class GSDSplineC : MonoBehaviour{
 		}
 		return null;
 	}
-	
-	public void ClearAllRoadCuts(){
+#if UNITY_EDITOR
+    public void ClearAllRoadCuts(){
 		int mCount = GetNodeCount();
 		for(int i=0;i<mCount;i++){
 			mNodes[i].ClearCuts();	
 		}
 	}
-	
-	public void ResetNavigationData(){
+#endif
+
+    public void ResetNavigationData(){
 		id_connected = null;
 		id_connected = new List<int>();
 	}
 	#endregion
 	
-	#endif
+	//#endif
 	
 	#region "Start"
 	void Start(){

@@ -1,14 +1,14 @@
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using GSD.Roads;
 using GSD;
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 [ExecuteInEditMode]
 public class GSDRoad : MonoBehaviour{
-	#if UNITY_EDITOR
+
 	
 	public GameObject MainMeshes;
 	public GameObject MeshRoad;
@@ -24,20 +24,21 @@ public class GSDRoad : MonoBehaviour{
 	[System.NonSerialized] 
 	public string EditorTitleString = "";
 
-	public GSDSplineC GSDSpline;
-	public int MostRecentNodeCount = -1;
+    public GSDSplineC GSDSpline;
+
+    public int MostRecentNodeCount = -1;
 //	private bool bMostRecentCheck = false;
 	public GameObject GSDSplineObj;
 	public GSDRoadSystem GSDRS;
 	public GSDSplineC[] PiggyBacks = null; 
 	public bool bEditorProgressBar = false;
 	public string UID; //Unique ID
-	
-	[SerializeField]
+#if UNITY_EDITOR
+    [SerializeField]
 	public List<GSDTerrainHistoryMaker> TerrainHistory;
 	public string TerrainHistoryByteSize = "";
-	
-	[System.NonSerialized]
+#endif
+    [System.NonSerialized]
 	public bool bUpdateSpline = false;
 
 	//Road editor options: 
@@ -106,9 +107,9 @@ public class GSDRoad : MonoBehaviour{
 	
 	public PhysicMaterial RoadPhysicMaterial;
 	public PhysicMaterial ShoulderPhysicMaterial;
-	
-	#region "Road Construction"
-	[System.NonSerialized]
+#if UNITY_EDITOR
+    #region "Road Construction"
+    [System.NonSerialized]
 	public GSD.Threaded.TerrainCalcs TerrainCalcsJob;
 	[System.NonSerialized]
 	public GSD.Threaded.RoadCalcs1 RoadCalcsJob1;
@@ -827,13 +828,13 @@ public class GSDRoad : MonoBehaviour{
 			Gizmos.DrawCube(Editor_MousePos, new Vector3(10f,4f,10f));
 		}
 	}
-            #endregion
-	
-	public float RoadWidth(){
+    #endregion
+#endif
+    public float RoadWidth(){
 		return (opt_LaneWidth * (float)opt_Lanes);
 	}
-
-	public float EditorCameraTimer = 0f;
+#if UNITY_EDITOR
+    public float EditorCameraTimer = 0f;
 	float EditorTestTimer = 0f;
 	bool bEditorTestTimer = true;
 	void Update(){

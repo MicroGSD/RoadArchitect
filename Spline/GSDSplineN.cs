@@ -1,13 +1,12 @@
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using GSD.Roads.Splination;
 using GSD.Roads.EdgeObjects;
 using GSD;
-#endif
+
 public class GSDSplineN : MonoBehaviour{
-	#if UNITY_EDITOR
+	
 	
 	public Vector3 pos;
 	public Quaternion rot;
@@ -20,8 +19,8 @@ public class GSDSplineN : MonoBehaviour{
 	public float OldTime = 0f;
 	public float SegmentDist = 0f;
 	public string EditorDisplayString = "";
-	
-	public string tName = "Node-1";
+
+    public string tName = "Node-1";
 	
 	public bool tempTime = false; 
 	public float tempSegmentTime = 0f;
@@ -46,17 +45,17 @@ public class GSDSplineN : MonoBehaviour{
 	public bool bDestroyed = false;
 	public string UID; //Unique ID
 	public GSDSplineN Intersection_OtherNode;
-	
-	//Editor only:
-	public bool bEditorSelected = false;
+#if UNITY_EDITOR
+    //Editor only:
+    public bool bEditorSelected = false;
 	public string GradeToNext;
 	public string GradeToPrev;
 	public float GradeToNextValue;
 	public float GradeToPrevValue;
 	public float bInitialRoadHeight = -1f;
-	
-	//Navigation:
-	public bool bNeverIntersect = false;
+#endif
+    //Navigation:
+    public bool bNeverIntersect = false;
 	public bool bIsIntersection = false;
 	public bool bIsEndPoint = false;
 	public bool bIsMainPoint = false;
@@ -86,8 +85,8 @@ public class GSDSplineN : MonoBehaviour{
 	public GSDSplineN BridgeCounterpartNode = null;
 
 	public GSDRoadIntersection GSDRI = null;
-	
-	public GSD.Roads.GSDIntersections.iConstructionMaker iConstruction;
+#if UNITY_EDITOR
+    public GSD.Roads.GSDIntersections.iConstructionMaker iConstruction;
 
 	#region "Edge Objects"
 	public List<EdgeObjectMaker> EdgeObjects;
@@ -696,9 +695,14 @@ public class GSDSplineN : MonoBehaviour{
 		
 		tNode2.SpecialNodeCounterpart_Master.bSpecialRoadConnPrimary = false;
 		SpecialNodeCounterpart_Master.bSpecialRoadConnPrimary = false;
-		
-		Object.DestroyImmediate(tNode2.transform.gameObject);
-		Object.DestroyImmediate(transform.gameObject);
+        try
+        {
+            Object.DestroyImmediate(tNode2.transform.gameObject);
+            Object.DestroyImmediate(transform.gameObject);
+        } catch (MissingReferenceException e)
+        {
+
+        }
 	}
 	
 	public void SetupSplinationLimits(){
@@ -733,34 +737,10 @@ public class GSDSplineN : MonoBehaviour{
 			}
 		}
 	}
-	
-	public bool CanSplinate(){
-		if(bIsIntersection || bSpecialEndNode){// || bIsBridge_PreNode || bIsBridge_PostNode){
-			return false;
-		}else{
-			return true;
-		}
-	}
-	
-	public bool IsLegitimate(){
-		if(bIsIntersection || bSpecialEndNode){// || bIsBridge_PreNode || bIsBridge_PostNode){
-			return false;
-		}else{
-			return true;
-		}
-	}
-	
-	public bool IsLegitimateGrade(){
-		if(bSpecialEndNode){// || bIsBridge_PreNode || bIsBridge_PostNode){
-			return false;
-		}else{
-			return true;
-		}
-	}
-	#endregion
+    #endregion
 
-	#region "Cut materials storage and setting"
-	public GameObject RoadCut_world = null;
+    #region "Cut materials storage and setting"
+    public GameObject RoadCut_world = null;
 	public GameObject ShoulderCutR_world = null;
 	public GameObject ShoulderCutL_world = null;
 	public Material[] RoadCut_world_Mats;
@@ -1282,11 +1262,46 @@ public class GSDSplineN : MonoBehaviour{
 			return false;
 		}
 	}
-	#endregion
-	#endif
-	
-	
-	void Start(){
+    #endregion
+#endif
+    #region "Non-editor util"
+    public bool CanSplinate()
+    {
+        if (bIsIntersection || bSpecialEndNode)
+        {// || bIsBridge_PreNode || bIsBridge_PostNode){
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public bool IsLegitimate()
+    {
+        if (bIsIntersection || bSpecialEndNode)
+        {// || bIsBridge_PreNode || bIsBridge_PostNode){
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public bool IsLegitimateGrade()
+    {
+        if (bSpecialEndNode)
+        {// || bIsBridge_PreNode || bIsBridge_PostNode){
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    #endregion
+
+    void Start(){
 		#if UNITY_EDITOR
 			//Do nothing.
 		#else
