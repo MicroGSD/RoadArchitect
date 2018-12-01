@@ -1605,7 +1605,10 @@ public class GSDSplineC : MonoBehaviour{
 			}
 			tNode1.GSDSpline.tRoad.EditorUpdateMe = true;
 		}
-	}
+        PreviewSpline.bGizmoDraw = false;
+        xSpline.PreviewSpline.bGizmoDraw = false;
+        UnityEditor.SceneView.RepaintAll();
+    }
     #endregion
 #endif
     #region "General Util"
