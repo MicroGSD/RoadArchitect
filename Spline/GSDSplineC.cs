@@ -1479,20 +1479,23 @@ public class GSDSplineC : MonoBehaviour{
 			if(mNodes[0].bSpecialEndNode){
 				mNodes[0].transform.position = tNode1_ExtraPos;
 				mNodes[0].pos = tNode1_ExtraPos;
-			}else{
-				GSD.Roads.GSDConstruction.InsertNode(tRoad,true,tNode1_ExtraPos,false,0,true);
+                NodeCreated1 = mNodes[0];
+            }
+            else{
+                NodeCreated1 = GSD.Roads.GSDConstruction.InsertNode(tRoad,true,tNode1_ExtraPos,false,0,true);
 			}
-			NodeCreated1 = mNodes[0];
 		}else{
 			bSpecialEndControlNode = true;
             GSDSplineN zNode1 = xSpline.GetLastNode_All();
             if (zNode1 != null && zNode1.bSpecialEndNode) {
                 zNode1.transform.position = tNode1_ExtraPos;
                 zNode1.pos = tNode1_ExtraPos;
-			}else{
-				GSD.Roads.GSDConstruction.CreateNode(tRoad,true,tNode1_ExtraPos);	
+                NodeCreated1 = GetLastNode_All();
+            }
+            else{
+                NodeCreated1 = GSD.Roads.GSDConstruction.CreateNode(tRoad,true,tNode1_ExtraPos);	
 			}
-			NodeCreated1 = GetLastNode_All();
+			
 		}
 		
 		if(bSecondNode_Start){
@@ -1500,20 +1503,24 @@ public class GSDSplineC : MonoBehaviour{
 			if(xSpline.mNodes[0].bSpecialEndNode){
 				xSpline.mNodes[0].transform.position = tNode2_ExtraPos;
 				xSpline.mNodes[0].pos = tNode2_ExtraPos;
-			}else{
-				GSD.Roads.GSDConstruction.InsertNode(xSpline.tRoad,true,tNode2_ExtraPos,false,0,true);
+                NodeCreated2 = xSpline.mNodes[0];
+            }
+            else{
+                NodeCreated2 = GSD.Roads.GSDConstruction.InsertNode(xSpline.tRoad,true,tNode2_ExtraPos,false,0,true);
 			}
-			NodeCreated2 = xSpline.mNodes[0];
+			 
 		}else{
 			xSpline.bSpecialEndControlNode = true;
             GSDSplineN zNode2 = xSpline.GetLastNode_All();
             if (zNode2 != null && zNode2.bSpecialEndNode) {
                 zNode2.transform.position = tNode2_ExtraPos;
                 zNode2.pos = tNode2_ExtraPos;
-			}else{
-				GSD.Roads.GSDConstruction.CreateNode(xSpline.tRoad,true,tNode2_ExtraPos);	
+                NodeCreated2 = xSpline.GetLastNode_All();
+            }
+            else{
+                NodeCreated2 = GSD.Roads.GSDConstruction.CreateNode(xSpline.tRoad,true,tNode2_ExtraPos);	
 			}
-            NodeCreated2 = xSpline.GetLastNode_All();
+            
 		}
 		
 		NodeCreated1.bSpecialEndNode_IsStart = bFirstNode_Start;
