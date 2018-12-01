@@ -132,6 +132,10 @@ public class GSDTrafficLightController{
 	private void TriggerRegular(){
 		if(bMain){
 			MRChange(ref MR_Main,iLightSubStatus);
+            for(int i = 1; i < MR_MainsStorage.Length; i++)
+            {
+                MRChange(ref MR_MainsStorage[i], iLightSubStatus);
+            }
 			LightChange(0,iLightSubStatus);
 		}
 		if(bLeft){
@@ -155,7 +159,11 @@ public class GSDTrafficLightController{
 	private void TriggerLeftTurn(){
 		if(bMain){
 			MRChange(ref MR_Main,iLightSubStatusEnum.Red);
-			LightChange(0,iLightSubStatusEnum.Red);
+            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            {
+                MRChange(ref MR_MainsStorage[i], iLightSubStatusEnum.Red);
+            }
+            LightChange(0,iLightSubStatusEnum.Red);
 		}
 		if(bLeft){
 			if(bLeftTurnYieldOnGreen){
@@ -178,8 +186,12 @@ public class GSDTrafficLightController{
 	
 	private void TriggerMasterLeft(){
 		if(bMain){
-			MRChange(ref MR_Main,iLightSubStatus);
-			LightChange(0,iLightSubStatus);
+            MRChange(ref MR_Main, iLightSubStatus);
+            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            {
+                MRChange(ref MR_MainsStorage[i], iLightSubStatus);
+            }
+            LightChange(0,iLightSubStatus);
 		}
 		if(bLeft){
 			if(iLightSubStatus == iLightSubStatusEnum.Green){
@@ -197,8 +209,12 @@ public class GSDTrafficLightController{
 	
 	private void TriggerRightTurn(){
 		if(bMain){
-			MRChange(ref MR_Main,iLightSubStatusEnum.Red);
-			LightChange(0,iLightSubStatusEnum.Red);
+            MRChange(ref MR_Main, iLightSubStatusEnum.Red);
+            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            {
+                MRChange(ref MR_MainsStorage[i], iLightSubStatusEnum.Red);
+            }
+            LightChange(0,iLightSubStatusEnum.Red);
 		}
 		if(bLeft){
 			MRChange(ref MR_Left,iLightSubStatusEnum.Red);
@@ -212,8 +228,12 @@ public class GSDTrafficLightController{
 	
 	private void TriggerRed(){
 		if(bMain){
-			MRChange(ref MR_Main,iLightSubStatusEnum.Red);
-			LightChange(0,iLightSubStatusEnum.Red);
+            MRChange(ref MR_Main, iLightSubStatusEnum.Red);
+            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            {
+                MRChange(ref MR_MainsStorage[i], iLightSubStatusEnum.Red);
+            }
+            LightChange(0,iLightSubStatusEnum.Red);
 		}
 		if(bLeft){
 			MRChange(ref MR_Left,iLightSubStatusEnum.Red);
@@ -343,10 +363,13 @@ public class GSDTrafficLightController{
 				if(bUseSharedMaterial){
 					MR_MainsStorage[i].sharedMaterial = MR_Main.sharedMaterial;
 				}else{
-					MR_MainsStorage[i].materials = new Material[1];
-					MR_MainsStorage[i].materials[0] = MR_Main.materials[0];
-				}
-			}
+					Material[] materials = new Material[1];
+					materials[0] = MR_Main.materials[0];
+                    MR_MainsStorage[i].materials = materials;
+
+                }
+
+            }
 		}
 	}
 	
