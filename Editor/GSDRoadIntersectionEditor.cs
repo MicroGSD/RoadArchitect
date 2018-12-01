@@ -152,6 +152,15 @@ public class GSDRoadIntersectionEditor : Editor {
 		if(!bHasInit){ Init(); }
 
 		Line ();
+        EditorGUILayout.BeginHorizontal();
+        {
+            GSDRoad road1 = tInter.Node1.GSDSpline.transform.parent.GetComponent<GSDRoad>();
+            GSDRoad road2 = tInter.Node2.GSDSpline.transform.parent.GetComponent<GSDRoad>();
+            EditorGUILayout.LabelField("First road: " + road1.name + " node: " + tInter.Node1.name);
+            EditorGUILayout.LabelField("Second road: " + road2.name + " node: " + tInter.Node2.name);
+        }
+        EditorGUILayout.EndHorizontal();
+        Line();
 		EditorGUILayout.BeginHorizontal();
 		EditorGUILayout.LabelField("Intersection options",EditorStyles.boldLabel);
 		if(GUILayout.Button("Update intersection",GSDLoadButton)){
