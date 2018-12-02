@@ -1101,7 +1101,8 @@ public class GSDRoadEditor : Editor {
 					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
 					RaycastHit hitInfo;
 					if (Physics.Raycast (worldRay, out hitInfo)){
-						if(hitInfo.collider.transform.GetComponent<Terrain>() != null || hitInfo.collider.transform.name.ToLower().Contains("terrain")){
+                        /* There used to be a check for whether this was a terrain */
+						if(true){
 							RS.Editor_MousePos = hitInfo.point;
 							RS.Editor_MouseTerrainHit = true;
 							if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){

@@ -1714,10 +1714,22 @@ public class GSDSplineNEditor : Editor {
 			}
 			
 			if(!bMouseDragHasProcessed){
-				//Enforce maximum road grade:
-				if(tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled){
-					tNode.EnsureGradeValidity();
-				}
+                //Enforce maximum road grade:
+                Terrain terrain = GSD.Roads.GSDRoadUtil.GetTerrain(tNode.transform.position);
+                if (terrain != null)
+                {
+                    if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
+                    {
+                        tNode.EnsureGradeValidity();
+                    }
+                }
+                else
+                {
+                    Debug.Log("Terrain not found");
+                    Vector3 pos = tNode.transform.position;
+                    pos.y = 0.04f;
+                    tNode.transform.position = pos;
+                }
 				TriggerRoadUpdate();
 				bUsed = true;
 			} 
@@ -1728,12 +1740,24 @@ public class GSDSplineNEditor : Editor {
 		
 		//Enforce maximum road grade:
 		if(bMouseDragHasProcessed){
-			Vector3 vChangeChecker = tNode.transform.position;
+            
+            Vector3 vChangeChecker = tNode.transform.position;
 			if(VectorDiff(vChangeChecker,tNode.pos)){
-				tNode.pos = vChangeChecker;
-				if(tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled){
-					tNode.EnsureGradeValidity();
-				}
+                Terrain terrain = GSD.Roads.GSDRoadUtil.GetTerrain(tNode.transform.position);
+                if (terrain != null)
+                {
+                    tNode.pos = vChangeChecker;
+                    if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
+                    {
+                        tNode.EnsureGradeValidity();
+                    }
+                } else
+                {
+                    Debug.Log("Terrain not found");
+                    Vector3 pos = tNode.transform.position;
+                    pos.y = 0.03f;
+                    tNode.transform.position = pos;
+                }
 				TriggerRoadUpdate();
 			}
 			bUsed= true;
