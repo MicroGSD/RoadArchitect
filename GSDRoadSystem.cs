@@ -50,7 +50,7 @@ public class GSDRoadSystem : MonoBehaviour{
 	}
 	
 	public void UpdateAllRoads(){
-		GSDRoad[] tRoadObjs = (GSDRoad[])GameObject.FindObjectsOfType(typeof(GSDRoad));
+		GSDRoad[] tRoadObjs = GetComponentsInChildren<GSDRoad>();
 //		int i=0;
 		
 		int RoadCount = tRoadObjs.Length;
@@ -74,7 +74,7 @@ public class GSDRoadSystem : MonoBehaviour{
 	
 	//Workaround for submission rules:
 	public void UpdateAllRoads_MultiThreadOptions(){
-		GSDRoad[] tRoadObjs = (GSDRoad[])GameObject.FindObjectsOfType(typeof(GSDRoad));
+		GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
 		int RoadCount = tRoadObjs.Length;
 		GSDRoad tRoad = null;
 		for(int h=0;h<RoadCount;h++){
@@ -86,7 +86,7 @@ public class GSDRoadSystem : MonoBehaviour{
 	}
 	//Workaround for submission rules:
 	public void UpdateAllRoads_SaveMeshesAsAssetsOptions(){
-		GSDRoad[] tRoadObjs = (GSDRoad[])GameObject.FindObjectsOfType(typeof(GSDRoad));
+		GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
 		int RoadCount = tRoadObjs.Length;
 		GSDRoad tRoad = null;
 		for(int h=0;h<RoadCount;h++){
