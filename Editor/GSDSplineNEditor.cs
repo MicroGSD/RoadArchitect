@@ -831,7 +831,7 @@ public class GSDSplineNEditor : Editor {
 				tHorizMatching = HorizMatchingDefaultsEnum.None;
 			}
 			EditorGUILayout.BeginHorizontal();
-			SMM.EM.HorizontalSep = EditorGUILayout.Slider("Horiz offset magnitude:",SMM.HorizontalSep,(-1f*HorizRoadMax),HorizRoadMax);	
+			SMM.EM.HorizontalSep = EditorGUILayout.Slider("Horiz offset magnitude:",SMM.EM.HorizontalSep,(-1f*HorizRoadMax),HorizRoadMax);	
 			if(GUILayout.Button(btnDefaultText,GSDImageButton,GUILayout.Width(16f))){
 				SMM.EM.HorizontalSep = 0f;
 			}
