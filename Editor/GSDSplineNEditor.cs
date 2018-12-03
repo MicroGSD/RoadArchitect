@@ -1723,13 +1723,6 @@ public class GSDSplineNEditor : Editor {
                         tNode.EnsureGradeValidity();
                     }
                 }
-                else
-                {
-                    Debug.Log("Terrain not found");
-                    Vector3 pos = tNode.transform.position;
-                    pos.y = 0.04f;
-                    tNode.transform.position = pos;
-                }
 				TriggerRoadUpdate();
 				bUsed = true;
 			} 
