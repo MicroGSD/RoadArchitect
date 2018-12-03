@@ -1267,7 +1267,7 @@ public class GSDSplineN : MonoBehaviour{
     #region "Non-editor util"
     public bool CanSplinate()
     {
-        if (bIsIntersection || bSpecialEndNode)
+        if (bSpecialEndNode)
         {// || bIsBridge_PreNode || bIsBridge_PostNode){
             return false;
         }

@@ -185,9 +185,19 @@ public class GSDRoadIntersectionEditor : Editor {
 			Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
 		}
 		EditorGUILayout.EndHorizontal();
-		
-		//Option: Intersection turn lane options
-		Line();
+        Line();
+        EditorGUILayout.BeginVertical();
+        if (GUILayout.Button("Access objects on first road node"))
+        {
+            Selection.objects = new Object[1] { tInter.Node1 };
+        }
+        if (GUILayout.Button("Access objects on second road node"))
+        {
+            Selection.objects = new Object[1] { tInter.Node2 };
+        }
+        EditorGUILayout.EndVertical();
+        //Option: Intersection turn lane options
+        Line();
 		EditorGUILayout.LabelField("Intersection turn lane options:");
 		if(tInter.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay){
 			t_rType.enumValueIndex = (int)EditorGUILayout.Popup((int)tInter.rType, rTypeDescriptions_3Way);
