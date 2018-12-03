@@ -11,7 +11,7 @@ public class GSDRoadSystem : MonoBehaviour{
     public bool opt_bAllowRoadUpdates = true;
 	
 	public GameObject AddRoad(bool bForceSelect = false){
-		Object[] tObj = GameObject.FindObjectsOfType(typeof(GSDRoad));
+		GSDRoad[] tObj = GetComponentsInChildren<GSDRoad>();
 		int NewRoadNumber = (tObj.Length+1);
 		
 		//Road:
