@@ -1371,7 +1371,7 @@ public class GSDSplineNEditor : Editor {
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
 
-			EditorGUILayout.LabelField("Rotation options:");
+			EditorGUILayout.LabelField("Rotation/scale options:");
 			EditorGUILayout.BeginVertical("box");
 			if(EOM.HorizontalSep < 0f){
 				EOM.EM.bOncomingRotation = EditorGUILayout.Toggle("Auto rotate oncoming objects: ",EOM.bOncomingRotation);
@@ -1388,7 +1388,17 @@ public class GSDSplineNEditor : Editor {
 			EOM.EM.CustomRotation.y = EditorGUILayout.Slider("y-axis: ",EOM.CustomRotation.y,-360f,360f);
 			EOM.EM.CustomRotation.z = EditorGUILayout.Slider("z-axis: ",EOM.CustomRotation.z,-360f,360f);
 			EditorGUILayout.EndVertical();
-			EditorGUILayout.EndVertical();
+            EditorGUILayout.BeginVertical("box"); /* scale */
+            EditorGUILayout.BeginHorizontal();
+            float scale = EditorGUILayout.Slider("Custom scale: ", EOM.CustomScale.x, 1f, 10f);
+            EOM.EM.CustomScale = new Vector3(scale, scale, scale);
+            if (GUILayout.Button(btnDefaultText, GSDImageButton, GUILayout.Width(16f)))
+            {
+                EOM.EM.CustomScale = new Vector3(1f, 1f, 1f);
+            }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical(); /* scale */
+            EditorGUILayout.EndVertical();
 		}
 	}
 	

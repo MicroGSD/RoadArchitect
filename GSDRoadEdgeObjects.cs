@@ -67,7 +67,9 @@ namespace GSD.Roads.EdgeObjects{
 		public Vector3 CustomRotation = default(Vector3);
 		public bool bOncomingRotation = true;
 		public bool bStatic = true;
-		
+
+        public Vector3 CustomScale = new Vector3(1f, 1f, 1f);
+
 		public float StartTime = 0f;
 		public float EndTime = 1f;
 		public float SingleOnlyBridgePercent = 0f;
@@ -441,6 +443,8 @@ namespace GSD.Roads.EdgeObjects{
 			public bool bOncomingRotation = true;
 			public bool bStatic = true;
 			public bool bMatchTerrain = true;
+
+            public Vector3 CustomScale = new Vector3(1f, 1f, 1f);
 			
 			public float StartTime = 0f;
 			public float EndTime = 1f;
@@ -472,6 +476,7 @@ namespace GSD.Roads.EdgeObjects{
 				
 				CustomRotation = EOM.CustomRotation;
 				bOncomingRotation = EOM.bOncomingRotation;
+                CustomScale = EOM.CustomScale;
 				bStatic = EOM.bStatic;
 				bSingle = EOM.bSingle;
 				SinglePosition = EOM.SinglePosition;
@@ -503,6 +508,7 @@ namespace GSD.Roads.EdgeObjects{
 				EOM.bMatchTerrain = bMatchTerrain;
 
 				EOM.CustomRotation = CustomRotation;
+                EOM.CustomScale = CustomScale;
 				EOM.bOncomingRotation = bOncomingRotation;
 				EOM.bStatic = bStatic;
 				EOM.bSingle = bSingle;
@@ -534,6 +540,7 @@ namespace GSD.Roads.EdgeObjects{
 				if(EOM.bMatchTerrain != bMatchTerrain){ return false; }
 
 				if(EOM.CustomRotation != CustomRotation){ return false; }
+                if(EOM.CustomScale != CustomScale) { return false;  }
 				if(EOM.bOncomingRotation != bOncomingRotation){ return false; }
 				if(EOM.bStatic != bStatic){ return false; }
 				if(EOM.bSingle != bSingle){ return false; }
@@ -618,6 +625,7 @@ namespace GSD.Roads.EdgeObjects{
 					}
 //					OrigRot = tObj.transform.rotation;
 					tObj.transform.rotation *= xRot;
+                    tObj.transform.localScale = CustomScale;
 						if(bOncomingRotation && SubType == GSD.Roads.SignPlacementSubTypeEnum.Left){
 							Quaternion tRot = new Quaternion(0f,0f,0f,0f);
 							tRot = Quaternion.identity;
