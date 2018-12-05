@@ -1747,7 +1747,7 @@ public class GSDSplineNEditor : Editor {
             Vector3 vChangeChecker = tNode.transform.position;
 			if(VectorDiff(vChangeChecker,tNode.pos)){
                 Terrain terrain = GSD.Roads.GSDRoadUtil.GetTerrain(tNode.transform.position);
-                if (terrain != null)
+                if (true) /* WIP */
                 {
                     tNode.pos = vChangeChecker;
                     if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)

@@ -1121,8 +1121,9 @@ public class GSDRoadEditor : Editor {
 				}else if(current.shift){
 					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
 					RaycastHit hitInfo;
-					if (Physics.Raycast (worldRay, out hitInfo)){
-						if(hitInfo.collider.transform.GetComponent<Terrain>() != null){
+                    if (Physics.Raycast(worldRay, out hitInfo)) {
+                        /* Used to check for terrain */
+                        if (true) {
 	//					if(hitInfo.collider.transform.name.ToLower().Contains("terrain")){
 							RS.Editor_MousePos = hitInfo.point;
 							RS.Editor_MouseTerrainHit = true;
