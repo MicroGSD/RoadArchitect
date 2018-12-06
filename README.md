@@ -9,7 +9,9 @@
 
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
-Working with 5.5.0f3. If interested in contributing contact support@microgsd.com.
+Now with HDRP support: Check the `hdrp` branch for details.
+
+Working with 2018.3.0. If interested in contributing contact support@microgsd.com.
 
 ##
 - The recommended way to install Road Architect is to use the unity package on the releases page. 
