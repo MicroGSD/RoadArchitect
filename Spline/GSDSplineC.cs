@@ -1446,7 +1446,12 @@ public class GSDSplineC : MonoBehaviour{
 		int xCount = xSpline.GetNodeCount();
 		int mCount = GetNodeCount();
 		//Don't allow connection with less than 3 nodes:
-		if(mCount < 3 || xCount < 3){ return; }
+		if(mCount < 3 || xCount < 3){
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.DisplayDialog("Cannot connect roads", "Roads must have at least 3 nodes to be connected.", "ok");
+#endif
+            return;
+        }
 
 		Vector3 tNode1_ExtraPos = default(Vector3);
 		Vector3 tNode2_ExtraPos = default(Vector3);
