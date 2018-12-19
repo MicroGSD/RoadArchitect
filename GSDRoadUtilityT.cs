@@ -5058,7 +5058,7 @@ namespace GSD.Threaded{
 				RCS.cut_ShoulderL_VectorsHome.Add(RCS.ShoulderL_Vectors[PrevRoadCutIndex]);
 				xVect = RCS.ShoulderL_Vectors[PrevRoadCutIndex];
 				for(int i=PrevRoadCutIndex;i<CurrentRoadCutIndex;i++){
-					tVectListSingle.Add(RCS.ShoulderL_Vectors[i]-xVect);
+                    tVectListSingle.Add(RCS.ShoulderL_Vectors[i] - xVect);
 				}
 				tVects.Add(tVectListSingle);
 				PrevRoadCutIndex = CurrentRoadCutIndex-8;

@@ -911,7 +911,8 @@ public class GSDRoadEditor : Editor {
 			if(bApplyMatsCheck){
 				t_bApplyMatsCheck = true;
 			}
-		}
+            RS.UpdateRoad();
+        }
 		EditorGUILayout.EndHorizontal();
 		EditorGUILayout.LabelField("Applying will overwrite any saved cuts' material(s).");
 		

@@ -294,87 +294,111 @@ public class GSDSplineNEditor : Editor {
 	GSDSplineN iNode1 = null;
 	GSDSplineN iNode2 = null;
 	bool bCreateIntersection = false;
-	public override void OnInspectorGUI(){
-		if(Event.current.type == EventType.ValidateCommand){
-			switch (Event.current.commandName){
-			case "UndoRedoPerformed":
-				UpdateSplineObjects_OnUndo();
-				break;
-			}
-		}
+    public override void OnInspectorGUI() {
+        if (Event.current.type == EventType.ValidateCommand) {
+            switch (Event.current.commandName) {
+                case "UndoRedoPerformed":
+                    UpdateSplineObjects_OnUndo();
+                    break;
+            }
+        }
 
-		if(Event.current.type != EventType.Layout && bCreateIntersection){
-			bCreateIntersection = false;
-			Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(iNode1,iNode2);
-			return;
-		}
-		
-		
-		if(Event.current.type != EventType.Layout && tNode.bQuitGUI){
-			tNode.bQuitGUI = false;
-			return;
-		}
+        if (Event.current.type != EventType.Layout && bCreateIntersection) {
+            bCreateIntersection = false;
+            Selection.activeGameObject = GSD.Roads.GSDIntersections.CreateIntersection(iNode1, iNode2);
+            return;
+        }
 
-		//Graphic null checks:
-		if(!bHasInit){ Init(); }
 
-		Line();
+        if (Event.current.type != EventType.Layout && tNode.bQuitGUI) {
+            tNode.bQuitGUI = false;
+            return;
+        }
 
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField(tNode.EditorDisplayString,EditorStyles.boldLabel);
-		
-		if(GUILayout.Button("Online manual",EditorStyles.miniButton,GUILayout.Width(128f))){
-			Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
-		}
-		EditorGUILayout.EndHorizontal();
-		
-		//Option: Gizmo options, Convoluted due to submission compliance for undo rules:
-		if(tNode.GSDSpline.tRoad.opt_GizmosEnabled != tNode.opt_GizmosEnabled){
-			tNode.GSDSpline.tRoad.opt_GizmosEnabled = tNode.opt_GizmosEnabled;
-			tNode.GSDSpline.tRoad.UpdateGizmoOptions();
-			tNode.GSDSpline.tRoad.Wireframes_Toggle();
-		}
-		t_opt_GizmosEnabled = EditorGUILayout.Toggle("Gizmos: ",tNode.GSDSpline.tRoad.opt_GizmosEnabled);
-		
-		//Option: Manual road cut:
-		if(tNode.idOnSpline > 0 && tNode.idOnSpline < (tNode.GSDSpline.GetNodeCount()-1) && !tNode.bIsIntersection && !tNode.bSpecialEndNode){ // && !cNode.bIsBridge_PreNode && !cNode.bIsBridge_PostNode){
-			if(tNode.GSDSpline.tRoad.opt_bDynamicCuts){
-				Line();
-				t_bRoadCut = EditorGUILayout.Toggle("Cut road at this node: ",tNode.bRoadCut);
-			}
-			Line();
-		}
-		
-		//Option: Bridge options
-		bool bDidBridge = false;
-		if(!tNode.bIsEndPoint){
-			//Bridge start:
-			if(!tNode.bIsBridgeEnd && tNode.CanBridgeStart()){
-				t_bIsBridgeStart = EditorGUILayout.Toggle(" Bridge start",tNode.bIsBridgeStart);
-				bDidBridge = true;
-			}
-			//Bridge end:
-			if(!tNode.bIsBridgeStart && tNode.CanBridgeEnd()){
-				t_bIsBridgeEnd = EditorGUILayout.Toggle(" Bridge end",tNode.bIsBridgeEnd);
-				bDidBridge = true;
-			}
-			
-			if(bDidBridge){
-				Line();
-			}
-		}
-		
-		//Do extrusion and edge objects overview:
-		DoExtAndEdgeOverview();
+        //Graphic null checks:
+        if (!bHasInit) { Init(); }
+
+        Line();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(tNode.EditorDisplayString, EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(128f))) {
+            Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+        }
+        EditorGUILayout.EndHorizontal();
+
+        //Option: Gizmo options, Convoluted due to submission compliance for undo rules:
+        if (tNode.GSDSpline.tRoad.opt_GizmosEnabled != tNode.opt_GizmosEnabled) {
+            tNode.GSDSpline.tRoad.opt_GizmosEnabled = tNode.opt_GizmosEnabled;
+            tNode.GSDSpline.tRoad.UpdateGizmoOptions();
+            tNode.GSDSpline.tRoad.Wireframes_Toggle();
+        }
+        t_opt_GizmosEnabled = EditorGUILayout.Toggle("Gizmos: ", tNode.GSDSpline.tRoad.opt_GizmosEnabled);
+
+        //Option: Manual road cut:
+        if (tNode.idOnSpline > 0 && tNode.idOnSpline < (tNode.GSDSpline.GetNodeCount() - 1) && !tNode.bIsIntersection && !tNode.bSpecialEndNode) { // && !cNode.bIsBridge_PreNode && !cNode.bIsBridge_PostNode){
+            if (tNode.GSDSpline.tRoad.opt_bDynamicCuts) {
+                Line();
+                t_bRoadCut = EditorGUILayout.Toggle("Cut road at this node: ", tNode.bRoadCut);
+            }
+            Line();
+        }
+
+        //Option: Bridge options
+        bool bDidBridge = false;
+        if (!tNode.bIsEndPoint) {
+            //Bridge start:
+            if (!tNode.bIsBridgeEnd && tNode.CanBridgeStart()) {
+                t_bIsBridgeStart = EditorGUILayout.Toggle(" Bridge start", tNode.bIsBridgeStart);
+                bDidBridge = true;
+            }
+            //Bridge end:
+            if (!tNode.bIsBridgeStart && tNode.CanBridgeEnd()) {
+                t_bIsBridgeEnd = EditorGUILayout.Toggle(" Bridge end", tNode.bIsBridgeEnd);
+                bDidBridge = true;
+            }
+
+            if (bDidBridge) {
+                Line();
+            }
+        }
+
+        if ((Selection.objects.Length == 1 && Selection.objects[0] is GSDSplineN) || (tNode.SpecialNodeCounterpart == null && !tNode.bSpecialRoadConnPrimary)) {
+            //Do extrusion and edge objects overview:
+            DoExtAndEdgeOverview();
+        } else
+        {
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Road objects"))
+            {
+                Selection.objects = new Object[1] { tNode.SpecialNodeCounterpart };
+            }
+            EditorGUILayout.EndHorizontal();
+        }
 		
 		if(tNode.bSpecialRoadConnPrimary){
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.LabelField("Road connection:",EditorStyles.boldLabel);
-			if(GUILayout.Button("Break road connection")){
-				tNode.SpecialNodeCounterpart.BreakConnection();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginVertical();
+            if (GUILayout.Button("Update road connection")){
+                GSDSplineN tNode1 = tNode.OriginalConnectionNodes[0];
+                GSDSplineN tNode2 = tNode.OriginalConnectionNodes[1];
+                tNode.SpecialNodeCounterpart.BreakConnection();
+                tNode.GSDSpline.tRoad.UpdateRoad();
+                tNode1.GSDSpline.ActivateEndNodeConnection(tNode1, tNode2);
 			}
-			EditorGUILayout.EndHorizontal();
-			if(tNode.SpecialNodeCounterpart != null){
+            if (GUILayout.Button("Break road connection"))
+            {
+                tNode.SpecialNodeCounterpart.BreakConnection();
+            }
+            if (GUILayout.Button("Access objects on other node"))
+            {
+                Selection.objects = new Object[] { tNode.SpecialNodeCounterpart };
+            }
+            EditorGUILayout.EndVertical();
+            if (tNode.SpecialNodeCounterpart != null){
 				EditorGUILayout.LabelField(tNode.SpecialNodeCounterpart.GSDSpline.tRoad.transform.name + " to " + tNode.SpecialNodeCounterpart.SpecialNodeCounterpart.GSDSpline.tRoad.transform.name);
 			}
 			EditorGUILayout.LabelField("To break this road connection, click the \"Break road connection\" button.");
@@ -540,9 +564,8 @@ public class GSDSplineNEditor : Editor {
 		currentCount = 0;
 
 		GUILayout.Space(2f);
-		
-		
-		
+
+
 		//Splinated objects:
 		DoSplineObjects();
 		
@@ -1695,10 +1718,10 @@ public class GSDSplineNEditor : Editor {
 		if(Event.current.type == EventType.MouseUp && Event.current.button == 0){
 			Object[] xNodeObjects = GameObject.FindObjectsOfType(typeof(GSDSplineN));
 			foreach(GSDSplineN xNode in xNodeObjects){
-				if(Vector3.Distance(xNode.transform.position,tNode.transform.position) < 33f){
+				if(Vector3.Distance(xNode.transform.position,tNode.transform.position) < 2f){
 					if(xNode == tNode){ continue; }
 					if(tNode.bSpecialEndNode || xNode.bSpecialEndNode){ continue; }
-					if(xNode.bIsEndPoint && tNode.bIsEndPoint){ 
+					if(xNode.bIsEndPoint && tNode.bIsEndPoint){
 						//End point connection.
 						tNode.transform.position = xNode.transform.position;
 						//Activate special end node for tnode

@@ -1589,21 +1589,28 @@ public class GSDSplineC : MonoBehaviour{
 			tNode2.GSDSpline.SpecialEndNodeDelay_End_Result = tNode1.GSDSpline.tRoad.RoadWidth();
 			tNode2.GSDSpline.SpecialEndNode_End_OtherSpline = tNode1.GSDSpline;
 		}
-		
-		tNode1.SpecialNodeCounterpart = NodeCreated1;
+
+        tNode1.SpecialNodeCounterpart = NodeCreated1;
 		tNode2.SpecialNodeCounterpart = NodeCreated2;
 		NodeCreated1.SpecialNodeCounterpart_Master = tNode1;
 		NodeCreated2.SpecialNodeCounterpart_Master = tNode2;
 		
+        
 		NodeCreated1.ToggleHideFlags(true);
 		NodeCreated2.ToggleHideFlags(true);
-		
+
+        GSDSplineN[] OrigNodes = new GSDSplineN[2];
+        OrigNodes[0] = tNode1;
+        OrigNodes[1] = tNode2;
+        tNode1.OriginalConnectionNodes = OrigNodes;
+        tNode2.OriginalConnectionNodes = OrigNodes;
+
 //		tNode1.GSDSpline.Setup_Trigger();
 //		if(tNode1.GSDSpline != tNode2.GSDSpline){
 //			tNode2.GSDSpline.Setup_Trigger();
 //		}
-		
-		if(tNode1 != null && tNode2 != null){
+
+        if (tNode1 != null && tNode2 != null){
 			if(tNode1.GSDSpline != tNode2.GSDSpline){
 				tNode1.GSDSpline.tRoad.PiggyBacks = new GSDSplineC[1];
 				tNode1.GSDSpline.tRoad.PiggyBacks[0] = tNode2.GSDSpline;

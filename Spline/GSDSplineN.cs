@@ -30,6 +30,8 @@ public class GSDSplineN : MonoBehaviour{
 	public GSDSplineN SpecialNodeCounterpart = null;
 	public GSDSplineN SpecialNodeCounterpart_Master = null;
 	public GSDSplineN SpecialNodeCounterpart_Old = null;
+    public GSDSplineN[] OriginalConnectionNodes = null;
+
 	public bool bSpecialEndNode_IsStart = false;
 	public bool bSpecialEndNode_IsEnd = false;
 	public bool bSpecialIntersection = false;
