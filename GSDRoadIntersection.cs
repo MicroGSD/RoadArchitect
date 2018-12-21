@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 #endregion
 public class GSDRoadIntersection : MonoBehaviour{
-	
+	#if UNITY_EDITOR
 	public GSDSplineN Node1;
 	public GSDSplineN Node2;
 	
@@ -59,9 +59,10 @@ public class GSDRoadIntersection : MonoBehaviour{
 	public bool bNode2B_RightTurnLane = true;
 	public bool bNode2F_LeftTurnLane = true;
 	public bool bNode2F_RightTurnLane = true;
+	#endif
 	
-	public enum iStopTypeEnum {StopSign_AllWay,TrafficLight1,None,TrafficLight2};
-	public iStopTypeEnum iStopType = iStopTypeEnum.StopSign_AllWay;
+	public enum iIntersectionTypeEnum {StopSign_AllWay,TrafficLight1,None,TrafficLight2};
+	public iIntersectionTypeEnum iDefaultIntersectionType = iIntersectionTypeEnum.StopSign_AllWay;
 	public bool bLightsEnabled = true;
 	public bool bFlipped = false;
 	public bool bLeftTurnYieldOnGreen = true;
@@ -70,6 +71,7 @@ public class GSDRoadIntersection : MonoBehaviour{
 	public enum LightTypeEnum {Timed,Sensors};
 	public LightTypeEnum lType = LightTypeEnum.Timed;
 	
+	#if UNITY_EDITOR
 	public bool bRegularPoleAlignment = true;
 	public bool bTrafficPoleStreetLight = true;
 	public bool bTrafficLightGray = false;
@@ -133,6 +135,7 @@ public class GSDRoadIntersection : MonoBehaviour{
 	public float MaxInterDistanceSQ = 0f;
 	public float Height = 50000f;
 	public float SignHeight = -2000f;
+	#endif
 
 	//Traffic lights:
 	public GSDTrafficLightController LightsRR;

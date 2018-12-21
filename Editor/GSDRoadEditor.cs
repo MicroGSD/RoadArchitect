@@ -20,7 +20,8 @@ public class GSDRoadEditor : Editor {
 	
 	//Serialized properties:
 	SerializedProperty t_opt_GizmosEnabled;
-	SerializedProperty t_opt_Lanes;
+    SerializedProperty t_opt_roadType;
+    SerializedProperty t_opt_Lanes;
 	SerializedProperty t_opt_LaneWidth;
 	SerializedProperty t_opt_bShouldersEnabled;
 	SerializedProperty t_opt_ShoulderWidth;
@@ -91,7 +92,10 @@ public class GSDRoadEditor : Editor {
 		"Four",
 		"Six"
 	};
-	GUIStyle WarningLabelStyle;
+    private enum RoadType { Local, Freeway };
+    private int roadtypeEnum;
+    private string[] roadtypeEnumdesc = new string[] { "Local Road", "Divided Freeway"};
+    GUIStyle WarningLabelStyle;
 	Texture2D WarningLabelBG;
 	GUIStyle GSDImageButton = null;
 	GUIStyle GSDMaybeButton = null;
@@ -109,7 +113,8 @@ public class GSDRoadEditor : Editor {
 	
 	private void OnEnable() {
 		t_opt_GizmosEnabled 				= serializedObject.FindProperty("opt_GizmosEnabled");
-		t_opt_Lanes 						= serializedObject.FindProperty("opt_Lanes");
+        t_opt_roadType                      = serializedObject.FindProperty("opt_roadType");
+        t_opt_Lanes                         = serializedObject.FindProperty("opt_Lanes");
 		t_opt_LaneWidth 					= serializedObject.FindProperty("opt_LaneWidth");
 		t_opt_bShouldersEnabled 			= serializedObject.FindProperty("opt_bShouldersEnabled");
 		t_opt_ShoulderWidth 				= serializedObject.FindProperty("opt_ShoulderWidth");
@@ -262,9 +267,11 @@ public class GSDRoadEditor : Editor {
 			Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
 		}
 		EditorGUILayout.EndHorizontal();
-		
-		//Option: Lane count:
-		if(RS.opt_Lanes == 2){
+
+        t_opt_roadType.intValue = EditorGUILayout.Popup("Road Type: ", t_opt_roadType.intValue, roadtypeEnumdesc);
+
+        //Option: Lane count:
+        if (RS.opt_Lanes == 2){
 			LanesEnum = tempEnum.Two;
 		}else if(RS.opt_Lanes == 4){
 			LanesEnum = tempEnum.Four;
@@ -911,8 +918,7 @@ public class GSDRoadEditor : Editor {
 			if(bApplyMatsCheck){
 				t_bApplyMatsCheck = true;
 			}
-            RS.UpdateRoad();
-        }
+		}
 		EditorGUILayout.EndHorizontal();
 		EditorGUILayout.LabelField("Applying will overwrite any saved cuts' material(s).");
 		
@@ -1102,8 +1108,7 @@ public class GSDRoadEditor : Editor {
 					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
 					RaycastHit hitInfo;
 					if (Physics.Raycast (worldRay, out hitInfo)){
-                        /* There used to be a check for whether this was a terrain */
-						if(true){
+						if(hitInfo.collider.transform.GetComponent<Terrain>() != null || hitInfo.collider.transform.name.ToLower().Contains("terrain")){
 							RS.Editor_MousePos = hitInfo.point;
 							RS.Editor_MouseTerrainHit = true;
 							if(RS.GSDSpline && RS.GSDSpline.PreviewSpline){
@@ -1122,9 +1127,8 @@ public class GSDRoadEditor : Editor {
 				}else if(current.shift){
 					Ray worldRay = HandleUtility.GUIPointToWorldRay (Event.current.mousePosition);
 					RaycastHit hitInfo;
-                    if (Physics.Raycast(worldRay, out hitInfo)) {
-                        /* Used to check for terrain */
-                        if (true) {
+					if (Physics.Raycast (worldRay, out hitInfo)){
+						if(hitInfo.collider.transform.GetComponent<Terrain>() != null){
 	//					if(hitInfo.collider.transform.name.ToLower().Contains("terrain")){
 							RS.Editor_MousePos = hitInfo.point;
 							RS.Editor_MouseTerrainHit = true;

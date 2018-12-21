@@ -1,14 +1,14 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using GSD.Roads;
 using GSD;
-#if UNITY_EDITOR
 using UnityEditor;
 #endif
 [ExecuteInEditMode]
 public class GSDRoad : MonoBehaviour{
-
+	#if UNITY_EDITOR
 	
 	public GameObject MainMeshes;
 	public GameObject MeshRoad;
@@ -24,26 +24,26 @@ public class GSDRoad : MonoBehaviour{
 	[System.NonSerialized] 
 	public string EditorTitleString = "";
 
-    public GSDSplineC GSDSpline;
-
-    public int MostRecentNodeCount = -1;
+	public GSDSplineC GSDSpline;
+	public int MostRecentNodeCount = -1;
 //	private bool bMostRecentCheck = false;
 	public GameObject GSDSplineObj;
 	public GSDRoadSystem GSDRS;
 	public GSDSplineC[] PiggyBacks = null; 
 	public bool bEditorProgressBar = false;
 	public string UID; //Unique ID
-#if UNITY_EDITOR
-    [SerializeField]
+	
+	[SerializeField]
 	public List<GSDTerrainHistoryMaker> TerrainHistory;
 	public string TerrainHistoryByteSize = "";
-#endif
-    [System.NonSerialized]
+	
+	[System.NonSerialized]
 	public bool bUpdateSpline = false;
 
 	//Road editor options: 
 	public float	opt_LaneWidth = 5f;					//Done.
-	public bool 	opt_bShouldersEnabled = true;		//Disabled for now. Comprimises integrity of roads.
+    public int      opt_roadType = 0;
+    public bool 	opt_bShouldersEnabled = true;		//Disabled for now. Comprimises integrity of roads.
 	public float 	opt_ShoulderWidth = 3f;				//Done.
 	public int 		opt_Lanes = 2;						//Done.
 	public float 	opt_RoadDefinition = 5f;			//Done.
@@ -84,6 +84,7 @@ public class GSDRoad : MonoBehaviour{
         Brick,
         Cobblestone
     };
+    public enum RoadType { Local, Freeway };
     public RoadMaterialDropdownEnum opt_tRoadMaterialDropdown = RoadMaterialDropdownEnum.Asphalt;
     public RoadMaterialDropdownEnum tRoadMaterialDropdownOLD = RoadMaterialDropdownEnum.Asphalt;
 
@@ -107,9 +108,9 @@ public class GSDRoad : MonoBehaviour{
 	
 	public PhysicMaterial RoadPhysicMaterial;
 	public PhysicMaterial ShoulderPhysicMaterial;
-#if UNITY_EDITOR
-    #region "Road Construction"
-    [System.NonSerialized]
+	
+	#region "Road Construction"
+	[System.NonSerialized]
 	public GSD.Threaded.TerrainCalcs TerrainCalcsJob;
 	[System.NonSerialized]
 	public GSD.Threaded.RoadCalcs1 RoadCalcsJob1;
@@ -375,13 +376,13 @@ public class GSDRoad : MonoBehaviour{
 	
 	void RoadUpdateProgressBar(){
 		if(Editor_bIsConstructing){
-			EditorUtility.DisplayProgressBar(
+			EditorUtility.DisplayCancelableProgressBar(
 				"GSD Road Update",
 				EditorTitleString,
-				((float)EditorProgress/100f));
+                EditorProgress / 100f);
 		}else if(bEditorProgressBar){
-			bEditorProgressBar = false;
-			EditorUtility.ClearProgressBar();	
+			//bEditorProgressBar = false;
+			//EditorUtility.ClearProgressBar();	
 		}
 	}	
 	
@@ -420,7 +421,6 @@ public class GSDRoad : MonoBehaviour{
 		
         //Set all terrains to height 0:
         GSD.Roads.GSDTerraforming.CheckAllTerrainsHeight0();
-
 		EditorProgress = 20;
 		bEditorProgressBar = true;
 		if(Editor_bIsConstructing){
@@ -828,13 +828,13 @@ public class GSDRoad : MonoBehaviour{
 			Gizmos.DrawCube(Editor_MousePos, new Vector3(10f,4f,10f));
 		}
 	}
-    #endregion
-#endif
-    public float RoadWidth(){
+            #endregion
+	
+	public float RoadWidth(){
 		return (opt_LaneWidth * (float)opt_Lanes);
 	}
-#if UNITY_EDITOR
-    public float EditorCameraTimer = 0f;
+
+	public float EditorCameraTimer = 0f;
 	float EditorTestTimer = 0f;
 	bool bEditorTestTimer = true;
 	void Update(){
@@ -1154,28 +1154,45 @@ public class GSDRoad : MonoBehaviour{
 			RoadMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
 			RoadMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 		}
-		if(!RoadMaterialMarker1){
-			if(opt_Lanes == 2){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-			}else if(opt_Lanes == 4){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
-			}else if(opt_Lanes == 6){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
-			}else{
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-			}
+        if (opt_roadType == (int)RoadType.Local){
+            if (!RoadMaterialMarker1){
+			    if(opt_Lanes == 2){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+			    }else if(opt_Lanes == 4){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
+			    }else if(opt_Lanes == 6){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
+			    }else{
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+			    }
 			
-			if(opt_Lanes == 2){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
-			}else if(opt_Lanes == 4){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");
-			}else if(opt_Lanes == 6){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-6L.mat");
-			}else{
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
-			}
+			    if(opt_Lanes == 2){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
+			    }else if(opt_Lanes == 4){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");
+			    }else if(opt_Lanes == 6){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-6L.mat");
+			    }else{
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
+			    }
+            }
 		}
-		if(opt_bShouldersEnabled && !ShoulderMaterial1){ 
+        else if (opt_roadType == (int)RoadType.Freeway){
+           if (opt_Lanes == 2)
+           {
+               RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+           }
+           else if (opt_Lanes == 4)
+           {
+                RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted-4L.mat");
+           }
+           else
+           {
+                RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+           }
+
+        }
+        if (opt_bShouldersEnabled && !ShoulderMaterial1){ 
 			ShoulderMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDShoulder1.mat");
 			ShoulderMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 		}
@@ -1193,17 +1210,20 @@ public class GSDRoad : MonoBehaviour{
 		    RoadMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
 		    RoadMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 	
-		    if(opt_Lanes == 2){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-		    }else if(opt_Lanes == 4){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
-		    }else if(opt_Lanes == 6){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
-		    }else{
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-		    }
-		
-		    if(opt_Lanes == 2){
+            if (opt_roadType == (int)RoadType.Local){
+                if (opt_Lanes == 2){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+		        }else if(opt_Lanes == 4){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
+		        }else if(opt_Lanes == 6){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
+		        }else{
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+		        }
+		    }else if (opt_roadType == (int)RoadType.Freeway){
+                RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+            }
+            if (opt_Lanes == 2){
 			    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
 		    }else if(opt_Lanes == 4){
 			    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");
@@ -1376,7 +1396,19 @@ public class GSDRoad : MonoBehaviour{
     }
 
     private void FixZ() {
+        #if UNITY_ANDROID
         FixZ_Mobile();
+        #elif  UNITY_IPHONE
+        FixZ_Mobile();
+        #elif UNITY_STANDALONE_WIN
+        FixZ_Win();
+        #elif UNITY_STANDALONE
+        FixZ_Mobile();
+        #elif UNITY_WEBPLAYER
+        FixZ_Mobile();
+        #else
+        FixZ_Mobile();
+        #endif
     }
 
     private void FixZ_Mobile() {
@@ -1384,17 +1416,16 @@ public class GSDRoad : MonoBehaviour{
         Object[] tMarkerObjs = transform.GetComponentsInChildren<MeshRenderer>();
         Vector3 tVect = default(Vector3);
         foreach (MeshRenderer MR in tMarkerObjs) {
-            if (MR.transform.name.Contains("Marker"))
-            {
+            if (MR.transform.name.Contains("Marker")) {
                 tVect = new Vector3(0f, 0.02f, 0f);
                 MR.transform.localPosition = tVect;
-            }
-            else if (MR.transform.name.Contains("SCut") || MR.transform.name.Contains("RoadCut")
-                || MR.transform.name.Contains("Pavement") || MR.transform.name.Contains("ShoulderR")
-                || MR.transform.name.Contains("ShoulderL"))
-            {
+            } else if (MR.transform.name.Contains("SCut")) {
                 tVect = MR.transform.position;
                 tVect.y += 0.01f;
+                MR.transform.position = tVect;
+            } else if (MR.transform.name.Contains("RoadCut")) {
+                tVect = MR.transform.position;
+                tVect.y += 0.01f; 
                 MR.transform.position = tVect;
             }
         }
@@ -1409,7 +1440,7 @@ public class GSDRoad : MonoBehaviour{
                 tVect = new Vector3(0f, 0.02f, 0f);
                 MR.transform.localPosition = tVect;
             } else if (MR.transform.name.Contains("-Inter") && MR.transform.name.Contains("-Stretch")) {
-                tVect = new Vector3(0f, 0.03f, 0f);
+                tVect = new Vector3(0f, 0.02f, 0f);
                 MR.transform.localPosition = tVect;
             } else if (MR.transform.name.Contains("-Inter") && MR.transform.name.Contains("-Tiled")) {
                 tVect = new Vector3(0f, 0.01f, 0f);

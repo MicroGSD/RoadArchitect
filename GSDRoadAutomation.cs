@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Collections;
@@ -134,9 +134,9 @@ namespace GSD.Roads {
         /// Creates intersections where this road intersects with other roads.
         /// </summary>
         /// <param name="tRoad">The primary road to create intersections for.</param>
-        /// <param name="iStopType">Stop signs, traffic lights #1 (US) or traffic lights #2 (Euro). Defaults to none.</param>
+        /// <param name="iDefaultIntersectionType">Stop signs, traffic lights #1 (US) or traffic lights #2 (Euro). Defaults to none.</param>
         /// <param name="rType">Intersection type: No turn lane, left turn lane or both turn lanes. Defaults to no turn lane.</param>
-        public static void CreateIntersections_ProgrammaticallyForRoad(GSDRoad tRoad, GSDRoadIntersection.iStopTypeEnum iStopType = GSDRoadIntersection.iStopTypeEnum.None, GSDRoadIntersection.RoadTypeEnum rType = GSDRoadIntersection.RoadTypeEnum.NoTurnLane) {
+        public static void CreateIntersections_ProgrammaticallyForRoad(GSDRoad tRoad, GSDRoadIntersection.iIntersectionTypeEnum iDefaultIntersectionType = GSDRoadIntersection.iIntersectionTypeEnum.None, GSDRoadIntersection.RoadTypeEnum rType = GSDRoadIntersection.RoadTypeEnum.NoTurnLane) {
             /*
             General logic:
              20m increments to gather collection of which roads intersect
@@ -199,7 +199,7 @@ namespace GSD.Roads {
                 //Now create the fucking intersection:
                 GameObject tInter = GSD.Roads.GSDIntersections.CreateIntersection(KVP.Key, KVP.Value);
                 GSDRoadIntersection GSDRI_JustCreated = tInter.GetComponent<GSDRoadIntersection>();
-                GSDRI_JustCreated.iStopType = iStopType;
+                GSDRI_JustCreated.iDefaultIntersectionType = iDefaultIntersectionType;
                 GSDRI_JustCreated.rType = rType;
             }
 
@@ -291,7 +291,7 @@ namespace GSD.Roads {
                                 //Now create the fucking intersection:
                                 GameObject tInter = GSD.Roads.GSDIntersections.CreateIntersection(IntersectionNode1, IntersectionNode2);
                                 GSDRoadIntersection GSDRI_JustCreated = tInter.GetComponent<GSDRoadIntersection>();
-                                GSDRI_JustCreated.iStopType = iStopType;
+                                GSDRI_JustCreated.iDefaultIntersectionType = iDefaultIntersectionType;
                                 GSDRI_JustCreated.rType = rType;
                             }
 
