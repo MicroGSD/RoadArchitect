@@ -1751,7 +1751,7 @@ public class GSDSplineC : MonoBehaviour{
 	#region "Start"
 	void Start(){
 		#if UNITY_EDITOR
-			CachedPoints = null;
+			//CachedPoints = null;
 		#else
 			this.enabled = false;
 		#endif
