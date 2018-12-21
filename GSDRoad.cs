@@ -1246,6 +1246,16 @@ public class GSDRoad : MonoBehaviour{
             RoadMaterialMarker3 = null;
             RoadMaterialMarker4 = null;
         }
+        if(opt_tRoadMaterialDropdown == RoadMaterialDropdownEnum.Brick
+        || opt_tRoadMaterialDropdown == RoadMaterialDropdownEnum.Cobblestone
+        || opt_tRoadMaterialDropdown == RoadMaterialDropdownEnum.Dirt)
+        {
+            if (opt_Lanes > 2)
+            {
+                RoadMaterialMarker1 = new Material(RoadMaterialMarker1);
+                RoadMaterialMarker1.mainTextureScale *= new Vector2(opt_Lanes / 2, 1f);
+            }
+        }
 		
 		int mCount = GSDSpline.GetNodeCount();
 		for(int i=0;i<mCount;i++){
