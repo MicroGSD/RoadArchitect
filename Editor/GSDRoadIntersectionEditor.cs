@@ -42,7 +42,7 @@ public class GSDRoadIntersectionEditor : Editor {
 	SerializedProperty t_Lane3Mat1;
 	SerializedProperty t_Lane3Mat2;
 	SerializedProperty t_rType;
-	SerializedProperty t_iStopType;
+	SerializedProperty t_iDefaultIntersectionType;
 	SerializedProperty t_lType;
 	
 	#region "Editor only variables"
@@ -75,7 +75,7 @@ public class GSDRoadIntersectionEditor : Editor {
 		"Left turn lane only"
 	};
 	
-	private static string[] iStopTypeEnumDescriptions = new string[]{
+	private static string[] iIntersectionTypeEnumDescriptions = new string[]{
 		"Stop signs",
 		"Traffic lights",
 		"None"
@@ -133,7 +133,7 @@ public class GSDRoadIntersectionEditor : Editor {
 		t_Lane3Mat1					= serializedObject.FindProperty("Lane3Mat1");
 		t_Lane3Mat2					= serializedObject.FindProperty("Lane3Mat2");
 		t_rType						= serializedObject.FindProperty("rType");
-		t_iStopType					= serializedObject.FindProperty("iStopType");
+		t_iDefaultIntersectionType					= serializedObject.FindProperty("iDefaultIntersectionType");
 		t_lType						= serializedObject.FindProperty("lType");
 	}
 	
@@ -201,10 +201,10 @@ public class GSDRoadIntersectionEditor : Editor {
 		
 		
 		//Option: Intersection stop type:
-		t_iStopType.enumValueIndex = (int)EditorGUILayout.Popup("Intersection stop type:",(int)tInter.iStopType, iStopTypeEnumDescriptions);
+		t_iDefaultIntersectionType.enumValueIndex = (int)EditorGUILayout.Popup("Intersection stop type:",(int)tInter.iDefaultIntersectionType, iIntersectionTypeEnumDescriptions);
 		
 		
-		if(tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight1 || tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight2){
+		if(tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1 || tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
 			//Option: Traffic light timing type:
 			t_lType.enumValueIndex = (int)EditorGUILayout.Popup("Traffic light timing:",(int)tInter.lType, iTrafficLightSequenceTypeDesc);
 			
@@ -236,7 +236,7 @@ public class GSDRoadIntersectionEditor : Editor {
 		}
 		
 		
-		if(tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight1 || tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight2){
+		if(tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1 || tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
 			//Option: Traffic light poles:
 			Line();
 			EditorGUILayout.LabelField("Traffic light poles:");
@@ -604,7 +604,7 @@ public class GSDRoadIntersectionEditor : Editor {
 //			EditorGUILayout.LabelField("  IgnoreSide: " + tInter.IgnoreSide);
 //			EditorGUILayout.LabelField("  IgnoreCorner: " + tInter.IgnoreCorner);
 //			
-//			if(tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight1 || tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight2){
+//			if(tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1 || tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
 //				if(tInter.LightsRR != null){ EditorGUILayout.LabelField("  LightsRR: " + tInter.LightsRR); } else { EditorGUILayout.LabelField("  LightsRR: null"); }
 //				if(tInter.LightsRR != null || tInter.LightsRR.MR_Main != null){ EditorGUILayout.LabelField("   MR_Main: " + tInter.LightsRR.MR_Main); } else { EditorGUILayout.LabelField("  LightsRR.MR_Main: null"); }
 //				if(tInter.LightsRR != null || tInter.LightsRR.MR_Left != null){ EditorGUILayout.LabelField("   MR_Left: " + tInter.LightsRR.MR_Left); } else { EditorGUILayout.LabelField("  LightsRR.MR_Left: null"); }
@@ -642,7 +642,7 @@ public class GSDRoadIntersectionEditor : Editor {
 			}
 			
 			//Option: Intersection stop type:
-			if(t_iStopType.enumValueIndex != (int)tInter.iStopType){
+			if(t_iDefaultIntersectionType.enumValueIndex != (int)tInter.iDefaultIntersectionType){
 				bRoadUpdate = true;
 			}
 
