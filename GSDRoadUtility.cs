@@ -308,6 +308,8 @@ namespace GSD.Roads{
 			GSDRoadUtil.Construction2DRect tRect = null;
 //			GSDRoadUtil.Construction2DRect rRect = null;
 			foreach(Terrain tTerrain in tTerrains){
+                if (tTerrain.terrainData == null)
+                    continue;
 				tRect = GetTerrainBounds(tTerrain);
 				bContains = false;
                 //Debug.Log(tTerrain.transform.name + " bounds: " + tRect.ToStringGSD());
