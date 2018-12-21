@@ -1376,19 +1376,7 @@ public class GSDRoad : MonoBehaviour{
     }
 
     private void FixZ() {
-        #if UNITY_ANDROID
         FixZ_Mobile();
-        #elif  UNITY_IPHONE
-        FixZ_Mobile();
-        #elif UNITY_STANDALONE_WIN
-        FixZ_Win();
-        #elif UNITY_STANDALONE
-        FixZ_Mobile();
-        #elif UNITY_WEBPLAYER
-        FixZ_Mobile();
-        #else
-        FixZ_Mobile();
-        #endif
     }
 
     private void FixZ_Mobile() {
@@ -1396,16 +1384,17 @@ public class GSDRoad : MonoBehaviour{
         Object[] tMarkerObjs = transform.GetComponentsInChildren<MeshRenderer>();
         Vector3 tVect = default(Vector3);
         foreach (MeshRenderer MR in tMarkerObjs) {
-            if (MR.transform.name.Contains("Marker")) {
+            if (MR.transform.name.Contains("Marker"))
+            {
                 tVect = new Vector3(0f, 0.02f, 0f);
                 MR.transform.localPosition = tVect;
-            } else if (MR.transform.name.Contains("SCut")) {
+            }
+            else if (MR.transform.name.Contains("SCut") || MR.transform.name.Contains("RoadCut")
+                || MR.transform.name.Contains("Pavement") || MR.transform.name.Contains("ShoulderR")
+                || MR.transform.name.Contains("ShoulderL"))
+            {
                 tVect = MR.transform.position;
                 tVect.y += 0.01f;
-                MR.transform.position = tVect;
-            } else if (MR.transform.name.Contains("RoadCut")) {
-                tVect = MR.transform.position;
-                tVect.y += 0.01f; 
                 MR.transform.position = tVect;
             }
         }
