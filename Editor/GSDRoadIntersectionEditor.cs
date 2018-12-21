@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using GSD;
+using System.Linq;
 
 [CustomEditor(typeof(GSDRoadIntersection))] 
 public class GSDRoadIntersectionEditor : Editor {
@@ -81,8 +82,10 @@ public class GSDRoadIntersectionEditor : Editor {
 		"None"
 //		"Traffic lights #2"
 	};
-	
-	private static string[] iTrafficLightSequenceTypeDesc = new string[]{
+
+    private static List<string> iIntersectionTypes = new List<string>();
+
+    private static string[] iTrafficLightSequenceTypeDesc = new string[]{
 		"Fixed time",
 		"Other"
 	};
@@ -135,7 +138,21 @@ public class GSDRoadIntersectionEditor : Editor {
 		t_rType						= serializedObject.FindProperty("rType");
 		t_iDefaultIntersectionType					= serializedObject.FindProperty("iDefaultIntersectionType");
 		t_lType						= serializedObject.FindProperty("lType");
-	}
+
+        var IntersectionPlugins = System.AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes()) 
+            .Where(c => c.BaseType == typeof(GSD.Roads.GSDIntersection));
+
+        foreach (var item in IntersectionPlugins)
+        {
+            if (item == null)
+            {
+                break;
+            }
+            var temp = (GSD.Roads.GSDIntersection)System.Activator.CreateInstance(item);
+            iIntersectionTypes.Add(temp.DisplayName);
+        }
+    }
 	
 	public override void OnInspectorGUI(){
 		if(Event.current.type == EventType.ValidateCommand){
@@ -198,13 +215,13 @@ public class GSDRoadIntersectionEditor : Editor {
 			}
 		}
 		Line();
-		
-		
-		//Option: Intersection stop type:
-		t_iDefaultIntersectionType.enumValueIndex = (int)EditorGUILayout.Popup("Intersection stop type:",(int)tInter.iDefaultIntersectionType, iIntersectionTypeEnumDescriptions);
-		
-		
-		if(tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1 || tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
+
+
+        //Option: Intersection stop type:
+        t_iDefaultIntersectionType.enumValueIndex = (int)EditorGUILayout.Popup("Intersection type:", (int)tInter.iDefaultIntersectionType, iIntersectionTypes.ToArray());
+
+
+        if(tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1 || tInter.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
 			//Option: Traffic light timing type:
 			t_lType.enumValueIndex = (int)EditorGUILayout.Popup("Traffic light timing:",(int)tInter.lType, iTrafficLightSequenceTypeDesc);
 			
