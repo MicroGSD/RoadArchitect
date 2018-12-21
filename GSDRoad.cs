@@ -42,7 +42,8 @@ public class GSDRoad : MonoBehaviour{
 
 	//Road editor options: 
 	public float	opt_LaneWidth = 5f;					//Done.
-	public bool 	opt_bShouldersEnabled = true;		//Disabled for now. Comprimises integrity of roads.
+    public int      opt_roadType = 0;
+    public bool 	opt_bShouldersEnabled = true;		//Disabled for now. Comprimises integrity of roads.
 	public float 	opt_ShoulderWidth = 3f;				//Done.
 	public int 		opt_Lanes = 2;						//Done.
 	public float 	opt_RoadDefinition = 5f;			//Done.
@@ -83,6 +84,7 @@ public class GSDRoad : MonoBehaviour{
         Brick,
         Cobblestone
     };
+    public enum RoadType { Local, Freeway };
     public RoadMaterialDropdownEnum opt_tRoadMaterialDropdown = RoadMaterialDropdownEnum.Asphalt;
     public RoadMaterialDropdownEnum tRoadMaterialDropdownOLD = RoadMaterialDropdownEnum.Asphalt;
 
@@ -374,13 +376,13 @@ public class GSDRoad : MonoBehaviour{
 	
 	void RoadUpdateProgressBar(){
 		if(Editor_bIsConstructing){
-			EditorUtility.DisplayProgressBar(
+			EditorUtility.DisplayCancelableProgressBar(
 				"GSD Road Update",
 				EditorTitleString,
-				((float)EditorProgress/100f));
+                EditorProgress / 100f);
 		}else if(bEditorProgressBar){
-			bEditorProgressBar = false;
-			EditorUtility.ClearProgressBar();	
+			//bEditorProgressBar = false;
+			//EditorUtility.ClearProgressBar();	
 		}
 	}	
 	
@@ -419,7 +421,6 @@ public class GSDRoad : MonoBehaviour{
 		
         //Set all terrains to height 0:
         GSD.Roads.GSDTerraforming.CheckAllTerrainsHeight0();
-
 		EditorProgress = 20;
 		bEditorProgressBar = true;
 		if(Editor_bIsConstructing){
@@ -1153,28 +1154,45 @@ public class GSDRoad : MonoBehaviour{
 			RoadMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
 			RoadMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 		}
-		if(!RoadMaterialMarker1){
-			if(opt_Lanes == 2){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-			}else if(opt_Lanes == 4){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
-			}else if(opt_Lanes == 6){
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
-			}else{
-				RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-			}
+        if (opt_roadType == (int)RoadType.Local){
+            if (!RoadMaterialMarker1){
+			    if(opt_Lanes == 2){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+			    }else if(opt_Lanes == 4){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
+			    }else if(opt_Lanes == 6){
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
+			    }else{
+				    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+			    }
 			
-			if(opt_Lanes == 2){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
-			}else if(opt_Lanes == 4){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");
-			}else if(opt_Lanes == 6){
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-6L.mat");
-			}else{
-				RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
-			}
+			    if(opt_Lanes == 2){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
+			    }else if(opt_Lanes == 4){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");
+			    }else if(opt_Lanes == 6){
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-6L.mat");
+			    }else{
+				    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
+			    }
+            }
 		}
-		if(opt_bShouldersEnabled && !ShoulderMaterial1){ 
+        else if (opt_roadType == (int)RoadType.Freeway){
+           if (opt_Lanes == 2)
+           {
+               RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+           }
+           else if (opt_Lanes == 4)
+           {
+                RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted-4L.mat");
+           }
+           else
+           {
+                RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+           }
+
+        }
+        if (opt_bShouldersEnabled && !ShoulderMaterial1){ 
 			ShoulderMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDShoulder1.mat");
 			ShoulderMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 		}
@@ -1192,17 +1210,20 @@ public class GSDRoad : MonoBehaviour{
 		    RoadMaterial1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
 		    RoadMaterial2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
 	
-		    if(opt_Lanes == 2){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-		    }else if(opt_Lanes == 4){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
-		    }else if(opt_Lanes == 6){
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
-		    }else{
-			    RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
-		    }
-		
-		    if(opt_Lanes == 2){
+            if (opt_roadType == (int)RoadType.Local){
+                if (opt_Lanes == 2){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+		        }else if(opt_Lanes == 4){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-4L.mat");
+		        }else if(opt_Lanes == 6){
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble-6L.mat");
+		        }else{
+			        RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteYellowDouble.mat");
+		        }
+		    }else if (opt_roadType == (int)RoadType.Freeway){
+                RoadMaterialMarker1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDWhiteSingleDotted.mat");
+            }
+            if (opt_Lanes == 2){
 			    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks.mat");
 		    }else if(opt_Lanes == 4){
 			    RoadMaterialMarker2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDTireMarks-4L.mat");

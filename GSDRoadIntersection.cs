@@ -61,8 +61,8 @@ public class GSDRoadIntersection : MonoBehaviour{
 	public bool bNode2F_RightTurnLane = true;
 	#endif
 	
-	public enum iStopTypeEnum {StopSign_AllWay,TrafficLight1,None,TrafficLight2};
-	public iStopTypeEnum iStopType = iStopTypeEnum.StopSign_AllWay;
+	public enum iIntersectionTypeEnum {StopSign_AllWay,TrafficLight1,None,TrafficLight2};
+	public iIntersectionTypeEnum iDefaultIntersectionType = iIntersectionTypeEnum.StopSign_AllWay;
 	public bool bLightsEnabled = true;
 	public bool bFlipped = false;
 	public bool bLeftTurnYieldOnGreen = true;
