@@ -701,7 +701,7 @@ public class GSDSplineN : MonoBehaviour{
         {
             Object.DestroyImmediate(tNode2.transform.gameObject);
             Object.DestroyImmediate(transform.gameObject);
-        } catch (MissingReferenceException e)
+        } catch (MissingReferenceException)
         {
 
         }

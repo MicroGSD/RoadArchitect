@@ -822,6 +822,7 @@ public class GSDRoad : MonoBehaviour{
 	public readonly Color Color_NodeDefaultColor = new Color(0f,1f,1f,0.75f);
 	public readonly Color Color_NodeConnColor = new Color(0f,1f,0f,0.75f);
 	public readonly Color Color_NodeInter = new Color(0f,1f,0f,0.75f);
+    
 	void OnDrawGizmosSelected(){
 		if(Editor_MouseTerrainHit){
 			Gizmos.color = Color.red;

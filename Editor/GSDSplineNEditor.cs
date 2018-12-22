@@ -1721,6 +1721,7 @@ public class GSDSplineNEditor : Editor {
 		//Drag with left click release:
 		if(Event.current.type == EventType.MouseUp && Event.current.button == 0){
 			Object[] xNodeObjects = GameObject.FindObjectsOfType(typeof(GSDSplineN));
+            Object[] connectorObjects = GameObject.FindObjectsOfType(typeof(GSDRoadConnector));
 			foreach(GSDSplineN xNode in xNodeObjects){
 				if(Vector3.Distance(xNode.transform.position,tNode.transform.position) < 2f){
 					if(xNode == tNode){ continue; }
@@ -1749,16 +1750,20 @@ public class GSDSplineNEditor : Editor {
 					continue;	
 				}
 			}
-			
-			if(!bMouseDragHasProcessed){
+            foreach (GSDRoadConnector connector in connectorObjects)
+            {
+                if (Vector3.Distance(connector.transform.position, tNode.transform.position) < 2f) { 
+                    if (connector.connectedNode != null) continue;
+                    connector.ConnectToNode(tNode);
+                    break;
+                }
+            }
+
+                    if (!bMouseDragHasProcessed){
                 //Enforce maximum road grade:
-                Terrain terrain = GSD.Roads.GSDRoadUtil.GetTerrain(tNode.transform.position);
-                if (terrain != null)
+                if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
                 {
-                    if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
-                    {
-                        tNode.EnsureGradeValidity();
-                    }
+                    tNode.EnsureGradeValidity();
                 }
 				TriggerRoadUpdate();
 				bUsed = true;
@@ -1773,20 +1778,10 @@ public class GSDSplineNEditor : Editor {
             
             Vector3 vChangeChecker = tNode.transform.position;
 			if(VectorDiff(vChangeChecker,tNode.pos)){
-                Terrain terrain = GSD.Roads.GSDRoadUtil.GetTerrain(tNode.transform.position);
-                if (true) /* WIP */
+                tNode.pos = vChangeChecker;
+                if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
                 {
-                    tNode.pos = vChangeChecker;
-                    if (tNode.IsLegitimate() && tNode.GSDSpline.tRoad.opt_bMaxGradeEnabled)
-                    {
-                        tNode.EnsureGradeValidity();
-                    }
-                } else
-                {
-                    Debug.Log("Terrain not found");
-                    Vector3 pos = tNode.transform.position;
-                    pos.y = 0.03f;
-                    tNode.transform.position = pos;
+                    tNode.EnsureGradeValidity();
                 }
 				TriggerRoadUpdate();
 			}
