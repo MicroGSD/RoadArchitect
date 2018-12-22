@@ -198,43 +198,43 @@ public class GSDSplineNEditor : Editor {
 		EditorStyles.miniLabel.wordWrap = true;
 		
 		if(btnDeleteText == null){
-			btnDeleteText = (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/delete.png",typeof(Texture)) as Texture;	
+			btnDeleteText = (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/delete.png",typeof(Texture)) as Texture;	
 		}
 		if(btnCopyText == null){
-			btnCopyText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/copy.png",typeof(Texture)) as Texture;	
+			btnCopyText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/copy.png",typeof(Texture)) as Texture;	
 		}
 		if(btnLoadText == null){
-			btnLoadText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/load.png",typeof(Texture)) as Texture;	
+			btnLoadText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/load.png",typeof(Texture)) as Texture;	
 		}
 		if(btnSaveText == null){
-			btnSaveText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/save.png",typeof(Texture)) as Texture;	
+			btnSaveText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/save.png",typeof(Texture)) as Texture;	
 		}
 		if(btnExtrudeText == null){
-			btnExtrudeText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/extrude.png",typeof(Texture)) as Texture;	
+			btnExtrudeText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/extrude.png",typeof(Texture)) as Texture;	
 		}
 		if(btnEdgeText == null){
-			btnEdgeText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/edge.png",typeof(Texture)) as Texture;	
+			btnEdgeText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/edge.png",typeof(Texture)) as Texture;	
 		}
 		if(btnHelpText == null){
-			btnHelpText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/help.png",typeof(Texture)) as Texture;	
+			btnHelpText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/help.png",typeof(Texture)) as Texture;	
 		}
 		if(GSDTextAreaBG == null){
-			GSDTextAreaBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/popupbg.png",typeof(Texture2D)) as Texture2D;	
+			GSDTextAreaBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/popupbg.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(LoadBtnBG == null){
-			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/loadbg.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/loadbg.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(LoadBtnBGGlow == null){
-			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/loadbgglow.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/loadbgglow.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(ManualBG == null){
-			ManualBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/manualbg.png",typeof(Texture2D)) as Texture2D;	
+			ManualBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/manualbg.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(btnRefreshText == null){
-			btnRefreshText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/refresh.png",typeof(Texture)) as Texture;	
+			btnRefreshText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh.png",typeof(Texture)) as Texture;	
 		}
 		if(btnDefaultText == null){
-			btnDefaultText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/refresh2.png",typeof(Texture)) as Texture;	
+			btnDefaultText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh2.png",typeof(Texture)) as Texture;	
 		}
 		
 		if(GSDImageButton == null){
@@ -1451,50 +1451,52 @@ public class GSDSplineNEditor : Editor {
 	}
 	
 	#region "Quick adds"
-	private void BridgeAdd_TopBase(float tHorizSep = 0f, float tVertRaise = -0.01f, string tMat = "Assets/RoadArchitect/Materials/GSDConcrete2.mat", bool bOverridePrefab = false, string OverridePrefab = ""){
-		SMM = tNode.AddSplinatedObject();
+	private void BridgeAdd_TopBase(float tHorizSep = 0f, float tVertRaise = -0.01f, string tMat = "", bool bOverridePrefab = false, string OverridePrefab = ""){
+        if (tMat == "")
+            tMat = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDConcrete2.mat";
+        SMM = tNode.AddSplinatedObject();
 		string tBridgeTopBaseToAdd = "";
 		string tName = "";
 		if(tNode.GSDSpline.tRoad.opt_Lanes == 2){
 			if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base1MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-19w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-19w-5l-1d.fbx";
 				tName = "BridgeTop1M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base2MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-20w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-20w-5l-1d.fbx";
 				tName = "BridgeTop2M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base3MDeep){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-18w-5l-3d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-18w-5l-3d.fbx";
 				tName = "BridgeTop0M-3M";
 			}else{
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-18w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-18w-5l-1d.fbx";
 				tName = "BridgeTop0M-1M";
 			}
 		}else if(tNode.GSDSpline.tRoad.opt_Lanes == 4){
 			if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base1MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-29w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-29w-5l-1d.fbx";
 				tName = "BridgeTop1M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base2MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-30w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-30w-5l-1d.fbx";
 				tName = "BridgeTop2M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base3MDeep){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-28w-5l-3d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-28w-5l-3d.fbx";
 				tName = "BridgeTop0M-3M";
 			}else{
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-28w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-28w-5l-1d.fbx";
 				tName = "BridgeTop0M-1M";
 			}
 		}else{
 			if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base1MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-39w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-39w-5l-1d.fbx";
 				tName = "BridgeTop1M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base2MOver){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-40w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-40w-5l-1d.fbx";
 				tName = "BridgeTop2M-1M";
 			}else if(tBridgeTopBaseQuickAdd == BridgeTopBaseDefaultsEnum.Base3MDeep){
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-38w-5l-3d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-38w-5l-3d.fbx";
 				tName = "BridgeTop0M-3M";
 			}else{
-				tBridgeTopBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase-38w-5l-1d.fbx";
+				tBridgeTopBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase-38w-5l-1d.fbx";
 				tName = "BridgeTop0M-1M";
 			}
 		}
@@ -1514,95 +1516,97 @@ public class GSDSplineNEditor : Editor {
 		if(SMM.EndTime > tNode.MaxSplination){ SMM.EndTime = tNode.MaxSplination; }	
 	}
 
-	private void BridgeAdd_BottomBase(float tHorizSep = 0f, float tVertRaise = -1.01f, string tMat = "Assets/RoadArchitect/Materials/GSDConcrete2.mat", bool bOverridePrefab = false, string OverridePrefab = ""){
-		SMM = tNode.AddSplinatedObject();
+	private void BridgeAdd_BottomBase(float tHorizSep = 0f, float tVertRaise = -1.01f, string tMat = "", bool bOverridePrefab = false, string OverridePrefab = ""){
+        if (tMat == "")
+            tMat = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDConcrete2.mat";
+        SMM = tNode.AddSplinatedObject();
 		string tBridgeBottomBaseToAdd = "";
 		string tName = "";
 		if(tNode.GSDSpline.tRoad.opt_Lanes == 2){
 			if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase2){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase2-18w-5l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase2-18w-5l-3d.fbx";
 				tName = "BridgeBase2";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase3){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase3-18w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase3-18w-5l-5d.fbx";
 				tName = "BridgeBase3";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase4){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase4-18w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase4-18w-5l-5d.fbx";
 				tName = "BridgeBase4";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase5){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase5-18w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase5-18w-5l-5d.fbx";
 				tName = "BridgeBase5";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase6){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase6-2L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase6-2L.fbx";
 				tName = "BridgeArchBeam80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase7){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase7-2L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase7-2L.fbx";
 				tName = "BridgeArchSolid80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase8){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase8-2L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase8-2L.fbx";
 				tName = "BridgeArchSolid180";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBaseGrid){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseGrid-18w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseGrid-18w-5l-5d.fbx";
 				tName = "BridgeGrid";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeSteel){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-18w-20l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-18w-20l-3d.fbx";
 				tName = "BridgeSteelBeams";
 			}
 		}else if(tNode.GSDSpline.tRoad.opt_Lanes == 4){
 			if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase2){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase2-28w-5l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase2-28w-5l-3d.fbx";
 				tName = "BridgeBase2";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase3){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase3-28w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase3-28w-5l-5d.fbx";
 				tName = "BridgeBase3";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase4){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase4-28w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase4-28w-5l-5d.fbx";
 				tName = "BridgeBase4";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase5){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase5-28w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase5-28w-5l-5d.fbx";
 				tName = "BridgeBase5";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase6){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase6-4L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase6-4L.fbx";
 				tName = "BridgeArchBeam80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase7){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase7-4L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase7-4L.fbx";
 				tName = "BridgeArchSolid80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase8){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase8-4L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase8-4L.fbx";
 				tName = "BridgeArchSolid180";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBaseGrid){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseGrid-28w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseGrid-28w-5l-5d.fbx";
 				tName = "BridgeGrid";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeSteel){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-28w-20l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-28w-20l-3d.fbx";
 				tName = "BridgeSteelBeams";
 			}
 		}else{
 			if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase2){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase2-38w-5l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase2-38w-5l-3d.fbx";
 				tName = "BridgeBase2";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase3){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase3-38w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase3-38w-5l-5d.fbx";
 				tName = "BridgeBase3";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase4){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase4-38w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase4-38w-5l-5d.fbx";
 				tName = "BridgeBase4";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase5){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase5-38w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase5-38w-5l-5d.fbx";
 				tName = "BridgeBase5";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase6){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase6-6L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase6-6L.fbx";
 				tName = "BridgeArchBeam80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase7){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase7-6L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase7-6L.fbx";
 				tName = "BridgeArchSolid80";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase8){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBase8-6L.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBase8-6L.fbx";
 				tName = "BridgeArchSolid180";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBaseGrid){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseGrid-38w-5l-5d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseGrid-38w-5l-5d.fbx";
 				tName = "BridgeGrid";
 			}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeSteel){
-				tBridgeBottomBaseToAdd = "Assets/RoadArchitect/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-38w-20l-3d.fbx";
+				tBridgeBottomBaseToAdd = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Bridges/BridgeBaseSteelBeam-38w-20l-3d.fbx";
 				tName = "BridgeBeams";
 			}
 		}
@@ -1630,9 +1634,9 @@ public class GSDSplineNEditor : Editor {
 		}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBase8){
 			SMM.SplinatedMaterial1 =  GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(tMat);
 		}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeBaseGrid){
-			SMM.SplinatedMaterial1 =  GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDSteel7.mat");
+			SMM.SplinatedMaterial1 =  GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDSteel7.mat");
 		}else if(tBridgeBottomBaseQuickAdd == BridgeBottomBaseDefaultsEnum.BridgeSteel){
-			SMM.SplinatedMaterial1 =  GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDSteel7.mat");
+			SMM.SplinatedMaterial1 =  GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDSteel7.mat");
 		}
 		
 		SMM.Axis = GSD.Roads.Splination.AxisTypeEnum.Z;
@@ -1890,23 +1894,23 @@ public class GSDSplineNEditor : Editor {
 	GameObject GetEndObjectQuickAdd(){
 		string tPath = "";
 		if(tEndObjectAdd == EndObjectsDefaultsEnum.WarningSign1_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDWarningSign_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDWarningSign_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.WarningSign2_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDWarningSign2_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDWarningSign2_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Atten_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDAtten_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDAtten_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel1_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel1_Rigid){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel_Rigid.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel_Rigid.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel3_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel3_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel3_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel3_Rigid){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel3_Rigid.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel3_Rigid.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel7_Static){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel7_Static.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel7_Static.prefab";
 		}else if(tEndObjectAdd == EndObjectsDefaultsEnum.Barrel7_Rigid){
-			tPath = "Assets/RoadArchitect/Mesh/RoadObj/Interactive/GSDRoadBarrel7_Rigid.prefab";
+			tPath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Interactive/GSDRoadBarrel7_Rigid.prefab";
 		}else{
 			return null;	
 		}

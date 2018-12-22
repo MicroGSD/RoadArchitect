@@ -116,13 +116,13 @@ public class GSDRoadSystemEditor : Editor {
 	
 	void InitChecks(){
 		if(WarningLabelBG == null){
-			WarningLabelBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/WarningLabelBG.png",typeof(Texture2D)) as Texture2D;	
+			WarningLabelBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/WarningLabelBG.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(LoadBtnBG == null){
-			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/otherbg.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(LoadBtnBGGlow == null){
-			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/otherbg2.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg2.png",typeof(Texture2D)) as Texture2D;	
 		}
 		
 		if(GSDLoadButton == null){

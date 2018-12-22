@@ -420,15 +420,15 @@ public class GSDRoadIntersection : MonoBehaviour{
 		}
 		
 		if(rType == RoadTypeEnum.BothTurnLanes){
-		 	MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterCenter-Both" + tLanes + ".mat");
+		 	MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-Both" + tLanes + ".mat");
 			MarkerCenter2 = null;
 			MarkerCenter3 = null;
 		}else if(rType == RoadTypeEnum.TurnLane){
-			MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterCenter-Left" + tLanes + ".mat");
+			MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-Left" + tLanes + ".mat");
 			MarkerCenter2 = null;
 			MarkerCenter3 = null;
 		}else if(rType == RoadTypeEnum.NoTurnLane){
-			MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterCenter-None" + tLanes + ".mat");
+			MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-None" + tLanes + ".mat");
 			MarkerCenter2 = null;
 			MarkerCenter3 = null;
 		}
@@ -444,15 +444,15 @@ public class GSDRoadIntersection : MonoBehaviour{
 		}
 		
 		if(rType == RoadTypeEnum.BothTurnLanes){
-			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterStretch-Both" + tLanes + ".mat");
+			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-Both" + tLanes + ".mat");
 			MarkerExt_Stretch2 = null;
 			MarkerExt_Stretch3 = null;
 		}else if(rType == RoadTypeEnum.TurnLane){
-			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterStretch-Left" + tLanes + ".mat");
+			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-Left" + tLanes + ".mat");
 			MarkerExt_Stretch2 = null;
 			MarkerExt_Stretch3 = null;
 		}else if(rType == RoadTypeEnum.NoTurnLane){
-			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterStretch-None" + tLanes + ".mat");
+			MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-None" + tLanes + ".mat");
 			MarkerExt_Stretch2 = null;
 			MarkerExt_Stretch3 = null;
 		}
@@ -461,16 +461,16 @@ public class GSDRoadIntersection : MonoBehaviour{
 	
 	public void ResetMaterials_Ext_Tiled(bool bUpdate = true){
 		if(rType == RoadTypeEnum.BothTurnLanes){
-			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
-			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
+			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
 			MarkerExt_Tiled3 = null;
 		}else if(rType == RoadTypeEnum.TurnLane){
-			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
-			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
+			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
 			MarkerExt_Tiled3 = null;
 		}else if(rType == RoadTypeEnum.NoTurnLane){
-			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/GSDRoad1.mat");
-			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat");
+			MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+			MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
 			MarkerExt_Tiled3 = null;
 		}
 		if(bUpdate){ UpdateMaterials(); }
@@ -486,12 +486,12 @@ public class GSDRoadIntersection : MonoBehaviour{
 		}
 	
 		if(iType == IntersectionTypeEnum.ThreeWay){
-			Lane1Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+			Lane1Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 			Lane1Mat2_Disabled = null;
 			if(rType == RoadTypeEnum.BothTurnLanes){
-				Lane1Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterRR.mat");
+				Lane1Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterRR.mat");
 				Lane1Mat2_DisabledActive = null;
-				Lane2Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledR.mat");
+				Lane2Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledR.mat");
 				Lane2Mat2_Disabled = null;
 			}else{
 				Lane2Mat1_Disabled = null;
@@ -499,12 +499,12 @@ public class GSDRoadIntersection : MonoBehaviour{
 				Lane2Mat1_DisabledActive = null;
 				Lane2Mat2_DisabledActive = null;
 			}
-			Lane2Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuter" + tLanes + ".mat");
+			Lane2Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuter" + tLanes + ".mat");
 			Lane2Mat2_DisabledActive = null;
 			if(rType == RoadTypeEnum.BothTurnLanes){
-				Lane2Mat1_DisabledActiveR = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
+				Lane2Mat1_DisabledActiveR = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
 				Lane2Mat2_DisabledActiveR = null;
-				Lane3Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledR.mat");
+				Lane3Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledR.mat");
 				Lane3Mat2_Disabled = null;
 			}else{
 				Lane2Mat1_DisabledActiveR = null;
@@ -526,27 +526,27 @@ public class GSDRoadIntersection : MonoBehaviour{
 		}
 		
 		if(rType == RoadTypeEnum.BothTurnLanes){
-			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
+			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
 			Lane0Mat2 = null;
-			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat");
+			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
 			Lane1Mat2 = null;
-			Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
+			Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
 			Lane2Mat2 = null;
-			Lane3Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+			Lane3Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 			Lane3Mat2 = null;
 		}else if(rType == RoadTypeEnum.TurnLane){
-			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
+			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
 			Lane0Mat2 = null;
-			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat");
+			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
 			Lane1Mat2 = null;
-			Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
+			Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
 			Lane2Mat2 = null;
 			Lane3Mat1 = null;
 			Lane3Mat2 = null;
 		}else if(rType == RoadTypeEnum.NoTurnLane){
-			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
+			Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
 			Lane0Mat2 = null;
-			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR" + tLanes + ".mat");
+			Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR" + tLanes + ".mat");
 			Lane1Mat2 = null;
 			Lane2Mat1 = null;
 			Lane2Mat2 = null;
@@ -915,9 +915,9 @@ public class GSDRoadIntersection : MonoBehaviour{
 	public void ToggleTrafficLightPoleColor(){
 		Material TrafficLightMaterial = null;
 		if(bTrafficLightGray){
-			TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Signs/GSDInterTLB2.mat");	
+			TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB2.mat");	
 		}else{
-			TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial("Assets/RoadArchitect/Materials/Signs/GSDInterTLB1.mat");	
+			TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB1.mat");	
 		}
 		int cCount = transform.childCount;
 		string tName = "";

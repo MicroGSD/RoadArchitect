@@ -1,10 +1,33 @@
 using UnityEngine;
+using System.IO;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 namespace GSD.Roads{
 	#if UNITY_EDITOR
 	public static class GSDRoadUtilityEditor{
+        private static readonly string[] validFolders =
+        {
+            "Assets/RoadArchitect",
+            "Assets/RoadArchitect-master",
+            "Assets/Resources/RoadArchitect",
+            "Assets/Resources/RoadArchitect-master"
+        };
+        public static string GetBasePath()
+        {
+            // TODO this might break in future versions of Unity
+#if UNITY_EDITOR
+            foreach(string folder in validFolders)
+            {
+                if (Directory.Exists(Environment.CurrentDirectory + "/" + folder))
+                    return folder;
+            }
+            throw new System.Exception("RoadArchitect must be placed in one of the valid folders, read the top of this script");
+#else
+            return "";
+#endif
+        }
 		public static void SetRoadMaterial(string tPath, MeshRenderer MR, string tPath2 = ""){
 			Material tMat2; 
 			
@@ -31,5 +54,5 @@ namespace GSD.Roads{
 			return (PhysicMaterial)AssetDatabase.LoadAssetAtPath(tPath, typeof(PhysicMaterial));
 		}
 	}
-	#endif
-}
+#endif
+        }

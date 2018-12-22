@@ -1503,6 +1503,7 @@ namespace GSD.Roads{
 			if(bInterseOn){
 				MeshSetup1_IntersectionParts();
 			}
+			
 			MeshBuffer = null;
 		}
 		
@@ -1521,13 +1522,13 @@ namespace GSD.Roads{
 			//Cleanups:
 			foreach(GSDRoadIntersection GSDRI in tGSDRIs){
 				GSDIntersectionObjects.CleanupIntersectionObjects(GSDRI.transform.gameObject);
-				if(GSDRI.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.StopSign_AllWay){
+				if(GSDRI.iStopType == GSDRoadIntersection.iStopTypeEnum.StopSign_AllWay){
 					GSDIntersectionObjects.CreateStopSignsAllWay(GSDRI.transform.gameObject,true);
-				}else if(GSDRI.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight1){
+				}else if(GSDRI.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight1){
 					GSDIntersectionObjects.CreateTrafficLightBases(GSDRI.transform.gameObject,true);
-				}else if(GSDRI.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.TrafficLight2){
+				}else if(GSDRI.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight2){
 					
-				}else if(GSDRI.iDefaultIntersectionType == GSDRoadIntersection.iIntersectionTypeEnum.None){
+				}else if(GSDRI.iStopType == GSDRoadIntersection.iStopTypeEnum.None){
 					//Do nothing.
 				}
 			}
@@ -1895,13 +1896,13 @@ namespace GSD.Roads{
 					fDist = Mathf.Round(fDist);
 					if(tRoad.opt_Lanes == 2){
 						if(fDist == Mathf.Round(tRoad.RoadWidth()*2f)){
-							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadConn-4L.mat",MR);
+							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadConn-4L.mat",MR);
 						}else if(fDist == Mathf.Round(tRoad.RoadWidth()*3f)){
-							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadConn-6L-2L.mat",MR);
+							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadConn-6L-2L.mat",MR);
 						}
 					}else if(tRoad.opt_Lanes == 4){
 						if(fDist == Mathf.Round(tRoad.RoadWidth()*1.5f)){
-							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/Markers/GSDRoadConn-6L-4L.mat",MR);
+							GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadConn-6L-4L.mat",MR);
 						}
 					}
 					MF.sharedMesh = tMesh_RoadConnections[i];
@@ -1920,13 +1921,14 @@ namespace GSD.Roads{
 					vMesh.RecalculateNormals();
 					RoadConnections_normals[i] = vMesh.normals;
 					vMesh.tangents = GSDRootUtil.ProcessTangents(vMesh.triangles,vMesh.normals,vMesh.uv,vMesh.vertices);
+					
 					tObj = new GameObject("RoadConnectionBase");
 					MF = tObj.AddComponent<MeshFilter>();
 					MR = tObj.AddComponent<MeshRenderer>();
 					MeshCollider MC = tObj.AddComponent<MeshCollider>();
 					MF.sharedMesh = vMesh;
 					MC.sharedMesh = MF.sharedMesh;
-					GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/GSDRoad6.mat",MR);
+					GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat",MR);
 					tObj.transform.parent = tRoad.MeshRoad.transform;
 					
 					SaveMesh(SaveMeshTypeEnum.RoadConn,vMesh,tRoad,"RoadConn" + i.ToString());
@@ -1936,6 +1938,7 @@ namespace GSD.Roads{
 			if(bInterseOn){
 				MeshSetup2_Intersections();
 			}
+            
 			if(tRoad.MeshiLanes != null){ Object.DestroyImmediate(tRoad.MeshiLanes); }
 			if(tRoad.MeshiLanes0 != null){ Object.DestroyImmediate(tRoad.MeshiLanes0); }
 			if(tRoad.MeshiLanes1 != null){ Object.DestroyImmediate(tRoad.MeshiLanes1); }
@@ -2041,7 +2044,7 @@ namespace GSD.Roads{
 				tUV = iBLane0s_uv[i];
 				tTangents = iBLane0s_tangents[i];
 				xMesh = tMesh_iBLanes0[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes0, "Lane0B","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR.mat");
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes0, "Lane0B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR.mat");
 				if(!tCombineDict_Lane0.ContainsKey(iBLane0s_tID[i])){
 					tCombineDict_Lane0.Add(iBLane0s_tID[i], new List<MeshFilter>());
 				}
@@ -2054,7 +2057,7 @@ namespace GSD.Roads{
 					tUV = iBLane1s_uv[i];
 					tTangents = iBLane1s_tangents[i];
 					xMesh = tMesh_iBLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneD1B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneD1B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 					if(!tCombineDict_Lane1_Disabled.ContainsKey(iBLane1s_tID[i])){
 						tCombineDict_Lane1_Disabled.Add(iBLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2063,7 +2066,7 @@ namespace GSD.Roads{
 					tUV = iBLane1s_uv[i];
 					tTangents = iBLane1s_tangents[i];
 					xMesh = tMesh_iBLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneDA1B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuter.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneDA1B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuter.mat");
 					if(!tCombineDict_Lane1_DisabledActive.ContainsKey(iBLane1s_tID[i])){
 						tCombineDict_Lane1_DisabledActive.Add(iBLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2072,7 +2075,7 @@ namespace GSD.Roads{
 					tUV = iBLane1s_uv[i];
 					tTangents = iBLane1s_tangents[i];
 					xMesh = tMesh_iBLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "Lane1B","Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "Lane1B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
 					if(!tCombineDict_Lane1.ContainsKey(iBLane1s_tID[i])){
 						tCombineDict_Lane1.Add(iBLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2086,7 +2089,7 @@ namespace GSD.Roads{
 					tUV = iBLane2s_uv[i];
 					tTangents = iBLane2s_tangents[i];
 					xMesh = tMesh_iBLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuter.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuter.mat");
 					if(!tCombineDict_Lane2_DisabledActive.ContainsKey(iBLane2s_tID[i])){
 						tCombineDict_Lane2_DisabledActive.Add(iBLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2095,7 +2098,7 @@ namespace GSD.Roads{
 					tUV = iBLane2s_uv[i];
 					tTangents = iBLane2s_tangents[i];
 					xMesh = tMesh_iBLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
 					if(!tCombineDict_Lane2_DisabledActiveR.ContainsKey(iBLane2s_tID[i])){
 						tCombineDict_Lane2_DisabledActiveR.Add(iBLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2104,7 +2107,7 @@ namespace GSD.Roads{
 					tUV = iBLane2s_uv[i];
 					tTangents = iBLane2s_tangents[i];
 					xMesh = tMesh_iBLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneD2B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneD2B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 					if(!tCombineDict_Lane2_Disabled.ContainsKey(iBLane2s_tID[i])){
 						tCombineDict_Lane2_Disabled.Add(iBLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2113,7 +2116,7 @@ namespace GSD.Roads{
 					tUV = iBLane2s_uv[i];
 					tTangents = iBLane2s_tangents[i];
 					xMesh = tMesh_iBLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "Lane2B","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "Lane2B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 					if(!tCombineDict_Lane2.ContainsKey(iBLane2s_tID[i])){
 						tCombineDict_Lane2.Add(iBLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2127,7 +2130,7 @@ namespace GSD.Roads{
 					tUV = iBLane3s_uv[i];
 					tTangents = iBLane3s_tangents[i];
 					xMesh = tMesh_iBLanes3[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "LaneD3B","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "LaneD3B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 					if(!tCombineDict_Lane3_Disabled.ContainsKey(iBLane3s_tID[i])){
 						tCombineDict_Lane3_Disabled.Add(iBLane3s_tID[i], new List<MeshFilter>());
 					}
@@ -2136,7 +2139,7 @@ namespace GSD.Roads{
 					tUV = iBLane3s_uv[i];
 					tTangents = iBLane3s_tangents[i];
 					xMesh = tMesh_iBLanes3[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "Lane3B","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "Lane3B",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 					if(!tCombineDict_Lane3.ContainsKey(iBLane3s_tID[i])){
 						tCombineDict_Lane3.Add(iBLane3s_tID[i], new List<MeshFilter>());
 					}
@@ -2150,7 +2153,7 @@ namespace GSD.Roads{
 				tUV = iFLane0s_uv[i];
 				tTangents = iFLane0s_tangents[i];
 				xMesh = tMesh_iFLanes0[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes0, "Lane0F","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR.mat");
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes0, "Lane0F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR.mat");
 				if(!tCombineDict_Lane0.ContainsKey(iFLane0s_tID[i])){
 					tCombineDict_Lane0.Add(iFLane0s_tID[i], new List<MeshFilter>());
 				}
@@ -2163,7 +2166,7 @@ namespace GSD.Roads{
 					tUV = iFLane1s_uv[i];
 					tTangents = iFLane1s_tangents[i];
 					xMesh = tMesh_iFLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneD1F","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneD1F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 					if(!tCombineDict_Lane1_Disabled.ContainsKey(iFLane1s_tID[i])){
 						tCombineDict_Lane1_Disabled.Add(iFLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2172,7 +2175,7 @@ namespace GSD.Roads{
 					tUV = iFLane1s_uv[i];
 					tTangents = iFLane1s_tangents[i];
 					xMesh = tMesh_iFLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneDAR1F","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "LaneDAR1F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
 					if(!tCombineDict_Lane1_DisabledActive.ContainsKey(iFLane1s_tID[i])){
 						tCombineDict_Lane1_DisabledActive.Add(iFLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2181,7 +2184,7 @@ namespace GSD.Roads{
 					tUV = iFLane1s_uv[i];
 					tTangents = iFLane1s_tangents[i];
 					xMesh = tMesh_iFLanes1[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "Lane1F","Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes1, "Lane1F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
 					if(!tCombineDict_Lane1.ContainsKey(iFLane1s_tID[i])){
 						tCombineDict_Lane1.Add(iFLane1s_tID[i], new List<MeshFilter>());
 					}
@@ -2195,7 +2198,7 @@ namespace GSD.Roads{
 					tUV = iFLane2s_uv[i];
 					tTangents = iFLane2s_tangents[i];
 					xMesh = tMesh_iFLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2F","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuter.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDA2F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuter.mat");
 					if(!tCombineDict_Lane2_DisabledActive.ContainsKey(iFLane2s_tID[i])){
 						tCombineDict_Lane2_DisabledActive.Add(iFLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2204,7 +2207,7 @@ namespace GSD.Roads{
 					tUV = iFLane2s_uv[i];
 					tTangents = iFLane2s_tangents[i];
 					xMesh = tMesh_iFLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDAR2F","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneDAR2F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
 					if(!tCombineDict_Lane2_DisabledActiveR.ContainsKey(iFLane2s_tID[i])){
 						tCombineDict_Lane2_DisabledActiveR.Add(iFLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2213,7 +2216,7 @@ namespace GSD.Roads{
 					tUV = iFLane2s_uv[i];
 					tTangents = iFLane2s_tangents[i];
 					xMesh = tMesh_iFLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneD2F","Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "LaneD2F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
 					if(!tCombineDict_Lane2_Disabled.ContainsKey(iFLane2s_tID[i])){
 						tCombineDict_Lane2_Disabled.Add(iFLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2222,7 +2225,7 @@ namespace GSD.Roads{
 					tUV = iFLane2s_uv[i];
 					tTangents = iFLane2s_tangents[i];
 					xMesh = tMesh_iFLanes2[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "Lane2F","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes2, "Lane2F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 					if(!tCombineDict_Lane2.ContainsKey(iFLane2s_tID[i])){
 						tCombineDict_Lane2.Add(iFLane2s_tID[i], new List<MeshFilter>());
 					}
@@ -2236,7 +2239,7 @@ namespace GSD.Roads{
 					tUV = iFLane3s_uv[i];
 					tTangents = iFLane3s_tangents[i];
 					xMesh = tMesh_iFLanes3[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "LaneD3F","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "LaneD3F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 					if(!tCombineDict_Lane3_Disabled.ContainsKey(iFLane3s_tID[i])){
 						tCombineDict_Lane3_Disabled.Add(iFLane3s_tID[i], new List<MeshFilter>());
 					}
@@ -2245,7 +2248,7 @@ namespace GSD.Roads{
 					tUV = iFLane3s_uv[i];
 					tTangents = iFLane3s_tangents[i];
 					xMesh = tMesh_iFLanes3[i];
-					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "Lane3F","Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat");
+					MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiLanes3, "Lane3F",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
 					if(!tCombineDict_Lane3.ContainsKey(iFLane3s_tID[i])){
 						tCombineDict_Lane3.Add(iFLane3s_tID[i], new List<MeshFilter>());
 					}
@@ -2259,7 +2262,7 @@ namespace GSD.Roads{
 				tUV = iBMainPlates_uv[i];
 				tTangents = iBMainPlates_tangents[i];
 				xMesh = tMesh_iBMainPlates[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateB","Assets/RoadArchitect/Materials/GSDRoad6.mat", false);
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateB",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat", false);
 				if(!tCombineDict_MainPlate.ContainsKey(iBMainPlates_tID[i])){
 					tCombineDict_MainPlate.Add(iBMainPlates_tID[i], new List<MeshFilter>());
 				}
@@ -2271,7 +2274,7 @@ namespace GSD.Roads{
 				fMesh.normals = iBMainPlates_normals[i];
 				tUV = iBMainPlates_uv2[i];
 				tTangents = iBMainPlates_tangents2[i];
-				MF = MeshSetup2_Intersection_Helper(ref fMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateBM","Assets/RoadArchitect/Materials/GSDInterMainPlate1.mat");
+				MF = MeshSetup2_Intersection_Helper(ref fMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateBM",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDInterMainPlate1.mat");
 				if(!tCombineDict_MainPlateM.ContainsKey(iBMainPlates_tID[i])){
 					tCombineDict_MainPlateM.Add(iBMainPlates_tID[i], new List<MeshFilter>());
 				}
@@ -2282,7 +2285,7 @@ namespace GSD.Roads{
 				tUV = iFMainPlates_uv[i];
 				tTangents = iFMainPlates_tangents[i];
 				xMesh = tMesh_iFMainPlates[i];
-				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM","Assets/RoadArchitect/Materials/GSDRoad6.mat", false);
+				MF = MeshSetup2_Intersection_Helper(ref xMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat", false);
 				
 				if(!tCombineDict_MainPlate.ContainsKey(iFMainPlates_tID[i])){
 					tCombineDict_MainPlate.Add(iFMainPlates_tID[i], new List<MeshFilter>());
@@ -2295,7 +2298,7 @@ namespace GSD.Roads{
 				tMesh.normals = iFMainPlates_normals[i];
 				tUV = iFMainPlates_uv2[i];
 				tTangents = iFMainPlates_tangents2[i];
-				MF = MeshSetup2_Intersection_Helper(ref tMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM","Assets/RoadArchitect/Materials/GSDInterMainPlate1.mat");
+				MF = MeshSetup2_Intersection_Helper(ref tMesh, ref tUV, ref tTangents, ref tRoad.MeshiMainPlates, "MainPlateFM",GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDInterMainPlate1.mat");
 				if(!tCombineDict_MainPlateM.ContainsKey(iFMainPlates_tID[i])){
 					tCombineDict_MainPlateM.Add(iFMainPlates_tID[i], new List<MeshFilter>());
 				}
@@ -2477,10 +2480,11 @@ namespace GSD.Roads{
 				if(!UniqueGSDRI.Contains(KVP.Key)){ UniqueGSDRI.Add(KVP.Key); }
 				MeshSetup2_CombineIntersections(KVP,KVP.Key.transform.name + "-" +"LaneDA1");
 			}
-			
-			foreach (GSDRoadIntersection GSDRI in UniqueGSDRI){
-				GSDRI.UpdateMaterials();	
-			}
+
+            foreach (GSDRoadIntersection GSDRI in UniqueGSDRI){
+				GSDRI.UpdateMaterials();
+            }
+            
 		}
 		
 		private void MeshSetup2_CombineIntersections(KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP, string tName, bool bMainPlates = false){
@@ -2539,10 +2543,12 @@ namespace GSD.Roads{
 //			float tHeight = 0f;
 			for(int i=0;i<tVerts.Length;i++){
 				tVerts[i] += tVect;
+                if (tName.ToLower().EndsWith("-stretchext"))
+                    tVerts[i] += new Vector3(0f, 0.01f);
 			}
 			MF.sharedMesh.vertices = tVerts;
-			tObj.transform.localPosition = new Vector3(0f,0f,0f);
-			MF.sharedMesh.RecalculateBounds();
+            tObj.transform.localPosition = new Vector3(0f, 0f, 0f);
+            MF.sharedMesh.RecalculateBounds();
 			MF.sharedMesh.RecalculateNormals();
 			MF.sharedMesh.tangents = GSDRootUtil.ProcessTangents(MF.sharedMesh.triangles,MF.sharedMesh.normals,MF.sharedMesh.uv,MF.sharedMesh.vertices);
             if (tRoad.opt_bIsLightmapped) {
@@ -2988,21 +2994,21 @@ namespace GSD.Roads{
 			tSceneName = tSceneName.Replace(".","");
 			string tFolderName = "";
 			if(SaveType == SaveMeshTypeEnum.Road){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Roads/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Roads/";
 			}else if(SaveType == SaveMeshTypeEnum.Shoulder){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Shoulders/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Shoulders/";
 			}else if(SaveType == SaveMeshTypeEnum.Intersection){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Intersections/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Intersections/";
 			}else if(SaveType == SaveMeshTypeEnum.Railing){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Railings/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Railings/";
 			}else if(SaveType == SaveMeshTypeEnum.Center){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/CenterDividers/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/CenterDividers/";
 			}else if(SaveType == SaveMeshTypeEnum.RoadCut){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Roads/Cuts/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Roads/Cuts/";
 			}else if(SaveType == SaveMeshTypeEnum.SCut){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/Shoulders/Cuts/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/Shoulders/Cuts/";
 			}else if(SaveType == SaveMeshTypeEnum.RoadConn){
-				tFolderName = "Assets/RoadArchitect/Mesh/Generated/RoadConn/";
+				tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/RoadConn/";
 			}
 			
 			string xPath = Application.dataPath.Replace("/Assets","/" + tFolderName);
@@ -4306,8 +4312,13 @@ namespace GSD.Roads{
 		public static void CreateStopSignsAllWay(GameObject MasterGameObj, bool bIsRB = true){
 			CreateStopSignsAllWay_Do(ref MasterGameObj, bIsRB);
 		}
+		private static void T_FixSigns(GameObject tObj) {
+			Rigidbody rigidbody = tObj.GetComponent<Rigidbody>();
+			rigidbody.useGravity = false;
+			rigidbody.isKinematic = true;
+		}
 		private static void CreateStopSignsAllWay_Do(ref GameObject MasterGameObj, bool bIsRB){
-			Object prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDSignStopAllway.prefab", typeof(GameObject));
+			Object prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDSignStopAllway.prefab", typeof(GameObject));
 	
 			GSDRoadIntersection GSDRI = MasterGameObj.GetComponent<GSDRoadIntersection>();
 			GSDSplineC tSpline = GSDRI.Node1.GSDSpline;
@@ -4346,6 +4357,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosRR;
 			tObj.name = "StopSignRR";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 0){ Object.DestroyImmediate(tObj); }
 			
 			//LL:
@@ -4362,6 +4374,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosLL;
 			tObj.name = "StopSignLL";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 2){ Object.DestroyImmediate(tObj); }
 			
 			//RL:
@@ -4378,6 +4391,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosRL;
 			tObj.name = "StopSignRL";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 1){ Object.DestroyImmediate(tObj); }
 			
 			//LR:
@@ -4394,6 +4408,7 @@ namespace GSD.Roads{
 			tObj.transform.parent = MasterGameObj.transform;
 			tObj.transform.position = tPosLR;
 			tObj.name = "StopSignLR";
+			T_FixSigns(tObj);
 			if(GSDRI.IgnoreCorner == 3){ Object.DestroyImmediate(tObj); }
 		}
 		
@@ -4685,16 +4700,16 @@ namespace GSD.Roads{
 			bool bXMod = false;
 			if(!IsApproximately(xMod,1f,0.0001f)){ bXMod = true; }
 			
-			Mesh xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset, typeof(Mesh));
+			Mesh xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset, typeof(Mesh));
 			if(xMesh == null){
-				xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/TrafficLightBases/" + BackupFBX, typeof(Mesh));
+				xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + BackupFBX, typeof(Mesh));
 				bDoCustom = true;
 			}
 			
 			tObj = new GameObject("TempTrafficLight");
 			MeshFilter MF = tObj.GetComponent<MeshFilter>(); if(MF == null){ MF = tObj.AddComponent<MeshFilter>(); }
 			MeshRenderer MR = tObj.GetComponent<MeshRenderer>(); if(MR == null){ MR = tObj.AddComponent<MeshRenderer>(); }
-			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/Signs/GSDInterTLB" + tTrafficLightNumber + ".mat",MR);
+			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB" + tTrafficLightNumber + ".mat",MR);
 			
 			if(!bDoCustom){
 				MF.sharedMesh = xMesh;	
@@ -4752,7 +4767,7 @@ namespace GSD.Roads{
 
 				//Save:
 				if(bSaveAsset){
-					UnityEditor.AssetDatabase.CreateAsset(tMesh, "Assets/RoadArchitect/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset);
+					UnityEditor.AssetDatabase.CreateAsset(tMesh, GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset);
 				}
 			}
 			
@@ -4771,7 +4786,7 @@ namespace GSD.Roads{
 			}
 			
 			if(bLight){
-				GameObject yObj = (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDStreetLight_TrafficLight.prefab", typeof(GameObject));
+				GameObject yObj = (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDStreetLight_TrafficLight.prefab", typeof(GameObject));
 				GameObject kObj = (GameObject)GameObject.Instantiate(yObj);
 				kObj.transform.position = tObj.transform.position;
 				kObj.transform.position += new Vector3(0f,0f,MaxHeight-7.6f);
@@ -4984,9 +4999,9 @@ namespace GSD.Roads{
 			int cCount = -1;
 			if(GSDRI.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane){
 				if(GSDRI.bLeftTurnYieldOnGreen){
-					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDTrafficLightLeftYield.prefab", typeof(GameObject));
+					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightLeftYield.prefab", typeof(GameObject));
 				}else{
-					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDTrafficLightLeft.prefab", typeof(GameObject));
+					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightLeft.prefab", typeof(GameObject));
 				}
 				tLeft = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
 				tLeft.transform.position = tObj.transform.TransformPoint(tLanePosL);
@@ -5004,7 +5019,7 @@ namespace GSD.Roads{
 				if(bScale){ tLeft.transform.localScale = tScale; }
 				
 				if(GSDRI.bLeftTurnYieldOnGreen){
-					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDSignYieldOnGreen.prefab", typeof(GameObject));
+					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDSignYieldOnGreen.prefab", typeof(GameObject));
 					tLeft_Sign = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
 					tLeft_Sign.transform.position = tObj.transform.TransformPoint(tLanePosL_Sign);
 					tLeft_Sign.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(-90f,90f,0f);
@@ -5014,7 +5029,7 @@ namespace GSD.Roads{
 				}
 			}
 			if(GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes){
-				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDTrafficLightRight.prefab", typeof(GameObject));
+				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightRight.prefab", typeof(GameObject));
 				tRight = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
 				tRight.transform.position = tObj.transform.TransformPoint(tLanePosR);
 				tRight.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f,90f,0f);
@@ -5031,7 +5046,7 @@ namespace GSD.Roads{
 			}
 			GameObject[] tLanes = new GameObject[LanesHalf];
 			for(int i=0;i<LanesHalf;i++){
-				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Mesh/RoadObj/Signs/GSDTrafficLightMain.prefab", typeof(GameObject));
+				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightMain.prefab", typeof(GameObject));
 				tLanes[i] = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
 				tLanes[i].transform.position = tObj.transform.TransformPoint(tLanePos[i]);
 				tLanes[i].transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f,90f,0f);
@@ -6128,7 +6143,7 @@ namespace GSD.Roads{
 			MeshFilter MF = iObj.GetComponent<MeshFilter>();
 			if(!MF){ MF = iObj.AddComponent<MeshFilter>(); }
 			MF.sharedMesh = tMesh;
-//			MeshToFile(MF,"Assets/RoadArchitect/Mesh/Intersections/" + tName +".obj");
+//			MeshToFile(MF,GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Intersections/" + tName +".obj");
 			
 			MeshCollider MC = iObj.GetComponent<MeshCollider>();
 			if(MC){ Object.DestroyImmediate(MC); }
@@ -6139,7 +6154,7 @@ namespace GSD.Roads{
 			if(!MR){ MR = iObj.AddComponent<MeshRenderer>(); }
             MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;            
             MR.receiveShadows = true;
-			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/GSDRoadIntersection.mat",MR);
+			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoadIntersection.mat",MR);
 		}
 	
 		private static void CreateIntersectionMesh_Outer(GSDRoadIntersection GSDRI,Vector3[] tVects, ref string tName){
@@ -6242,7 +6257,7 @@ namespace GSD.Roads{
 			if(!MF){ MF = iObj.AddComponent<MeshFilter>(); }
 			MF.sharedMesh = tMesh;
 			
-//			MeshToFile(MF,"Assets/RoadArchitect/Mesh/Intersections/" + tName +"-overlay.obj");
+//			MeshToFile(MF,GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Intersections/" + tName +"-overlay.obj");
 
 			MeshCollider MC = iObj.GetComponent<MeshCollider>();
 			if(MC){ Object.DestroyImmediate(MC); }
@@ -6253,7 +6268,7 @@ namespace GSD.Roads{
 			if(!MR){ MR = iObj.AddComponent<MeshRenderer>(); }
             MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             MR.receiveShadows = true;
-			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial("Assets/RoadArchitect/Materials/GSDInterText.mat",MR);
+			GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDInterText.mat",MR);
 		}
 
 		#region "Intersection creation"

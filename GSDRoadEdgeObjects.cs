@@ -273,7 +273,7 @@ namespace GSD.Roads.EdgeObjects{
 
             tSceneName = tSceneName.Replace("/","");
 			tSceneName = tSceneName.Replace(".","");
-			string tFolderName = "Assets/RoadArchitect/Mesh/Generated/CombinedEdgeObj/";
+			string tFolderName = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Generated/CombinedEdgeObj/";
 			string tRoadName = tNode.GSDSpline.tRoad.transform.name;
 			string FinalName = tFolderName + tSceneName + "-" + tRoadName + "-" + tName + ".asset";
 			if(bIsCollider){

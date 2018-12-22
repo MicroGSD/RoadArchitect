@@ -170,22 +170,22 @@ public class GSDRoadEditor : Editor {
 		EditorStyles.label.wordWrap = true;
 		
 		if(WarningLabelBG == null){
-			WarningLabelBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/WarningLabelBG.png",typeof(Texture2D)) as Texture2D;	
+			WarningLabelBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/WarningLabelBG.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(btnRefreshText == null){
-			btnRefreshText	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/refresh2.png",typeof(Texture)) as Texture;	
+			btnRefreshText	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh2.png",typeof(Texture)) as Texture;	
 		}
 		if(btnRefreshTextReal == null){
-			btnRefreshTextReal	= (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/refresh.png",typeof(Texture)) as Texture;	
+			btnRefreshTextReal	= (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh.png",typeof(Texture)) as Texture;	
 		}
 		if(LoadBtnBG == null){
-			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/otherbg.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(LoadBtnBGGlow == null){
-			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/otherbg2.png",typeof(Texture2D)) as Texture2D;	
+			LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg2.png",typeof(Texture2D)) as Texture2D;	
 		}
 		if(btnDeleteText == null){
-			btnDeleteText = (Texture)AssetDatabase.LoadAssetAtPath("Assets/RoadArchitect/Editor/Icons/delete.png",typeof(Texture)) as Texture;	
+			btnDeleteText = (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/delete.png",typeof(Texture)) as Texture;	
 		}
 		
 		if(WarningLabelStyle == null){

@@ -4,6 +4,7 @@ using System.Collections;
 #endif
  
 public class GSDRoadSystem : MonoBehaviour{
+    public static string AssetBasePath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "";
 	#if UNITY_EDITOR
 	
 	public bool opt_bMultithreading = true;
