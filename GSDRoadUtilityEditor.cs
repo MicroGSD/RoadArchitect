@@ -5,7 +5,6 @@ using System;
 using UnityEditor;
 #endif
 namespace GSD.Roads{
-	#if UNITY_EDITOR
 	public static class GSDRoadUtilityEditor{
         private static readonly string[] validFolders =
         {
@@ -28,7 +27,8 @@ namespace GSD.Roads{
             return "";
 #endif
         }
-		public static void SetRoadMaterial(string tPath, MeshRenderer MR, string tPath2 = ""){
+#if UNITY_EDITOR
+        public static void SetRoadMaterial(string tPath, MeshRenderer MR, string tPath2 = ""){
 			Material tMat2; 
 			
 			Material[] tMats;
@@ -53,6 +53,6 @@ namespace GSD.Roads{
 		public static PhysicMaterial GivePhysicsMaterial(string tPath){
 			return (PhysicMaterial)AssetDatabase.LoadAssetAtPath(tPath, typeof(PhysicMaterial));
 		}
-	}
 #endif
-        }
+    }
+ }

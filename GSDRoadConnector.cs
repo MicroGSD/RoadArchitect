@@ -10,10 +10,8 @@ public class GSDRoadConnector : MonoBehaviour
     public GSDSplineN connectedNode;
     [HideInInspector]
     public GSDOffRoadObject obj { get { return transform.parent.GetComponent<GSDOffRoadObject>();  } }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadColor;
@@ -24,6 +22,7 @@ public class GSDRoadConnector : MonoBehaviour
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadSelectedColor;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 6.25f, 0f), new Vector3(3.5f, 12.5f, 3.5f));
     }
+
     public void ConnectToNode(GSDSplineN node)
     {
         Debug.Log("Would connect to " + node);
@@ -31,6 +30,7 @@ public class GSDRoadConnector : MonoBehaviour
         connectedNode.transform.position = transform.position;
         connectedNode.GSDSpline.tRoad.UpdateRoad();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,6 +47,7 @@ public class GSDRoadConnector : MonoBehaviour
             }
         }
     }
+#endif
 }
 
 #if UNITY_EDITOR
