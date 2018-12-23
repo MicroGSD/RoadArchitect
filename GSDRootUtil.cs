@@ -277,7 +277,7 @@ namespace GSD{
 		}
 		
 		public static string Dir_GetLibraryBase(){
-			return Application.dataPath + "/RoadArchitect/Editor/Library/";
+			return GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Library/";
 		}
 		public static string Dir_GetLibrary(){
 			string xPath = Dir_GetLibraryBase();

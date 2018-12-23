@@ -355,9 +355,9 @@ public class GSDWizard : EditorWindow{
 	}
 	
 	public static void GetGroupListing(out string[] tNames, out string[] tPaths, int Lanes, bool bIsDefault = false){
-		if(xPath.Length < 5){
-			xPath = GSDRootUtil.Dir_GetLibrary();
-		}
+		
+		xPath = GSDRootUtil.Dir_GetLibrary();
+        Debug.Log(xPath);
 
 		string LaneText = "-2L";
 		if(Lanes == 4){
