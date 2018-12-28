@@ -4901,7 +4901,16 @@ namespace GSD.Roads{
 				if(tLR != null){ Object.DestroyImmediate(tLR); }
 			}
 		}
-		
+		private static void AdjustLightPrefab(GameObject tLight)
+        {
+            foreach(Light light in tLight.GetComponentsInChildren<Light>())
+            {
+                if(light.type == LightType.Point)
+                {
+                    light.flare = UnityEditor.AssetDatabase.LoadAssetAtPath<Flare>(GSDRoadUtilityEditor.GetBasePath() + "/Flares/GSDSodiumBulb.flare");
+                }
+            }
+        }
 		private static void ProcessPole(GameObject MasterGameObj, GameObject tObj, Vector3 tan, int tCorner, float InterDist){
 			GSDRoadIntersection GSDRI = MasterGameObj.GetComponent<GSDRoadIntersection>();
 			GSDSplineC tSpline = GSDRI.Node1.GSDSpline;
@@ -5004,7 +5013,8 @@ namespace GSD.Roads{
 					prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightLeft.prefab", typeof(GameObject));
 				}
 				tLeft = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
-				tLeft.transform.position = tObj.transform.TransformPoint(tLanePosL);
+                AdjustLightPrefab(tLeft);
+                tLeft.transform.position = tObj.transform.TransformPoint(tLanePosL);
 				tLeft.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f,90f,0f);
 				tLeft.transform.parent = tObj.transform;
 				tLeft.transform.name = "LightLeft";
@@ -5031,6 +5041,7 @@ namespace GSD.Roads{
 			if(GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes){
 				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightRight.prefab", typeof(GameObject));
 				tRight = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
+                AdjustLightPrefab(tRight);
 				tRight.transform.position = tObj.transform.TransformPoint(tLanePosR);
 				tRight.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f,90f,0f);
 				tRight.transform.parent = tObj.transform;
@@ -5048,7 +5059,8 @@ namespace GSD.Roads{
 			for(int i=0;i<LanesHalf;i++){
 				prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightMain.prefab", typeof(GameObject));
 				tLanes[i] = (GameObject)GameObject.Instantiate(prefab,Vector3.zero,Quaternion.identity);
-				tLanes[i].transform.position = tObj.transform.TransformPoint(tLanePos[i]);
+                AdjustLightPrefab(tLanes[i]);
+                tLanes[i].transform.position = tObj.transform.TransformPoint(tLanePos[i]);
 				tLanes[i].transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f,90f,0f);
 				tLanes[i].transform.parent = tObj.transform;
 				tLanes[i].transform.name = "Light" + i.ToString();
