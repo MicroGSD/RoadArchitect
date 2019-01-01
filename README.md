@@ -25,7 +25,7 @@ Road Architect is currently being developed with Unity 2018.2.0f1. If interested
 - Road Architect Tutorial #3: Intersections: http://youtu.be/05Pg7U1FHyg
 - Road Architect Tutorial #4: Extrusion & Edge Objects: http://youtu.be/jQT15NlWIV4
 - Road Architect Tutorial #5: Splatmap Creation: http://youtu.be/qy71HXR4VBg
-- Tutorial playlist: http://www.youtube.com/playlist?list=PLr4BO0oWm3C85qgyakKca4pGSAgZyS3nl
+- Tutorial playlist: https://www.youtube.com/playlist?list=PLnPqLrVfSAEIk_7Ug6IkknZCSW2GlR74g
 
 ## Intersections
 ![Intersections](ManualImages/Extra/SS6-640.jpg)
