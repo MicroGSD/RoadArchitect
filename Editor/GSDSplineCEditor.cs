@@ -1,13 +1,15 @@
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(GSDSplineC))] 
+[CustomEditor(typeof(GSDSplineC))]
 #endregion
-public class GSDSplineCEditor : Editor {
-	protected GSDSplineC tSpline { get { return (GSDSplineC) target; } }
+public class GSDSplineCEditor : Editor
+{
+    protected GSDSplineC tSpline { get { return (GSDSplineC)target; } }
 
     int browseNode = 0;
-	public override void OnInspectorGUI(){
+    public override void OnInspectorGUI()
+    {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Browse to node:", EditorStyles.boldLabel);
         browseNode = EditorGUILayout.IntField(browseNode);
@@ -17,5 +19,5 @@ public class GSDSplineCEditor : Editor {
                 Selection.objects = new Object[1] { tSpline.mNodes[browseNode] };
         }
         EditorGUILayout.EndHorizontal();
-	}
+    }
 }

@@ -9,7 +9,7 @@ public class GSDRoadConnector : MonoBehaviour
 {
     public GSDSplineN connectedNode;
     [HideInInspector]
-    public GSDOffRoadObject obj { get { return transform.parent.GetComponent<GSDOffRoadObject>();  } }
+    public GSDOffRoadObject obj { get { return transform.parent.GetComponent<GSDOffRoadObject>(); } }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()

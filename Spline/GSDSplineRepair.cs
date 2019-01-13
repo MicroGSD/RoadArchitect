@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEditor;
 #if UNITY_EDITOR
 [ExecuteInEditMode]
-public class GSDSplineRepair : MonoBehaviour {
+public class GSDSplineRepair : MonoBehaviour
+{
 
-	public void RemoveLastNode()
+    public void RemoveLastNode()
     {
         GSDSplineC spline = GetComponent<GSDSplineC>();
         spline.mNodes.RemoveAt(spline.mNodes.Count - 1);
