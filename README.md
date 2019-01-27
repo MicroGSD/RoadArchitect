@@ -1,21 +1,19 @@
 # RoadArchitect
-[![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MicroGSD/RoadArchitect/master/LICENSE.txt)
-[![Gitter](https://badges.gitter.im/RoadArchitect/Lobby.svg)](https://gitter.im/RoadArchitect/Lobby)
-[![GitHub release](https://img.shields.io/github/release/MicroGSD/RoadArchitect.svg)]()
-[![Gendarme issues](https://img.shields.io/badge/Gendarme_Issues-3056-red.svg)](https://djohns451.github.io/RoadArchitect/report.html)
-[![Github All Releases](https://img.shields.io/github/downloads/MicroGSD/RoadArchitect/total.svg)]()
-[![GitHub contributors](https://img.shields.io/github/contributors/MicroGSD/RoadArchitect.svg)]()
+[![GitHub release](https://img.shields.io/github/release/embeddedt/RoadArchitect.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/embeddedt/RoadArchitect/total.svg)]()
+[![GitHub contributors](https://img.shields.io/github/contributors/embeddedt/RoadArchitect.svg)]()
+[![Join the chat at https://gitter.im/NewRoadArchitect/community](https://badges.gitter.im/NewRoadArchitect/community.svg)](https://gitter.im/NewRoadArchitect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
 Road Architect is currently being developed with Unity 2018.2.0f1. If interested in contributing please open an issue or pull request.
 
-##
-- The recommended way to install Road Architect is to use the unity package on the releases page. 
-- https://github.com/MicroGSD/RoadArchitect/releases
-- Documentation https://github.com/MicroGSD/RoadArchitect/wiki/Documentation
-- Note: The Road Architect menu is located under the "Window" menu.
+- Currently, I recommend downloading the main git repository by either using `git clone https://github.com/embeddedt/RoadArchitect.git` or downloading a ZIP from GitHub.
+- The resulting folder should be copied to the root of your Assets directory and may need to be renamed to RoadArchitect (instead of RoadArchitect-master).
+- The previously recommended way to install Road Architect was to use the unity package on the releases page, but I have not yet made a release since forking from the original RoadArchitect in October 2018.
+- https://github.com/embeddedt/RoadArchitect/releases
+- Documentation https://github.com/embeddedt/RoadArchitect/wiki/Documentation
+   - Note: The Road Architect menu is located under the "Window" menu.
 
 ## Videos
 - Overview: https://www.youtube.com/watch?v=AUwud3XklJ8
@@ -27,28 +25,31 @@ Road Architect is currently being developed with Unity 2018.2.0f1. If interested
 - Road Architect Tutorial #5: Splatmap Creation: http://youtu.be/qy71HXR4VBg
 - Tutorial playlist: https://www.youtube.com/playlist?list=PLnPqLrVfSAEIk_7Ug6IkknZCSW2GlR74g
 
+**NOTE:** Unless stated otherwise, all screenshots were made using Unity 2018.2.2f1 Personal. They utilize free trees and grass from the Unity Asset Store, RoadArchitect, and the Unity Post-Processing Stack v1. No paid products were used in the production of these screenshots.
+
 ## Intersections
-![Intersections](ManualImages/Extra/SS6-640.jpg)
+![Newer intersection screenshot](ManualImages/Extra/newscreenshot1.PNG)
 - **Dynamic** - Procedurally generated based upon lanes, road width and angle of attack.
 - **Turn lanes** - Complete left and right optional turn lanes.
 - **Traffic lights** - Fully functioning and heavily detailed traffic light system including left on yield and right turn lane only lights.
 - **Assets** - Includes several assets such as traffic light poles, street lights, traffic lights, stop signs and more. Most include rigid body versions for dynamic environments.
 
 ## Bridges
-![Bridges](ManualImages/Extra/SS4-640.jpg)
+![Bridges](ManualImages/Extra/arch_bridge.PNG)
 - **Bridge wizard** - Allows for instant creation of professional quality bridges such as causeway, arch, suspension and more. All bridge creation aspects are generated instantly allowing quick iteration.
 - **Customization** - Custom extrusion allows for mix and match of bridge parts. Over 50 bridge parts included.
 - **Details** - Many different types of railing, bases, center dividers included.
 - **Curvature** - Curvature of bridges supported including arch and suspension bridges.
 
 ## Railing and extrusions
-![Railing](ManualImages/Extra/SS5-640.jpg)
+![Railing](ManualImages/Extra/wbeam.PNG)
 - **Railing** - 12+ Railing types included such as K-Rails and W Beams.
 - **Center dividers** - Many center divider options including the most popular configurations such as K-Rails with blinders or street lights. All aspects of mesh extrusion are performed instantly allowing quick iteration.
 - **Collision barriers** - Water barrels and other collision barriers come with prefabricated rigid or static body configurations.
 - **Custom extrusion** - Extrude any custom mesh along the spline with almost limitless customization.
 
 ## Assets
+NOTE: This screenshot has no other assets besides RoadArchitect.
 ![Assets](ManualImages/Extra/SS3-640.jpg)
 - **Road assets** - Several road assets are included such as street lights, double lights, stop signs and more. All aspects of road asset placement are done instantly, allowing for quick iterations.
 - **Custom assets** - Place any custom mesh along the spline with an extreme amount of customization options.
@@ -56,6 +57,6 @@ Road Architect is currently being developed with Unity 2018.2.0f1. If interested
 - **Future assets** - Assets will be added and freely available as time progresses.
 
 ## Quality
-![Quality](ManualImages/Extra/SS2-640.jpg)
+![Quality](ManualImages/Extra/quality_road.PNG)
 - **Speed** - All mesh extrusion, bridge extrusion and road asset placement actions are instantaneous. Optimized road generation results in an average 100ms per (2km road + 1 intersection). Multithreaded support.
 - **Quality** - Most road textures at least 1024x1024 resolution. Most materials include normal and specular maps. Most assets created to federal or state specification.

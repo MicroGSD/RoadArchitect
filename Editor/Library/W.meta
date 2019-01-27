@@ -1,8 +1,19 @@
+<<<<<<<< HEAD:Shaders.meta
 fileFormatVersion: 2
-guid: 8c4a55e9fee76414aa3b0134fa09bd29
+guid: 7d42bc0a1154d664bae2097c6de85c9d
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+========
+fileFormatVersion: 2
+guid: 5df0f6d52e103554f804331a0f6ac73f
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>>> 53c92c6... Merge with Embeddedt master:Editor/Library/W.meta

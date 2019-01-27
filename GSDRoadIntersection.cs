@@ -3,11 +3,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 #endregion
-
-
 public class GSDRoadIntersection : MonoBehaviour
 {
-#if UNITY_EDITOR
+
     public GSDSplineN Node1;
     public GSDSplineN Node2;
 
@@ -62,10 +60,9 @@ public class GSDRoadIntersection : MonoBehaviour
     public bool bNode2B_RightTurnLane = true;
     public bool bNode2F_LeftTurnLane = true;
     public bool bNode2F_RightTurnLane = true;
-#endif
 
-    public enum iIntersectionTypeEnum { StopSign_AllWay, TrafficLight1, None, TrafficLight2 };
-    public iIntersectionTypeEnum iDefaultIntersectionType = iIntersectionTypeEnum.StopSign_AllWay;
+    public enum iStopTypeEnum { StopSign_AllWay, TrafficLight1, None, TrafficLight2 };
+    public iStopTypeEnum iStopType = iStopTypeEnum.StopSign_AllWay;
     public bool bLightsEnabled = true;
     public bool bFlipped = false;
     public bool bLeftTurnYieldOnGreen = true;
@@ -74,13 +71,12 @@ public class GSDRoadIntersection : MonoBehaviour
     public enum LightTypeEnum { Timed, Sensors };
     public LightTypeEnum lType = LightTypeEnum.Timed;
 
-#if UNITY_EDITOR
     public bool bRegularPoleAlignment = true;
     public bool bTrafficPoleStreetLight = true;
     public bool bTrafficLightGray = false;
     public float StreetLight_Range = 30f;
     public float StreetLight_Intensity = 1f;
-    public Color StreetLight_Color = new Color( 1f, 0.7451f, 0.27451f, 1f );
+    public Color StreetLight_Color = new Color(1f, 0.7451f, 0.27451f, 1f);
 
     public float GradeMod = 0.375f;
     public float GradeModNegative = 0.75f;
@@ -100,18 +96,14 @@ public class GSDRoadIntersection : MonoBehaviour
         public Quaternion rotation;
         public Vector3 DirectionFromCenter;
     }
-
-
     public CornerPositionMaker[] CornerPoints;
 
     protected string UID; //Unique ID
-
-
     public void SetupUniqueIdentifier()
     {
         if (UID == null || UID.Length < 4)
         {
-            UID = System.Guid.NewGuid( ).ToString( );
+            UID = System.Guid.NewGuid().ToString();
         }
     }
 
@@ -146,7 +138,6 @@ public class GSDRoadIntersection : MonoBehaviour
     public float MaxInterDistanceSQ = 0f;
     public float Height = 50000f;
     public float SignHeight = -2000f;
-#endif
 
     //Traffic lights:
     public GSDTrafficLightController LightsRR;
@@ -191,8 +182,8 @@ public class GSDRoadIntersection : MonoBehaviour
         Node1.Intersection_OtherNode = Node2;
         Node2.Intersection_OtherNode = Node1;
 
-        Node1.ToggleHideFlags( true );
-        Node2.ToggleHideFlags( true );
+        Node1.ToggleHideFlags(true);
+        Node2.ToggleHideFlags(true);
 
         Node1UID = Node1.UID;
         Node2UID = Node2.UID;
@@ -202,27 +193,25 @@ public class GSDRoadIntersection : MonoBehaviour
         Node2.GSDRI = this;
     }
 
-
     public void DeleteRelevantChildren(GSDSplineN tNode, string tString)
     {
         int cCount = transform.childCount;
         for (int i = cCount - 1; i >= 0; i--)
         {
-            if (transform.GetChild( i ).name.ToLower( ).Contains( tString.ToLower( ) ))
+            if (transform.GetChild(i).name.ToLower().Contains(tString.ToLower()))
             {
-                Object.DestroyImmediate( transform.GetChild( i ).gameObject );
+                Object.DestroyImmediate(transform.GetChild(i).gameObject);
             }
             else if (tNode == Node1)
             {
-                if (transform.GetChild( i ).name.ToLower( ).Contains( "centermarkers" ))
+                if (transform.GetChild(i).name.ToLower().Contains("centermarkers"))
                 {
-                    Object.DestroyImmediate( transform.GetChild( i ).gameObject );
+                    Object.DestroyImmediate(transform.GetChild(i).gameObject);
                 }
             }
         }
     }
     #endregion
-
 
     #region "Utility"
     public void UpdateRoads()
@@ -233,57 +222,52 @@ public class GSDRoadIntersection : MonoBehaviour
             GSDSplineC[] tPiggys = new GSDSplineC[1];
             tPiggys[0] = Node2.GSDSpline;
             Node1.GSDSpline.tRoad.PiggyBacks = tPiggys;
-            Node1.GSDSpline.Setup_Trigger( );
+            Node1.GSDSpline.Setup_Trigger();
         }
         else
         {
-            Node1.GSDSpline.Setup_Trigger( );
+            Node1.GSDSpline.Setup_Trigger();
         }
 #endif
     }
 
     GSD.Roads.GSDRoadUtil.Construction2DRect BoundsRect;
-
-
     public void ConstructBoundsRect()
     {
         BoundsRect = null;
-        BoundsRect = new GSD.Roads.GSDRoadUtil.Construction2DRect( new Vector2( CornerRR.x, CornerRR.z ), new Vector2( CornerRL.x, CornerRL.z ), new Vector2( CornerLR.x, CornerLR.z ), new Vector2( CornerLL.x, CornerLL.z ) );
+        BoundsRect = new GSD.Roads.GSDRoadUtil.Construction2DRect(new Vector2(CornerRR.x, CornerRR.z), new Vector2(CornerRL.x, CornerRL.z), new Vector2(CornerLR.x, CornerLR.z), new Vector2(CornerLL.x, CornerLL.z));
     }
-
 
     public bool Contains(ref Vector3 tVect)
     {
-        Vector2 vVect = new Vector2( tVect.x, tVect.z );
-        if (BoundsRect == null)
-        { ConstructBoundsRect( ); }
-        return BoundsRect.Contains( ref vVect );
+        Vector2 vVect = new Vector2(tVect.x, tVect.z);
+        if (BoundsRect == null) { ConstructBoundsRect(); }
+        return BoundsRect.Contains(ref vVect);
     }
-
 
     private bool ContainsLineOld(Vector3 tVect1, Vector3 tVect2, int LineDef = 30)
     {
         int MaxDef = LineDef;
-        float MaxDefF = (float) MaxDef;
+        float MaxDefF = (float)MaxDef;
 
         Vector3[] tVects = new Vector3[MaxDef];
 
         tVects[0] = tVect1;
         float mMod = 0f;
         float fcounter = 1f;
-        for (int i = 1; i < ( MaxDef - 1 ); i++)
+        for (int i = 1; i < (MaxDef - 1); i++)
         {
             mMod = fcounter / MaxDefF;
-            tVects[i] = ( ( tVect2 - tVect1 ) * mMod ) + tVect1;
+            tVects[i] = ((tVect2 - tVect1) * mMod) + tVect1;
             fcounter += 1f;
         }
         tVects[MaxDef - 1] = tVect2;
 
-        Vector2 xVect = default( Vector2 );
+        Vector2 xVect = default(Vector2);
         for (int i = 0; i < MaxDef; i++)
         {
-            xVect = new Vector2( tVects[i].x, tVects[i].z );
-            if (BoundsRect.Contains( ref xVect ))
+            xVect = new Vector2(tVects[i].x, tVects[i].z);
+            if (BoundsRect.Contains(ref xVect))
             {
                 return true;
             }
@@ -291,24 +275,19 @@ public class GSDRoadIntersection : MonoBehaviour
         return false;
     }
 
-
     public bool ContainsLine(Vector3 tVect1, Vector3 tVect2)
     {
-        Vector2 tVectStart = new Vector2( tVect1.x, tVect1.z );
-        Vector2 tVectEnd = new Vector2( tVect2.x, tVect2.z );
-        bool bIntersects = Intersects2D( ref tVectStart, ref tVectEnd, ref CornerRR_2D, ref CornerRL_2D );
-        if (bIntersects)
-        { return true; }
-        bIntersects = Intersects2D( ref tVectStart, ref tVectEnd, ref CornerRL_2D, ref CornerLL_2D );
-        if (bIntersects)
-        { return true; }
-        bIntersects = Intersects2D( ref tVectStart, ref tVectEnd, ref CornerLL_2D, ref CornerLR_2D );
-        if (bIntersects)
-        { return true; }
-        bIntersects = Intersects2D( ref tVectStart, ref tVectEnd, ref CornerLR_2D, ref CornerRR_2D );
+        Vector2 tVectStart = new Vector2(tVect1.x, tVect1.z);
+        Vector2 tVectEnd = new Vector2(tVect2.x, tVect2.z);
+        bool bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerRR_2D, ref CornerRL_2D);
+        if (bIntersects) { return true; }
+        bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerRL_2D, ref CornerLL_2D);
+        if (bIntersects) { return true; }
+        bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerLL_2D, ref CornerLR_2D);
+        if (bIntersects) { return true; }
+        bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerLR_2D, ref CornerRR_2D);
         return bIntersects;
     }
-
 
     // Returns true if the lines intersect, otherwise false. If the lines
     // intersect, intersectionPoint holds the intersection point.
@@ -323,8 +302,8 @@ public class GSDRoadIntersection : MonoBehaviour
         secondLineSlopeY = Line2E.y - Line2S.y;
 
         float s, t;
-        s = ( -firstLineSlopeY * ( Line1S.x - Line2S.x ) + firstLineSlopeX * ( Line1S.y - Line2S.y ) ) / ( -secondLineSlopeX * firstLineSlopeY + firstLineSlopeX * secondLineSlopeY );
-        t = ( secondLineSlopeX * ( Line1S.y - Line2S.y ) - secondLineSlopeY * ( Line1S.x - Line2S.x ) ) / ( -secondLineSlopeX * firstLineSlopeY + firstLineSlopeX * secondLineSlopeY );
+        s = (-firstLineSlopeY * (Line1S.x - Line2S.x) + firstLineSlopeX * (Line1S.y - Line2S.y)) / (-secondLineSlopeX * firstLineSlopeY + firstLineSlopeX * secondLineSlopeY);
+        t = (secondLineSlopeX * (Line1S.y - Line2S.y) - secondLineSlopeY * (Line1S.x - Line2S.x)) / (-secondLineSlopeX * firstLineSlopeY + firstLineSlopeX * secondLineSlopeY);
 
         if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
         {
@@ -335,14 +314,12 @@ public class GSDRoadIntersection : MonoBehaviour
 
     #endregion
 
-
     #region "Gizmos"
     void OnDrawGizmos()
     {
-        if (!bDrawGizmo)
-        { return; }
+        if (!bDrawGizmo) { return; }
         Gizmos.color = Color.blue;
-        Gizmos.DrawCube( transform.position + new Vector3( 0f, 5f, 0f ), new Vector3( 2f, 11f, 2f ) );
+        Gizmos.DrawCube(transform.position + new Vector3(0f, 5f, 0f), new Vector3(2f, 11f, 2f));
     }
     #endregion
 #endif
@@ -350,14 +327,14 @@ public class GSDRoadIntersection : MonoBehaviour
     #region "Traffic light controlling"
     void Start()
     {
-        LightsRR.Setup( bLeftTurnYieldOnGreen );
-        LightsRL.Setup( bLeftTurnYieldOnGreen );
-        LightsLL.Setup( bLeftTurnYieldOnGreen );
-        LightsLR.Setup( bLeftTurnYieldOnGreen );
+        LightsRR.Setup(bLeftTurnYieldOnGreen);
+        LightsRL.Setup(bLeftTurnYieldOnGreen);
+        LightsLL.Setup(bLeftTurnYieldOnGreen);
+        LightsLR.Setup(bLeftTurnYieldOnGreen);
         if (lType == LightTypeEnum.Timed)
         {
-            CreateFixedSequence( );
-            FixedTime_Increment( );
+            CreateFixedSequence();
+            FixedTime_Increment();
         }
         else
         {
@@ -366,53 +343,36 @@ public class GSDRoadIntersection : MonoBehaviour
         }
     }
 
-
     private void CreateFixedSequence()
     {
-        GSDTrafficLightSequence SMaker = null;
-        FixedTimeSequenceList = new List<GSDTrafficLightSequence>( );
-        if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength ); FixedTimeSequenceList.Add( SMaker ); }
-        if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength ); FixedTimeSequenceList.Add( SMaker ); }
-        SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength );
-        FixedTimeSequenceList.Add( SMaker );
+        GSDTrafficLightSequence SMaker = null; FixedTimeSequenceList = new List<GSDTrafficLightSequence>();
+        if (rType != RoadTypeEnum.NoTurnLane) { SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength); FixedTimeSequenceList.Add(SMaker); }
+        if (rType != RoadTypeEnum.NoTurnLane) { SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker); }
+        SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength); FixedTimeSequenceList.Add(SMaker);
 
-        if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence( false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength ); FixedTimeSequenceList.Add( SMaker ); }
-        if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence( false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength ); FixedTimeSequenceList.Add( SMaker ); }
-        SMaker = new GSDTrafficLightSequence( true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( false, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( false, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength );
-        FixedTimeSequenceList.Add( SMaker );
-        SMaker = new GSDTrafficLightSequence( false, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength );
-        FixedTimeSequenceList.Add( SMaker );
+        if (rType != RoadTypeEnum.NoTurnLane) { SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength); FixedTimeSequenceList.Add(SMaker); }
+        if (rType != RoadTypeEnum.NoTurnLane) { SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker); }
+        SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker);
+        SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength); FixedTimeSequenceList.Add(SMaker);
     }
-
 
     private IEnumerator TrafficLightFixedUpdate(float tTime)
     {
-        yield return new WaitForSeconds( tTime );
-        FixedTime_Increment( );
+        yield return new WaitForSeconds(tTime);
+        FixedTime_Increment();
     }
-
 
     int FixedTimeIndex = 0;
     private void FixedTime_Increment()
     {
         GSDTrafficLightSequence SMaker = FixedTimeSequenceList[FixedTimeIndex];
         FixedTimeIndex += 1;
-        if (FixedTimeIndex > ( FixedTimeSequenceList.Count - 1 ))
-        { FixedTimeIndex = 0; }
+        if (FixedTimeIndex > (FixedTimeSequenceList.Count - 1)) { FixedTimeIndex = 0; }
 
         GSDTrafficLightController Lights1 = null;
         GSDTrafficLightController Lights2 = null;
@@ -458,43 +418,41 @@ public class GSDRoadIntersection : MonoBehaviour
 
         if (LCE == GSDTrafficLightController.iLightControllerEnum.Regular)
         {
-            Lights1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Regular, LCESub, bLightsEnabled );
-            Lights2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Regular, LCESub, bLightsEnabled );
-            Lights_outer1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
-            Lights_outer2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
+            Lights1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Regular, LCESub, bLightsEnabled);
+            Lights2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Regular, LCESub, bLightsEnabled);
+            Lights_outer1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
+            Lights_outer2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
         }
         else if (LCE == GSDTrafficLightController.iLightControllerEnum.LeftTurn)
         {
-            Lights1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.LeftTurn, LCESub, bLightsEnabled );
-            Lights2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.LeftTurn, LCESub, bLightsEnabled );
-            Lights_outer1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.RightTurn, LCESub, bLightsEnabled );
-            Lights_outer2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.RightTurn, LCESub, bLightsEnabled );
+            Lights1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.LeftTurn, LCESub, bLightsEnabled);
+            Lights2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.LeftTurn, LCESub, bLightsEnabled);
+            Lights_outer1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.RightTurn, LCESub, bLightsEnabled);
+            Lights_outer2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.RightTurn, LCESub, bLightsEnabled);
         }
         else if (LCE == GSDTrafficLightController.iLightControllerEnum.Red)
         {
-            Lights1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
-            Lights2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
-            Lights_outer1.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
-            Lights_outer2.UpdateLights( GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled );
+            Lights1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
+            Lights2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
+            Lights_outer1.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
+            Lights_outer2.UpdateLights(GSDTrafficLightController.iLightStatusEnum.Red, LCESub, bLightsEnabled);
         }
 
         //		Debug.Log ("Starting: " + SMaker.ToString());
-        StartCoroutine( TrafficLightFixedUpdate( SMaker.tTime ) );
+        StartCoroutine(TrafficLightFixedUpdate(SMaker.tTime));
     }
     #endregion
-
 
 #if UNITY_EDITOR
     #region "Materials"
     public void ResetMaterials_All()
     {
-        ResetMaterials_Center( false );
-        ResetMaterials_Ext_Stretched( false );
-        ResetMaterials_Ext_Tiled( false );
-        ResetMaterials_Lanes( false );
-        UpdateMaterials( );
+        ResetMaterials_Center(false);
+        ResetMaterials_Ext_Stretched(false);
+        ResetMaterials_Ext_Tiled(false);
+        ResetMaterials_Lanes(false);
+        UpdateMaterials();
     }
-
 
     public void ResetMaterials_Center(bool bUpdate = true)
     {
@@ -521,27 +479,24 @@ public class GSDRoadIntersection : MonoBehaviour
 
         if (rType == RoadTypeEnum.BothTurnLanes)
         {
-            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterCenter-Both" + tLanes + ".mat" );
+            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-Both" + tLanes + ".mat");
             MarkerCenter2 = null;
             MarkerCenter3 = null;
         }
         else if (rType == RoadTypeEnum.TurnLane)
         {
-            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterCenter-Left" + tLanes + ".mat" );
+            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-Left" + tLanes + ".mat");
             MarkerCenter2 = null;
             MarkerCenter3 = null;
         }
         else if (rType == RoadTypeEnum.NoTurnLane)
         {
-            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterCenter-None" + tLanes + ".mat" );
+            MarkerCenter1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterCenter-None" + tLanes + ".mat");
             MarkerCenter2 = null;
             MarkerCenter3 = null;
         }
-        if (bUpdate)
-        { UpdateMaterials( ); }
+        if (bUpdate) { UpdateMaterials(); }
     }
-
-
     public void ResetMaterials_Ext_Stretched(bool bUpdate = true)
     {
         string tLanes = "-2L";
@@ -557,51 +512,47 @@ public class GSDRoadIntersection : MonoBehaviour
 
         if (rType == RoadTypeEnum.BothTurnLanes)
         {
-            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterStretch-Both" + tLanes + ".mat" );
+            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-Both" + tLanes + ".mat");
             MarkerExt_Stretch2 = null;
             MarkerExt_Stretch3 = null;
         }
         else if (rType == RoadTypeEnum.TurnLane)
         {
-            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterStretch-Left" + tLanes + ".mat" );
+            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-Left" + tLanes + ".mat");
             MarkerExt_Stretch2 = null;
             MarkerExt_Stretch3 = null;
         }
         else if (rType == RoadTypeEnum.NoTurnLane)
         {
-            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterStretch-None" + tLanes + ".mat" );
+            MarkerExt_Stretch1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterStretch-None" + tLanes + ".mat");
             MarkerExt_Stretch2 = null;
             MarkerExt_Stretch3 = null;
         }
-        if (bUpdate)
-        { UpdateMaterials( ); }
+        if (bUpdate) { UpdateMaterials(); }
     }
-
 
     public void ResetMaterials_Ext_Tiled(bool bUpdate = true)
     {
         if (rType == RoadTypeEnum.BothTurnLanes)
         {
-            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/GSDRoad1.mat" );
-            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat" );
+            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
             MarkerExt_Tiled3 = null;
         }
         else if (rType == RoadTypeEnum.TurnLane)
         {
-            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/GSDRoad1.mat" );
-            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat" );
+            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
             MarkerExt_Tiled3 = null;
         }
         else if (rType == RoadTypeEnum.NoTurnLane)
         {
-            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/GSDRoad1.mat" );
-            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDRoadDetailOverlay1.mat" );
+            MarkerExt_Tiled1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoad1.mat");
+            MarkerExt_Tiled2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDRoadDetailOverlay1.mat");
             MarkerExt_Tiled3 = null;
         }
-        if (bUpdate)
-        { UpdateMaterials( ); }
+        if (bUpdate) { UpdateMaterials(); }
     }
-
 
     public void ResetMaterials_Lanes(bool bUpdate = true)
     {
@@ -618,13 +569,13 @@ public class GSDRoadIntersection : MonoBehaviour
 
         if (iType == IntersectionTypeEnum.ThreeWay)
         {
-            Lane1Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabled.mat" );
+            Lane1Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabled.mat");
             Lane1Mat2_Disabled = null;
             if (rType == RoadTypeEnum.BothTurnLanes)
             {
-                Lane1Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterRR.mat" );
+                Lane1Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterRR.mat");
                 Lane1Mat2_DisabledActive = null;
-                Lane2Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledR.mat" );
+                Lane2Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledR.mat");
                 Lane2Mat2_Disabled = null;
             }
             else
@@ -634,13 +585,13 @@ public class GSDRoadIntersection : MonoBehaviour
                 Lane2Mat1_DisabledActive = null;
                 Lane2Mat2_DisabledActive = null;
             }
-            Lane2Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuter" + tLanes + ".mat" );
+            Lane2Mat1_DisabledActive = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuter" + tLanes + ".mat");
             Lane2Mat2_DisabledActive = null;
             if (rType == RoadTypeEnum.BothTurnLanes)
             {
-                Lane2Mat1_DisabledActiveR = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledOuterR.mat" );
+                Lane2Mat1_DisabledActiveR = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledOuterR.mat");
                 Lane2Mat2_DisabledActiveR = null;
-                Lane3Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterLaneDisabledR.mat" );
+                Lane3Mat1_Disabled = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterLaneDisabledR.mat");
                 Lane3Mat2_Disabled = null;
             }
             else
@@ -667,31 +618,31 @@ public class GSDRoadIntersection : MonoBehaviour
 
         if (rType == RoadTypeEnum.BothTurnLanes)
         {
-            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat" );
+            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
             Lane0Mat2 = null;
-            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat" );
+            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
             Lane1Mat2 = null;
-            Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat" );
+            Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
             Lane2Mat2 = null;
-            Lane3Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR.mat" );
+            Lane3Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR.mat");
             Lane3Mat2 = null;
         }
         else if (rType == RoadTypeEnum.TurnLane)
         {
-            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat" );
+            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
             Lane0Mat2 = null;
-            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR.mat" );
+            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR.mat");
             Lane1Mat2 = null;
-            Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat" );
+            Lane2Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteR" + tLanes + ".mat");
             Lane2Mat2 = null;
             Lane3Mat1 = null;
             Lane3Mat2 = null;
         }
         else if (rType == RoadTypeEnum.NoTurnLane)
         {
-            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat" );
+            Lane0Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterWhiteLYellowR" + tLanes + ".mat");
             Lane0Mat2 = null;
-            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Markers/GSDInterYellowLWhiteR" + tLanes + ".mat" );
+            Lane1Mat1 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDInterYellowLWhiteR" + tLanes + ".mat");
             Lane1Mat2 = null;
             Lane2Mat1 = null;
             Lane2Mat2 = null;
@@ -699,104 +650,87 @@ public class GSDRoadIntersection : MonoBehaviour
             Lane3Mat2 = null;
         }
 
-        if (bUpdate)
-        { UpdateMaterials( ); }
+        if (bUpdate) { UpdateMaterials(); }
     }
-
 
     public void UpdateMaterials()
     {
-        UpdateMaterials_Do( );
+        UpdateMaterials_Do();
     }
-
-
     private void UpdateMaterials_Do()
     {
         int cCount = transform.childCount;
-        List<MeshRenderer> MR_Ext_Stretch = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_Ext_Tiled = new List<MeshRenderer>( );
+        List<MeshRenderer> MR_Ext_Stretch = new List<MeshRenderer>();
+        List<MeshRenderer> MR_Ext_Tiled = new List<MeshRenderer>();
         MeshRenderer MR_Center = null;
-        List<MeshRenderer> MR_Lane0 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_Lane1 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_Lane2 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_Lane3 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneD1 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneD3 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneDA2 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneDAR2 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneD2 = new List<MeshRenderer>( );
-        List<MeshRenderer> MR_LaneDA1 = new List<MeshRenderer>( );
+        List<MeshRenderer> MR_Lane0 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_Lane1 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_Lane2 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_Lane3 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneD1 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneD3 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneDA2 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneDAR2 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneD2 = new List<MeshRenderer>();
+        List<MeshRenderer> MR_LaneDA1 = new List<MeshRenderer>();
 
         string tTransName = "";
         for (int i = 0; i < cCount; i++)
         {
-            tTransName = transform.GetChild( i ).name.ToLower( );
-            if (tTransName.Contains( "-stretchext" ))
+            tTransName = transform.GetChild(i).name.ToLower();
+            if (tTransName.Contains("-stretchext"))
             {
-                MR_Ext_Stretch.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Ext_Stretch.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
-            if (tTransName.Contains( "-tiledext" ))
+            if (tTransName.Contains("-tiledext"))
             {
-                MR_Ext_Tiled.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Ext_Tiled.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
-            if (tTransName.Contains( "centermarkers" ))
+            if (tTransName.Contains("centermarkers"))
             {
-                MR_Center = transform.GetChild( i ).GetComponent<MeshRenderer>( );
-                continue;
+                MR_Center = transform.GetChild(i).GetComponent<MeshRenderer>(); continue;
             }
-            if (tTransName.Contains( "lane0" ))
+            if (tTransName.Contains("lane0"))
             {
-                MR_Lane0.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Lane0.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
-            if (tTransName.Contains( "lane1" ))
+            if (tTransName.Contains("lane1"))
             {
-                MR_Lane1.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Lane1.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
-            if (tTransName.Contains( "lane2" ))
+            if (tTransName.Contains("lane2"))
             {
-                MR_Lane2.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Lane2.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
-            if (tTransName.Contains( "lane3" ))
+            if (tTransName.Contains("lane3"))
             {
-                MR_Lane3.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                continue;
+                MR_Lane3.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
             }
             if (iType == IntersectionTypeEnum.ThreeWay)
             {
-                if (tTransName.Contains( "laned1" ))
+                if (tTransName.Contains("laned1"))
                 {
-                    MR_LaneD1.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneD1.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
-                if (tTransName.Contains( "laned3" ))
+                if (tTransName.Contains("laned3"))
                 {
-                    MR_LaneD3.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneD3.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
-                if (tTransName.Contains( "laneda2" ))
+                if (tTransName.Contains("laneda2"))
                 {
-                    MR_LaneDA2.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneDA2.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
-                if (tTransName.Contains( "lanedar2" ))
+                if (tTransName.Contains("lanedar2"))
                 {
-                    MR_LaneDAR2.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneDAR2.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
-                if (tTransName.Contains( "laned2" ))
+                if (tTransName.Contains("laned2"))
                 {
-                    MR_LaneD2.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneD2.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
-                if (tTransName.Contains( "laneda1" ))
+                if (tTransName.Contains("laneda1"))
                 {
-                    MR_LaneDA1.Add( transform.GetChild( i ).GetComponent<MeshRenderer>( ) );
-                    continue;
+                    MR_LaneDA1.Add(transform.GetChild(i).GetComponent<MeshRenderer>()); continue;
                 }
             }
         }
@@ -1203,17 +1137,16 @@ public class GSDRoadIntersection : MonoBehaviour
     }
     #endregion
 
-
     public void ToggleTrafficLightPoleColor()
     {
         Material TrafficLightMaterial = null;
         if (bTrafficLightGray)
         {
-            TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Signs/GSDInterTLB2.mat" );
+            TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB2.mat");
         }
         else
         {
-            TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial( "Assets/RoadArchitect/Materials/Signs/GSDInterTLB1.mat" );
+            TrafficLightMaterial = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB1.mat");
         }
         int cCount = transform.childCount;
         string tName = "";
@@ -1222,15 +1155,14 @@ public class GSDRoadIntersection : MonoBehaviour
         tMats[0] = TrafficLightMaterial;
         for (int i = 0; i < cCount; i++)
         {
-            tName = transform.GetChild( i ).name.ToLower( );
-            if (tName.Contains( "trafficlight" ))
+            tName = transform.GetChild(i).name.ToLower();
+            if (tName.Contains("trafficlight"))
             {
-                MR = transform.GetChild( i ).GetComponent<MeshRenderer>( );
+                MR = transform.GetChild(i).GetComponent<MeshRenderer>();
                 MR.materials = tMats;
             }
         }
     }
-
 
     public void TogglePointLights(bool _bLightsEnabled)
     {
@@ -1240,15 +1172,15 @@ public class GSDRoadIntersection : MonoBehaviour
         Transform tTrans = null;
         for (int i = 0; i < cCount; i++)
         {
-            if (transform.GetChild( i ).name.ToLower( ).Contains( "trafficlight" ))
+            if (transform.GetChild(i).name.ToLower().Contains("trafficlight"))
             {
-                tTrans = transform.GetChild( i );
+                tTrans = transform.GetChild(i);
                 int kCount = tTrans.childCount;
                 for (int k = 0; k < kCount; k++)
                 {
-                    if (tTrans.GetChild( k ).name.ToLower( ).Contains( "streetlight" ))
+                    if (tTrans.GetChild(k).name.ToLower().Contains("streetlight"))
                     {
-                        fLights = tTrans.GetChild( k ).GetComponentsInChildren<Light>( );
+                        fLights = tTrans.GetChild(k).GetComponentsInChildren<Light>();
                         if (fLights != null)
                         {
                             for (int j = 0; j < fLights.Length; j++)
@@ -1267,15 +1199,13 @@ public class GSDRoadIntersection : MonoBehaviour
         }
     }
 
-
     public void ResetStreetLightSettings()
     {
         StreetLight_Range = 30f;
         StreetLight_Intensity = 1f;
-        StreetLight_Color = new Color( 1f, 0.7451f, 0.27451f, 1f );
-        TogglePointLights( bLightsEnabled );
+        StreetLight_Color = new Color(1f, 0.7451f, 0.27451f, 1f);
+        TogglePointLights(bLightsEnabled);
     }
-
 
 #endif
 }

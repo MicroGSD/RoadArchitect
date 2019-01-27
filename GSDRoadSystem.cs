@@ -3,38 +3,37 @@ using UnityEngine;
 using System.Collections;
 #endif
 
-
 public class GSDRoadSystem : MonoBehaviour
 {
+    public static string AssetBasePath = GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "";
 #if UNITY_EDITOR
 
     public bool opt_bMultithreading = true;
     public bool opt_bSaveMeshes = false;
     public bool opt_bAllowRoadUpdates = true;
 
-
     public GameObject AddRoad(bool bForceSelect = false)
     {
-        Object[] tObj = GameObject.FindObjectsOfType( typeof( GSDRoad ) );
-        int NewRoadNumber = ( tObj.Length + 1 );
+        GSDRoad[] tObj = GetComponentsInChildren<GSDRoad>();
+        int NewRoadNumber = (tObj.Length + 1);
 
         //Road:
-        GameObject tRoadObj = new GameObject( "Road" + NewRoadNumber.ToString( ) );
-        UnityEditor.Undo.RegisterCreatedObjectUndo( tRoadObj, "Created road" );
+        GameObject tRoadObj = new GameObject("Road" + NewRoadNumber.ToString());
+        UnityEditor.Undo.RegisterCreatedObjectUndo(tRoadObj, "Created road");
         tRoadObj.transform.parent = transform;
-        GSDRoad tRoad = tRoadObj.AddComponent<GSDRoad>( );
+        GSDRoad tRoad = tRoadObj.AddComponent<GSDRoad>();
 
         //Spline:
-        GameObject tSplineObj = new GameObject( "Spline" );
+        GameObject tSplineObj = new GameObject("Spline");
         tSplineObj.transform.parent = tRoad.transform;
-        tRoad.GSDSpline = tSplineObj.AddComponent<GSDSplineC>( );
+        tRoad.GSDSpline = tSplineObj.AddComponent<GSDSplineC>();
         tRoad.GSDSpline.mSplineRoot = tSplineObj;
         tRoad.GSDSpline.tRoad = tRoad;
         tRoad.GSDSplineObj = tSplineObj;
         tRoad.GSDRS = this;
-        tRoad.SetupUniqueIdentifier( );
+        tRoad.SetupUniqueIdentifier();
 
-        tRoad.ConstructRoad_ResetTerrainHistory( );
+        tRoad.ConstructRoad_ResetTerrainHistory();
 
         if (bForceSelect)
         {
@@ -44,15 +43,12 @@ public class GSDRoadSystem : MonoBehaviour
         return tRoadObj;
     }
 
-
     public Camera EditorPlayCamera = null;
-
-
     public void EditorCameraSetSingle()
     {
         if (EditorPlayCamera == null)
         {
-            Camera[] EditorCams = (Camera[]) GameObject.FindObjectsOfType( typeof( Camera ) );
+            Camera[] EditorCams = (Camera[])GameObject.FindObjectsOfType(typeof(Camera));
             if (EditorCams != null && EditorCams.Length == 1)
             {
                 EditorPlayCamera = EditorCams[0];
@@ -60,10 +56,9 @@ public class GSDRoadSystem : MonoBehaviour
         }
     }
 
-
     public void UpdateAllRoads()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[]) GameObject.FindObjectsOfType( typeof( GSDRoad ) );
+        GSDRoad[] tRoadObjs = GetComponentsInChildren<GSDRoad>();
         //		int i=0;
 
         int RoadCount = tRoadObjs.Length;
@@ -85,14 +80,13 @@ public class GSDRoadSystem : MonoBehaviour
         {
             tRoad.PiggyBacks = tPiggys;
         }
-        tRoad.UpdateRoad( );
+        tRoad.UpdateRoad();
     }
-
 
     //Workaround for submission rules:
     public void UpdateAllRoads_MultiThreadOptions()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[]) GameObject.FindObjectsOfType( typeof( GSDRoad ) );
+        GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
         int RoadCount = tRoadObjs.Length;
         GSDRoad tRoad = null;
         for (int h = 0; h < RoadCount; h++)
@@ -104,12 +98,10 @@ public class GSDRoadSystem : MonoBehaviour
             }
         }
     }
-    
-    
     //Workaround for submission rules:
     public void UpdateAllRoads_SaveMeshesAsAssetsOptions()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[]) GameObject.FindObjectsOfType( typeof( GSDRoad ) );
+        GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
         int RoadCount = tRoadObjs.Length;
         GSDRoad tRoad = null;
         for (int h = 0; h < RoadCount; h++)

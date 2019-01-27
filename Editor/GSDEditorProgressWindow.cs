@@ -3,7 +3,6 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-
 /// <summary>
 /// Used for progress information for other areas of RA.
 /// </summary>
@@ -13,45 +12,43 @@ public class GSDEditorProgressWindow : EditorWindow
     float startVal = 0f;
     float progress = 0f;
 
-
 #if UNITY_EDITOR
     static void Init()
     {
-        GSDEditorProgressWindow window = (GSDEditorProgressWindow) EditorWindow.GetWindow( typeof( GSDEditorProgressWindow ) );
-        window.Show( );
+        GSDEditorProgressWindow window = (GSDEditorProgressWindow)EditorWindow.GetWindow(typeof(GSDEditorProgressWindow));
+        window.Show();
     }
 #endif
-
 
 #if UNITY_EDITOR
     void OnGUI()
     {
-        secs = EditorGUILayout.FloatField( "Time to wait:", secs );
-        if (GUILayout.Button( "Display bar" ))
+        secs = EditorGUILayout.FloatField("Time to wait:", secs);
+        if (GUILayout.Button("Display bar"))
         {
             if (secs < 1)
             {
-                Debug.LogError( "Seconds should be bigger than 1" );
+                Debug.LogError("Seconds should be bigger than 1");
                 return;
             }
-            startVal = (float) EditorApplication.timeSinceStartup;
+            startVal = (float)EditorApplication.timeSinceStartup;
         }
 
         if (progress < secs)
             EditorUtility.DisplayProgressBar(
                 "Simple Progress Bar",
                 "Shows a progress bar for the given seconds",
-                progress / secs );
+                progress / secs);
         else
-            EditorUtility.ClearProgressBar( );
+            EditorUtility.ClearProgressBar();
 
-        progress = (float) ( EditorApplication.timeSinceStartup - startVal );
+        progress = (float)(EditorApplication.timeSinceStartup - startVal);
     }
 
 
     void OnInspectorUpdate()
     {
-        Repaint( );
+        Repaint();
     }
 #endif
 }

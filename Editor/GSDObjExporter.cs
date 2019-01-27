@@ -11,7 +11,6 @@ http://wiki.unity3d.com/index.php?title=ObjExporter
 http://wiki.unity3d.com/index.php/User:KeliHlodversson
 */
 
-
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -20,13 +19,11 @@ using System.IO;
 using System.Text;
 using System;
 
-
 struct ObjMaterial
 {
     public string name;
     public string textureName;
 }
-
 
 public class GSDObjExporter : ScriptableObject
 {
@@ -39,59 +36,58 @@ public class GSDObjExporter : ScriptableObject
     //the reader.
     private static string targetFolder = "ExportedObj";
 
-
     private static string MeshToString(MeshFilter mf, Dictionary<string, ObjMaterial> materialList)
     {
         Mesh m = mf.sharedMesh;
-        Renderer rend = mf.GetComponent<Renderer>( );
+        Renderer rend = mf.GetComponent<Renderer>();
         //Material[] mats = mf.renderer.sharedMaterials;
         Material[] mats = rend.sharedMaterials;
 
-        StringBuilder sb = new StringBuilder( );
+        StringBuilder sb = new StringBuilder();
 
-        sb.Append( "g " ).Append( mf.name ).Append( "\n" );
+        sb.Append("g ").Append(mf.name).Append("\n");
         foreach (Vector3 lv in m.vertices)
         {
-            Vector3 wv = mf.transform.TransformPoint( lv );
+            Vector3 wv = mf.transform.TransformPoint(lv);
 
             //This is sort of ugly - inverting x-component since we're in
             //a different coordinate system than "everyone" is "used to".
-            sb.Append( string.Format( "v {0} {1} {2}\n", -wv.x, wv.y, wv.z ) );
+            sb.Append(string.Format("v {0} {1} {2}\n", -wv.x, wv.y, wv.z));
         }
-        sb.Append( "\n" );
+        sb.Append("\n");
 
         foreach (Vector3 lv in m.normals)
         {
-            Vector3 wv = mf.transform.TransformDirection( lv );
+            Vector3 wv = mf.transform.TransformDirection(lv);
 
-            sb.Append( string.Format( "vn {0} {1} {2}\n", -wv.x, wv.y, wv.z ) );
+            sb.Append(string.Format("vn {0} {1} {2}\n", -wv.x, wv.y, wv.z));
         }
-        sb.Append( "\n" );
+        sb.Append("\n");
 
         foreach (Vector3 v in m.uv)
         {
-            sb.Append( string.Format( "vt {0} {1}\n", v.x, v.y ) );
+            sb.Append(string.Format("vt {0} {1}\n", v.x, v.y));
         }
 
         for (int material = 0; material < m.subMeshCount; material++)
         {
-            sb.Append( "\n" );
-            sb.Append( "usemtl " ).Append( mats[material].name ).Append( "\n" );
-            sb.Append( "usemap " ).Append( mats[material].name ).Append( "\n" );
+            sb.Append("\n");
+            sb.Append("usemtl ").Append(mats[material].name).Append("\n");
+            sb.Append("usemap ").Append(mats[material].name).Append("\n");
 
             //See if this material is already in the materiallist.
             try
             {
-                ObjMaterial objMaterial = new ObjMaterial( );
+                ObjMaterial objMaterial = new ObjMaterial();
 
                 objMaterial.name = mats[material].name;
 
                 if (mats[material].mainTexture)
-                    objMaterial.textureName = AssetDatabase.GetAssetPath( mats[material].mainTexture );
+                    objMaterial.textureName = AssetDatabase.GetAssetPath(mats[material].mainTexture);
                 else
                     objMaterial.textureName = null;
 
-                materialList.Add( objMaterial.name, objMaterial );
+                materialList.Add(objMaterial.name, objMaterial);
             }
             catch (ArgumentException)
             {
@@ -99,12 +95,12 @@ public class GSDObjExporter : ScriptableObject
             }
 
 
-            int[] triangles = m.GetTriangles( material );
+            int[] triangles = m.GetTriangles(material);
             for (int i = 0; i < triangles.Length; i += 3)
             {
                 //Because we inverted the x-component, we also needed to alter the triangle winding.
-                sb.Append( string.Format( "f {1}/{1}/{1} {0}/{0}/{0} {2}/{2}/{2}\n",
-                    triangles[i] + 1 + vertexOffset, triangles[i + 1] + 1 + normalOffset, triangles[i + 2] + 1 + uvOffset ) );
+                sb.Append(string.Format("f {1}/{1}/{1} {0}/{0}/{0} {2}/{2}/{2}\n",
+                    triangles[i] + 1 + vertexOffset, triangles[i + 1] + 1 + normalOffset, triangles[i + 2] + 1 + uvOffset));
             }
         }
 
@@ -112,9 +108,8 @@ public class GSDObjExporter : ScriptableObject
         normalOffset += m.normals.Length;
         uvOffset += m.uv.Length;
 
-        return sb.ToString( );
+        return sb.ToString();
     }
-
 
     private static void Clear()
     {
@@ -123,39 +118,37 @@ public class GSDObjExporter : ScriptableObject
         uvOffset = 0;
     }
 
-
     private static Dictionary<string, ObjMaterial> PrepareFileWrite()
     {
-        Clear( );
+        Clear();
 
-        return new Dictionary<string, ObjMaterial>( );
+        return new Dictionary<string, ObjMaterial>();
     }
-
 
     private static void MaterialsToFile(Dictionary<string, ObjMaterial> materialList, string folder, string filename)
     {
-        using (StreamWriter sw = new StreamWriter( folder + "/" + filename + ".mtl" ))
+        using (StreamWriter sw = new StreamWriter(folder + "/" + filename + ".mtl"))
         {
             foreach (KeyValuePair<string, ObjMaterial> kvp in materialList)
             {
-                sw.Write( "\n" );
-                sw.Write( "newmtl {0}\n", kvp.Key );
-                sw.Write( "Ka  0.6 0.6 0.6\n" );
-                sw.Write( "Kd  0.6 0.6 0.6\n" );
-                sw.Write( "Ks  0.9 0.9 0.9\n" );
-                sw.Write( "d  1.0\n" );
-                sw.Write( "Ns  0.0\n" );
-                sw.Write( "illum 2\n" );
+                sw.Write("\n");
+                sw.Write("newmtl {0}\n", kvp.Key);
+                sw.Write("Ka  0.6 0.6 0.6\n");
+                sw.Write("Kd  0.6 0.6 0.6\n");
+                sw.Write("Ks  0.9 0.9 0.9\n");
+                sw.Write("d  1.0\n");
+                sw.Write("Ns  0.0\n");
+                sw.Write("illum 2\n");
 
                 if (kvp.Value.textureName != null)
                 {
                     string destinationFile = kvp.Value.textureName;
 
 
-                    int stripIndex = destinationFile.LastIndexOf( '/' );//FIXME: Should be Path.PathSeparator;
+                    int stripIndex = destinationFile.LastIndexOf('/');//FIXME: Should be Path.PathSeparator;
 
                     if (stripIndex >= 0)
-                        destinationFile = destinationFile.Substring( stripIndex + 1 ).Trim( );
+                        destinationFile = destinationFile.Substring(stripIndex + 1).Trim();
 
 
                     string relativeFile = destinationFile;
@@ -167,7 +160,7 @@ public class GSDObjExporter : ScriptableObject
                     try
                     {
                         //Copy the source file
-                        File.Copy( kvp.Value.textureName, destinationFile );
+                        File.Copy(kvp.Value.textureName, destinationFile);
                     }
                     catch
                     {
@@ -175,75 +168,71 @@ public class GSDObjExporter : ScriptableObject
                     }
 
 
-                    sw.Write( "map_Kd {0}", relativeFile );
+                    sw.Write("map_Kd {0}", relativeFile);
                 }
 
-                sw.Write( "\n\n\n" );
+                sw.Write("\n\n\n");
             }
         }
     }
-
 
     private static void MeshToFile(MeshFilter mf, string folder, string filename)
     {
-        Dictionary<string, ObjMaterial> materialList = PrepareFileWrite( );
+        Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
 
-        using (StreamWriter sw = new StreamWriter( folder + "/" + filename + ".obj" ))
+        using (StreamWriter sw = new StreamWriter(folder + "/" + filename + ".obj"))
         {
-            sw.Write( "mtllib ./" + filename + ".mtl\n" );
+            sw.Write("mtllib ./" + filename + ".mtl\n");
 
-            sw.Write( MeshToString( mf, materialList ) );
+            sw.Write(MeshToString(mf, materialList));
         }
 
-        MaterialsToFile( materialList, folder, filename );
+        MaterialsToFile(materialList, folder, filename);
     }
-
 
     private static void MeshesToFile(MeshFilter[] mf, string folder, string filename)
     {
-        Dictionary<string, ObjMaterial> materialList = PrepareFileWrite( );
+        Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
 
-        using (StreamWriter sw = new StreamWriter( folder + "/" + filename + ".obj" ))
+        using (StreamWriter sw = new StreamWriter(folder + "/" + filename + ".obj"))
         {
-            sw.Write( "mtllib ./" + filename + ".mtl\n" );
+            sw.Write("mtllib ./" + filename + ".mtl\n");
 
             for (int i = 0; i < mf.Length; i++)
             {
-                sw.Write( MeshToString( mf[i], materialList ) );
+                sw.Write(MeshToString(mf[i], materialList));
             }
         }
 
-        MaterialsToFile( materialList, folder, filename );
+        MaterialsToFile(materialList, folder, filename);
     }
-
 
     private static bool CreateTargetFolder()
     {
         try
         {
-            System.IO.Directory.CreateDirectory( targetFolder );
+            System.IO.Directory.CreateDirectory(targetFolder);
         }
         catch
         {
-            EditorUtility.DisplayDialog( "Error!", "Failed to create target folder!", "" );
+            EditorUtility.DisplayDialog("Error!", "Failed to create target folder!", "");
             return false;
         }
 
         return true;
     }
 
-
-    [MenuItem( "Window/Road Architect/Export/Export all MeshFilters in selection to separate OBJs" )]
+    [MenuItem("Window/Road Architect/Export/Export all MeshFilters in selection to separate OBJs")]
     static void ExportSelectionToSeparate()
     {
-        if (!CreateTargetFolder( ))
+        if (!CreateTargetFolder())
             return;
 
-        Transform[] selection = Selection.GetTransforms( SelectionMode.Editable | SelectionMode.ExcludePrefab );
+        Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
         if (selection.Length == 0)
         {
-            EditorUtility.DisplayDialog( "No source object selected!", "Please select one or more target objects", "" );
+            EditorUtility.DisplayDialog("No source object selected!", "Please select one or more target objects", "");
             return;
         }
 
@@ -251,49 +240,48 @@ public class GSDObjExporter : ScriptableObject
 
         for (int i = 0; i < selection.Length; i++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren( typeof( MeshFilter ) );
+            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
 
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                MeshToFile( (MeshFilter) meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m );
+                MeshToFile((MeshFilter)meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m);
             }
         }
 
         if (exportedObjects > 0)
-            EditorUtility.DisplayDialog( "Objects exported", "Exported " + exportedObjects + " objects", "" );
+            EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects", "");
         else
-            EditorUtility.DisplayDialog( "Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "" );
+            EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
     }
 
-
-    [MenuItem( "Window/Road Architect/Export/Export whole selection to single OBJ" )]
+    [MenuItem("Window/Road Architect/Export/Export whole selection to single OBJ")]
     static void ExportWholeSelectionToSingle()
     {
-        if (!CreateTargetFolder( ))
+        if (!CreateTargetFolder())
             return;
 
 
-        Transform[] selection = Selection.GetTransforms( SelectionMode.Editable | SelectionMode.ExcludePrefab );
+        Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
         if (selection.Length == 0)
         {
-            EditorUtility.DisplayDialog( "No source object selected!", "Please select one or more target objects", "" );
+            EditorUtility.DisplayDialog("No source object selected!", "Please select one or more target objects", "");
             return;
         }
 
         int exportedObjects = 0;
 
-        ArrayList mfList = new ArrayList( );
+        ArrayList mfList = new ArrayList();
 
         for (int i = 0; i < selection.Length; i++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren( typeof( MeshFilter ) );
+            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
 
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                mfList.Add( meshfilter[m] );
+                mfList.Add(meshfilter[m]);
             }
         }
 
@@ -303,41 +291,41 @@ public class GSDObjExporter : ScriptableObject
 
             for (int i = 0; i < mfList.Count; i++)
             {
-                mf[i] = (MeshFilter) mfList[i];
+                mf[i] = (MeshFilter)mfList[i];
             }
 
 
-            string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene( ).name;
+            string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
             //string filename = EditorApplication.currentScene + "_" + exportedObjects;
             string filename = tSceneName + "_" + exportedObjects;
 
-            int stripIndex = filename.LastIndexOf( '/' );//FIXME: Should be Path.PathSeparator
+            int stripIndex = filename.LastIndexOf('/');//FIXME: Should be Path.PathSeparator
 
             if (stripIndex >= 0)
-                filename = filename.Substring( stripIndex + 1 ).Trim( );
+                filename = filename.Substring(stripIndex + 1).Trim();
 
-            MeshesToFile( mf, targetFolder, filename );
+            MeshesToFile(mf, targetFolder, filename);
 
 
-            EditorUtility.DisplayDialog( "Objects exported", "Exported " + exportedObjects + " objects to " + filename, "" );
+            EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects to " + filename, "");
         }
         else
-            EditorUtility.DisplayDialog( "Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "" );
+            EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
     }
 
 
 
-    [MenuItem( "Window/Road Architect/Export/Export each selected to single OBJ" )]
+    [MenuItem("Window/Road Architect/Export/Export each selected to single OBJ")]
     static void ExportEachSelectionToSingle()
     {
-        if (!CreateTargetFolder( ))
+        if (!CreateTargetFolder())
             return;
 
-        Transform[] selection = Selection.GetTransforms( SelectionMode.Editable | SelectionMode.ExcludePrefab );
+        Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
         if (selection.Length == 0)
         {
-            EditorUtility.DisplayDialog( "No source object selected!", "Please select one or more target objects", "" );
+            EditorUtility.DisplayDialog("No source object selected!", "Please select one or more target objects", "");
             return;
         }
 
@@ -346,31 +334,31 @@ public class GSDObjExporter : ScriptableObject
 
         for (int i = 0; i < selection.Length; i++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren( typeof( MeshFilter ) );
+            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
 
             MeshFilter[] mf = new MeshFilter[meshfilter.Length];
 
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                mf[m] = (MeshFilter) meshfilter[m];
+                mf[m] = (MeshFilter)meshfilter[m];
             }
 
-            MeshesToFile( mf, targetFolder, selection[i].name + "_" + i );
+            MeshesToFile(mf, targetFolder, selection[i].name + "_" + i);
         }
 
         if (exportedObjects > 0)
         {
-            EditorUtility.DisplayDialog( "Objects exported", "Exported " + exportedObjects + " objects", "" );
+            EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects", "");
         }
         else
-            EditorUtility.DisplayDialog( "Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "" );
+            EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
     }
 
 
-    [MenuItem( "Window/Road Architect/Export/Exporters by Hrafnkell Freyr Hlooversson from Unity3D wiki" )]
+    [MenuItem("Window/Road Architect/Export/Exporters by Hrafnkell Freyr Hlooversson from Unity3D wiki")]
     static void DoNothing1()
     {
-        Application.OpenURL( "http://wiki.unity3d.com/index.php?title=ObjExporter" );
+        Application.OpenURL("http://wiki.unity3d.com/index.php?title=ObjExporter");
     }
 }
