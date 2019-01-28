@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class GSDRigidBody : MonoBehaviour
 {
     public float MinCollVelocity = 2f;

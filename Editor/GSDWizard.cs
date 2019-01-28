@@ -9,6 +9,8 @@ using GSD;
 using System.IO;
 using GSD.Roads;
 #endregion
+
+
 public class GSDWizard : EditorWindow
 {
     public enum WindowTypeEnum
@@ -18,23 +20,31 @@ public class GSDWizard : EditorWindow
         BridgeComplete,
         Groups
     };
+
+
     public enum WindowTypeEnumShort
     {
         Extrusion,
         Edge,
         Groups
     };
+
+
     private static string[] WindowTypeDescBridge = new string[]{
         "Extrusion items",
         "Edge objects",
         "Complete bridges",
         "Other groups"
     };
+
+
     private static string[] WindowTypeDesc = new string[]{
         "Extrusion items",
         "Edge objects",
         "Other groups"
     };
+
+
     WindowTypeEnum tWindowType = WindowTypeEnum.Extrusion;
     WindowTypeEnum xWindowType = WindowTypeEnum.Extrusion;
     WindowTypeEnumShort StWindowType = WindowTypeEnumShort.Extrusion;
@@ -47,10 +57,12 @@ public class GSDWizard : EditorWindow
     List<GSDRoadUtil.WizardObject> oList = null;
     bool bNoGUI = false;
 
+
     void OnGUI()
     {
         DoGUI();
     }
+
 
     private void DoGUI()
     {
@@ -216,6 +228,7 @@ public class GSDWizard : EditorWindow
         }
     }
 
+
     bool DoItem(int x1, int y1, int i)
     {
         if (oList[i].Thumb != null)
@@ -239,8 +252,11 @@ public class GSDWizard : EditorWindow
         return false;
     }
 
+
     #region "Init"
     public Rect xRect;
+
+
     public void Initialize(WindowTypeEnum _tWindowType, GSDSplineN _tNode)
     {
         if (xRect.width < 1f && xRect.height < 1f)
@@ -257,6 +273,7 @@ public class GSDWizard : EditorWindow
         InitWindow();
         Show();
     }
+
 
     private void InitWindow()
     {
@@ -297,6 +314,7 @@ public class GSDWizard : EditorWindow
         EditorStyles.miniLabel.wordWrap = true;
         GUI.skin.label.wordWrap = true;
     }
+
 
     #region "Init complete bridges"
     private void InitGroups(bool bIsBridge)
@@ -531,6 +549,7 @@ public class GSDWizard : EditorWindow
         }
     }
     #endregion
+
 
     #region "Init objs"
     private void InitObjs()

@@ -4,6 +4,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+
+
 namespace GSD
 {
     public static class GSDRootUtil
@@ -35,6 +37,7 @@ namespace GSD
 
             return (s / f);
         }
+
 
         /// <summary>
         /// Returns true if the lines intersect, otherwise false. 
@@ -95,17 +98,20 @@ namespace GSD
             return tString;
         }
 
+
         #region "Float comparisons"
         public static bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
 
+
         public static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
         #endregion
+
 
         #region "XML"
         public static void CreateXML<T>(ref string tPath, object pObject)
@@ -210,6 +216,7 @@ namespace GSD
         }
         #endregion
 
+
         #region "Mesh tangents"
         //Thread safe because local scope and by val params
         public static Vector4[] ProcessTangents(int[] tris, Vector3[] normals, Vector2[] uvs, Vector3[] verts)
@@ -299,6 +306,7 @@ namespace GSD
         }
         #endregion
 
+
         #region "Default directory for library etc"
         public static string Dir_GetBase()
         {
@@ -352,6 +360,7 @@ namespace GSD
             }
         }
         #endregion
+
 
         public static void ForceCollection(bool bWait = false)
         {

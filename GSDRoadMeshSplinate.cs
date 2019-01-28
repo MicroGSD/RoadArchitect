@@ -7,6 +7,8 @@ using GSD;
 using System.IO;
 #endif
 #endregion
+
+
 namespace GSD.Roads.Splination
 {
     public enum AxisTypeEnum { X, Z };

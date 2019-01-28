@@ -1,11 +1,13 @@
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(GSDSplineF))]
 #endregion
+
+
+[CustomEditor( typeof( GSDSplineF ) )]
 public class GSDSplineFEditor : Editor
 {
-    protected GSDSplineF tSpline { get { return (GSDSplineF)target; } }
+    protected GSDSplineF tSpline { get { return (GSDSplineF) target; } }
 
     public override void OnInspectorGUI()
     {

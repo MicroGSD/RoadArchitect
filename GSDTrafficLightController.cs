@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 [System.Serializable]
 public class GSDTrafficLightController
 {
@@ -40,6 +41,7 @@ public class GSDTrafficLightController
     bool bUseSharedMaterial = false;
     bool bLeftTurnYieldOnGreen = true;
     bool bLightsEnabled = true;
+
 
     #region "Constructor"
     public GSDTrafficLightController(ref GameObject _LightLeft, ref GameObject _LightRight, ref GameObject[] _Lights, ref MeshRenderer _MR_Left, ref MeshRenderer _MR_Right, ref MeshRenderer[] MR_Mains)
@@ -119,6 +121,7 @@ public class GSDTrafficLightController
     }
     #endregion
 
+
     #region "Update"
     public void UpdateLights(iLightStatusEnum tLightStatus, iLightSubStatusEnum tLightSubStatus, bool _bLightsEnabled)
     {
@@ -146,6 +149,7 @@ public class GSDTrafficLightController
         }
     }
     #endregion
+
 
     #region "Triggers"
     private void TriggerRegular()
@@ -300,6 +304,7 @@ public class GSDTrafficLightController
     }
     #endregion
 
+
     private void MRChange(ref MeshRenderer MR, iLightSubStatusEnum iLSSE)
     {
         if (bUseSharedMaterial)
@@ -333,6 +338,7 @@ public class GSDTrafficLightController
             }
         }
     }
+
 
     private void MRChangeLeftYield(ref MeshRenderer MR, iLightYieldSubStatusEnum iLYSSE)
     {
@@ -384,6 +390,7 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void LightChange(int tIndex, iLightSubStatusEnum iLSSE)
     {
         if (!bLightsEnabled)
@@ -425,6 +432,7 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void LightChangeHelper(ref Light tRed, ref Light tYellow, ref Light tGreen, iLightSubStatusEnum iLSSE)
     {
         if (iLSSE == iLightSubStatusEnum.Green)
@@ -446,6 +454,7 @@ public class GSDTrafficLightController
             tGreen.enabled = false;
         }
     }
+
 
     #region "Setup"
     public void Setup(bool bLeftYield)
@@ -499,6 +508,7 @@ public class GSDTrafficLightSequence
     public GSDTrafficLightController.iLightSubStatusEnum iLightSubcontroller = GSDTrafficLightController.iLightSubStatusEnum.Green;
     public float tTime = 10f;
 
+
     public GSDTrafficLightSequence(bool bPath1, GSDTrafficLightController.iLightControllerEnum tLightController, GSDTrafficLightController.iLightSubStatusEnum tLightSubcontroller, float xTime)
     {
         bLightMasterPath1 = bPath1;
@@ -506,6 +516,7 @@ public class GSDTrafficLightSequence
         iLightSubcontroller = tLightSubcontroller;
         tTime = xTime;
     }
+
 
     public string ToStringGSD()
     {

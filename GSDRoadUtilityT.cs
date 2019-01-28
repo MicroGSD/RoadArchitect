@@ -4,9 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using GSD;
 #endif
+
+
 namespace GSD.Threaded
 {
 #if UNITY_EDITOR
+
 
     public static class GSDTerraformingT
     {
@@ -995,6 +998,7 @@ namespace GSD.Threaded
             return Mathf.Abs(a - b) < tolerance;
         }
     }
+
 
     public static class GSDRoadCreationT
     {
@@ -7506,6 +7510,7 @@ namespace GSD.Threaded
         }
     }
 
+
     #region "Threading core"
     public class GSDThreadedJob
     {
@@ -7587,6 +7592,7 @@ namespace GSD.Threaded
     }
     #endregion
 
+
     public class TerrainCalcs : GSDThreadedJob
     {
         private object GSDm_Handle = new object();
@@ -7594,12 +7600,14 @@ namespace GSD.Threaded
         private GSDSplineC tSpline;
         private GSDRoad tRoad;
 
+
         public void Setup(ref List<GSD.Roads.GSDTerraforming.TempTerrainData> _TTDList, GSDSplineC _tSpline, GSDRoad _tRoad)
         {
             TTDList = _TTDList;
             tSpline = _tSpline;
             tRoad = _tRoad;
         }
+
 
         protected override void ThreadFunction()
         {
@@ -7657,21 +7665,25 @@ namespace GSD.Threaded
             IsDone = true;
         }
 
+
         bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
+
 
         bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
 
+
         int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
         {
             return a.Key.CompareTo(b.Key);
         }
     }
+
 
     public static class TerrainCalcs_Static
     {
@@ -7728,15 +7740,18 @@ namespace GSD.Threaded
             tSpline.HeightHistory.Sort(Compare1);
         }
 
+
         static bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
 
+
         static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
+
 
         static int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
         {
@@ -7744,17 +7759,20 @@ namespace GSD.Threaded
         }
     }
 
+
     public class RoadCalcs1 : GSDThreadedJob
     {
         private object GSDm_Handle = new object();
         private GSD.Roads.RoadConstructorBufferMaker RCS;
         private GSDRoad tRoad;
 
+
         public void Setup(ref GSD.Roads.RoadConstructorBufferMaker _RCS, ref GSDRoad _tRoad)
         {
             RCS = _RCS;
             tRoad = _tRoad;
         }
+
 
         protected override void ThreadFunction()
         {
@@ -7774,6 +7792,7 @@ namespace GSD.Threaded
             }
         }
 
+
         public GSD.Roads.RoadConstructorBufferMaker GetRCS()
         {
             GSD.Roads.RoadConstructorBufferMaker tRCS;
@@ -7785,6 +7804,7 @@ namespace GSD.Threaded
         }
     }
 
+
     public static class RoadCalcs1_static
     {
         public static void RunMe(ref GSD.Roads.RoadConstructorBufferMaker RCS)
@@ -7793,14 +7813,18 @@ namespace GSD.Threaded
         }
     }
 
+
     public class RoadCalcs2 : GSDThreadedJob
     {
         private object GSDm_Handle = new object();
         private GSD.Roads.RoadConstructorBufferMaker RCS;
+
+
         public void Setup(ref GSD.Roads.RoadConstructorBufferMaker _RCS)
         {
             RCS = _RCS;
         }
+
 
         protected override void ThreadFunction()
         {
@@ -7818,6 +7842,7 @@ namespace GSD.Threaded
             }
         }
 
+
         public GSD.Roads.RoadConstructorBufferMaker GetRCS()
         {
             GSD.Roads.RoadConstructorBufferMaker tRCS;
@@ -7828,6 +7853,7 @@ namespace GSD.Threaded
             return tRCS;
         }
     }
+
 
     public static class RoadCalcs2_static
     {

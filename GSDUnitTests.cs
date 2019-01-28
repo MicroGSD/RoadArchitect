@@ -7,12 +7,15 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 #endif
+
+
 namespace GSD.Roads
 {
 #if UNITY_EDITOR
     public static class GSDUnitTests
     {
         private static GSDRoadSystem RoadSystem;
+
 
         /// <summary>
         /// WARNING: Only call this on an empty scene that has some terrains on it. MicroGSD LLC is not responsbile for data loss if this function is called by user.
@@ -105,6 +108,7 @@ namespace GSD.Roads
             }
         }
 
+
         private static void RoadArchitectUnitTest1()
         {
             //Create node locations:
@@ -153,6 +157,7 @@ namespace GSD.Roads
             tRoad.GSDSpline.mNodes[14].BridgeCounterpartNode = tRoad.GSDSpline.mNodes[16];
             tRoad.GSDSpline.mNodes[14].LoadWizardObjectsFromLibrary("Causeway4-2L", true, true);
         }
+
 
         /// <summary>
         /// Create 2L intersections:
@@ -237,6 +242,7 @@ namespace GSD.Roads
             }
         }
 
+
         /// <summary>
         /// This will create an intersection if two nodes overlap on the road. Only good if the roads only overlap once.
         /// </summary>
@@ -267,6 +273,7 @@ namespace GSD.Roads
                 GSDRI.rType = rType;
             }
         }
+
 
         /// <summary>
         /// Create 4L intersections:
@@ -356,6 +363,7 @@ namespace GSD.Roads
             }
         }
 
+
         //Large suspension bridge:
         private static void RoadArchitectUnitTest4()
         {
@@ -375,6 +383,7 @@ namespace GSD.Roads
             tRoad.GSDSpline.mNodes[1].BridgeCounterpartNode = tRoad.GSDSpline.mNodes[3];
             tRoad.GSDSpline.mNodes[1].LoadWizardObjectsFromLibrary("SuspL-2L", true, true);
         }
+
 
         //Long road
         private static void RoadArchitectUnitTest5()
