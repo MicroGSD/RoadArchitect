@@ -1,12 +1,16 @@
+#region Imports
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using GSD;
+#endregion
+
+
 [CustomEditor(typeof(GSDRoadSystem))]
 public class GSDRoadSystemEditor : Editor
 {
     //Main target for this editor file:
-    protected GSDRoadSystem GSDRS { get { return (GSDRoadSystem)target; } }
+    protected GSDRoadSystem GSDRS { get { return (GSDRoadSystem) target; } }
 
     //Serialized properties:
     SerializedProperty bTempMultithreading;
@@ -37,11 +41,13 @@ public class GSDRoadSystemEditor : Editor
     Texture2D WarningLabelBG;
     GUIStyle GSDLoadButton = null;
 
+
     private void OnEnable()
     {
         bTempMultithreading = serializedObject.FindProperty("opt_bMultithreading");
         bTempSaveMeshAssets = serializedObject.FindProperty("opt_bSaveMeshes");
     }
+
 
     public override void OnInspectorGUI()
     {
@@ -63,7 +69,10 @@ public class GSDRoadSystemEditor : Editor
         //Multi-threading input:
         EditorGUILayout.BeginHorizontal();
         bTempMultithreading.boolValue = EditorGUILayout.Toggle("Multi-threading enabled", GSDRS.opt_bMultithreading);
-        if (bTempMultithreading.boolValue != GSDRS.opt_bMultithreading) { bUpdateGlobal_Multithread = true; }
+        if (bTempMultithreading.boolValue != GSDRS.opt_bMultithreading)
+        {
+            bUpdateGlobal_Multithread = true;
+        }
 
         //Update all roads button:
         if (GUILayout.Button("Update all roads", EditorStyles.miniButton, GUILayout.Width(120f)))
@@ -74,7 +83,10 @@ public class GSDRoadSystemEditor : Editor
 
         //Save mesh assets input:
         bTempSaveMeshAssets.boolValue = EditorGUILayout.Toggle("Save mesh assets: ", GSDRS.opt_bSaveMeshes);
-        if (bTempSaveMeshAssets.boolValue != GSDRS.opt_bSaveMeshes) { bUpdateGlobal_SaveMesh = true; }
+        if (bTempSaveMeshAssets.boolValue != GSDRS.opt_bSaveMeshes)
+        {
+            bUpdateGlobal_SaveMesh = true;
+        }
         if (GSDRS.opt_bSaveMeshes || bTempSaveMeshAssets.boolValue)
         {
             GUILayout.Label("WARNING: Saving meshes as assets is very slow and can increase road generation time by several minutes.", WarningLabelStyle);
@@ -129,15 +141,15 @@ public class GSDRoadSystemEditor : Editor
     {
         if (WarningLabelBG == null)
         {
-            WarningLabelBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/WarningLabelBG.png", typeof(Texture2D)) as Texture2D;
+            WarningLabelBG = (Texture2D) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/WarningLabelBG.png", typeof(Texture2D)) as Texture2D;
         }
         if (LoadBtnBG == null)
         {
-            LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg.png", typeof(Texture2D)) as Texture2D;
+            LoadBtnBG = (Texture2D) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg.png", typeof(Texture2D)) as Texture2D;
         }
         if (LoadBtnBGGlow == null)
         {
-            LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg2.png", typeof(Texture2D)) as Texture2D;
+            LoadBtnBGGlow = (Texture2D) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/otherbg2.png", typeof(Texture2D)) as Texture2D;
         }
 
         if (GSDLoadButton == null)
@@ -308,6 +320,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
 
+
     void Line()
     {
         GUILayout.Space(4f);
@@ -315,11 +328,13 @@ public class GSDRoadSystemEditor : Editor
         GUILayout.Space(4f);
     }
 
+
     //	bool bCtrl = false;
     public void OnSceneGUI()
     {
         DoHotKeyCheck();
     }
+
 
     void DoHotKeyCheck()
     {
@@ -347,6 +362,9 @@ public class GSDRoadSystemEditor : Editor
             }
         }
 
-        if (GUI.changed) { EditorUtility.SetDirty(GSDRS); }
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(GSDRS);
+        }
     }
 }

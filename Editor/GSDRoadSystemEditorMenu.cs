@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEditor;
 
+
 public class GSDRoadSystemEditorMenu : ScriptableObject
 {
     private const bool bRoadTestCubes = false;
+
 
     /// <summary>
     /// Creates the road system.
@@ -23,6 +25,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         IntersectionsMasterObject.transform.parent = tRoadSystemObj.transform;
     }
 
+
     /// <summary>
     /// Add road to gameobject. Not sure if this is necessary.
     /// </summary>
@@ -37,10 +40,11 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         }
         else
         {
-            GSDRoadSystem GSDRS = (GSDRoadSystem)tObjs[0];
+            GSDRoadSystem GSDRS = (GSDRoadSystem) tObjs[0];
             Selection.activeGameObject = GSDRS.AddRoad();
         }
     }
+
 
     /// <summary>
     /// Updates all roads. Used when things get out of sync.
@@ -48,7 +52,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
     [MenuItem("Window/Road Architect/Update All Roads")]
     public static void UpdateAllRoads()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[])GameObject.FindObjectsOfType(typeof(GSDRoad));
+        GSDRoad[] tRoadObjs = (GSDRoad[]) GameObject.FindObjectsOfType(typeof(GSDRoad));
 
         int RoadCount = tRoadObjs.Length;
 
@@ -76,6 +80,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         tRoad.UpdateRoad();
     }
 
+
     /// <summary>
     /// Show the help screen.
     /// </summary>
@@ -86,6 +91,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         tHelp.Initialize();
     }
 
+
     /// <summary>
     /// WARNING: Only call this on an empty scene that has some terrains on it. MicroGSD LLC is not responsbile for data loss if this function is called by user.
     /// </summary>
@@ -94,6 +100,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
     {
         GSD.Roads.GSDUnitTests.RoadArchitectUnitTests();
     }
+
 
     /// <summary>
     /// WARNING: Only call this on an empty scene that has some terrains on it. MicroGSD LLC is not responsbile for data loss if this function is called by user.

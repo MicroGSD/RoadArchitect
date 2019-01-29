@@ -11,6 +11,8 @@ http://wiki.unity3d.com/index.php?title=ObjExporter
 http://wiki.unity3d.com/index.php/User:KeliHlodversson
 */
 
+
+#region Imports
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -18,12 +20,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
+#endregion
+
 
 struct ObjMaterial
 {
     public string name;
     public string textureName;
 }
+
 
 public class GSDObjExporter : ScriptableObject
 {
@@ -35,6 +40,7 @@ public class GSDObjExporter : ScriptableObject
     //User should probably be able to change this. It is currently left as an excercise for
     //the reader.
     private static string targetFolder = "ExportedObj";
+
 
     private static string MeshToString(MeshFilter mf, Dictionary<string, ObjMaterial> materialList)
     {
@@ -111,6 +117,7 @@ public class GSDObjExporter : ScriptableObject
         return sb.ToString();
     }
 
+
     private static void Clear()
     {
         vertexOffset = 0;
@@ -118,12 +125,14 @@ public class GSDObjExporter : ScriptableObject
         uvOffset = 0;
     }
 
+
     private static Dictionary<string, ObjMaterial> PrepareFileWrite()
     {
         Clear();
 
         return new Dictionary<string, ObjMaterial>();
     }
+
 
     private static void MaterialsToFile(Dictionary<string, ObjMaterial> materialList, string folder, string filename)
     {
@@ -176,6 +185,7 @@ public class GSDObjExporter : ScriptableObject
         }
     }
 
+
     private static void MeshToFile(MeshFilter mf, string folder, string filename)
     {
         Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
@@ -189,6 +199,7 @@ public class GSDObjExporter : ScriptableObject
 
         MaterialsToFile(materialList, folder, filename);
     }
+
 
     private static void MeshesToFile(MeshFilter[] mf, string folder, string filename)
     {
@@ -207,6 +218,7 @@ public class GSDObjExporter : ScriptableObject
         MaterialsToFile(materialList, folder, filename);
     }
 
+
     private static bool CreateTargetFolder()
     {
         try
@@ -221,6 +233,7 @@ public class GSDObjExporter : ScriptableObject
 
         return true;
     }
+
 
     [MenuItem("Window/Road Architect/Export/Export all MeshFilters in selection to separate OBJs")]
     static void ExportSelectionToSeparate()
@@ -245,7 +258,7 @@ public class GSDObjExporter : ScriptableObject
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                MeshToFile((MeshFilter)meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m);
+                MeshToFile((MeshFilter) meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m);
             }
         }
 
@@ -255,11 +268,14 @@ public class GSDObjExporter : ScriptableObject
             EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
     }
 
+
     [MenuItem("Window/Road Architect/Export/Export whole selection to single OBJ")]
     static void ExportWholeSelectionToSingle()
     {
         if (!CreateTargetFolder())
+        {
             return;
+        }
 
 
         Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
@@ -291,7 +307,7 @@ public class GSDObjExporter : ScriptableObject
 
             for (int i = 0; i < mfList.Count; i++)
             {
-                mf[i] = (MeshFilter)mfList[i];
+                mf[i] = (MeshFilter) mfList[i];
             }
 
 
@@ -302,7 +318,9 @@ public class GSDObjExporter : ScriptableObject
             int stripIndex = filename.LastIndexOf('/');//FIXME: Should be Path.PathSeparator
 
             if (stripIndex >= 0)
+            {
                 filename = filename.Substring(stripIndex + 1).Trim();
+            }
 
             MeshesToFile(mf, targetFolder, filename);
 
@@ -319,7 +337,9 @@ public class GSDObjExporter : ScriptableObject
     static void ExportEachSelectionToSingle()
     {
         if (!CreateTargetFolder())
+        {
             return;
+        }
 
         Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
@@ -341,7 +361,7 @@ public class GSDObjExporter : ScriptableObject
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                mf[m] = (MeshFilter)meshfilter[m];
+                mf[m] = (MeshFilter) meshfilter[m];
             }
 
             MeshesToFile(mf, targetFolder, selection[i].name + "_" + i);
@@ -352,7 +372,9 @@ public class GSDObjExporter : ScriptableObject
             EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects", "");
         }
         else
+        {
             EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
+        }
     }
 
 

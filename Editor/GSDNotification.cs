@@ -1,6 +1,9 @@
+#region Imports
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+#endregion
+
 
 /// <summary>
 /// Used for notifications in other areas of RA.
@@ -8,11 +11,14 @@ using System.Collections;
 public class GSDNotification : EditorWindow
 {
     string notification = "This is a Notification";
+
+
     static void Initialize()
     {
         GSDNotification window = EditorWindow.GetWindow<GSDNotification>();
         window.Show();
     }
+
 
     void OnGUI()
     {

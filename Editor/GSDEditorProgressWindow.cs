@@ -3,6 +3,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
+
 /// <summary>
 /// Used for progress information for other areas of RA.
 /// </summary>
@@ -12,13 +13,15 @@ public class GSDEditorProgressWindow : EditorWindow
     float startVal = 0f;
     float progress = 0f;
 
+
 #if UNITY_EDITOR
     static void Init()
     {
-        GSDEditorProgressWindow window = (GSDEditorProgressWindow)EditorWindow.GetWindow(typeof(GSDEditorProgressWindow));
+        GSDEditorProgressWindow window = (GSDEditorProgressWindow) EditorWindow.GetWindow(typeof(GSDEditorProgressWindow));
         window.Show();
     }
 #endif
+
 
 #if UNITY_EDITOR
     void OnGUI()
@@ -31,18 +34,22 @@ public class GSDEditorProgressWindow : EditorWindow
                 Debug.LogError("Seconds should be bigger than 1");
                 return;
             }
-            startVal = (float)EditorApplication.timeSinceStartup;
+            startVal = (float) EditorApplication.timeSinceStartup;
         }
 
         if (progress < secs)
+        {
             EditorUtility.DisplayProgressBar(
-                "Simple Progress Bar",
-                "Shows a progress bar for the given seconds",
-                progress / secs);
+            "Simple Progress Bar",
+            "Shows a progress bar for the given seconds",
+            progress / secs);
+        }
         else
+        {
             EditorUtility.ClearProgressBar();
+        }
 
-        progress = (float)(EditorApplication.timeSinceStartup - startVal);
+        progress = (float) (EditorApplication.timeSinceStartup - startVal);
     }
 
 

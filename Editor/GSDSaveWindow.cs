@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using GSD;
 #endregion
+
+
 public class GSDSaveWindow : EditorWindow
 {
     public enum WindowTypeEnum
@@ -35,12 +37,13 @@ public class GSDSaveWindow : EditorWindow
 
     string xPath = "";
 
+
     void OnGUI()
     {
         GUILayout.Space(4f);
         EditorGUILayout.LabelField(TitleText, EditorStyles.boldLabel);
 
-        temp2D_2 = (Texture2D)EditorGUILayout.ObjectField("Square thumb (optional):", temp2D, typeof(Texture2D), false);
+        temp2D_2 = (Texture2D) EditorGUILayout.ObjectField("Square thumb (optional):", temp2D, typeof(Texture2D), false);
         if (temp2D_2 != temp2D)
         {
             temp2D = temp2D_2;
@@ -157,6 +160,7 @@ public class GSDSaveWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
     }
 
+
     void DoExtrusion()
     {
         if (GUILayout.Button("Save extrusion"))
@@ -171,6 +175,7 @@ public class GSDSaveWindow : EditorWindow
         }
     }
 
+
     void DoEdgeObject()
     {
         if (GUILayout.Button("Save edge object"))
@@ -184,6 +189,7 @@ public class GSDSaveWindow : EditorWindow
             Close();
         }
     }
+
 
     void DoBridge()
     {
@@ -203,6 +209,7 @@ public class GSDSaveWindow : EditorWindow
         }
     }
 
+
     void SanitizeFilename()
     {
         Regex rgx = new Regex("[^a-zA-Z0-9 -]");
@@ -211,18 +218,31 @@ public class GSDSaveWindow : EditorWindow
         tFilename = tFilename.Replace("_", "-");
     }
 
+
     #region "Init"
     public void Initialize(ref Rect tRect, WindowTypeEnum _tWindowType, GSDSplineN tNode, GSD.Roads.Splination.SplinatedMeshMaker SMM = null, GSD.Roads.EdgeObjects.EdgeObjectMaker EOM = null)
     {
         int Rheight = 300;
         int Rwidth = 360;
-        float Rx = ((float)tRect.width / 2f) - ((float)Rwidth / 2f) + tRect.x;
-        float Ry = ((float)tRect.height / 2f) - ((float)Rheight / 2f) + tRect.y;
+        float Rx = ((float) tRect.width / 2f) - ((float) Rwidth / 2f) + tRect.x;
+        float Ry = ((float) tRect.height / 2f) - ((float) Rheight / 2f) + tRect.y;
 
-        if (Rx < 0) { Rx = tRect.x; }
-        if (Ry < 0) { Ry = tRect.y; }
-        if (Rx > (tRect.width + tRect.x)) { Rx = tRect.x; }
-        if (Ry > (tRect.height + tRect.y)) { Ry = tRect.y; }
+        if (Rx < 0)
+        {
+            Rx = tRect.x;
+        }
+        if (Ry < 0)
+        {
+            Ry = tRect.y;
+        }
+        if (Rx > (tRect.width + tRect.x))
+        {
+            Rx = tRect.x;
+        }
+        if (Ry > (tRect.height + tRect.y))
+        {
+            Ry = tRect.y;
+        }
 
         Rect fRect = new Rect(Rx, Ry, Rwidth, Rheight);
 

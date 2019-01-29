@@ -1,10 +1,14 @@
+#region "Imports"
 using UnityEngine;
 using UnityEditor;
 using GSD;
+#endregion
+
+
 [CustomEditor(typeof(GSDTerrain))]
 public class GSDTerrainEditor : Editor
 {
-    protected GSDTerrain GSDT { get { return (GSDTerrain)target; } }
+    protected GSDTerrain GSDT { get { return (GSDTerrain) target; } }
 
     //Serialized properties:
     SerializedProperty tSplatImageWidth;
@@ -51,6 +55,7 @@ public class GSDTerrainEditor : Editor
     Texture2D LoadBtnBGGlow = null;
     GUIStyle GSDLoadButton = null;
 
+
     private void OnEnable()
     {
         tSplatImageWidth = serializedObject.FindProperty("SplatResoWidth");
@@ -64,6 +69,7 @@ public class GSDTerrainEditor : Editor
         tSplatSingleChoiceIndex = serializedObject.FindProperty("SplatSingleChoiceIndex");
         tRoadSingleChoiceUID = serializedObject.FindProperty("RoadSingleChoiceUID");
     }
+
 
     public override void OnInspectorGUI()
     {
@@ -86,7 +92,7 @@ public class GSDTerrainEditor : Editor
         tSplatImageWidth.intValue = GSDT.SplatResoWidth;
         tSplatImageHeight.intValue = GSDT.SplatResoHeight;
         EditorGUILayout.BeginHorizontal();
-        tSplatReso = (SplatImageResoMatchingEnum)EditorGUILayout.Popup("Match resolutions:", (int)tSplatReso, TheSplatResoOptions);
+        tSplatReso = (SplatImageResoMatchingEnum) EditorGUILayout.Popup("Match resolutions:", (int) tSplatReso, TheSplatResoOptions);
         if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
         {
             tSplatImageWidth.intValue = 1024;
@@ -108,8 +114,8 @@ public class GSDTerrainEditor : Editor
             }
             else if (tSplatReso == SplatImageResoMatchingEnum.MatchTerrainSize)
             {
-                tSplatImageWidth.intValue = (int)GSDT.tTerrain.terrainData.size.x;
-                tSplatImageHeight.intValue = (int)GSDT.tTerrain.terrainData.size.z;
+                tSplatImageWidth.intValue = (int) GSDT.tTerrain.terrainData.size.x;
+                tSplatImageHeight.intValue = (int) GSDT.tTerrain.terrainData.size.z;
             }
             else if (tSplatReso == SplatImageResoMatchingEnum.Match512x512)
             {
@@ -205,11 +211,12 @@ public class GSDTerrainEditor : Editor
         }
     }
 
+
     void InitNullChecks()
     {
         if (btnRefreshText == null)
         {
-            btnRefreshText = (Texture)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh2.png", typeof(Texture)) as Texture;
+            btnRefreshText = (Texture) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/refresh2.png", typeof(Texture)) as Texture;
         }
         if (GSDImageButton == null)
         {
@@ -222,11 +229,11 @@ public class GSDTerrainEditor : Editor
         }
         if (LoadBtnBG == null)
         {
-            LoadBtnBG = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/FlexBG.png", typeof(Texture2D)) as Texture2D;
+            LoadBtnBG = (Texture2D) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/FlexBG.png", typeof(Texture2D)) as Texture2D;
         }
         if (LoadBtnBGGlow == null)
         {
-            LoadBtnBGGlow = (Texture2D)AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/FlexBG.png", typeof(Texture2D)) as Texture2D;
+            LoadBtnBGGlow = (Texture2D) AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Icons/FlexBG.png", typeof(Texture2D)) as Texture2D;
         }
         if (GSDLoadButton == null)
         {
@@ -241,6 +248,7 @@ public class GSDTerrainEditor : Editor
             GSDLoadButton.padding = new RectOffset(0, 0, 0, 0);
         }
     }
+
 
     private void LoadSplatSingleChoice()
     {
@@ -258,6 +266,7 @@ public class GSDTerrainEditor : Editor
             xCounter += 1;
         }
     }
+
 
     private void GenerateSplatMap()
     {
@@ -281,6 +290,7 @@ public class GSDTerrainEditor : Editor
             tBytes = null;
         }
     }
+
 
     void Line()
     {

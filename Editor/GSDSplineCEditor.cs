@@ -4,7 +4,7 @@ using UnityEditor;
 #endregion
 
 
-[CustomEditor( typeof( GSDSplineC ) )]
+[CustomEditor(typeof(GSDSplineC))]
 public class GSDSplineCEditor : Editor
 {
     protected GSDSplineC tSpline { get { return (GSDSplineC) target; } }
@@ -16,11 +16,11 @@ public class GSDSplineCEditor : Editor
     {
         #region NodeBrowser
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField( "Browse to node:", EditorStyles.boldLabel );
-        browseNode = EditorGUILayout.IntField( browseNode );
-        if ( GUILayout.Button( "Browse" ) )
+        EditorGUILayout.LabelField("Browse to node:", EditorStyles.boldLabel);
+        browseNode = EditorGUILayout.IntField(browseNode);
+        if (GUILayout.Button("Browse"))
         {
-            if ( browseNode < tSpline.mNodes.Count )
+            if (browseNode < tSpline.mNodes.Count)
             {
                 Selection.objects = new Object[1] { tSpline.mNodes[browseNode] };
             }

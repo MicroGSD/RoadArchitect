@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEditor;
 #endregion
+
+
 public class GSDHelpWindow : EditorWindow
 {
     void OnGUI()
@@ -24,6 +26,7 @@ public class GSDHelpWindow : EditorWindow
         GUILayout.Space(4f);
         EditorGUILayout.LabelField("Please visit our unity forum thread or contact support@microgsd.com with any questions or comments.", EditorStyles.miniLabel);
     }
+
 
     #region "Init"
     public void Initialize()
