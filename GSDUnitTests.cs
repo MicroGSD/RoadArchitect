@@ -77,7 +77,7 @@ namespace GSD.Roads
         {
             Debug.Log("Cleaning up tests");
             //Get the existing road system, if it exists:
-            GameObject GSDRS = (GameObject)GameObject.Find("RoadArchitectSystem1");
+            GameObject GSDRS = (GameObject) GameObject.Find("RoadArchitectSystem1");
             DestroyTerrainHistory(GSDRS);
             Object.DestroyImmediate(GSDRS);
             FlattenTerrains();
@@ -119,7 +119,7 @@ namespace GSD.Roads
             for (int i = 0; i < MaxCount; i++)
             {
                 //tLocs.Add(xVect + new Vector3(tMod * Mathf.Pow((float)i / ((float)MaxCount * 0.15f), 2f), 1f*((float)i*1.25f), tMod * i));
-                nodeLocations.Add(xVect + new Vector3(tMod * Mathf.Pow((float)i / ((float)25 * 0.15f), 2f), 0f, tMod * i));
+                nodeLocations.Add(xVect + new Vector3(tMod * Mathf.Pow((float) i / ((float) 25 * 0.15f), 2f), 0f, tMod * i));
             }
 
             //Get road system create road:
@@ -169,8 +169,12 @@ namespace GSD.Roads
             float StartLocY = 200f;
             float StartLocYSep = 200f;
             float tHeight = 20f;
-            GSDRoad bRoad = null; if (bRoad == null) { } //Buffer
-            GSDRoad tRoad = null; if (tRoad == null) { } //Buffer
+            GSDRoad bRoad = null;
+            if (bRoad == null)
+            { } //Buffer
+            GSDRoad tRoad = null;
+            if (tRoad == null)
+            { } //Buffer
 
             //Create base road:
             List<Vector3> nodeLocations = new List<Vector3>();

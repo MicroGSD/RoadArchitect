@@ -20,6 +20,7 @@ namespace GSD
             float f;
             float s;
 
+
             f = k1 * 2 / Mathf.PI + k2 - k1 + (1.0f - k2) * 2 / Mathf.PI;
 
             if (t < k1)
@@ -136,11 +137,13 @@ namespace GSD
 #endif
         }
 
+
         public static string GetString<T>(object pObject)
         {
             string tData = SerializeObject<T>(ref pObject);
             return tData;
         }
+
 
         public static object LoadXML<T>(ref string tPath)
         {
@@ -155,11 +158,13 @@ namespace GSD
 #endif
         }
 
+
         public static object LoadData<T>(ref string _info)
         {
             object tObject = DeserializeObject<T>(_info);
             return tObject;
         }
+
 
         public static void DeleteLibraryXML(string tName, bool bIsExtrusion)
         {
@@ -182,6 +187,7 @@ namespace GSD
 #endif
         }
 
+
         private static string SerializeObject<T>(ref object pObject)
         {
             string XmlizedString = null;
@@ -189,10 +195,11 @@ namespace GSD
             XmlSerializer xs = new XmlSerializer(typeof(T));
             XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
             xs.Serialize(xmlTextWriter, pObject);
-            memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
+            memoryStream = (MemoryStream) xmlTextWriter.BaseStream;
             XmlizedString = UTF8ByteArrayToString(memoryStream.ToArray());
             return XmlizedString;
         }
+
 
         private static object DeserializeObject<T>(string pXmlizedString)
         {
@@ -201,12 +208,14 @@ namespace GSD
             return xs.Deserialize(memoryStream);
         }
 
+
         private static string UTF8ByteArrayToString(byte[] characters)
         {
             UTF8Encoding encoding = new UTF8Encoding();
             string constructedString = encoding.GetString(characters);
             return (constructedString);
         }
+
 
         private static byte[] StringToUTF8ByteArray(string pXmlString)
         {
@@ -222,7 +231,10 @@ namespace GSD
         public static Vector4[] ProcessTangents(int[] tris, Vector3[] normals, Vector2[] uvs, Vector3[] verts)
         {
             int MVL = verts.Length;
-            if (MVL == 0) { return new Vector4[0]; }
+            if (MVL == 0)
+            {
+                return new Vector4[0];
+            }
             int triangleCount = tris.Length;// mesh.triangles.Length / 3;
             Vector3[] tan1 = new Vector3[MVL];
             Vector3[] tan2 = new Vector3[MVL];
@@ -295,6 +307,7 @@ namespace GSD
             return tangents;
         }
 
+
         public static void ProcessTangents(ref Mesh tMesh)
         {
             Vector3[] tVerts = tMesh.vertices;
@@ -312,6 +325,8 @@ namespace GSD
         {
             return Application.dataPath.Replace("/Assets", "/GSD/");
         }
+
+
         public static string Dir_GetTH()
         {
             string xPath = Dir_GetBase() + "TH/";
@@ -322,10 +337,13 @@ namespace GSD
             return xPath;
         }
 
+
         public static string Dir_GetLibraryBase()
         {
             return GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Editor/Library/";
         }
+
+
         public static string Dir_GetLibrary()
         {
             string xPath = Dir_GetLibraryBase();
@@ -335,6 +353,7 @@ namespace GSD
             }
             return xPath;
         }
+
 
         public static void Dir_GetLibrary_CheckSpecialDirs()
         {

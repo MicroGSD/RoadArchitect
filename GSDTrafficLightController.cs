@@ -189,6 +189,7 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void TriggerLeftTurn()
     {
         if (bMain)
@@ -227,6 +228,7 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void TriggerMasterLeft()
     {
         if (bMain)
@@ -257,6 +259,7 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void TriggerRightTurn()
     {
         if (bMain)
@@ -279,6 +282,7 @@ public class GSDTrafficLightController
             LightChange(2, iLightSubStatus);
         }
     }
+
 
     private void TriggerRed()
     {
@@ -402,12 +406,30 @@ public class GSDTrafficLightController
                 Lights_Y[i].enabled = false;
                 Lights_G[i].enabled = false;
             }
-            if (LightLeft_R != null) { LightLeft_R.enabled = false; }
-            if (LightLeft_Y != null) { LightLeft_Y.enabled = false; }
-            if (LightLeft_G != null) { LightLeft_G.enabled = false; }
-            if (LightRight_R != null) { LightRight_R.enabled = false; }
-            if (LightRight_Y != null) { LightRight_Y.enabled = false; }
-            if (LightRight_G != null) { LightRight_G.enabled = false; }
+            if (LightLeft_R != null)
+            {
+                LightLeft_R.enabled = false;
+            }
+            if (LightLeft_Y != null)
+            {
+                LightLeft_Y.enabled = false;
+            }
+            if (LightLeft_G != null)
+            {
+                LightLeft_G.enabled = false;
+            }
+            if (LightRight_R != null)
+            {
+                LightRight_R.enabled = false;
+            }
+            if (LightRight_Y != null)
+            {
+                LightRight_Y.enabled = false;
+            }
+            if (LightRight_G != null)
+            {
+                LightRight_G.enabled = false;
+            }
             return;
         }
 
@@ -468,11 +490,14 @@ public class GSDTrafficLightController
         bLeftTurnYieldOnGreen = bLeftYield;
     }
 
+
     private void SetupMainObjects()
     {
-        if (MR_Main == null) { return; }
+        if (MR_Main == null)
+        { return; }
         int mCount = MR_MainsStorage.Length;
-        if (mCount == 0) { return; }
+        if (mCount == 0)
+        { return; }
         SetupObject(MR_Main);
         if (mCount > 1)
         {
@@ -494,9 +519,11 @@ public class GSDTrafficLightController
         }
     }
 
+
     private void SetupObject(MeshRenderer MR)
     {
-        if (MR != null) { MR.material = MR.material; }
+        if (MR != null)
+        { MR.material = MR.material; }
     }
     #endregion
 }

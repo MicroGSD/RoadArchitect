@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 #endif
 
 
+// TODO: Remove // comments with /**/  // FH 29.01.19 
 namespace GSD.Roads
 {
     //Generic http://www.fhwa.dot.gov/bridge/bridgerail/br053504.cfm
@@ -28,10 +29,12 @@ namespace GSD.Roads
             return IsApproximately(a, b, 0.01f);
         }
 
+
         private static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
+
 
         public static GSDSplineN CreateNode(GSDRoad RS, bool bSpecialEndNode = false, Vector3 vSpecialLoc = default(Vector3), bool bInterNode = false)
         {
@@ -64,7 +67,8 @@ namespace GSD.Roads
                 //End double click prevention
             }
             Vector3 xVect = tNodeObj.transform.position;
-            if (xVect.y < 0.03f) { xVect.y = 0.03f; }
+            if (xVect.y < 0.03f)
+            { xVect.y = 0.03f; }
             tNodeObj.transform.position = xVect;
 
             tNodeObj.transform.parent = RS.GSDSplineObj.transform;
@@ -130,7 +134,8 @@ namespace GSD.Roads
                 tNodeObj.transform.position = ForcedLoc;
             }
             Vector3 xVect = tNodeObj.transform.position;
-            if (xVect.y < 0.03f) { xVect.y = 0.03f; }
+            if (xVect.y < 0.03f)
+            { xVect.y = 0.03f; }
             tNodeObj.transform.position = xVect;
             tNodeObj.transform.parent = RS.GSDSplineObj.transform;
 
@@ -231,6 +236,7 @@ namespace GSD.Roads
         }
     }
 
+
     public static class GSDTerraforming
     {
         public class TempTerrainData
@@ -307,6 +313,7 @@ namespace GSD.Roads
             }
         }
 
+
         private static void CheckAllTerrains()
         {
             Object[] tTerrains = GameObject.FindObjectsOfType(typeof(Terrain));
@@ -324,6 +331,7 @@ namespace GSD.Roads
             }
         }
 
+
         public static void CheckAllTerrainsHeight0()
         {
             CheckAllTerrains();
@@ -339,20 +347,26 @@ namespace GSD.Roads
             }
         }
 
+
         public static void ProcessRoad_Terrain_Hook1(GSDSplineC tSpline, GSDRoad tRoad, bool bMultithreaded = true)
         {
             ProcessRoad_Terrain_Hook1_Do(ref tSpline, ref tRoad, bMultithreaded);
         }
+
+
         private static void ProcessRoad_Terrain_Hook1_Do(ref GSDSplineC tSpline, ref GSDRoad tRoad, bool bMultithreaded)
         {
-            if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook1_Do"); }
+            if (tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook1_Do"); }
             //First lets make sure all terrains have GSD shit on them:
             CheckAllTerrains();
 
             //Reset the terrain:
-            if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("TerrainsReset"); }
+            if (tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.BeginSample("TerrainsReset"); }
             GSDTerraforming.TerrainsReset(tRoad);
-            if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+            if (tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.EndSample(); }
 
             float heightDistance = tRoad.opt_MatchHeightsDistance;
             //			float treeDistance = tRoad.opt_ClearTreesDistance;
@@ -439,10 +453,11 @@ namespace GSD.Roads
                     float DetailRatio = tTerrain.terrainData.detailResolution / tTerrain.terrainData.size.x;
 
                     //Heights:
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("Heights"); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.BeginSample("Heights"); }
                     if (tRoad.opt_HeightModEnabled)
                     {
-                        aSize = (int)tSpline.distance * ((int)(heightDistance * 1.65f * TTD.HMRatio) + 2);
+                        aSize = (int) tSpline.distance * ((int) (heightDistance * 1.65f * TTD.HMRatio) + 2);
                         if (aSize > (tTerrain.terrainData.heightmapResolution * tTerrain.terrainData.heightmapResolution))
                         {
                             aSize = tTerrain.terrainData.heightmapResolution * tTerrain.terrainData.heightmapResolution;
@@ -463,10 +478,12 @@ namespace GSD.Roads
                             TempTerrainDict.Add(tTerrain, TTD);
                         }
                     }
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.EndSample(); }
 
                     //Details:
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("Details"); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.BeginSample("Details"); }
                     if (tRoad.opt_DetailModEnabled)
                     {
                         //						TTD.DetailValues = new Dictionary<int, int[,]>();
@@ -476,7 +493,7 @@ namespace GSD.Roads
                         TTD.MainDetailsX = new List<ushort>();
                         TTD.MainDetailsY = new List<ushort>();
                         TTD.DetailsI = new int[TTD.DetailLayersCount];
-                        TTD.DetailToHeightRatio = (float)((float)tTerrain.terrainData.detailResolution) / ((float)tTerrain.terrainData.heightmapResolution);
+                        TTD.DetailToHeightRatio = (float) ((float) tTerrain.terrainData.detailResolution) / ((float) tTerrain.terrainData.heightmapResolution);
                         TTD.DetailMaxIndex = tTerrain.terrainData.detailResolution;
                         TTD.DetailLayersSkip = new HashSet<int>();
 
@@ -514,7 +531,7 @@ namespace GSD.Roads
                         //						if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
 
 
-                        dSize = (int)tSpline.distance * ((int)(detailDistance * 3f * DetailRatio) + 2);
+                        dSize = (int) tSpline.distance * ((int) (detailDistance * 3f * DetailRatio) + 2);
                         if (dSize > (tTerrain.terrainData.detailResolution * tTerrain.terrainData.detailResolution))
                         {
                             dSize = tTerrain.terrainData.detailResolution * tTerrain.terrainData.detailResolution;
@@ -560,10 +577,12 @@ namespace GSD.Roads
 
 
                     }
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.EndSample(); }
 
                     //Trees:
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("Trees"); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.BeginSample("Trees"); }
                     if (tRoad.opt_TreeModEnabled)
                     {
                         //						TTD.TreesCurrent = tTerrain.terrainData.treeInstances;
@@ -572,7 +591,8 @@ namespace GSD.Roads
                         TTD.TreesI = 0;
                         TTD.TreesOld = new List<TreeInstance>();
                     }
-                    if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+                    if (tRoad.bProfiling)
+                    { UnityEngine.Profiling.Profiler.EndSample(); }
                 }
             }
 
@@ -589,7 +609,8 @@ namespace GSD.Roads
                 }
             }
 
-            if (tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+            if (tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.EndSample(); }
 
             //Start job now, for each relevant TTD:
             tRoad.EditorTerrainCalcs(ref EditorTTDList);
@@ -605,6 +626,7 @@ namespace GSD.Roads
                 GSD.Threaded.TerrainCalcs_Static.RunMe(ref EditorTTDList, tSpline, tRoad);
             }
         }
+
 
         public static GSDRoadUtil.Construction2DRect GetTerrainBounds(Terrain tTerrain)
         {
@@ -642,12 +664,17 @@ namespace GSD.Roads
             return new GSDRoadUtil.Construction2DRect(P0, P1, P2, P3, tTerrain.transform.position.y);
         }
 
+
         public static void ProcessRoad_Terrain_Hook2(GSDSplineC tSpline, ref List<TempTerrainData> TTDList)
         {
-            if (tSpline.tRoad.bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook2"); }
+            if (tSpline.tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook2"); }
             ProcessRoad_Terrain_Hook2_Do(ref tSpline, ref TTDList);
-            if (tSpline.tRoad.bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+            if (tSpline.tRoad.bProfiling)
+            { UnityEngine.Profiling.Profiler.EndSample(); }
         }
+
+
         private static void ProcessRoad_Terrain_Hook2_Do(ref GSDSplineC tSpline, ref List<TempTerrainData> TTDList)
         {
             if (!tSpline.tRoad.opt_TreeModEnabled && !tSpline.tRoad.opt_HeightModEnabled && !tSpline.tRoad.opt_DetailModEnabled)
@@ -681,7 +708,8 @@ namespace GSD.Roads
                                     //										tTerrain.terrainData.SetDetailLayer(0,0,i,TTD.DetailValues[i]);	
                                     //									}
 
-                                    if (TTD.DetailLayersSkip.Contains(i) || TTD.MainDetailsX == null || TTD.MainDetailsX.Count < 1) { continue; }
+                                    if (TTD.DetailLayersSkip.Contains(i) || TTD.MainDetailsX == null || TTD.MainDetailsX.Count < 1)
+                                    { continue; }
                                     tDetails = tTerrain.terrainData.GetDetailLayer(0, 0, TTD.DetailMaxIndex, TTD.DetailMaxIndex, i);
 
                                     int MaxCount = TTD.MainDetailsX.Count;
@@ -692,9 +720,9 @@ namespace GSD.Roads
                                         tVal = tDetails[IntBufferX, IntBufferY];
                                         if (tVal > 0)
                                         {
-                                            TTD.DetailsX[i].Add((ushort)IntBufferX);
-                                            TTD.DetailsY[i].Add((ushort)IntBufferY);
-                                            TTD.OldDetailsValue[i].Add((ushort)tVal);
+                                            TTD.DetailsX[i].Add((ushort) IntBufferX);
+                                            TTD.DetailsY[i].Add((ushort) IntBufferY);
+                                            TTD.OldDetailsValue[i].Add((ushort) tVal);
                                             tDetails[IntBufferX, IntBufferY] = 0;
                                         }
                                     }
@@ -725,14 +753,19 @@ namespace GSD.Roads
             }
         }
 
+
         public static void TerrainsReset(GSDRoad tRoad)
         {
             TerrainsReset_Do(ref tRoad);
         }
+
+
         private static void TerrainsReset_Do(ref GSDRoad tRoad)
         {
-            if (tRoad.TerrainHistory == null) { return; }
-            if (tRoad.TerrainHistory.Count < 1) { return; }
+            if (tRoad.TerrainHistory == null)
+            { return; }
+            if (tRoad.TerrainHistory.Count < 1)
+            { return; }
 
             Object[] TIDs = GameObject.FindObjectsOfType(typeof(GSDTerrain));
             float[,] heights;
@@ -772,9 +805,12 @@ namespace GSD.Roads
                     int EndIndex = 0;
                     for (int i = 0; i < TH.DetailLayersCount; i++)
                     {
-                        if (i >= RealLayerCount) { break; }
-                        if (TH.DetailsX.Length <= i) { break; }
-                        if (TH.DetailsY.Length <= i) { break; }
+                        if (i >= RealLayerCount)
+                        { break; }
+                        if (TH.DetailsX.Length <= i)
+                        { break; }
+                        if (TH.DetailsY.Length <= i)
+                        { break; }
                         if (TH.DetailsX == null || TH.DetailsY == null || TH.DetailsI == null || TH.DetailsX.Length < 1)
                         {
                             continue;
@@ -782,7 +818,8 @@ namespace GSD.Roads
 
                         tDetails = tTerrain.terrainData.GetDetailLayer(0, 0, tTerrain.terrainData.detailWidth, tTerrain.terrainData.detailHeight, i);
                         ArrayCount = TH.DetailsI[i];
-                        if (ArrayCount == 0) { continue; }
+                        if (ArrayCount == 0)
+                        { continue; }
                         EndIndex += ArrayCount;
                         for (int j = StartIndex; j < EndIndex; j++)
                         {
@@ -800,7 +837,8 @@ namespace GSD.Roads
                     ArrayCount = xTress.Length;
                     if (ArrayCount > 0 && TH.TreesOld != null)
                     {
-                        int TerrainTreeCount = tTerrain.terrainData.treeInstances.Length; ;
+                        int TerrainTreeCount = tTerrain.terrainData.treeInstances.Length;
+                        ;
                         TreeInstance[] tTrees = new TreeInstance[ArrayCount + TerrainTreeCount];
                         System.Array.Copy(tTerrain.terrainData.treeInstances, 0, tTrees, 0, TerrainTreeCount);
                         System.Array.Copy(xTress, 0, tTrees, TerrainTreeCount, ArrayCount);
@@ -812,6 +850,7 @@ namespace GSD.Roads
             System.GC.Collect();
         }
     }
+
 
     [System.Serializable]
     public class GSDTerrainHistoryMaker
@@ -838,6 +877,7 @@ namespace GSD.Roads
         public bool bTreeHistoryEnabled;
         public bool bDestroyMe = false;
 
+
         public void Nullify()
         {
             //Heights:
@@ -851,6 +891,7 @@ namespace GSD.Roads
             //Trees:
             TreesOld = null;
         }
+
 
         [System.Serializable]
         public class GSDTreeInstance
@@ -870,6 +911,7 @@ namespace GSD.Roads
             public int prototypeIndex;//52
             public float widthScale;//56
         }
+
 
         public void MakeGSDTrees(ref List<TreeInstance> tTrees)
         {
@@ -899,9 +941,11 @@ namespace GSD.Roads
             }
         }
 
+
         public TreeInstance[] MakeTrees()
         {
-            if (TreesOld == null || TreesOld.Length < 1) { return null; }
+            if (TreesOld == null || TreesOld.Length < 1)
+            { return null; }
             int tSize = TreesOld.Length;
             TreeInstance[] tTrees = new TreeInstance[tSize];
             GSDTreeInstance tTree = null;
@@ -921,23 +965,32 @@ namespace GSD.Roads
             return tTrees;
         }
 
+
         public int GetSize()
         {
             int tSize = 4;
-            if (x1 != null) { tSize += (x1.Length * 4); tSize += 20; }
-            if (y1 != null) { tSize += (y1.Length * 4); tSize += 20; }
-            if (h != null) { tSize += (h.Length * 4); tSize += 20; }
+            if (x1 != null)
+            { tSize += (x1.Length * 4); tSize += 20; }
+            if (y1 != null)
+            { tSize += (y1.Length * 4); tSize += 20; }
+            if (h != null)
+            { tSize += (h.Length * 4); tSize += 20; }
             tSize += 4;
             tSize += 1;
             //Details:
             tSize += 4;
-            if (DetailsX != null) { tSize += (DetailsX.Length * 4); tSize += 20; }
-            if (DetailsY != null) { tSize += (DetailsY.Length * 4); tSize += 20; }
-            if (DetailsOldValue != null) { tSize += (DetailsOldValue.Length * 4); tSize += 20; }
-            if (DetailsI != null) { tSize += (DetailsI.Length * 4); tSize += 20; }
+            if (DetailsX != null)
+            { tSize += (DetailsX.Length * 4); tSize += 20; }
+            if (DetailsY != null)
+            { tSize += (DetailsY.Length * 4); tSize += 20; }
+            if (DetailsOldValue != null)
+            { tSize += (DetailsOldValue.Length * 4); tSize += 20; }
+            if (DetailsI != null)
+            { tSize += (DetailsI.Length * 4); tSize += 20; }
             tSize += 1;
             //Trees:
-            if (TreesOld != null) { tSize += (TreesOld.Length * 56); tSize += 20; }
+            if (TreesOld != null)
+            { tSize += (TreesOld.Length * 56); tSize += 20; }
             tSize += 4;
             tSize += 1;
             tSize += 1;
@@ -945,6 +998,7 @@ namespace GSD.Roads
             return tSize;
         }
     }
+
 
     public class RoadConstructorBufferMaker
     {
@@ -1181,6 +1235,7 @@ namespace GSD.Roads
 
         public enum SaveMeshTypeEnum { Road, Shoulder, Intersection, Railing, Center, Bridge, RoadCut, SCut, BSCut, RoadConn };
 
+
         public RoadConstructorBufferMaker(GSDRoad _tRoad, RoadUpdateTypeEnum _tUpdateType)
         {
             tUpdateType = _tUpdateType;
@@ -1398,6 +1453,7 @@ namespace GSD.Roads
             InitGameObjects();
         }
 
+
         #region "Init and nullify"
         private void InitGameObjects()
         {
@@ -1450,6 +1506,7 @@ namespace GSD.Roads
             tRoad.MeshiMarkerPlates.transform.parent = tRoad.MainMeshes.transform;
         }
 
+
         public void Nullify()
         {
             RoadVectors = null;
@@ -1481,18 +1538,30 @@ namespace GSD.Roads
             tMesh = null;
             tMesh_SR = null;
             tMesh_SL = null;
-            if (tMesh_iBLanes0 != null) { tMesh_iBLanes0.Clear(); tMesh_iBLanes0 = null; }
-            if (tMesh_iBLanes1 != null) { tMesh_iBLanes1.Clear(); tMesh_iBLanes1 = null; }
-            if (tMesh_iBLanes2 != null) { tMesh_iBLanes2.Clear(); tMesh_iBLanes2 = null; }
-            if (tMesh_iBLanes3 != null) { tMesh_iBLanes3.Clear(); tMesh_iBLanes3 = null; }
-            if (tMesh_iFLanes0 != null) { tMesh_iFLanes0.Clear(); tMesh_iFLanes0 = null; }
-            if (tMesh_iFLanes1 != null) { tMesh_iFLanes1.Clear(); tMesh_iFLanes1 = null; }
-            if (tMesh_iFLanes2 != null) { tMesh_iFLanes2.Clear(); tMesh_iFLanes2 = null; }
-            if (tMesh_iFLanes3 != null) { tMesh_iFLanes3.Clear(); tMesh_iFLanes3 = null; }
-            if (tMesh_iBMainPlates != null) { tMesh_iBMainPlates.Clear(); tMesh_iBMainPlates = null; }
-            if (tMesh_iFMainPlates != null) { tMesh_iFMainPlates.Clear(); tMesh_iFMainPlates = null; }
-            if (tMesh_iBMarkerPlates != null) { tMesh_iBMarkerPlates.Clear(); tMesh_iBMarkerPlates = null; }
-            if (tMesh_iFMarkerPlates != null) { tMesh_iFMarkerPlates.Clear(); tMesh_iFMarkerPlates = null; }
+            if (tMesh_iBLanes0 != null)
+            { tMesh_iBLanes0.Clear(); tMesh_iBLanes0 = null; }
+            if (tMesh_iBLanes1 != null)
+            { tMesh_iBLanes1.Clear(); tMesh_iBLanes1 = null; }
+            if (tMesh_iBLanes2 != null)
+            { tMesh_iBLanes2.Clear(); tMesh_iBLanes2 = null; }
+            if (tMesh_iBLanes3 != null)
+            { tMesh_iBLanes3.Clear(); tMesh_iBLanes3 = null; }
+            if (tMesh_iFLanes0 != null)
+            { tMesh_iFLanes0.Clear(); tMesh_iFLanes0 = null; }
+            if (tMesh_iFLanes1 != null)
+            { tMesh_iFLanes1.Clear(); tMesh_iFLanes1 = null; }
+            if (tMesh_iFLanes2 != null)
+            { tMesh_iFLanes2.Clear(); tMesh_iFLanes2 = null; }
+            if (tMesh_iFLanes3 != null)
+            { tMesh_iFLanes3.Clear(); tMesh_iFLanes3 = null; }
+            if (tMesh_iBMainPlates != null)
+            { tMesh_iBMainPlates.Clear(); tMesh_iBMainPlates = null; }
+            if (tMesh_iFMainPlates != null)
+            { tMesh_iFMainPlates.Clear(); tMesh_iFMainPlates = null; }
+            if (tMesh_iBMarkerPlates != null)
+            { tMesh_iBMarkerPlates.Clear(); tMesh_iBMarkerPlates = null; }
+            if (tMesh_iFMarkerPlates != null)
+            { tMesh_iFMarkerPlates.Clear(); tMesh_iFMarkerPlates = null; }
             tMesh_RoadConnections = null;
 
             iFLane1s_IsMiddleLane = null;
@@ -1504,12 +1573,18 @@ namespace GSD.Roads
             RoadConnections_uv = null;
             RoadConnections_tangents = null;
 
-            if (cut_uv_world != null) { cut_uv_world.Clear(); cut_uv_world = null; }
-            if (cut_uv_SR_world != null) { cut_uv_SR_world.Clear(); cut_uv_SR_world = null; }
-            if (cut_uv_SL_world != null) { cut_uv_SL_world.Clear(); cut_uv_SL_world = null; }
-            if (cut_tangents_world != null) { cut_tangents_world.Clear(); cut_tangents_world = null; }
-            if (cut_tangents_SR_world != null) { cut_tangents_SR_world.Clear(); cut_tangents_SR_world = null; }
-            if (cut_tangents_SL_world != null) { cut_tangents_SL_world.Clear(); cut_tangents_SL_world = null; }
+            if (cut_uv_world != null)
+            { cut_uv_world.Clear(); cut_uv_world = null; }
+            if (cut_uv_SR_world != null)
+            { cut_uv_SR_world.Clear(); cut_uv_SR_world = null; }
+            if (cut_uv_SL_world != null)
+            { cut_uv_SL_world.Clear(); cut_uv_SL_world = null; }
+            if (cut_tangents_world != null)
+            { cut_tangents_world.Clear(); cut_tangents_world = null; }
+            if (cut_tangents_SR_world != null)
+            { cut_tangents_SR_world.Clear(); cut_tangents_SR_world = null; }
+            if (cut_tangents_SL_world != null)
+            { cut_tangents_SL_world.Clear(); cut_tangents_SL_world = null; }
 
 
             tMesh = null;
@@ -1526,11 +1601,13 @@ namespace GSD.Roads
         }
         #endregion
 
+
         #region "Mesh Setup1"	
         public void MeshSetup1()
         {
             MeshSetup1_Do();
         }
+
 
         /// <summary>
         /// Creates meshes and assigns vertices, triangles and normals. If multithreading enabled, this occurs inbetween threaded jobs since unity library can't be used in threads.
@@ -1549,7 +1626,8 @@ namespace GSD.Roads
                 //Main road:
                 if (RoadVectors.Count < 64000)
                 {
-                    if (tMesh == null) { tMesh = new Mesh(); }
+                    if (tMesh == null)
+                    { tMesh = new Mesh(); }
                     tMesh = MeshSetup1_Helper(ref tMesh, RoadVectors.ToArray(), ref tris, ref normals);
                     tMeshSkip = false;
                 }
@@ -1561,7 +1639,8 @@ namespace GSD.Roads
                 //Right shoulder:
                 if (ShoulderR_Vectors.Count < 64000)
                 {
-                    if (tMesh_SR == null) { tMesh_SR = new Mesh(); }
+                    if (tMesh_SR == null)
+                    { tMesh_SR = new Mesh(); }
                     tMesh_SR = MeshSetup1_Helper(ref tMesh_SR, ShoulderR_Vectors.ToArray(), ref tris_ShoulderR, ref normals_ShoulderR);
                     tMesh_SRSkip = false;
                 }
@@ -1573,7 +1652,8 @@ namespace GSD.Roads
                 //Left shoulder:
                 if (ShoulderL_Vectors.Count < 64000)
                 {
-                    if (tMesh_SL == null) { tMesh_SL = new Mesh(); }
+                    if (tMesh_SL == null)
+                    { tMesh_SL = new Mesh(); }
                     tMesh_SL = MeshSetup1_Helper(ref tMesh_SL, ShoulderL_Vectors.ToArray(), ref tris_ShoulderL, ref normals_ShoulderL);
                     tMesh_SLSkip = false;
                 }
@@ -1663,6 +1743,7 @@ namespace GSD.Roads
             MeshBuffer = null;
         }
 
+
         #region "Intersection for MeshSetup1"
         private void MeshSetup1_IntersectionObjectsSetup()
         {
@@ -1701,6 +1782,7 @@ namespace GSD.Roads
                 }
             }
         }
+
 
         private void MeshSetup1_IntersectionParts()
         {
@@ -1821,6 +1903,7 @@ namespace GSD.Roads
         }
         #endregion
 
+
         private Mesh MeshSetup1_Helper(ref Mesh xMesh, Vector3[] verts, ref int[] tris, ref Vector3[] normals)
         {
             xMesh.vertices = verts;
@@ -1832,6 +1915,7 @@ namespace GSD.Roads
             return xMesh;
         }
         #endregion
+
 
         #region "Mesh Setup2"
         public void MeshSetup2()
@@ -2041,15 +2125,19 @@ namespace GSD.Roads
                         {
                             MeshCollider tMC = tRoad.MeshShoR.GetComponent<MeshCollider>();
                             MeshRenderer tMR = tRoad.MeshShoR.GetComponent<MeshRenderer>();
-                            if (tMC != null) { Object.DestroyImmediate(tMC); }
-                            if (tMR != null) { Object.DestroyImmediate(tMR); }
+                            if (tMC != null)
+                            { Object.DestroyImmediate(tMC); }
+                            if (tMR != null)
+                            { Object.DestroyImmediate(tMR); }
                         }
                         if (tRoad.MeshShoL != null)
                         {
                             MeshCollider tMC = tRoad.MeshShoL.GetComponent<MeshCollider>();
                             MeshRenderer tMR = tRoad.MeshShoL.GetComponent<MeshRenderer>();
-                            if (tMC != null) { Object.DestroyImmediate(tMC); }
-                            if (tMR != null) { Object.DestroyImmediate(tMR); }
+                            if (tMC != null)
+                            { Object.DestroyImmediate(tMC); }
+                            if (tMR != null)
+                            { Object.DestroyImmediate(tMR); }
                         }
                     }
                 }
@@ -2069,15 +2157,19 @@ namespace GSD.Roads
                     {
                         MeshCollider tMC = tRoad.MeshShoR.GetComponent<MeshCollider>();
                         MeshRenderer tMR = tRoad.MeshShoR.GetComponent<MeshRenderer>();
-                        if (tMC != null) { Object.DestroyImmediate(tMC); }
-                        if (tMR != null) { Object.DestroyImmediate(tMR); }
+                        if (tMC != null)
+                        { Object.DestroyImmediate(tMC); }
+                        if (tMR != null)
+                        { Object.DestroyImmediate(tMR); }
                     }
                     if (tRoad.MeshShoL != null)
                     {
                         MeshCollider tMC = tRoad.MeshShoL.GetComponent<MeshCollider>();
                         MeshRenderer tMR = tRoad.MeshShoL.GetComponent<MeshRenderer>();
-                        if (tMC != null) { Object.DestroyImmediate(tMC); }
-                        if (tMR != null) { Object.DestroyImmediate(tMR); }
+                        if (tMC != null)
+                        { Object.DestroyImmediate(tMC); }
+                        if (tMR != null)
+                        { Object.DestroyImmediate(tMR); }
                     }
 
                     Mesh tBuffer = null;
@@ -2183,13 +2275,20 @@ namespace GSD.Roads
                 MeshSetup2_Intersections();
             }
 
-            if (tRoad.MeshiLanes != null) { Object.DestroyImmediate(tRoad.MeshiLanes); }
-            if (tRoad.MeshiLanes0 != null) { Object.DestroyImmediate(tRoad.MeshiLanes0); }
-            if (tRoad.MeshiLanes1 != null) { Object.DestroyImmediate(tRoad.MeshiLanes1); }
-            if (tRoad.MeshiLanes2 != null) { Object.DestroyImmediate(tRoad.MeshiLanes2); }
-            if (tRoad.MeshiLanes3 != null) { Object.DestroyImmediate(tRoad.MeshiLanes3); }
-            if (tRoad.MeshiMainPlates != null) { Object.DestroyImmediate(tRoad.MeshiMainPlates); }
-            if (tRoad.MeshiMarkerPlates != null) { Object.DestroyImmediate(tRoad.MeshiMarkerPlates); }
+            if (tRoad.MeshiLanes != null)
+            { Object.DestroyImmediate(tRoad.MeshiLanes); }
+            if (tRoad.MeshiLanes0 != null)
+            { Object.DestroyImmediate(tRoad.MeshiLanes0); }
+            if (tRoad.MeshiLanes1 != null)
+            { Object.DestroyImmediate(tRoad.MeshiLanes1); }
+            if (tRoad.MeshiLanes2 != null)
+            { Object.DestroyImmediate(tRoad.MeshiLanes2); }
+            if (tRoad.MeshiLanes3 != null)
+            { Object.DestroyImmediate(tRoad.MeshiLanes3); }
+            if (tRoad.MeshiMainPlates != null)
+            { Object.DestroyImmediate(tRoad.MeshiMainPlates); }
+            if (tRoad.MeshiMarkerPlates != null)
+            { Object.DestroyImmediate(tRoad.MeshiMarkerPlates); }
 
             //Updates the road and shoulder cut materials if necessary. Note: Cycling through all nodes in case the road cuts and shoulder cut numbers don't match.
             if (tRoad.opt_bRoadCuts || tRoad.opt_bShoulderCuts || tRoad.opt_bDynamicCuts)
@@ -2762,62 +2861,74 @@ namespace GSD.Roads
 
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane0)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "Lane0");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane1)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "Lane1");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane2)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "Lane2");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane3)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "Lane3");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_MainPlate)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "TiledExt", true);
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_MainPlateM)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "StretchExt");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane1_Disabled)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneD1");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane3_Disabled)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneD3");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane2_DisabledActive)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneDA2");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane2_DisabledActiveR)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneDAR2");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane2_Disabled)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneD2");
             }
             foreach (KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP in tCombineDict_Lane1_DisabledActive)
             {
-                if (!UniqueGSDRI.Contains(KVP.Key)) { UniqueGSDRI.Add(KVP.Key); }
+                if (!UniqueGSDRI.Contains(KVP.Key))
+                { UniqueGSDRI.Add(KVP.Key); }
                 MeshSetup2_CombineIntersections(KVP, KVP.Key.transform.name + "-" + "LaneDA1");
             }
 
@@ -2831,7 +2942,8 @@ namespace GSD.Roads
         private void MeshSetup2_CombineIntersections(KeyValuePair<GSDRoadIntersection, List<MeshFilter>> KVP, string tName, bool bMainPlates = false)
         {
             int vCount = KVP.Value.Count;
-            if (vCount < 1) { return; }
+            if (vCount < 1)
+            { return; }
             tName = tRoad.name + "-" + tName;
             GameObject tCenter = null;
             int cCount = KVP.Key.transform.childCount;
@@ -2853,7 +2965,8 @@ namespace GSD.Roads
             }
 
             int CombineCount = vCount;
-            if (tCenter != null) { CombineCount += 1; }
+            if (tCenter != null)
+            { CombineCount += 1; }
             CombineInstance[] combine = new CombineInstance[CombineCount];
             for (int i = 0; i < vCount; i++)
             {
@@ -2933,7 +3046,8 @@ namespace GSD.Roads
 
         private MeshFilter MeshSetup2_Intersection_Helper(ref Mesh xMesh, ref Vector2[] uv, ref Vector4[] tangents, ref GameObject MasterObj, string tName, string tMat, bool bCollider = false)
         {
-            if (xMesh == null) { return null; }
+            if (xMesh == null)
+            { return null; }
             xMesh.uv = uv;
             xMesh.tangents = tangents;
             if (tRoad.opt_bIsLightmapped)
@@ -2950,7 +3064,8 @@ namespace GSD.Roads
                 MeshCollider MC = tObj.AddComponent<MeshCollider>();
                 MC.sharedMesh = MF.sharedMesh;
             }
-            if (tMat.Length < 1) { return null; }
+            if (tMat.Length < 1)
+            { return null; }
             MeshRenderer MR = tObj.AddComponent<MeshRenderer>();
             MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(tMat, MR);
@@ -3112,7 +3227,8 @@ namespace GSD.Roads
                         MR.materials = tMats;
                     }
 
-                    if (MC) { MC.sharedMaterial = tRoad.RoadPhysicMaterial; }
+                    if (MC)
+                    { MC.sharedMaterial = tRoad.RoadPhysicMaterial; }
                 }
             }
 
@@ -3262,7 +3378,8 @@ namespace GSD.Roads
             }
 
             CreatedObj.transform.parent = MasterObj.transform;
-            if (!bIsMarkers && MC != null) { MC.sharedMaterial = tRoad.RoadPhysicMaterial; }
+            if (!bIsMarkers && MC != null)
+            { MC.sharedMaterial = tRoad.RoadPhysicMaterial; }
             if (tRoad.opt_bIsLightmapped)
             {
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(CreatedObj, UnityEditor.StaticEditorFlags.LightmapStatic);
@@ -3443,7 +3560,8 @@ namespace GSD.Roads
                 }
             }
 
-            if (!bIsMarkers && MC != null) { MC.sharedMaterial = tRoad.ShoulderPhysicMaterial; }
+            if (!bIsMarkers && MC != null)
+            { MC.sharedMaterial = tRoad.ShoulderPhysicMaterial; }
             CreatedObj.transform.parent = MasterObj.transform;
             if (tRoad.opt_bIsLightmapped)
             {
@@ -3461,9 +3579,11 @@ namespace GSD.Roads
         }
         #endregion
 
+
         private static void SaveMesh(SaveMeshTypeEnum SaveType, Mesh tMesh, GSDRoad tRoad, string tName)
         {
-            if (!tRoad.GSDRS.opt_bSaveMeshes) { return; }
+            if (!tRoad.GSDRS.opt_bSaveMeshes)
+            { return; }
 
             //string tSceneName = System.IO.Path.GetFileName(UnityEditor.EditorApplication.currentScene).ToLower().Replace(".unity","");
             string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
@@ -3520,6 +3640,7 @@ namespace GSD.Roads
         }
     }
 
+
     public static class GSDGeneralEditor
     {
         #region "Terrain history serialization"
@@ -3544,10 +3665,12 @@ namespace GSD.Roads
             }
         }
 
+
         public static void TerrainHistory_Save(List<GSDTerrainHistoryMaker> tObj, GSDRoad tRoad)
         {
             string tPath = CheckNonAssetDirTH() + GetRoadTHFilename(ref tRoad);
-            if (string.IsNullOrEmpty(tPath) || tPath.Length < 2) { return; }
+            if (string.IsNullOrEmpty(tPath) || tPath.Length < 2)
+            { return; }
             Stream stream = File.Open(tPath, FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
             bformatter.Binder = new VersionDeserializationBinder();
@@ -3555,6 +3678,7 @@ namespace GSD.Roads
             tRoad.TerrainHistoryByteSize = (stream.Length * 0.001f).ToString("n0") + " kb";
             stream.Close();
         }
+
 
         public static void TerrainHistory_Delete(GSDRoad tRoad)
         {
@@ -3565,23 +3689,27 @@ namespace GSD.Roads
             }
         }
 
+
         public static List<GSDTerrainHistoryMaker> TerrainHistory_Load(GSDRoad tRoad)
         {
             string tPath = CheckNonAssetDirTH() + GetRoadTHFilename(ref tRoad);
-            if (string.IsNullOrEmpty(tPath) || tPath.Length < 2) { return null; }
-            if (!File.Exists(tPath)) { return null; }
+            if (string.IsNullOrEmpty(tPath) || tPath.Length < 2)
+            { return null; }
+            if (!File.Exists(tPath))
+            { return null; }
             List<GSDTerrainHistoryMaker> result;
             Stream stream = File.Open(tPath, FileMode.Open);
             BinaryFormatter bFormatter = new BinaryFormatter();
             bFormatter.Binder = new VersionDeserializationBinder();
             //			try{
-            result = (List<GSDTerrainHistoryMaker>)bFormatter.Deserialize(stream) as List<GSDTerrainHistoryMaker>;
+            result = (List<GSDTerrainHistoryMaker>) bFormatter.Deserialize(stream) as List<GSDTerrainHistoryMaker>;
             //			}catch{
             //				result = null;	
             //			}
             stream.Close();
             return result;
         }
+
 
         private static string GetRoadTHFilename(ref GSDRoad tRoad)
         {
@@ -3592,6 +3720,7 @@ namespace GSD.Roads
             string tRoadName = tRoad.GSDRS.transform.name.Replace("RoadArchitectSystem", "RAS") + "-" + tRoad.transform.name;
             return tSceneName + "-" + tRoadName + "-TH.gsd";
         }
+
 
         public static string CheckNonAssetDir()
         {
@@ -3609,6 +3738,7 @@ namespace GSD.Roads
                 return "";
             }
         }
+
 
         public static string CheckNonAssetDirTH()
         {
@@ -3628,6 +3758,7 @@ namespace GSD.Roads
             }
         }
 
+
         public static string CheckNonAssetDirLibrary()
         {
             CheckNonAssetDir();
@@ -3646,6 +3777,7 @@ namespace GSD.Roads
             }
         }
 
+
         public static void CheckNonAssetDirs()
         {
             CheckNonAssetDir();
@@ -3655,15 +3787,19 @@ namespace GSD.Roads
         #endregion
     }
 
+
     public static class GSDRoadUtil
     {
         private const string FileSepString = "\n!!!! MICROGSD !!!!\n";
         private const string FileSepStringCRLF = "\r\n!!!! MICROGSD !!!!\r\n";
 
+
         public static Terrain GetTerrain(Vector3 tVect)
         {
             return GetTerrain_Do(ref tVect);
         }
+
+
         private static Terrain GetTerrain_Do(ref Vector3 tVect)
         {
             //Sphere cast 5m first. Then raycast down 1000m, then up 1000m.
@@ -3719,11 +3855,14 @@ namespace GSD.Roads
             return null;
         }
 
+
         #region "Terrain history"
         public static void ConstructRoad_StoreTerrainHistory(ref GSDRoad tRoad)
         {
             ConstructRoad_DoStoreTerrainHistory(ref tRoad);
         }
+
+
         private static void ConstructRoad_DoStoreTerrainHistory(ref GSDRoad tRoad)
         {
             Object[] TIDs = GameObject.FindObjectsOfType(typeof(GSDTerrain));
@@ -3753,12 +3892,14 @@ namespace GSD.Roads
                     {
                         GSDTerrainHistoryMaker THf = tRoad.TerrainHistory[i];
                         tRoad.TerrainHistory.RemoveAt(i);
-                        if (THf != null) { THf = null; }
+                        if (THf != null)
+                        { THf = null; }
                     }
                 }
             }
 
-            if (tRoad.TerrainHistory == null) { tRoad.TerrainHistory = new List<GSDTerrainHistoryMaker>(); }
+            if (tRoad.TerrainHistory == null)
+            { tRoad.TerrainHistory = new List<GSDTerrainHistoryMaker>(); }
             foreach (GSDTerraforming.TempTerrainData TTD in tRoad.EditorTTDList)
             {
                 GSDTerrainHistoryMaker TH = null;
@@ -3772,8 +3913,10 @@ namespace GSD.Roads
                     }
                 }
 
-                if (tRoad.TerrainHistory == null) { tRoad.TerrainHistory = new List<GSDTerrainHistoryMaker>(); }
-                if (TID == null) { continue; }
+                if (tRoad.TerrainHistory == null)
+                { tRoad.TerrainHistory = new List<GSDTerrainHistoryMaker>(); }
+                if (TID == null)
+                { continue; }
 
                 int THCount = tRoad.TerrainHistory.Count;
                 bool bContainsTID = false;
@@ -3802,7 +3945,8 @@ namespace GSD.Roads
                         break;
                     }
                 }
-                if (TH == null) { continue; }
+                if (TH == null)
+                { continue; }
 
                 //Heights:
                 if (tRoad.opt_HeightModEnabled)
@@ -3846,7 +3990,8 @@ namespace GSD.Roads
                     for (int i = 0; i < TTD.DetailLayersCount; i++)
                     {
                         cLength = TTD.DetailsI[i];
-                        if (cLength < 1) { continue; }
+                        if (cLength < 1)
+                        { continue; }
                         System.Array.Copy(TTD.DetailsX[i].ToArray(), 0, TH.DetailsX, RunningIndex, cLength);
                         System.Array.Copy(TTD.DetailsY[i].ToArray(), 0, TH.DetailsY, RunningIndex, cLength);
                         System.Array.Copy(TTD.OldDetailsValue[i].ToArray(), 0, TH.DetailsOldValue, RunningIndex, cLength);
@@ -3891,6 +4036,7 @@ namespace GSD.Roads
             //			if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
         }
 
+
         //		static void TerrainHistorySerialize(ref GSDRoad tRoad) {
         //			MemoryStream ms = new MemoryStream();
         //	        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
@@ -3908,10 +4054,12 @@ namespace GSD.Roads
         //	        ms = null;
         //	    }
 
+
         public static void ConstructRoad_ResetTerrainHistory(ref GSDRoad tRoad)
         {
             ConstructRoad_DoResetTerrainHistory(ref tRoad);
         }
+
 
         private static void ConstructRoad_DoResetTerrainHistory(ref GSDRoad tRoad)
         {
@@ -3922,6 +4070,7 @@ namespace GSD.Roads
             }
         }
         #endregion
+
 
         [System.Serializable]
         public class Construction3DTri
@@ -3937,6 +4086,7 @@ namespace GSD.Roads
             public Vector3 pMiddle = default(Vector3);
             public float MinI = 0f;
             public float MaxI = 1f;
+
 
             public Construction3DTri(Vector3 _P1, Vector3 _P2, Vector3 _P3, float _MinI, float _MaxI)
             {
@@ -3978,6 +4128,7 @@ namespace GSD.Roads
                 //				pMiddle = ((tMiddle2-tMiddle1)*0.5f)+tMiddle1;
             }
 
+
             //Get the intersection between a line and a plane. 
             //If the line and plane are not parallel, the function outputs true, otherwise false.
             public Vector3 LinePlaneIntersection(ref Vector3 F1)
@@ -4001,15 +4152,18 @@ namespace GSD.Roads
                 }
             }
 
+
             static bool IsApproximately(float a, float b)
             {
                 return IsApproximately(a, b, 0.01f);
             }
 
+
             static bool IsApproximately(float a, float b, float tolerance)
             {
                 return Mathf.Abs(a - b) < tolerance;
             }
+
 
             //Convert a plane defined by 3 points to a plane defined by a vector and a point. 
             //The plane point is the middle of the triangle defined by the 3 points.
@@ -4040,6 +4194,7 @@ namespace GSD.Roads
                 Vector3 temp;
                 ClosestPointsOnTwoLines(out planePoint, out temp, middleAB, middleABtoC, middleAC, middleACtoB);
             }
+
 
             //Two non-parallel lines which may or may not touch each other have a point on each line which are closest
             //to each other. This function finds those two points. If the lines are not parallel, the function 
@@ -4079,6 +4234,7 @@ namespace GSD.Roads
                 }
             }
 
+
             //create a vector of direction "vector" with length "size"
             public static Vector3 SetVectorLength(Vector3 vector, float size)
             {
@@ -4089,6 +4245,7 @@ namespace GSD.Roads
                 //scale the vector
                 return vectorNormalized *= size;
             }
+
 
             //			public bool Contains2D(ref Vector2 p){
             //				return Contains2D_Do(ref p);
@@ -4139,6 +4296,7 @@ namespace GSD.Roads
                 return Contains2D(ref tVect);
             }
 
+
             public bool Near(ref Vector3 tVect, out Vector3 TheNearVect)
             {
                 if (Vector3.SqrMagnitude(tVect - P1) > MaxDistanceSq)
@@ -4170,11 +4328,13 @@ namespace GSD.Roads
                 return false;
             }
 
+
             public string ToStringGSD()
             {
                 return ("P1:" + P1.ToString() + " P2:" + P2.ToString() + " P3:" + P3.ToString());
             }
         }
+
 
         public class Construction2DRect
         {
@@ -4188,20 +4348,25 @@ namespace GSD.Roads
             public float MinI = 0f;
             public float MaxI = 0f;
 
+
             static bool IsApproximately(float a, float b)
             {
                 return IsApproximately(a, b, 0.01f);
             }
+
 
             static bool IsApproximately(float a, float b, float tolerance)
             {
                 return Mathf.Abs(a - b) < tolerance;
             }
 
+
             public Construction2DRect(Vector2 _P1, Vector2 _P2, Vector2 _P3, Vector2 _P4, float tHeight = 0f)
             {
                 Construction2DRect_Do(ref _P1, ref _P2, ref _P3, ref _P4, ref tHeight);
             }
+
+
             private void Construction2DRect_Do(ref Vector2 _P1, ref Vector2 _P2, ref Vector2 _P3, ref Vector2 _P4, ref float tHeight)
             {
                 P1 = _P1;
@@ -4284,19 +4449,23 @@ namespace GSD.Roads
                 int tCounter = 0;
                 if (!IsApproximately(MinX1, P1.x, 0.0001f))
                 {
-                    tX[tCounter] = P1.x; tCounter += 1;
+                    tX[tCounter] = P1.x;
+                    tCounter += 1;
                 }
                 if (!IsApproximately(MinX1, P2.x, 0.0001f))
                 {
-                    tX[tCounter] = P2.x; tCounter += 1;
+                    tX[tCounter] = P2.x;
+                    tCounter += 1;
                 }
                 if (!IsApproximately(MinX1, P3.x, 0.0001f))
                 {
-                    tX[tCounter] = P3.x; tCounter += 1;
+                    tX[tCounter] = P3.x;
+                    tCounter += 1;
                 }
                 if (!IsApproximately(MinX1, P4.x, 0.0001f))
                 {
-                    tX[tCounter] = P4.x; tCounter += 1;
+                    tX[tCounter] = P4.x;
+                    tCounter += 1;
                 }
                 MinX2 = Mathf.Min(tX);
 
@@ -4459,7 +4628,8 @@ namespace GSD.Roads
             public bool Contains(ref Vector2 p)
             {
                 //					if(Vector2.Distance(p,P1) > MaxDistance){ return false; }
-                if (Vector2.SqrMagnitude(p - P1) > MaxDistanceSQ) { return false; }
+                if (Vector2.SqrMagnitude(p - P1) > MaxDistanceSQ)
+                { return false; }
                 //					if(poly.Length != 4){ return false; }
 
                 inside = false;
@@ -4485,6 +4655,7 @@ namespace GSD.Roads
                 }
                 return inside;
             }
+
 
             public bool Near(ref Vector2 tVect, out Vector2 TheNearVect)
             {
@@ -4523,11 +4694,13 @@ namespace GSD.Roads
                 return false;
             }
 
+
             public string ToStringGSD()
             {
                 return ("P1:" + P1.ToString() + " P2:" + P2.ToString() + " P3:" + P3.ToString() + " P4:" + P4.ToString());
             }
         }
+
 
         public static GSD.Threaded.GSDRoadCreationT.RoadTerrainInfo[] GetRoadTerrainInfos()
         {
@@ -4599,6 +4772,8 @@ namespace GSD.Roads
         {
             SaveNodeObjects_DO(ref tSplinatedObjects, ref tEdgeObjects, ref WO);
         }
+
+
         private static void SaveNodeObjects_DO(ref Splination.SplinatedMeshMaker[] tSplinatedObjects, ref EdgeObjects.EdgeObjectMaker[] tEdgeObjects, ref WizardObject WO)
         {
             int sCount = tSplinatedObjects.Length;
@@ -4639,6 +4814,7 @@ namespace GSD.Roads
             System.IO.File.WriteAllText(tPath, builder.ToString());
 #endif
         }
+
 
         public static void LoadNodeObjects(string tFileName, GSDSplineN tNode, bool bIsDefault = false, bool bIsBridge = false)
         {
@@ -4720,11 +4896,13 @@ namespace GSD.Roads
 #endif
         }
 
+
         #region "Splat maps"
         public static byte[] MakeSplatMap(Terrain tTerrain, Color tBG, Color tFG, int tWidth, int tHeight, float SplatWidth, bool bSkipBridge, bool bSkipTunnel, string xRoadUID = "")
         {
             return MakeSplatMapDo(tTerrain, tBG, tFG, tWidth, tHeight, SplatWidth, bSkipBridge, bSkipTunnel, xRoadUID);
         }
+
 
         private static byte[] MakeSplatMapDo(Terrain tTerrain, Color tBG, Color tFG, int tWidth, int tHeight, float SplatWidth, bool bSkipBridge, bool bSkipTunnel, string xRoadUID)
         {
@@ -4839,17 +5017,26 @@ namespace GSD.Roads
                     MaxY = Mathf.Max(tY);
 
 
-                    if (MinX < 0) { MinX = 0; bXBad = true; }
-                    if (MaxX < 0) { MaxX = 0; bXBad = true; }
-                    if (MinY < 0) { MinY = 0; bYBad = true; }
-                    if (MaxY < 0) { MaxY = 0; bYBad = true; }
+                    if (MinX < 0)
+                    { MinX = 0; bXBad = true; }
+                    if (MaxX < 0)
+                    { MaxX = 0; bXBad = true; }
+                    if (MinY < 0)
+                    { MinY = 0; bYBad = true; }
+                    if (MaxY < 0)
+                    { MaxY = 0; bYBad = true; }
 
-                    if (MinX > (tWidth - 1)) { MinX = (tWidth - 1); bXBad = true; }
-                    if (MaxX > (tWidth - 1)) { MaxX = (tWidth - 1); bXBad = true; }
-                    if (MinY > (tHeight - 1)) { MinY = (tHeight - 1); bYBad = true; }
-                    if (MaxY > (tHeight - 1)) { MaxY = (tHeight - 1); bYBad = true; }
+                    if (MinX > (tWidth - 1))
+                    { MinX = (tWidth - 1); bXBad = true; }
+                    if (MaxX > (tWidth - 1))
+                    { MaxX = (tWidth - 1); bXBad = true; }
+                    if (MinY > (tHeight - 1))
+                    { MinY = (tHeight - 1); bYBad = true; }
+                    if (MaxY > (tHeight - 1))
+                    { MaxY = (tHeight - 1); bYBad = true; }
 
-                    if (bXBad && bYBad) { continue; }
+                    if (bXBad && bYBad)
+                    { continue; }
 
                     xDiff = MaxX - MinX;
                     yDiff = MaxY - MinY;
@@ -4884,10 +5071,11 @@ namespace GSD.Roads
             tVect.z = tVect.z / tSize.z;
 
             //Get the position of the terrain heightmap where this game object is:
-            x1 = (int)(tVect.x * tWidth);
-            y1 = (int)(tVect.z * tHeight);
+            x1 = (int) (tVect.x * tWidth);
+            y1 = (int) (tVect.z * tHeight);
         }
         #endregion
+
 
         #region "Wizard objects"
         public class WizardObject
@@ -4902,12 +5090,14 @@ namespace GSD.Roads
             public string FullPath;
             public int sortID = 0;
 
+
             public string ConvertToString()
             {
                 WizardObjectLibrary WOL = new WizardObjectLibrary();
                 WOL.LoadFrom(this);
                 return GSDRootUtil.GetString<WizardObjectLibrary>(WOL);
             }
+
 
             public void LoadDataFromWOL(WizardObjectLibrary WOL)
             {
@@ -4918,6 +5108,7 @@ namespace GSD.Roads
                 FileName = WOL.FileName;
                 bIsBridge = WOL.bIsBridge;
             }
+
 
             public static WizardObject LoadFromLibrary(string tPath)
             {
@@ -4945,6 +5136,7 @@ namespace GSD.Roads
 #endif
             }
 
+
             [System.Serializable]
             public class WizardObjectLibrary
             {
@@ -4954,6 +5146,7 @@ namespace GSD.Roads
                 public bool bIsDefault;
                 public bool bIsBridge;
                 public string FileName;
+
 
                 public void LoadFrom(WizardObject WO)
                 {
@@ -4965,11 +5158,12 @@ namespace GSD.Roads
                     bIsBridge = WO.bIsBridge;
                 }
 
+
                 public static WizardObjectLibrary WOLFromData(string tData)
                 {
                     try
                     {
-                        WizardObjectLibrary WOL = (WizardObjectLibrary)GSDRootUtil.LoadData<WizardObjectLibrary>(ref tData);
+                        WizardObjectLibrary WOL = (WizardObjectLibrary) GSDRootUtil.LoadData<WizardObjectLibrary>(ref tData);
                         return WOL;
                     }
                     catch
@@ -4979,10 +5173,9 @@ namespace GSD.Roads
                 }
             }
         }
-
-
         #endregion
     }
+
 
     public static class GSDIntersectionObjects
     {
@@ -4991,15 +5184,18 @@ namespace GSD.Roads
             return IsApproximately(a, b, 0.01f);
         }
 
+
         static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
 
+
         public static void CleanupIntersectionObjects(GameObject MasterGameObj)
         {
             int mCount = MasterGameObj.transform.childCount;
-            if (mCount == 0) { return; }
+            if (mCount == 0)
+            { return; }
             List<GameObject> tObjtoDelete = new List<GameObject>();
             for (int i = 0; i < mCount; i++)
             {
@@ -5018,17 +5214,22 @@ namespace GSD.Roads
             }
         }
 
+
         #region "Stop Sign All Way"
         public static void CreateStopSignsAllWay(GameObject MasterGameObj, bool bIsRB = true)
         {
             CreateStopSignsAllWay_Do(ref MasterGameObj, bIsRB);
         }
+
+
         private static void T_FixSigns(GameObject tObj)
         {
             Rigidbody rigidbody = tObj.GetComponent<Rigidbody>();
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
         }
+
+
         private static void CreateStopSignsAllWay_Do(ref GameObject MasterGameObj, bool bIsRB)
         {
             Object prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDSignStopAllway.prefab", typeof(GameObject));
@@ -5072,7 +5273,8 @@ namespace GSD.Roads
             tObj.transform.position = tPosRR;
             tObj.name = "StopSignRR";
             T_FixSigns(tObj);
-            if (GSDRI.IgnoreCorner == 0) { Object.DestroyImmediate(tObj); }
+            if (GSDRI.IgnoreCorner == 0)
+            { Object.DestroyImmediate(tObj); }
 
             //LL:
             tSpline = GSDRI.Node1.GSDSpline;
@@ -5090,7 +5292,8 @@ namespace GSD.Roads
             tObj.transform.position = tPosLL;
             tObj.name = "StopSignLL";
             T_FixSigns(tObj);
-            if (GSDRI.IgnoreCorner == 2) { Object.DestroyImmediate(tObj); }
+            if (GSDRI.IgnoreCorner == 2)
+            { Object.DestroyImmediate(tObj); }
 
             //RL:
             tSpline = GSDRI.Node2.GSDSpline;
@@ -5108,7 +5311,8 @@ namespace GSD.Roads
             tObj.transform.position = tPosRL;
             tObj.name = "StopSignRL";
             T_FixSigns(tObj);
-            if (GSDRI.IgnoreCorner == 1) { Object.DestroyImmediate(tObj); }
+            if (GSDRI.IgnoreCorner == 1)
+            { Object.DestroyImmediate(tObj); }
 
             //LR:
             tSpline = GSDRI.Node2.GSDSpline;
@@ -5126,28 +5330,35 @@ namespace GSD.Roads
             tObj.transform.position = tPosLR;
             tObj.name = "StopSignLR";
             T_FixSigns(tObj);
-            if (GSDRI.IgnoreCorner == 3) { Object.DestroyImmediate(tObj); }
+            if (GSDRI.IgnoreCorner == 3)
+            { Object.DestroyImmediate(tObj); }
         }
+
 
         private static Vector3 StopSign_GetRot_RR(GSDRoadIntersection GSDRI, GSDSplineC tSpline)
         {
-            float tDist = ((Vector3.Distance(GSDRI.CornerRL, GSDRI.CornerRR) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRR))) / tSpline.distance; ;
+            float tDist = ((Vector3.Distance(GSDRI.CornerRL, GSDRI.CornerRR) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRR))) / tSpline.distance;
+            ;
             float p = Mathf.Clamp(GSDRI.Node1.tTime - tDist, 0f, 1f);
             Vector3 POS = tSpline.GetSplineValue(p, true);
             return (POS * -1);
         }
 
+
         private static Vector3 StopSign_GetRot_LL(GSDRoadIntersection GSDRI, GSDSplineC tSpline)
         {
-            float tDist = ((Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerLL) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRR))) / tSpline.distance; ;
+            float tDist = ((Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerLL) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRR))) / tSpline.distance;
+            ;
             float p = Mathf.Clamp(GSDRI.Node1.tTime + tDist, 0f, 1f);
             Vector3 POS = tSpline.GetSplineValue(p, true);
             return POS;
         }
 
+
         private static Vector3 StopSign_GetRot_RL(GSDRoadIntersection GSDRI, GSDSplineC tSpline)
         {
-            float tDist = ((Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRL) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerRL))) / tSpline.distance; ;
+            float tDist = ((Vector3.Distance(GSDRI.CornerLL, GSDRI.CornerRL) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerRL))) / tSpline.distance;
+            ;
             float p = -1f;
             if (GSDRI.bFlipped)
             {
@@ -5169,9 +5380,11 @@ namespace GSD.Roads
             }
         }
 
+
         private static Vector3 StopSign_GetRot_LR(GSDRoadIntersection GSDRI, GSDSplineC tSpline)
         {
-            float tDist = ((Vector3.Distance(GSDRI.CornerRR, GSDRI.CornerLR) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerRL))) / tSpline.distance; ;
+            float tDist = ((Vector3.Distance(GSDRI.CornerRR, GSDRI.CornerLR) / 2f) + (0.025f * Vector3.Distance(GSDRI.CornerLR, GSDRI.CornerRL))) / tSpline.distance;
+            ;
             float p = -1f;
             if (GSDRI.bFlipped)
             {
@@ -5194,11 +5407,14 @@ namespace GSD.Roads
         }
         #endregion
 
+
         #region "Traffic light bases"
         public static void CreateTrafficLightBases(GameObject MasterGameObj, bool bIsTrafficLight1 = true)
         {
             CreateTrafficLightBases_Do(ref MasterGameObj, bIsTrafficLight1);
         }
+
+
         private static void CreateTrafficLightBases_Do(ref GameObject MasterGameObj, bool bIsTrafficLight1)
         {
             GSDRoadIntersection GSDRI = MasterGameObj.GetComponent<GSDRoadIntersection>();
@@ -5266,7 +5482,8 @@ namespace GSD.Roads
             tObjRL = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
             //			xDir = (GSDRI.CornerRL - GSDRI.transform.position).normalized;
             tDir = TrafficLightBase_GetRot_RL(GSDRI, tSpline, DistFromCorner);
-            if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+            if (tDir == zeroVect)
+            { tDir = new Vector3(0f, 0.0001f, 0f); }
             tObjRL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
             tObjRL.transform.parent = MasterGameObj.transform;
             StartVec = tPosRL;
@@ -5275,18 +5492,21 @@ namespace GSD.Roads
             { //Convert to regular alignment if necessary
                 tObjRL.transform.parent = null;
                 tDir = TrafficLightBase_GetRot_RL(GSDRI, tSpline, DistFromCorner, true);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjRL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjRL.transform.parent = MasterGameObj.transform;
             }
             else
             {
                 GSDRI.bRegularPoleAlignment = true;
-                if (tObjRL != null) { Object.DestroyImmediate(tObjRL); }
+                if (tObjRL != null)
+                { Object.DestroyImmediate(tObjRL); }
                 tObjRL = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
                 //				xDir = (GSDRI.CornerRL - GSDRI.transform.position).normalized;
                 tDir = TrafficLightBase_GetRot_RL(GSDRI, tSpline, DistFromCorner);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjRL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjRL.transform.parent = MasterGameObj.transform;
                 StartVec = tPosRL;
@@ -5306,7 +5526,8 @@ namespace GSD.Roads
             tObjLR = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
             //			xDir = (GSDRI.CornerLR - GSDRI.transform.position).normalized;
             tDir = TrafficLightBase_GetRot_LR(GSDRI, tSpline, DistFromCorner);
-            if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+            if (tDir == zeroVect)
+            { tDir = new Vector3(0f, 0.0001f, 0f); }
             tObjLR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
             tObjLR.transform.parent = MasterGameObj.transform;
             StartVec = tPosLR;
@@ -5315,18 +5536,21 @@ namespace GSD.Roads
             { //Convert to regular alignment if necessary
                 tObjLR.transform.parent = null;
                 tDir = TrafficLightBase_GetRot_LR(GSDRI, tSpline, DistFromCorner, true);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjLR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjLR.transform.parent = MasterGameObj.transform;
             }
             else
             {
                 GSDRI.bRegularPoleAlignment = true;
-                if (tObjLR != null) { Object.DestroyImmediate(tObjLR); }
+                if (tObjLR != null)
+                { Object.DestroyImmediate(tObjLR); }
                 tObjLR = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
                 //				xDir = (GSDRI.CornerLR - GSDRI.transform.position).normalized;
                 tDir = TrafficLightBase_GetRot_LR(GSDRI, tSpline, DistFromCorner);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjLR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjLR.transform.parent = MasterGameObj.transform;
                 StartVec = tPosLR;
@@ -5347,7 +5571,8 @@ namespace GSD.Roads
             tObjRR = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
             //			xDir = (GSDRI.CornerRR - GSDRI.transform.position).normalized;
             tDir = TrafficLightBase_GetRot_RR(GSDRI, tSpline, DistFromCorner);
-            if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+            if (tDir == zeroVect)
+            { tDir = new Vector3(0f, 0.0001f, 0f); }
             tObjRR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
             tObjRR.transform.parent = MasterGameObj.transform;
             StartVec = tPosRR;
@@ -5356,18 +5581,21 @@ namespace GSD.Roads
             { //Convert to regular alignment if necessary
                 tObjRR.transform.parent = null;
                 tDir = TrafficLightBase_GetRot_RR(GSDRI, tSpline, DistFromCorner, true);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjRR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, 0f, 0f);
                 tObjRR.transform.parent = MasterGameObj.transform;
             }
             else
             {
                 GSDRI.bRegularPoleAlignment = true;
-                if (tObjRR != null) { Object.DestroyImmediate(tObjRR); }
+                if (tObjRR != null)
+                { Object.DestroyImmediate(tObjRR); }
                 tObjRR = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
                 //				xDir = (GSDRI.CornerRR - GSDRI.transform.position).normalized;
                 tDir = TrafficLightBase_GetRot_RR(GSDRI, tSpline, DistFromCorner);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjRR.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjRR.transform.parent = MasterGameObj.transform;
                 StartVec = tPosRR;
@@ -5388,7 +5616,8 @@ namespace GSD.Roads
             tObjLL = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
             //			xDir = (GSDRI.CornerLL - GSDRI.transform.position).normalized;
             tDir = TrafficLightBase_GetRot_LL(GSDRI, tSpline, DistFromCorner);
-            if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+            if (tDir == zeroVect)
+            { tDir = new Vector3(0f, 0.0001f, 0f); }
             tObjLL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
             tObjLL.transform.parent = MasterGameObj.transform;
             StartVec = tPosLL;
@@ -5397,18 +5626,21 @@ namespace GSD.Roads
             { //Convert to regular alignment if necessary
                 tObjLL.transform.parent = null;
                 tDir = TrafficLightBase_GetRot_LL(GSDRI, tSpline, DistFromCorner, true);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjLL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, 0f, 0f);
                 tObjLL.transform.parent = MasterGameObj.transform;
             }
             else
             {
                 GSDRI.bRegularPoleAlignment = true;
-                if (tObjLL != null) { Object.DestroyImmediate(tObjLL); }
+                if (tObjLL != null)
+                { Object.DestroyImmediate(tObjLL); }
                 tObjLL = CreateTrafficLight(TLDistance, true, true, MaxDistanceStart, GSDRI.bTrafficPoleStreetLight, tSpline.tRoad.GSDRS.opt_bSaveMeshes);
                 //				xDir = (GSDRI.CornerLL - GSDRI.transform.position).normalized;
                 tDir = TrafficLightBase_GetRot_LL(GSDRI, tSpline, DistFromCorner);
-                if (tDir == zeroVect) { tDir = new Vector3(0f, 0.0001f, 0f); }
+                if (tDir == zeroVect)
+                { tDir = new Vector3(0f, 0.0001f, 0f); }
                 tObjLL.transform.rotation = Quaternion.LookRotation(tDir) * Quaternion.Euler(-90f, -180f, 0f);
                 tObjLL.transform.parent = MasterGameObj.transform;
                 StartVec = tPosLL;
@@ -5429,10 +5661,12 @@ namespace GSD.Roads
             CreateTrafficLightMains(MasterGameObj, tObjRR, tObjRL, tObjLL, tObjLR);
         }
 
+
         private static bool CreateTrafficLightBase_IsInIntersection(GSDRoadIntersection GSDRI, ref Vector3 StartVec, ref Vector3 EndVec)
         {
             return GSDRI.ContainsLine(StartVec, EndVec);
         }
+
 
         private static GameObject CreateTrafficLight(float tDistance, bool bIsTrafficLight1, bool bOptionalCollider, float xDistance, bool bLight, bool bSaveAsset)
         {
@@ -5457,18 +5691,23 @@ namespace GSD.Roads
             hMod = Mathf.Clamp(hMod, 1f, 20f);
 
             bool bXMod = false;
-            if (!IsApproximately(xMod, 1f, 0.0001f)) { bXMod = true; }
+            if (!IsApproximately(xMod, 1f, 0.0001f))
+            { bXMod = true; }
 
-            Mesh xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset, typeof(Mesh));
+            Mesh xMesh = (Mesh) UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + assetNameAsset, typeof(Mesh));
             if (xMesh == null)
             {
-                xMesh = (Mesh)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + BackupFBX, typeof(Mesh));
+                xMesh = (Mesh) UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/TrafficLightBases/" + BackupFBX, typeof(Mesh));
                 bDoCustom = true;
             }
 
             tObj = new GameObject("TempTrafficLight");
-            MeshFilter MF = tObj.GetComponent<MeshFilter>(); if (MF == null) { MF = tObj.AddComponent<MeshFilter>(); }
-            MeshRenderer MR = tObj.GetComponent<MeshRenderer>(); if (MR == null) { MR = tObj.AddComponent<MeshRenderer>(); }
+            MeshFilter MF = tObj.GetComponent<MeshFilter>();
+            if (MF == null)
+            { MF = tObj.AddComponent<MeshFilter>(); }
+            MeshRenderer MR = tObj.GetComponent<MeshRenderer>();
+            if (MR == null)
+            { MR = tObj.AddComponent<MeshRenderer>(); }
             GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Signs/GSDInterTLB" + tTrafficLightNumber + ".mat", MR);
 
             if (!bDoCustom)
@@ -5558,8 +5797,8 @@ namespace GSD.Roads
 
             if (bLight)
             {
-                GameObject yObj = (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDStreetLight_TrafficLight.prefab", typeof(GameObject));
-                GameObject kObj = (GameObject)GameObject.Instantiate(yObj);
+                GameObject yObj = (GameObject) UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDStreetLight_TrafficLight.prefab", typeof(GameObject));
+                GameObject kObj = (GameObject) GameObject.Instantiate(yObj);
                 kObj.transform.position = tObj.transform.position;
                 kObj.transform.position += new Vector3(0f, 0f, MaxHeight - 7.6f);
                 kObj.transform.parent = tObj.transform;
@@ -5570,10 +5809,12 @@ namespace GSD.Roads
 
             //Bounds calcs:
             MeshFilter[] tMeshes = tObj.GetComponents<MeshFilter>();
-            for (int i = 0; i < tMeshes.Length; i++) { tMeshes[i].sharedMesh.RecalculateBounds(); }
+            for (int i = 0; i < tMeshes.Length; i++)
+            { tMeshes[i].sharedMesh.RecalculateBounds(); }
 
             return tObj;
         }
+
 
         private static Vector3 TrafficLightBase_GetRot_RL(GSDRoadIntersection GSDRI, GSDSplineC tSpline, float DistFromCorner, bool bOverrideRegular = false)
         {
@@ -5593,6 +5834,7 @@ namespace GSD.Roads
             }
         }
 
+
         private static Vector3 TrafficLightBase_GetRot_LR(GSDRoadIntersection GSDRI, GSDSplineC tSpline, float DistFromCorner, bool bOverrideRegular = false)
         {
             Vector3 POS = default(Vector3);
@@ -5611,6 +5853,7 @@ namespace GSD.Roads
             }
         }
 
+
         private static Vector3 TrafficLightBase_GetRot_RR(GSDRoadIntersection GSDRI, GSDSplineC tSpline, float DistFromCorner, bool bOverrideRegular = false)
         {
             Vector3 POS = default(Vector3);
@@ -5619,7 +5862,9 @@ namespace GSD.Roads
                 //				float tDist = ((Vector3.Distance(GSDRI.CornerRR,GSDRI.CornerLR) / 2f) + DistFromCorner) / tSpline.distance;;
                 float p = Mathf.Clamp(GSDRI.Node2.tTime, 0f, 1f);
                 POS = tSpline.GetSplineValue(p, true);
-                POS = Vector3.Cross(POS, Vector3.up); if (GSDRI.bFlipped) { POS = POS * -1; }
+                POS = Vector3.Cross(POS, Vector3.up);
+                if (GSDRI.bFlipped)
+                { POS = POS * -1; }
             }
             else
             {
@@ -5627,6 +5872,7 @@ namespace GSD.Roads
             }
             return POS;
         }
+
 
         private static Vector3 TrafficLightBase_GetRot_LL(GSDRoadIntersection GSDRI, GSDSplineC tSpline, float DistFromCorner, bool bOverrideRegular = false)
         {
@@ -5636,7 +5882,9 @@ namespace GSD.Roads
                 //				float tDist = ((Vector3.Distance(GSDRI.CornerLL,GSDRI.CornerRL) / 2f) + DistFromCorner) / tSpline.distance;;
                 float p = Mathf.Clamp(GSDRI.Node2.tTime, 0f, 1f);
                 POS = tSpline.GetSplineValue(p, true);
-                POS = Vector3.Cross(POS, Vector3.up); if (GSDRI.bFlipped) { POS = POS * -1; }
+                POS = Vector3.Cross(POS, Vector3.up);
+                if (GSDRI.bFlipped)
+                { POS = POS * -1; }
             }
             else
             {
@@ -5645,6 +5893,7 @@ namespace GSD.Roads
             return POS * -1;
         }
         #endregion
+
 
         #region "Traffic light mains"
         private static void CreateTrafficLightMains(GameObject MasterGameObj, GameObject tRR, GameObject tRL, GameObject tLL, GameObject tLR)
@@ -5685,21 +5934,27 @@ namespace GSD.Roads
 
             if (GSDRI.IgnoreCorner == 0)
             {
-                if (tRR != null) { Object.DestroyImmediate(tRR); }
+                if (tRR != null)
+                { Object.DestroyImmediate(tRR); }
             }
             else if (GSDRI.IgnoreCorner == 1)
             {
-                if (tRL != null) { Object.DestroyImmediate(tRL); }
+                if (tRL != null)
+                { Object.DestroyImmediate(tRL); }
             }
             else if (GSDRI.IgnoreCorner == 2)
             {
-                if (tLL != null) { Object.DestroyImmediate(tLL); }
+                if (tLL != null)
+                { Object.DestroyImmediate(tLL); }
             }
             else if (GSDRI.IgnoreCorner == 3)
             {
-                if (tLR != null) { Object.DestroyImmediate(tLR); }
+                if (tLR != null)
+                { Object.DestroyImmediate(tLR); }
             }
         }
+
+
         private static void AdjustLightPrefab(GameObject tLight)
         {
             foreach (Light light in tLight.GetComponentsInChildren<Light>())
@@ -5710,6 +5965,8 @@ namespace GSD.Roads
                 }
             }
         }
+
+
         private static void ProcessPole(GameObject MasterGameObj, GameObject tObj, Vector3 tan, int tCorner, float InterDist)
         {
             GSDRoadIntersection GSDRI = MasterGameObj.GetComponent<GSDRoadIntersection>();
@@ -5797,20 +6054,26 @@ namespace GSD.Roads
             for (int i = 0; i < mCount; i++)
             {
                 tDistance = Vector3.Distance(tObj.transform.TransformPoint(tLanePos[i]), tPos1);
-                if (tDistance > mDistance) { mDistance = tDistance; }
+                if (tDistance > mDistance)
+                { mDistance = tDistance; }
             }
             tDistance = Vector3.Distance(tObj.transform.TransformPoint(tLanePosL), tPos1);
-            if (tDistance > mDistance) { mDistance = tDistance; }
+            if (tDistance > mDistance)
+            { mDistance = tDistance; }
             tDistance = Vector3.Distance(tObj.transform.TransformPoint(tLanePosR), tPos1);
-            if (tDistance > mDistance) { mDistance = tDistance; }
+            if (tDistance > mDistance)
+            { mDistance = tDistance; }
 
             float tScaleSense = ((200f - GSDRI.ScalingSense) / 200f) * 200f;
             tScaleSense = Mathf.Clamp(tScaleSense * 0.1f, 0f, 20f);
             float ScaleMod = ((mDistance / 17f) + tScaleSense) * (1f / (tScaleSense + 1f));
-            if (IsApproximately(tScaleSense, 20f, 0.05f)) { ScaleMod = 1f; }
+            if (IsApproximately(tScaleSense, 20f, 0.05f))
+            { ScaleMod = 1f; }
             ScaleMod = Mathf.Clamp(ScaleMod, 1f, 1.5f);
             Vector3 tScale = new Vector3(ScaleMod, ScaleMod, ScaleMod);
-            bool bScale = true; if (IsApproximately(ScaleMod, 1f, 0.001f)) { bScale = false; }
+            bool bScale = true;
+            if (IsApproximately(ScaleMod, 1f, 0.001f))
+            { bScale = false; }
 
             //Debug.Log (mDistance + " " + ScaleMod + " " + tScaleSense);
 
@@ -5833,7 +6096,7 @@ namespace GSD.Roads
                 {
                     prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightLeft.prefab", typeof(GameObject));
                 }
-                tLeft = (GameObject)GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                tLeft = (GameObject) GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
                 AdjustLightPrefab(tLeft);
                 tLeft.transform.position = tObj.transform.TransformPoint(tLanePosL);
                 tLeft.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f, 90f, 0f);
@@ -5849,29 +6112,32 @@ namespace GSD.Roads
                     }
                 }
 
-                if (bScale) { tLeft.transform.localScale = tScale; }
+                if (bScale)
+                { tLeft.transform.localScale = tScale; }
 
                 if (GSDRI.bLeftTurnYieldOnGreen)
                 {
                     prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDSignYieldOnGreen.prefab", typeof(GameObject));
-                    tLeft_Sign = (GameObject)GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                    tLeft_Sign = (GameObject) GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
                     tLeft_Sign.transform.position = tObj.transform.TransformPoint(tLanePosL_Sign);
                     tLeft_Sign.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(-90f, 90f, 0f);
                     tLeft_Sign.transform.parent = tObj.transform;
                     tLeft_Sign.transform.name = "SignYieldOnGreen";
-                    if (bScale) { tLeft_Sign.transform.localScale = tScale; }
+                    if (bScale)
+                    { tLeft_Sign.transform.localScale = tScale; }
                 }
             }
             if (GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes)
             {
                 prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightRight.prefab", typeof(GameObject));
-                tRight = (GameObject)GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                tRight = (GameObject) GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
                 AdjustLightPrefab(tRight);
                 tRight.transform.position = tObj.transform.TransformPoint(tLanePosR);
                 tRight.transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f, 90f, 0f);
                 tRight.transform.parent = tObj.transform;
                 tRight.transform.name = "LightRight";
-                if (bScale) { tRight.transform.localScale = tScale; }
+                if (bScale)
+                { tRight.transform.localScale = tScale; }
 
                 cCount = tRight.transform.childCount;
                 for (int i = 0; i < cCount; i++)
@@ -5886,13 +6152,14 @@ namespace GSD.Roads
             for (int i = 0; i < LanesHalf; i++)
             {
                 prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/RoadObj/Signs/GSDTrafficLightMain.prefab", typeof(GameObject));
-                tLanes[i] = (GameObject)GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                tLanes[i] = (GameObject) GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
                 AdjustLightPrefab(tLanes[i]);
                 tLanes[i].transform.position = tObj.transform.TransformPoint(tLanePos[i]);
                 tLanes[i].transform.rotation = Quaternion.LookRotation(tan) * Quaternion.Euler(0f, 90f, 0f);
                 tLanes[i].transform.parent = tObj.transform;
                 tLanes[i].transform.name = "Light" + i.ToString();
-                if (bScale) { tLanes[i].transform.localScale = tScale; }
+                if (bScale)
+                { tLanes[i].transform.localScale = tScale; }
 
                 cCount = tLanes[i].transform.childCount;
                 for (int j = 0; j < cCount; j++)
@@ -5928,10 +6195,13 @@ namespace GSD.Roads
         }
         #endregion
 
+
         public static void GetFourPoints(GSDRoadIntersection GSDRI, out Vector3 tPosRR, out Vector3 tPosRL, out Vector3 tPosLL, out Vector3 tPosLR, float DistFromCorner)
         {
             GetFourPoints_Do(ref GSDRI, out tPosRR, out tPosRL, out tPosLL, out tPosLR, DistFromCorner);
         }
+
+
         private static void GetFourPoints_Do(ref GSDRoadIntersection GSDRI, out Vector3 tPosRR, out Vector3 tPosRL, out Vector3 tPosLL, out Vector3 tPosLR, float DistFromCorner)
         {
             //Get four points:
@@ -5964,7 +6234,8 @@ namespace GSD.Roads
                 Node1Width = (Vector3.Distance(GSDRI.CornerRL, GSDRI.Node1.pos) + ShoulderWidth1) / GSDRI.Node1.GSDSpline.distance;
                 Node2Width = (Vector3.Distance(GSDRI.CornerRL, GSDRI.Node2.pos) + ShoulderWidth2) / GSDRI.Node2.GSDSpline.distance;
                 tPos1 = GSDRI.Node1.tTime + Node1Width;
-                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay) { tPos1 = GSDRI.Node1.tTime; }
+                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
+                { tPos1 = GSDRI.Node1.tTime; }
                 tTan1 = GSDRI.Node1.GSDSpline.GetSplineValue(tPos1, true);
                 tPos2 = GSDRI.Node2.tTime + Node2Width;
                 tTan2 = GSDRI.Node2.GSDSpline.GetSplineValue(tPos2, true);
@@ -5974,7 +6245,8 @@ namespace GSD.Roads
                 Node1Width = (Vector3.Distance(GSDRI.CornerLL, GSDRI.Node1.pos) + ShoulderWidth1) / GSDRI.Node1.GSDSpline.distance;
                 Node2Width = (Vector3.Distance(GSDRI.CornerLL, GSDRI.Node2.pos) + ShoulderWidth2) / GSDRI.Node2.GSDSpline.distance;
                 tPos1 = GSDRI.Node1.tTime + Node1Width;
-                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay) { tPos1 = GSDRI.Node1.tTime; }
+                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
+                { tPos1 = GSDRI.Node1.tTime; }
                 tTan1 = GSDRI.Node1.GSDSpline.GetSplineValue(tPos1, true);
                 tPos2 = GSDRI.Node2.tTime - Node2Width;
                 tTan2 = GSDRI.Node2.GSDSpline.GetSplineValue(tPos2, true) * -1f;
@@ -6005,7 +6277,8 @@ namespace GSD.Roads
                 Node1Width = (Vector3.Distance(GSDRI.CornerRL, GSDRI.Node1.pos) + ShoulderWidth1) / GSDRI.Node1.GSDSpline.distance;
                 Node2Width = (Vector3.Distance(GSDRI.CornerRL, GSDRI.Node2.pos) + ShoulderWidth2) / GSDRI.Node2.GSDSpline.distance;
                 tPos1 = GSDRI.Node1.tTime + Node1Width;
-                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay) { tPos1 = GSDRI.Node1.tTime; }
+                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
+                { tPos1 = GSDRI.Node1.tTime; }
                 tTan1 = GSDRI.Node1.GSDSpline.GetSplineValue(tPos1, true);
                 tPos2 = GSDRI.Node2.tTime - Node2Width;
                 tTan2 = GSDRI.Node2.GSDSpline.GetSplineValue(tPos2, true) * -1f;
@@ -6015,7 +6288,8 @@ namespace GSD.Roads
                 Node1Width = (Vector3.Distance(GSDRI.CornerLL, GSDRI.Node1.pos) + ShoulderWidth1) / GSDRI.Node1.GSDSpline.distance;
                 Node2Width = (Vector3.Distance(GSDRI.CornerLL, GSDRI.Node2.pos) + ShoulderWidth2) / GSDRI.Node2.GSDSpline.distance;
                 tPos1 = GSDRI.Node1.tTime + Node1Width;
-                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay) { tPos1 = GSDRI.Node1.tTime; }
+                if (GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
+                { tPos1 = GSDRI.Node1.tTime; }
                 tTan1 = GSDRI.Node1.GSDSpline.GetSplineValue(tPos1, true);
                 tPos2 = GSDRI.Node2.tTime + Node2Width;
                 tTan2 = GSDRI.Node2.GSDSpline.GetSplineValue(tPos2, true);
@@ -6310,6 +6584,7 @@ namespace GSD.Roads
         //	
     }
 
+
     public static class GSDIntersections
     {
         public class iConstructionMaker
@@ -6416,39 +6691,67 @@ namespace GSD.Roads
             public int ShoulderFL_StartIndex = -1;
             public int ShoulderFR_StartIndex = -1;
 
+
             public void Nullify()
             {
 
                 //Intersection construction:
-                if (iBLane0L != null) { iBLane0L.Clear(); iBLane0L = null; }
-                if (iBLane0R != null) { iBLane0R.Clear(); iBLane0R = null; }
-                if (iBLane1L != null) { iBLane1L.Clear(); iBLane1L = null; }
-                if (iBLane1R != null) { iBLane1R.Clear(); iBLane1R = null; }
-                if (iBLane2L != null) { iBLane2L.Clear(); iBLane2L = null; }
-                if (iBLane2R != null) { iBLane2R.Clear(); iBLane2R = null; }
-                if (iBLane3L != null) { iBLane3L.Clear(); iBLane3L = null; }
-                if (iBLane3R != null) { iBLane3R.Clear(); iBLane3R = null; }
-                if (iFLane0L != null) { iFLane0L.Clear(); iFLane0L = null; }
-                if (iFLane0R != null) { iFLane0R.Clear(); iFLane0R = null; }
-                if (iFLane1L != null) { iFLane1L.Clear(); iFLane1L = null; }
-                if (iFLane1R != null) { iFLane1R.Clear(); iFLane1R = null; }
-                if (iFLane2L != null) { iFLane2L.Clear(); iFLane2L = null; }
-                if (iFLane2R != null) { iFLane2R.Clear(); iFLane2R = null; }
-                if (iFLane3L != null) { iFLane3L.Clear(); iFLane3L = null; }
-                if (iFLane3R != null) { iFLane3R.Clear(); iFLane3R = null; }
-                if (iBMainPlateL != null) { iBMainPlateL.Clear(); iBMainPlateL = null; }
-                if (iBMainPlateR != null) { iBMainPlateR.Clear(); iBMainPlateR = null; }
-                if (iFMainPlateL != null) { iFMainPlateL.Clear(); iFMainPlateL = null; }
-                if (iFMainPlateR != null) { iFMainPlateR.Clear(); iFMainPlateR = null; }
+                if (iBLane0L != null)
+                { iBLane0L.Clear(); iBLane0L = null; }
+                if (iBLane0R != null)
+                { iBLane0R.Clear(); iBLane0R = null; }
+                if (iBLane1L != null)
+                { iBLane1L.Clear(); iBLane1L = null; }
+                if (iBLane1R != null)
+                { iBLane1R.Clear(); iBLane1R = null; }
+                if (iBLane2L != null)
+                { iBLane2L.Clear(); iBLane2L = null; }
+                if (iBLane2R != null)
+                { iBLane2R.Clear(); iBLane2R = null; }
+                if (iBLane3L != null)
+                { iBLane3L.Clear(); iBLane3L = null; }
+                if (iBLane3R != null)
+                { iBLane3R.Clear(); iBLane3R = null; }
+                if (iFLane0L != null)
+                { iFLane0L.Clear(); iFLane0L = null; }
+                if (iFLane0R != null)
+                { iFLane0R.Clear(); iFLane0R = null; }
+                if (iFLane1L != null)
+                { iFLane1L.Clear(); iFLane1L = null; }
+                if (iFLane1R != null)
+                { iFLane1R.Clear(); iFLane1R = null; }
+                if (iFLane2L != null)
+                { iFLane2L.Clear(); iFLane2L = null; }
+                if (iFLane2R != null)
+                { iFLane2R.Clear(); iFLane2R = null; }
+                if (iFLane3L != null)
+                { iFLane3L.Clear(); iFLane3L = null; }
+                if (iFLane3R != null)
+                { iFLane3R.Clear(); iFLane3R = null; }
+                if (iBMainPlateL != null)
+                { iBMainPlateL.Clear(); iBMainPlateL = null; }
+                if (iBMainPlateR != null)
+                { iBMainPlateR.Clear(); iBMainPlateR = null; }
+                if (iFMainPlateL != null)
+                { iFMainPlateL.Clear(); iFMainPlateL = null; }
+                if (iFMainPlateR != null)
+                { iFMainPlateR.Clear(); iFMainPlateR = null; }
 
-                if (iBMarkerPlateL != null) { iBMarkerPlateL.Clear(); iBMarkerPlateL = null; }
-                if (iBMarkerPlateR != null) { iBMarkerPlateR.Clear(); iBMarkerPlateR = null; }
-                if (iFMarkerPlateL != null) { iFMarkerPlateL.Clear(); iFMarkerPlateL = null; }
-                if (iFMarkerPlateR != null) { iFMarkerPlateR.Clear(); iFMarkerPlateR = null; }
+                if (iBMarkerPlateL != null)
+                { iBMarkerPlateL.Clear(); iBMarkerPlateL = null; }
+                if (iBMarkerPlateR != null)
+                { iBMarkerPlateR.Clear(); iBMarkerPlateR = null; }
+                if (iFMarkerPlateL != null)
+                { iFMarkerPlateL.Clear(); iFMarkerPlateL = null; }
+                if (iFMarkerPlateR != null)
+                { iFMarkerPlateR.Clear(); iFMarkerPlateR = null; }
 
-                if (tempconstruction_R != null) { tempconstruction_R = null; }
-                if (tempconstruction_L != null) { tempconstruction_L = null; }
+                if (tempconstruction_R != null)
+                { tempconstruction_R = null; }
+                if (tempconstruction_L != null)
+                { tempconstruction_L = null; }
             }
+
 
             public iConstructionMaker()
             {
@@ -6506,15 +6809,19 @@ namespace GSD.Roads
             }
         }
 
+
         public static GameObject CreateIntersection(GSDSplineN tNode, GSDSplineN xNode)
         {
             return CreateIntersection_Do(tNode, xNode);
         }
+
+
         private static GameObject CreateIntersection_Do(GSDSplineN tNode, GSDSplineN xNode)
         {
             float RoadMod = 10f;
             GameObject SystemObj = tNode.transform.parent.parent.parent.gameObject;
-            if (!SystemObj) { Debug.LogWarning("Could not find GSD road system master object."); return null; }
+            if (!SystemObj)
+            { Debug.LogWarning("Could not find GSD road system master object."); return null; }
             GameObject InterMaster = null;
             int cCount = SystemObj.transform.childCount;
             for (int i = 0; i < cCount; i++)
@@ -6757,6 +7064,7 @@ namespace GSD.Roads
             return tObj;
         }
 
+
         public static Vector3[] GetCornerVectors_Test(GSDRoadIntersection GSDRI)
         {
             Vector3[] tVects = new Vector3[4];
@@ -6785,13 +7093,15 @@ namespace GSD.Roads
             return tVects;
         }
 
+
         #region "Old intersection"
         public static void CreateIntersection(GSDRoadIntersection GSDRI)
         {
             //1. Overlap sphere to find all road objects within intersection:
             float iWidth = GSDRI.IntersectionWidth * 1.25f;
             Collider[] tColliders = Physics.OverlapSphere(GSDRI.transform.position, iWidth);
-            if (tColliders == null || tColliders.Length < 1) { return; }
+            if (tColliders == null || tColliders.Length < 1)
+            { return; }
             List<GSDRoad> tRoads = new List<GSDRoad>();
             foreach (Collider tCollider in tColliders)
             {
@@ -6826,6 +7136,7 @@ namespace GSD.Roads
             //Now initialize intersection objects:
             InitializeIntersectionObjects(GSDRI);
         }
+
 
         private static void FlattenIntersectionArea(ref List<GSDRoad> tRoads, GSDRoadIntersection GSDRI, float iWidth, out float tHeight)
         {
@@ -6884,10 +7195,12 @@ namespace GSD.Roads
             tHeight = tInterPosY;
         }
 
+
         private static bool V3Equal(Vector3 a, Vector3 b)
         {
             return Vector3.SqrMagnitude(a - b) < 0.0001f;
         }
+
 
         private static Vector3[] GetCornerVectors(GSDRoadIntersection GSDRI, bool bPrimary = true)
         {
@@ -6918,6 +7231,7 @@ namespace GSD.Roads
 
             return tVects;
         }
+
 
         private static Vector3[] GetExtendedVectors(GSDRoadIntersection GSDRI, bool bPrimary = true)
         {
@@ -6982,6 +7296,7 @@ namespace GSD.Roads
 
             return tVects;
         }
+
 
         //Two non-parallel lines which may or may not touch each other have a point on each line which are closest
         //to each other. This function finds those two points. If the lines are not parallel, the function 
@@ -7051,11 +7366,12 @@ namespace GSD.Roads
             CreateIntersectionMesh_MainInternal(tVects, GSDRI.transform.gameObject, ref tName);
         }
 
+
         private static void CreateIntersectionMesh_MainInternal(Vector3[] tVerts, GameObject iObj, ref string tName)
         {
             Mesh tMesh = new Mesh();
             int MVL = 4;
-            int triCount = (int)(4f * 1.5f);
+            int triCount = (int) (4f * 1.5f);
 
             //			GameObject tObj;
             //			tObj = GameObject.Find("tInter1"); tObj.transform.position = tVerts[0];
@@ -7098,21 +7414,25 @@ namespace GSD.Roads
 
             //Final processing:
             MeshFilter MF = iObj.GetComponent<MeshFilter>();
-            if (!MF) { MF = iObj.AddComponent<MeshFilter>(); }
+            if (!MF)
+            { MF = iObj.AddComponent<MeshFilter>(); }
             MF.sharedMesh = tMesh;
             //			MeshToFile(MF,GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Intersections/" + tName +".obj");
 
             MeshCollider MC = iObj.GetComponent<MeshCollider>();
-            if (MC) { Object.DestroyImmediate(MC); }
+            if (MC)
+            { Object.DestroyImmediate(MC); }
             //if(!MC){ MC = iObj.AddComponent<MeshCollider>(); }
             //MC.sharedMesh = MF.sharedMesh;
 
             MeshRenderer MR = iObj.GetComponent<MeshRenderer>();
-            if (!MR) { MR = iObj.AddComponent<MeshRenderer>(); }
+            if (!MR)
+            { MR = iObj.AddComponent<MeshRenderer>(); }
             MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             MR.receiveShadows = true;
             GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDRoadIntersection.mat", MR);
         }
+
 
         private static void CreateIntersectionMesh_Outer(GSDRoadIntersection GSDRI, Vector3[] tVects, ref string tName)
         {
@@ -7165,11 +7485,12 @@ namespace GSD.Roads
             CreateIntersectionMesh_OuterInternal(eVects, tOuter, GSDRI.transform.position, ref tName);
         }
 
+
         private static void CreateIntersectionMesh_OuterInternal(Vector3[] tVerts, GameObject iObj, Vector3 vOffset, ref string tName)
         {
             Mesh tMesh = new Mesh();
             int MVL = 16;
-            int triCount = (int)(16f * 1.5f);
+            int triCount = (int) (16f * 1.5f);
 
             for (int i = 0; i < MVL; i += 4)
             {
@@ -7189,13 +7510,19 @@ namespace GSD.Roads
                 {
                     break;
                 }
-                tri[cTri] = i; cTri += 1;
-                tri[cTri] = i + 2; cTri += 1;
-                tri[cTri] = i + 1; cTri += 1;
+                tri[cTri] = i;
+                cTri += 1;
+                tri[cTri] = i + 2;
+                cTri += 1;
+                tri[cTri] = i + 1;
+                cTri += 1;
 
-                tri[cTri] = i + 2; cTri += 1;
-                tri[cTri] = i + 3; cTri += 1;
-                tri[cTri] = i + 1; cTri += 1;
+                tri[cTri] = i + 2;
+                cTri += 1;
+                tri[cTri] = i + 3;
+                cTri += 1;
+                tri[cTri] = i + 1;
+                cTri += 1;
             }
             tMesh.triangles = tri;
 
@@ -7221,22 +7548,26 @@ namespace GSD.Roads
 
             //Final processing:
             MeshFilter MF = iObj.GetComponent<MeshFilter>();
-            if (!MF) { MF = iObj.AddComponent<MeshFilter>(); }
+            if (!MF)
+            { MF = iObj.AddComponent<MeshFilter>(); }
             MF.sharedMesh = tMesh;
 
             //			MeshToFile(MF,GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Mesh/Intersections/" + tName +"-overlay.obj");
 
             MeshCollider MC = iObj.GetComponent<MeshCollider>();
-            if (MC) { Object.DestroyImmediate(MC); }
+            if (MC)
+            { Object.DestroyImmediate(MC); }
             //			if(!MC){ MC = iObj.AddComponent<MeshCollider>(); }
             //			MC.sharedMesh = MF.sharedMesh;
 
             MeshRenderer MR = iObj.GetComponent<MeshRenderer>();
-            if (!MR) { MR = iObj.AddComponent<MeshRenderer>(); }
+            if (!MR)
+            { MR = iObj.AddComponent<MeshRenderer>(); }
             MR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             MR.receiveShadows = true;
             GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/GSDInterText.mat", MR);
         }
+
 
         #region "Intersection creation"
         private static void InitializeIntersectionObjects(GSDRoadIntersection tGSDRI)
@@ -7255,6 +7586,7 @@ namespace GSD.Roads
                 }
             }
         }
+
 
         private static void InitializeIntersectionObjects_Internal(GSDRoadIntersection GSDRI)
         {
@@ -7299,21 +7631,24 @@ namespace GSD.Roads
             n2 = tList[1];
             n3 = tList[2];
             n4 = null;
-            if (tList.Count > 3) { n4 = tList[3]; }
+            if (tList.Count > 3)
+            { n4 = tList[3]; }
 
             //Determine most relevant spline:
             GSDSplineC n1Spline = n1.GSDSpline;
             GSDSplineC n2Spline = n2.GSDSpline;
             GSDSplineC n3Spline = n3.GSDSpline;
             GSDSplineC n4Spline = null;
-            if (n4 != null) { n4Spline = n4.GSDSpline; }
+            if (n4 != null)
+            { n4Spline = n4.GSDSpline; }
 
             //Get the point:
             Vector3 n1Point = GetFourCornerPoint(ref n1Spline, ref n1, GSDRI);
             Vector3 n2Point = GetFourCornerPoint(ref n2Spline, ref n2, GSDRI);
             Vector3 n3Point = GetFourCornerPoint(ref n3Spline, ref n3, GSDRI);
             Vector3 n4Point = new Vector3(0f, 0f, 0f);
-            if (n4Spline != null) { n4Point = GetFourCornerPoint(ref n4Spline, ref n4, GSDRI); }
+            if (n4Spline != null)
+            { n4Point = GetFourCornerPoint(ref n4Spline, ref n4, GSDRI); }
 
             //2. If 3 way, we know that 2 of the nodes have the same spline.
             if (1 == 1 && GSDRI.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
@@ -7349,6 +7684,7 @@ namespace GSD.Roads
         }
         #endregion
 
+
         #region "Intersection creation helpers"
         private static float GetLongestSplineDistance(GSDSplineC s1, GSDSplineC s2)
         {
@@ -7362,6 +7698,7 @@ namespace GSD.Roads
             }
         }
 
+
         private static GSDSplineN GetNodeByID(int i)
         {
             Object[] SplineNodeObjects = GameObject.FindObjectsOfType(typeof(GSDSplineN));
@@ -7374,6 +7711,7 @@ namespace GSD.Roads
             }
             return null;
         }
+
 
         static Vector3 GetFourCornerPoint(ref GSDSplineC tSpline, ref GSDSplineN tNode, GSDRoadIntersection GSDRI)
         {
@@ -7448,6 +7786,7 @@ namespace GSD.Roads
             return tVect;
         }
 
+
         static void ProcessFourCorners(ref Vector3 n1, ref Vector3 n2, GameObject tIntersectionObject, float SplineDistance)
         {
             float Side1, Side2, Side3;
@@ -7461,6 +7800,7 @@ namespace GSD.Roads
             }
         }
 
+
         static float AngleOfTriangle(float a, float b, float c)
         {
             float cAng = (a * a + b * b - c * c) / (2 * a * b);
@@ -7468,6 +7808,7 @@ namespace GSD.Roads
             float tFloat = Mathf.Rad2Deg * rad;
             return tFloat;
         }
+
 
         static void ProcessTwoCorners(ref GameObject tIntersectionObject, ref Vector3 n1, ref Vector3 n2, float SplineDistance)
         {
@@ -7495,6 +7836,7 @@ namespace GSD.Roads
                 Object.DestroyImmediate(tCorner);
             }
         }
+
 
         static bool MoveCorner(float tStep, float tDist, ref GameObject tCorner, ref GameObject tIntersectionObject, Vector3 v3)
         {
@@ -7560,6 +7902,7 @@ namespace GSD.Roads
         #endregion
     }
 
+
     public static class GSDNavigation
     {
         public static void UpdateConnectedNodes()
@@ -7591,6 +7934,7 @@ namespace GSD.Roads
                 }
             }
         }
+
 
         public static void Init_ResetNavigationData()
         {

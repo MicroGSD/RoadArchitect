@@ -11,9 +11,9 @@ public class GSDRigidBody : MonoBehaviour
     void Awake()
     {
         rigidbody = transform.GetComponent<Rigidbody>();
-        if ( rigidbody != null )
+        if (rigidbody != null)
         {
-            DestroyImmediate( rigidbody );
+            DestroyImmediate(rigidbody);
         }
     }
 

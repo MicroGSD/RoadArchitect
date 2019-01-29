@@ -14,6 +14,7 @@ public class GSDRoadSystem : MonoBehaviour
     public bool opt_bSaveMeshes = false;
     public bool opt_bAllowRoadUpdates = true;
 
+
     public GameObject AddRoad(bool bForceSelect = false)
     {
         GSDRoad[] tObj = GetComponentsInChildren<GSDRoad>();
@@ -45,18 +46,22 @@ public class GSDRoadSystem : MonoBehaviour
         return tRoadObj;
     }
 
+
     public Camera EditorPlayCamera = null;
+
+
     public void EditorCameraSetSingle()
     {
         if (EditorPlayCamera == null)
         {
-            Camera[] EditorCams = (Camera[])GameObject.FindObjectsOfType(typeof(Camera));
+            Camera[] EditorCams = (Camera[]) GameObject.FindObjectsOfType(typeof(Camera));
             if (EditorCams != null && EditorCams.Length == 1)
             {
                 EditorPlayCamera = EditorCams[0];
             }
         }
     }
+
 
     public void UpdateAllRoads()
     {
@@ -85,10 +90,11 @@ public class GSDRoadSystem : MonoBehaviour
         tRoad.UpdateRoad();
     }
 
+
     //Workaround for submission rules:
     public void UpdateAllRoads_MultiThreadOptions()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
+        GSDRoad[] tRoadObjs = (GSDRoad[]) GetComponentsInChildren<GSDRoad>();
         int RoadCount = tRoadObjs.Length;
         GSDRoad tRoad = null;
         for (int h = 0; h < RoadCount; h++)
@@ -100,10 +106,12 @@ public class GSDRoadSystem : MonoBehaviour
             }
         }
     }
+
+
     //Workaround for submission rules:
     public void UpdateAllRoads_SaveMeshesAsAssetsOptions()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[])GetComponentsInChildren<GSDRoad>();
+        GSDRoad[] tRoadObjs = (GSDRoad[]) GetComponentsInChildren<GSDRoad>();
         int RoadCount = tRoadObjs.Length;
         GSDRoad tRoad = null;
         for (int h = 0; h < RoadCount; h++)

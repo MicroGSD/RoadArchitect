@@ -1,3 +1,4 @@
+#region Imports
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,10 +7,12 @@ using GSD;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+#endregion
+
+
 [ExecuteInEditMode]
 public class GSDRoad : MonoBehaviour
 {
-
 
     public GameObject MainMeshes;
     public GameObject MeshRoad;
@@ -22,6 +25,7 @@ public class GSDRoad : MonoBehaviour
     public GameObject MeshiLanes3;
     public GameObject MeshiMainPlates;
     public GameObject MeshiMarkerPlates;
+
     [System.NonSerialized]
     public string EditorTitleString = "";
 
@@ -86,6 +90,7 @@ public class GSDRoad : MonoBehaviour
         Brick,
         Cobblestone
     };
+
     public RoadMaterialDropdownEnum opt_tRoadMaterialDropdown = RoadMaterialDropdownEnum.Asphalt;
     public RoadMaterialDropdownEnum tRoadMaterialDropdownOLD = RoadMaterialDropdownEnum.Asphalt;
 
@@ -126,6 +131,7 @@ public class GSDRoad : MonoBehaviour
     [System.NonSerialized]
     public float EditorConstructionStartTime = 0f;
 
+
     void CleanRunTime()
     {
         //Make sure unused items are not using memory space in runtime:
@@ -133,16 +139,24 @@ public class GSDRoad : MonoBehaviour
         RCS = null;
     }
 
+
     public bool bEditorError = false;
     public System.Exception tError = null;
+
+
     void OnEnable()
     {
-        if (!Application.isEditor) { return; }
+        if (!Application.isEditor)
+        {
+            return;
+        }
         //		if(Application.isEditor && !UnityEditor.EditorApplication.isPlaying){
         Editor_bIsConstructing = false;
-        UnityEditor.EditorApplication.update += delegate { EditorUpdate(); };
+        UnityEditor.EditorApplication.update += delegate
+        { EditorUpdate(); };
 #if UNITY_2018_1_OR_NEWER
-        UnityEditor.EditorApplication.hierarchyChanged += delegate { hWindowChanged(); };
+        UnityEditor.EditorApplication.hierarchyChanged += delegate
+        { hWindowChanged(); };
 #else
         UnityEditor.EditorApplication.hierarchyWindowChanged += delegate { hWindowChanged(); };
 #endif
@@ -159,6 +173,7 @@ public class GSDRoad : MonoBehaviour
         CheckMats();
     }
 
+
     public void Awake()
     {
         if (GSDSpline == null || GSDSpline.mNodes == null)
@@ -171,6 +186,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     int EditorTimer = 0;
     int EditorTimerMax = 0;
     int EditorTimerSpline = 0;
@@ -182,16 +198,20 @@ public class GSDRoad : MonoBehaviour
     public bool bTriggerGC = false;
     bool bTriggerGC_Happening;
     float TriggerGC_End = 0f;
+
+
     private void EditorUpdate()
     {
         if (!Application.isEditor)
         {
-            UnityEditor.EditorApplication.update -= delegate { EditorUpdate(); };
+            UnityEditor.EditorApplication.update -= delegate
+            { EditorUpdate(); };
         }
 
         if (this == null)
         {
-            UnityEditor.EditorApplication.update -= delegate { EditorUpdate(); };
+            UnityEditor.EditorApplication.update -= delegate
+            { EditorUpdate(); };
             Editor_bIsConstructing = false;
             EditorUtility.ClearProgressBar();
             return;
@@ -291,10 +311,11 @@ public class GSDRoad : MonoBehaviour
 
         if (bEditorCameraMoving && EditorCameraNextMove < EditorApplication.timeSinceStartup)
         {
-            EditorCameraNextMove = (float)EditorApplication.timeSinceStartup + EditorCameraTimeUpdateInterval;
+            EditorCameraNextMove = (float) EditorApplication.timeSinceStartup + EditorCameraTimeUpdateInterval;
             DoEditorCameraLoop();
         }
     }
+
 
     [System.NonSerialized]
     public bool bEditorCameraMoving = false;
@@ -317,6 +338,7 @@ public class GSDRoad : MonoBehaviour
     [System.NonSerialized]
     public Camera EditorPlayCamera = null;
     Vector3 EditorCameraBadVec = default(Vector3);
+
 
     public void DoEditorCameraLoop()
     {
@@ -387,17 +409,21 @@ public class GSDRoad : MonoBehaviour
             SceneView.lastActiveSceneView.Repaint();
         }
     }
+
+
     public void EditorCameraSetSingle()
     {
         if (EditorPlayCamera == null)
         {
-            Camera[] EditorCams = (Camera[])GameObject.FindObjectsOfType(typeof(Camera));
+            Camera[] EditorCams = (Camera[]) GameObject.FindObjectsOfType(typeof(Camera));
             if (EditorCams != null && EditorCams.Length == 1)
             {
                 EditorPlayCamera = EditorCams[0];
             }
         }
     }
+
+
     public void QuitEditorCamera()
     {
         EditorCameraPos = EditorCameraStartPos;
@@ -405,25 +431,38 @@ public class GSDRoad : MonoBehaviour
         bEditorCameraSetup = false;
         //		EditorCameraPos_Full = 0f;
     }
+
+
     public void ChangeEditorCameraMetersPerSec()
     {
         EditorCameraIncrementDistance_Full = (EditorCameraMetersPerSecond / 60);
         EditorCameraIncrementDistance = (EditorCameraIncrementDistance_Full / GSDSpline.distance);
     }
 
+
     private void hWindowChanged()
     {
         if (!Application.isEditor)
         {
 #if UNITY_2018_1_OR_NEWER
-            UnityEditor.EditorApplication.hierarchyChanged -= delegate { hWindowChanged(); };
+            UnityEditor.EditorApplication.hierarchyChanged -= delegate
+            { hWindowChanged(); };
 #else
             UnityEditor.EditorApplication.hierarchyWindowChanged -= delegate { hWindowChanged(); };
 #endif
         }
-        if (Application.isPlaying || !Application.isEditor) { return; }
-        if (Application.isEditor && UnityEditor.EditorApplication.isPlaying) { return; }
-        if (Application.isEditor && UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) { return; }
+        if (Application.isPlaying || !Application.isEditor)
+        {
+            return;
+        }
+        if (Application.isEditor && UnityEditor.EditorApplication.isPlaying)
+        {
+            return;
+        }
+        if (Application.isEditor && UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            return;
+        }
 
         int tCount = 0;
         if (GSDSpline != null && GSDSpline.mNodes != null)
@@ -436,6 +475,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     void RoadUpdateProgressBar()
     {
         if (Editor_bIsConstructing)
@@ -443,7 +483,7 @@ public class GSDRoad : MonoBehaviour
             EditorUtility.DisplayProgressBar(
                 "GSD Road Update",
                 EditorTitleString,
-                ((float)EditorProgress / 100f));
+                ((float) EditorProgress / 100f));
         }
         else if (bEditorProgressBar)
         {
@@ -451,6 +491,7 @@ public class GSDRoad : MonoBehaviour
             EditorUtility.ClearProgressBar();
         }
     }
+
 
     public void UpdateRoad(RoadUpdateTypeEnum tUpdateType = RoadUpdateTypeEnum.Full)
     {
@@ -470,7 +511,8 @@ public class GSDRoad : MonoBehaviour
 
 
 
-        if (bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("UpdateRoadPrelim"); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.BeginSample("UpdateRoadPrelim"); }
         opt_RoadDefinition = Mathf.Clamp(opt_RoadDefinition, 1f, 50f);
         opt_LaneWidth = Mathf.Clamp(opt_LaneWidth, 0.2f, 500f);
         EditorConstructionStartTime = Time.realtimeSinceStartup;
@@ -487,7 +529,8 @@ public class GSDRoad : MonoBehaviour
         EditorUtility.ClearProgressBar();
 
         bProfiling = true;
-        if (GSDRS.opt_bMultithreading) { bProfiling = false; }
+        if (GSDRS.opt_bMultithreading)
+        { bProfiling = false; }
 
         //Set all terrains to height 0:
         GSD.Roads.GSDTerraforming.CheckAllTerrainsHeight0();
@@ -496,9 +539,12 @@ public class GSDRoad : MonoBehaviour
         bEditorProgressBar = true;
         if (Editor_bIsConstructing)
         {
-            if (TerrainCalcsJob != null) { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
-            if (RoadCalcsJob1 != null) { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
-            if (RoadCalcsJob2 != null) { RoadCalcsJob2.Abort(); RoadCalcsJob2 = null; }
+            if (TerrainCalcsJob != null)
+            { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
+            if (RoadCalcsJob1 != null)
+            { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
+            if (RoadCalcsJob2 != null)
+            { RoadCalcsJob2.Abort(); RoadCalcsJob2 = null; }
             Editor_bIsConstructing = false;
         }
 
@@ -626,23 +672,36 @@ public class GSDRoad : MonoBehaviour
         if (mCount < 2)
         {
             //Delete old objs and return:
-            if (MainMeshes != null) { Object.DestroyImmediate(MainMeshes); }
-            if (MeshRoad != null) { Object.DestroyImmediate(MeshRoad); }
-            if (MeshShoR != null) { Object.DestroyImmediate(MeshShoR); }
-            if (MeshShoL != null) { Object.DestroyImmediate(MeshShoL); }
-            if (MeshiLanes != null) { Object.DestroyImmediate(MeshiLanes); }
-            if (MeshiLanes0 != null) { Object.DestroyImmediate(MeshiLanes0); }
-            if (MeshiLanes1 != null) { Object.DestroyImmediate(MeshiLanes1); }
-            if (MeshiLanes2 != null) { Object.DestroyImmediate(MeshiLanes2); }
-            if (MeshiLanes3 != null) { Object.DestroyImmediate(MeshiLanes3); }
-            if (MeshiMainPlates != null) { Object.DestroyImmediate(MeshiMainPlates); }
-            if (MeshiMarkerPlates != null) { Object.DestroyImmediate(MeshiMarkerPlates); }
-            if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+            if (MainMeshes != null)
+            { Object.DestroyImmediate(MainMeshes); }
+            if (MeshRoad != null)
+            { Object.DestroyImmediate(MeshRoad); }
+            if (MeshShoR != null)
+            { Object.DestroyImmediate(MeshShoR); }
+            if (MeshShoL != null)
+            { Object.DestroyImmediate(MeshShoL); }
+            if (MeshiLanes != null)
+            { Object.DestroyImmediate(MeshiLanes); }
+            if (MeshiLanes0 != null)
+            { Object.DestroyImmediate(MeshiLanes0); }
+            if (MeshiLanes1 != null)
+            { Object.DestroyImmediate(MeshiLanes1); }
+            if (MeshiLanes2 != null)
+            { Object.DestroyImmediate(MeshiLanes2); }
+            if (MeshiLanes3 != null)
+            { Object.DestroyImmediate(MeshiLanes3); }
+            if (MeshiMainPlates != null)
+            { Object.DestroyImmediate(MeshiMainPlates); }
+            if (MeshiMarkerPlates != null)
+            { Object.DestroyImmediate(MeshiMarkerPlates); }
+            if (bProfiling)
+            { UnityEngine.Profiling.Profiler.EndSample(); }
             return;
         }
 
         GSDSpline.HeightHistory = new List<KeyValuePair<float, float>>();
-        if (GSDRS == null) { GSDRS = transform.parent.GetComponent<GSDRoadSystem>(); } //Compatibility update.
+        if (GSDRS == null)
+        { GSDRS = transform.parent.GetComponent<GSDRoadSystem>(); } //Compatibility update.
 
         if (GSDRS.opt_bMultithreading)
         {
@@ -680,7 +739,8 @@ public class GSDRoad : MonoBehaviour
         }
         tTerrain = null;
 
-        if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.EndSample(); }
 
         if (GSDRS.opt_bMultithreading)
         {
@@ -699,6 +759,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     #region "Terrain history"
     public void ConstructRoad_StoreTerrainHistory(bool bDiskOnly = false)
     {
@@ -710,9 +771,11 @@ public class GSDRoad : MonoBehaviour
 
         if (opt_SaveTerrainHistoryOnDisk && TerrainHistory != null && TerrainHistory.Count > 0)
         {
-            if (bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("TerrainHistory_Save"); }
+            if (bProfiling)
+            { UnityEngine.Profiling.Profiler.BeginSample("TerrainHistory_Save"); }
             GSDGeneralEditor.TerrainHistory_Save(TerrainHistory, this);
-            if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+            if (bProfiling)
+            { UnityEngine.Profiling.Profiler.EndSample(); }
             TerrainHistory.Clear();
             TerrainHistory = null;
         }
@@ -763,13 +826,15 @@ public class GSDRoad : MonoBehaviour
     }
     #endregion
 
+
     #region "Construction process"
     #region "No multithread"
     private void UpdateRoad_NoMultiThreading()
     {
         if (opt_HeightModEnabled || opt_DetailModEnabled || opt_TreeModEnabled)
         {
-            if (bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Terrain"); }
+            if (bProfiling)
+            { UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Terrain"); }
             if (RCS.bTerrainOn || TerrainHistory == null)
             {
                 GSDTerraforming.ProcessRoad_Terrain_Hook1(GSDSpline, this, false);
@@ -805,8 +870,10 @@ public class GSDRoad : MonoBehaviour
         }
         EditorProgress = 90;
         GSD.Threaded.RoadCalcs1_static.RunMe(ref RCS);
-        if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
-        if (bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("MeshSetup1"); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.EndSample(); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.BeginSample("MeshSetup1"); }
         EditorProgress = 92;
         RCS.MeshSetup1();
         if (bProfiling)
@@ -816,11 +883,14 @@ public class GSDRoad : MonoBehaviour
         }
         EditorProgress = 94;
         GSD.Threaded.RoadCalcs2_static.RunMe(ref RCS);
-        if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
-        if (bProfiling) { UnityEngine.Profiling.Profiler.BeginSample("MeshSetup2"); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.EndSample(); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.BeginSample("MeshSetup2"); }
         EditorProgress = 96;
         RCS.MeshSetup2();
-        if (bProfiling) { UnityEngine.Profiling.Profiler.EndSample(); }
+        if (bProfiling)
+        { UnityEngine.Profiling.Profiler.EndSample(); }
         Construction_Cleanup();
     }
     #endregion
@@ -843,7 +913,8 @@ public class GSDRoad : MonoBehaviour
         }
         EditorProgress = 60;
 
-        if (TerrainCalcsJob != null) { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
+        if (TerrainCalcsJob != null)
+        { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
         GSDRoad tRoad = this;
         EditorProgress = 72;
         RoadCalcsJob1 = new GSD.Threaded.RoadCalcs1();
@@ -856,7 +927,8 @@ public class GSDRoad : MonoBehaviour
         EditorProgress = 84;
         RCS.MeshSetup1();
         EditorProgress = 96;
-        if (RoadCalcsJob1 != null) { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
+        if (RoadCalcsJob1 != null)
+        { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
         RoadCalcsJob2 = new GSD.Threaded.RoadCalcs2();
         RoadCalcsJob2.Setup(ref RCS);
         RoadCalcsJob2.Start();
@@ -870,13 +942,26 @@ public class GSDRoad : MonoBehaviour
     }
     #endregion
 
+
     private void Construction_Cleanup()
     {
         FixZ();
 
-        if (TerrainCalcsJob != null) { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
-        if (RoadCalcsJob1 != null) { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
-        if (RoadCalcsJob2 != null) { RoadCalcsJob2.Abort(); RoadCalcsJob2 = null; }
+        if (TerrainCalcsJob != null)
+        {
+            TerrainCalcsJob.Abort();
+            TerrainCalcsJob = null;
+        }
+        if (RoadCalcsJob1 != null)
+        {
+            RoadCalcsJob1.Abort();
+            RoadCalcsJob1 = null;
+        }
+        if (RoadCalcsJob2 != null)
+        {
+            RoadCalcsJob2.Abort();
+            RoadCalcsJob2 = null;
+        }
         Editor_bIsConstructing = false;
         int mCount = GSDSpline.GetNodeCount();
         GSDSplineN tNode;
@@ -895,7 +980,11 @@ public class GSDRoad : MonoBehaviour
             tNode.SetupEdgeObjects(false);
             tNode.SetupSplinatedMeshes(false);
         }
-        if (GSDSpline.HeightHistory != null) { GSDSpline.HeightHistory.Clear(); GSDSpline.HeightHistory = null; }
+        if (GSDSpline.HeightHistory != null)
+        {
+            GSDSpline.HeightHistory.Clear();
+            GSDSpline.HeightHistory = null;
+        }
         if (RCS != null)
         {
             RCS.Nullify();
@@ -960,12 +1049,16 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public List<GSDTerraforming.TempTerrainData> EditorTTDList;
+
+
     public void EditorTerrainCalcs(ref List<GSDTerraforming.TempTerrainData> tList)
     {
         EditorTTDList = tList;
     }
     #endregion
+
 
     #region "Gizmos"
     public bool Editor_bIsConstructing = false;
@@ -977,6 +1070,7 @@ public class GSDRoad : MonoBehaviour
     public readonly Color Color_NodeConnColor = new Color(0f, 1f, 0f, 0.75f);
     public readonly Color Color_NodeInter = new Color(0f, 1f, 0f, 0.75f);
 
+
     void OnDrawGizmosSelected()
     {
         if (Editor_MouseTerrainHit)
@@ -987,14 +1081,20 @@ public class GSDRoad : MonoBehaviour
     }
     #endregion
 #endif
+
+
     public float RoadWidth()
     {
-        return (opt_LaneWidth * (float)opt_Lanes);
+        return (opt_LaneWidth * (float) opt_Lanes);
     }
+
+
 #if UNITY_EDITOR
     public float EditorCameraTimer = 0f;
     float EditorTestTimer = 0f;
     bool bEditorTestTimer = true;
+
+
     void Update()
     {
         if (Application.isEditor && bEditorCameraMoving)
@@ -1028,7 +1128,7 @@ public class GSDRoad : MonoBehaviour
 
 
 
-
+    // TODO: Needs a proper Name, who did this anyway? // FH 29.01.19
     static void akjsdfkajlgffdghfsdghsdf()
     {
         int LoopMax = 1000;
@@ -1046,11 +1146,12 @@ public class GSDRoad : MonoBehaviour
         {
             for (int j = 0; j < 25000; j++)
             {
-                tSubject[j] = (ushort)(j + 1);
+                tSubject[j] = (ushort) (j + 1);
                 //				int xTemp = (int)tSubject[j];
             }
         }
     }
+
 
     static void DoInt(int LoopMax)
     {
@@ -1066,6 +1167,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     static void DoLong(int LoopMax)
     {
         long[] tSubject = new long[25000];
@@ -1074,18 +1176,20 @@ public class GSDRoad : MonoBehaviour
         {
             for (int j = 0; j < 25000; j++)
             {
-                tSubject[j] = (long)(j + 1);
+                tSubject[j] = (long) (j + 1);
                 //				int xTemp = (int)tSubject[j];
             }
         }
     }
+
 
     #region "Default materials retrieval"
     public bool DetectInvalidDefaultMatsForUndo()
     {
         string tNameLower = "";
         int tCounter = 0;
-        if (!MeshRoad) { return false; }
+        if (!MeshRoad)
+        { return false; }
 
         MeshRenderer[] MRs = MeshRoad.GetComponentsInChildren<MeshRenderer>();
         Material tMat2 = GSD.Roads.GSDRoadUtilityEditor.GiveMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Materials/Markers/GSDWhiteYellowDouble.mat");
@@ -1138,10 +1242,12 @@ public class GSDRoad : MonoBehaviour
         return false;
     }
 
+
     public void SetAllCutsToCurrentMaterials()
     {
         string tNameLower = "";
-        if (!MeshRoad) { return; }
+        if (!MeshRoad)
+        { return; }
 
         MeshRenderer[] MRs = MeshRoad.GetComponentsInChildren<MeshRenderer>();
         Material[] tMats_World = GetMaterials_RoadWorld();
@@ -1214,6 +1320,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public Material[] GetMaterials_RoadWorld()
     {
         int mCounter = 0;
@@ -1260,6 +1367,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public Material[] GetMaterials_RoadMarker()
     {
         int mCounter = 0;
@@ -1305,6 +1413,7 @@ public class GSDRoad : MonoBehaviour
             return null;
         }
     }
+
 
     public Material[] GetMaterials_ShoulderWorld()
     {
@@ -1357,6 +1466,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public Material[] GetMaterials_ShoulderMarker()
     {
         if (!opt_bShouldersEnabled)
@@ -1408,6 +1518,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
     #endregion
+
 
     #region "Materials"
     void CheckMats()
@@ -1473,6 +1584,7 @@ public class GSDRoad : MonoBehaviour
             ShoulderPhysicMaterial = GSD.Roads.GSDRoadUtilityEditor.GivePhysicsMaterial(GSD.Roads.GSDRoadUtilityEditor.GetBasePath() + "/Physics/GSDDirt.physicMaterial");
         }
     }
+
 
     public void SetDefaultMats()
     {
@@ -1576,6 +1688,7 @@ public class GSDRoad : MonoBehaviour
     }
     #endregion
 
+
     public void Wireframes_Toggle()
     {
         MeshRenderer[] tMRs = transform.GetComponentsInChildren<MeshRenderer>();
@@ -1587,6 +1700,8 @@ public class GSDRoad : MonoBehaviour
             Wireframes_Toggle_Help(ref tMRs);
         }
     }
+
+
     void Wireframes_Toggle_Help(ref MeshRenderer[] tMRs)
     {
         int tCount = tMRs.Length;
@@ -1599,6 +1714,7 @@ public class GSDRoad : MonoBehaviour
 
 #endif
 
+
     void Start()
     {
 #if UNITY_EDITOR
@@ -1607,15 +1723,19 @@ public class GSDRoad : MonoBehaviour
             CleanRunTime();
         }
 #else
-			this.enabled = false;
+        this.enabled = false;
 #endif
     }
+
 
 #if UNITY_EDITOR
     //For compliance on submission rules:
     public void UpdateGizmoOptions()
     {
-        if (GSDSpline == null) { return; }
+        if (GSDSpline == null)
+        {
+            return;
+        }
         GSDSplineN tNode = null;
 
         int mCount = GSDSpline.GetNodeCount();
@@ -1629,6 +1749,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public void SetupUniqueIdentifier()
     {
         if (UID == null || UID.Length < 4)
@@ -1637,13 +1758,17 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     public void DuplicateRoad()
     {
         GameObject tRoadObj = GSDRS.AddRoad();
         UnityEditor.Undo.RegisterCreatedObjectUndo(tRoadObj, "Duplicate");
 
         GSDRoad xRoad = tRoadObj.GetComponent<GSDRoad>();
-        if (xRoad == null) { return; }
+        if (xRoad == null)
+        {
+            return;
+        }
 
         //Road editor options: 
         xRoad.opt_LaneWidth = opt_LaneWidth;					//Done.
@@ -1708,10 +1833,12 @@ public class GSDRoad : MonoBehaviour
         Selection.activeGameObject = xRoad.transform.gameObject;
     }
 
+
     private void FixZ()
     {
         FixZ_Mobile();
     }
+
 
     private void FixZ_Mobile()
     {
@@ -1747,6 +1874,7 @@ public class GSDRoad : MonoBehaviour
             }
         }
 
+
         //Intersections (all):
         tMarkerObjs = GSDRS.GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer MR in tMarkerObjs)
@@ -1774,6 +1902,7 @@ public class GSDRoad : MonoBehaviour
         }
     }
 
+
     private void FixZ_Win()
     {
         //This road:
@@ -1787,6 +1916,7 @@ public class GSDRoad : MonoBehaviour
                 MR.transform.localPosition = tVect;
             }
         }
+
 
         //Intersections (all):
         tMarkerObjs = Object.FindObjectsOfType<MeshRenderer>();

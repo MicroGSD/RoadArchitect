@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#region Imports
+using UnityEngine;
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Collections;
@@ -7,19 +8,23 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 #endif
+#endregion
+
+
 namespace GSD.Roads
 {
 #if UNITY_EDITOR
-    // Proper automation flow:
-    // 1. Make sure opt_bAllowRoadUpdates in the scene's GSDRoadSystem is set to FALSE.
-    // 2. Create your roads programmatically via CreateRoad_Programmatically (pass it the road, and then the points in a list)
-    //      a. Optionally you can do it via CreateNode_Programmatically and InsertNode_Programmatically
-    // 3. Call CreateIntersections_ProgrammaticallyForRoad for each road to create intersections automatically at intersection points.
-    // 4. Set opt_bAllowRoadUpdates in the scene's GSDRoadSystem is set to TRUE.
-    // 5. Call GSDRoadSystem.UpdateAllRoads();
-    // 6. Call GSDRoadSystem.UpdateAllRoads(); after step #5 completes.
-    //
-    // See "GSDUnitTests.cs" for an example on automation (ignore unit test #3).
+    /* Proper automation flow:
+     * 1. Make sure opt_bAllowRoadUpdates in the scene's GSDRoadSystem is set to FALSE.
+     * 2. Create your roads programmatically via CreateRoad_Programmatically (pass it the road, and then the points in a list)
+     *      a. Optionally you can do it via CreateNode_Programmatically and InsertNode_Programmatically
+     * 3. Call CreateIntersections_ProgrammaticallyForRoad for each road to create intersections automatically at intersection points.
+     * 4. Set opt_bAllowRoadUpdates in the scene's GSDRoadSystem is set to TRUE.
+     * 5. Call GSDRoadSystem.UpdateAllRoads();
+     * 6. Call GSDRoadSystem.UpdateAllRoads(); after step #5 completes.
+     * 
+     * See "GSDUnitTests.cs" for an example on automation (ignore unit test #3).
+     */
 
 
     public static class GSDRoadAutomation
@@ -58,7 +63,10 @@ namespace GSD.Roads
             GSDSplineN tNode = tNodeObj.AddComponent<GSDSplineN>(); //Add the node component.
 
             //Set node location:
-            if (NodeLocation.y < 0.03f) { NodeLocation.y = 0.03f; }     //Make sure it doesn't try to create a node below 0 height.
+            if (NodeLocation.y < 0.03f)
+            {
+                NodeLocation.y = 0.03f;
+            }     //Make sure it doesn't try to create a node below 0 height.
             tNodeObj.transform.position = NodeLocation;
 
             //Set the node's parent:
@@ -74,6 +82,7 @@ namespace GSD.Roads
             return tNode;
         }
 
+
         /// <summary>
         /// Use this to insert nodes via coding while in editor mode. Make sure opt_bAllowRoadUpdates is set to false in RS.GSDRS.opt_bAllowRoadUpdates.
         /// </summary>
@@ -87,7 +96,8 @@ namespace GSD.Roads
             tNodeObj = new GameObject("Node" + tWorldNodeCount.Length.ToString());
 
             //Set node location:
-            if (NodeLocation.y < 0.03f) { NodeLocation.y = 0.03f; }     //Make sure it doesn't try to create a node below 0 height.
+            if (NodeLocation.y < 0.03f)
+            { NodeLocation.y = 0.03f; }     //Make sure it doesn't try to create a node below 0 height.
             tNodeObj.transform.position = NodeLocation;
 
             //Set the node's parent:
@@ -194,7 +204,10 @@ namespace GSD.Roads
                                 break;
                             }
                         }
-                        if (EarlyDistanceFound) { break; }
+                        if (EarlyDistanceFound)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -205,10 +218,12 @@ namespace GSD.Roads
             {
                 foreach (GSDSplineN IntersectionNode1 in tRoad.GSDSpline.mNodes)
                 {
-                    if (IntersectionNode1.bIsIntersection || !IntersectionNode1.IsLegitimate()) { continue; }
+                    if (IntersectionNode1.bIsIntersection || !IntersectionNode1.IsLegitimate())
+                    { continue; }
                     foreach (GSDSplineN IntersectionNode2 in xRoad.GSDSpline.mNodes)
                     {
-                        if (IntersectionNode2.bIsIntersection || !IntersectionNode2.IsLegitimate()) { continue; }
+                        if (IntersectionNode2.bIsIntersection || !IntersectionNode2.IsLegitimate())
+                        { continue; }
                         if (IntersectionNode1.transform.position == IntersectionNode2.transform.position)
                         {
                             //Only do T intersections and let the next algorithm handle the +, since T might not intersect all the time.
@@ -249,7 +264,8 @@ namespace GSD.Roads
                     for (float i = 0f; i < 1.0000001f; i += tRoadMod)
                     {
                         i2 = (i + tRoadMod);
-                        if (i2 > 1f) { i2 = 1f; }
+                        if (i2 > 1f)
+                        { i2 = 1f; }
                         tVect = tRoad.GSDSpline.GetSplineValue(i);
                         iVect1 = new Vector2(tVect.x, tVect.z);
                         tVect = tRoad.GSDSpline.GetSplineValue(i2);
@@ -259,7 +275,8 @@ namespace GSD.Roads
                         for (float x = 0f; x < 1.000001f; x += xRoadMod)
                         {
                             x2 = (x + xRoadMod);
-                            if (x2 > 1f) { x2 = 1f; }
+                            if (x2 > 1f)
+                            { x2 = 1f; }
                             tVect = xRoad.GSDSpline.GetSplineValue(x);
                             xVect1 = new Vector2(tVect.x, tVect.z);
                             tVect = xRoad.GSDSpline.GetSplineValue(x2);
@@ -339,9 +356,15 @@ namespace GSD.Roads
                             NoIntersectionCreation:
                             //Gibberish to get rid of warnings:
                             int xxx = 1;
-                            if (xxx == 1) { xxx = 2; }
+                            if (xxx == 1)
+                            {
+                                xxx = 2;
+                            }
                         }
-                        if (EarlyDistanceFound) { break; }
+                        if (EarlyDistanceFound)
+                        {
+                            break;
+                        }
                     }
                 }
             }
