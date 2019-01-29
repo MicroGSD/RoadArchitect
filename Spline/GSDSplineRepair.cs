@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿#region Imports
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+#endregion
+
+
 #if UNITY_EDITOR
 
 
 [ExecuteInEditMode]
 public class GSDSplineRepair : MonoBehaviour
 {
-
     public void RemoveLastNode()
     {
         GSDSplineC spline = GetComponent<GSDSplineC>();
@@ -25,7 +28,7 @@ public class GSDSplineRepairEditor : Editor
     {
         DrawDefaultInspector();
 
-        GSDSplineRepair repair = (GSDSplineRepair)target;
+        GSDSplineRepair repair = (GSDSplineRepair) target;
         if (GUILayout.Button("Remove last node"))
         {
             repair.RemoveLastNode();
