@@ -103,12 +103,14 @@ public class GSDSplineN : MonoBehaviour
     public void SetupEdgeObjects(bool bCollect = true)
     {
         if (EdgeObjects == null)
-        { EdgeObjects = new List<EdgeObjectMaker>(); }
+        {
+            EdgeObjects = new List<EdgeObjectMaker>();
+        }
         int eCount = EdgeObjects.Count;
         EdgeObjectMaker EOM = null;
-        for (int i = 0; i < eCount; i++)
+        for (int index = 0; index < eCount; index++)
         {
-            EOM = EdgeObjects[i];
+            EOM = EdgeObjects[index];
             EOM.tNode = this;
             EOM.Setup(bCollect);
         }
@@ -212,17 +214,17 @@ public class GSDSplineN : MonoBehaviour
         int mCount = EdgeObjects.Count;
         List<int> InvalidList = new List<int>();
 
-        for (int i = 0; i < mCount; i++)
+        for (int index = 0; index < mCount; index++)
         {
-            if (EdgeObjects[i].EdgeObject == null)
+            if (EdgeObjects[index].EdgeObject == null)
             {
-                InvalidList.Add(i);
+                InvalidList.Add(index);
             }
         }
 
-        for (int i = (InvalidList.Count - 1); i >= 0; i--)
+        for (int index = (InvalidList.Count - 1); index >= 0; index--)
         {
-            RemoveEdgeObject(InvalidList[i], true);
+            RemoveEdgeObject(InvalidList[index], true);
         }
 
         SetupEdgeObjects();
@@ -237,12 +239,14 @@ public class GSDSplineN : MonoBehaviour
     public void SetupSplinatedMeshes(bool bCollect = true)
     {
         if (SplinatedObjects == null)
-        { SplinatedObjects = new List<SplinatedMeshMaker>(); }
+        {
+            SplinatedObjects = new List<SplinatedMeshMaker>();
+        }
         int eCount = SplinatedObjects.Count;
         SplinatedMeshMaker SMM = null;
-        for (int i = 0; i < eCount; i++)
+        for (int index = 0; index < eCount; index++)
         {
-            SMM = SplinatedObjects[i];
+            SMM = SplinatedObjects[index];
             SMM.Setup(true, bCollect);
         }
     }
@@ -251,15 +255,17 @@ public class GSDSplineN : MonoBehaviour
     public int SplinatedMeshGetIndex(ref string UID)
     {
         if (SplinatedObjects == null)
-        { SplinatedObjects = new List<SplinatedMeshMaker>(); }
+        {
+            SplinatedObjects = new List<SplinatedMeshMaker>();
+        }
         int eCount = SplinatedObjects.Count;
         SplinatedMeshMaker SMM = null;
-        for (int i = 0; i < eCount; i++)
+        for (int index = 0; index < eCount; index++)
         {
-            SMM = SplinatedObjects[i];
+            SMM = SplinatedObjects[index];
             if (string.CompareOrdinal(SMM.UID, UID) == 0)
             {
-                return i;
+                return index;
             }
         }
         return -1;
@@ -269,7 +275,9 @@ public class GSDSplineN : MonoBehaviour
     public void SetupSplinatedMesh(int i, bool bGetStrings = false)
     {
         if (SplinatedObjects == null)
-        { SplinatedObjects = new List<SplinatedMeshMaker>(); }
+        {
+            SplinatedObjects = new List<SplinatedMeshMaker>();
+        }
         int eCount = SplinatedObjects.Count;
         if (i > -1 && i < eCount)
         {
@@ -386,17 +394,17 @@ public class GSDSplineN : MonoBehaviour
         int mCount = SplinatedObjects.Count;
         List<int> InvalidList = new List<int>();
 
-        for (int i = 0; i < mCount; i++)
+        for (int index = 0; index < mCount; index++)
         {
-            if (SplinatedObjects[i].Output == null)
+            if (SplinatedObjects[index].Output == null)
             {
-                InvalidList.Add(i);
+                InvalidList.Add(index);
             }
         }
 
-        for (int i = (InvalidList.Count - 1); i >= 0; i--)
+        for (int index = (InvalidList.Count - 1); index >= 0; index--)
         {
-            RemoveSplinatedObject(InvalidList[i], true);
+            RemoveSplinatedObject(InvalidList[index], true);
         }
 
         SetupSplinatedMeshes();
@@ -939,9 +947,9 @@ public class GSDSplineN : MonoBehaviour
         //Figure out min splination:
         GSDSplineN tNode = null;
         MinSplination = tTime;
-        for (int i = idOnSpline; i >= 0; i--)
+        for (int index = idOnSpline; index >= 0; index--)
         {
-            tNode = GSDSpline.mNodes[i];
+            tNode = GSDSpline.mNodes[index];
             if (tNode.CanSplinate())
             {
                 MinSplination = tNode.tTime;
@@ -955,9 +963,9 @@ public class GSDSplineN : MonoBehaviour
         //Figure out max splination:
         MaxSplination = tTime;
         int mCount = GSDSpline.GetNodeCount();
-        for (int i = idOnSpline; i < mCount; i++)
+        for (int index = idOnSpline; index < mCount; index++)
         {
-            tNode = GSDSpline.mNodes[i];
+            tNode = GSDSpline.mNodes[index];
             if (tNode.CanSplinate())
             {
                 MaxSplination = tNode.tTime;
@@ -1478,14 +1486,16 @@ public class GSDSplineN : MonoBehaviour
         {
             int mCount = GSDSpline.GetNodeCount();
             GSDSplineN tNode = null;
-            for (int i = 1; i < (mCount - 1); i++)
+            for (int index = 1; index < (mCount - 1); index++)
             {
-                tNode = GSDSpline.mNodes[i];
+                tNode = GSDSpline.mNodes[index];
                 if (tNode.bIsTunnelStart && !tNode.bIsTunnelMatched)
                 {
                     tNode.TunnelToggleStart();
                     if (tNode.bIsTunnelMatched && tNode.TunnelCounterpartNode == this)
-                    { return; }
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -1738,6 +1748,8 @@ public class GSDSplineN : MonoBehaviour
     }
     #endregion
 #endif
+
+
     #region "Non-editor util"
     public bool CanSplinate()
     {

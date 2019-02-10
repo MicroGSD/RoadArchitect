@@ -41,9 +41,9 @@ namespace GSD.Roads
             GSDRoad tRoad = tRoadObj.GetComponent<GSDRoad>();
 
             int hCount = tLocs.Count;
-            for (int i = 0; i < hCount; i++)
+            for (int index = 0; index < hCount; index++)
             {
-                CreateNode_Programmatically(tRoad, tLocs[i]);
+                CreateNode_Programmatically(tRoad, tLocs[index]);
             }
 
             return tRoad;
@@ -97,7 +97,9 @@ namespace GSD.Roads
 
             //Set node location:
             if (NodeLocation.y < 0.03f)
-            { NodeLocation.y = 0.03f; }     //Make sure it doesn't try to create a node below 0 height.
+            {
+                NodeLocation.y = 0.03f; //Make sure it doesn't try to create a node below 0 height.
+            }
             tNodeObj.transform.position = NodeLocation;
 
             //Set the node's parent:
@@ -124,9 +126,9 @@ namespace GSD.Roads
             }
 
             //Figure out where to insert the node:
-            for (int i = 0; i < cCount; i++)
+            for (int index = 0; index < cCount; index++)
             {
-                GSDSplineN xNode = RS.GSDSpline.mNodes[i];
+                GSDSplineN xNode = RS.GSDSpline.mNodes[index];
                 if (!bZeroInsert && !bEndInsert)
                 {
                     if (tParam > xNode.tTime)
@@ -135,9 +137,9 @@ namespace GSD.Roads
                     }
                 }
             }
-            for (int i = iStart; i < cCount; i++)
+            for (int index = iStart; index < cCount; index++)
             {
-                RS.GSDSpline.mNodes[i].idOnSpline += 1;
+                RS.GSDSpline.mNodes[index].idOnSpline += 1;
             }
 
             GSDSplineN tNode = tNodeObj.AddComponent<GSDSplineN>();
@@ -188,9 +190,9 @@ namespace GSD.Roads
                     float xRoadMod = EarlyDistanceCheckMeters / xRoad.GSDSpline.distance;
                     Vector3 tVect1 = default(Vector3);
                     Vector3 tVect2 = default(Vector3);
-                    for (float i = 0f; i < 1.0000001f; i += tRoadMod)
+                    for (float index = 0f; index < 1.0000001f; index += tRoadMod)
                     {
-                        tVect1 = tRoad.GSDSpline.GetSplineValue(i);
+                        tVect1 = tRoad.GSDSpline.GetSplineValue(index);
                         for (float x = 0f; x < 1.000001f; x += xRoadMod)
                         {
                             tVect2 = xRoad.GSDSpline.GetSplineValue(x);
@@ -219,11 +221,15 @@ namespace GSD.Roads
                 foreach (GSDSplineN IntersectionNode1 in tRoad.GSDSpline.mNodes)
                 {
                     if (IntersectionNode1.bIsIntersection || !IntersectionNode1.IsLegitimate())
-                    { continue; }
+                    {
+                        continue;
+                    }
                     foreach (GSDSplineN IntersectionNode2 in xRoad.GSDSpline.mNodes)
                     {
                         if (IntersectionNode2.bIsIntersection || !IntersectionNode2.IsLegitimate())
-                        { continue; }
+                        {
+                            continue;
+                        }
                         if (IntersectionNode1.transform.position == IntersectionNode2.transform.position)
                         {
                             //Only do T intersections and let the next algorithm handle the +, since T might not intersect all the time.
@@ -261,12 +267,14 @@ namespace GSD.Roads
                     Vector2 xVect2 = default(Vector2);
                     Vector2 IntersectPoint2D = default(Vector2);
                     float i2 = 0f;
-                    for (float i = 0f; i < 1.0000001f; i += tRoadMod)
+                    for (float index = 0f; index < 1.0000001f; index += tRoadMod)
                     {
-                        i2 = (i + tRoadMod);
+                        i2 = (index + tRoadMod);
                         if (i2 > 1f)
-                        { i2 = 1f; }
-                        tVect = tRoad.GSDSpline.GetSplineValue(i);
+                        {
+                            i2 = 1f;
+                        }
+                        tVect = tRoad.GSDSpline.GetSplineValue(index);
                         iVect1 = new Vector2(tVect.x, tVect.z);
                         tVect = tRoad.GSDSpline.GetSplineValue(i2);
                         iVect2 = new Vector2(tVect.x, tVect.z);
@@ -276,7 +284,9 @@ namespace GSD.Roads
                         {
                             x2 = (x + xRoadMod);
                             if (x2 > 1f)
-                            { x2 = 1f; }
+                            {
+                                x2 = 1f;
+                            }
                             tVect = xRoad.GSDSpline.GetSplineValue(x);
                             xVect1 = new Vector2(tVect.x, tVect.z);
                             tVect = xRoad.GSDSpline.GetSplineValue(x2);

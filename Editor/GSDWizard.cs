@@ -357,9 +357,9 @@ public class GSDWizard : EditorWindow
         //		string tDesc = "";
         //		string tDisplayName = "";
         //		string ThumbString = "";
-        for (int i = 0; i < tCount; i++)
+        for (int index = 0; index < tCount; index++)
         {
-            GSDRoadUtil.WizardObject tO = GSDRoadUtil.WizardObject.LoadFromLibrary(tPaths[i]);
+            GSDRoadUtil.WizardObject tO = GSDRoadUtil.WizardObject.LoadFromLibrary(tPaths[index]);
             if (tO == null)
             {
                 continue;
@@ -376,7 +376,7 @@ public class GSDWizard : EditorWindow
             {
                 tO.Thumb = null;
             }
-            tO.FileName = tNames[i];
+            tO.FileName = tNames[index];
             tO.FullPath = tPath;
 
             if (tO.bIsDefault && bIsBridge)
@@ -624,7 +624,9 @@ public class GSDWizard : EditorWindow
             {
                 SplinatedMeshMaker.SplinatedMeshLibraryMaker SLM = (SplinatedMeshMaker.SplinatedMeshLibraryMaker) GSDRootUtil.LoadXML<SplinatedMeshMaker.SplinatedMeshLibraryMaker>(ref tPath);
                 if (SLM == null)
-                { continue; }
+                {
+                    continue;
+                }
                 tStringPath = SLM.CurrentSplinationString;
                 tDesc = SLM.Desc;
                 tDisplayName = SLM.DisplayName;
@@ -635,7 +637,9 @@ public class GSDWizard : EditorWindow
             {
                 EdgeObjectMaker.EdgeObjectLibraryMaker ELM = (EdgeObjectMaker.EdgeObjectLibraryMaker) GSDRootUtil.LoadXML<EdgeObjectMaker.EdgeObjectLibraryMaker>(ref tPath);
                 if (ELM == null)
-                { continue; }
+                {
+                    continue;
+                }
                 tStringPath = ELM.EdgeObjectString;
                 tDesc = ELM.Desc;
                 tDisplayName = ELM.DisplayName;

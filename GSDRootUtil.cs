@@ -1,9 +1,11 @@
+#region "Imports"
 using UnityEngine;
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+#endregion
 
 
 namespace GSD
@@ -288,16 +290,16 @@ namespace GSD
             }
 
             Vector3 n, t;//,tmp;
-            for (int i = 0; i < MVL; i++)
+            for (int index = 0; index < MVL; index++)
             {
-                n = normals[i];
-                t = tan1[i];
+                n = normals[index];
+                t = tan1[index];
 
                 Vector3.OrthoNormalize(ref n, ref t);
-                tangents[i].x = t.x;
-                tangents[i].y = t.y;
-                tangents[i].z = t.z;
-                tangents[i].w = (Vector3.Dot(Vector3.Cross(n, t), tan2[i]) < 0.0f) ? -1.0f : 1.0f;
+                tangents[index].x = t.x;
+                tangents[index].y = t.y;
+                tangents[index].z = t.z;
+                tangents[index].w = (Vector3.Dot(Vector3.Cross(n, t), tan2[index]) < 0.0f) ? -1.0f : 1.0f;
 
                 //				tmp = (t - n * Vector3.Dot(n, t)).normalized;
                 //				tangents[i] = new Vector4(tmp.x, tmp.y, tmp.z);

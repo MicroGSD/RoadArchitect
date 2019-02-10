@@ -12,7 +12,7 @@ http://wiki.unity3d.com/index.php/User:KeliHlodversson
 */
 
 
-#region Imports
+#region "Imports"
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -102,11 +102,11 @@ public class GSDObjExporter : ScriptableObject
 
 
             int[] triangles = m.GetTriangles(material);
-            for (int i = 0; i < triangles.Length; i += 3)
+            for (int index = 0; index < triangles.Length; index += 3)
             {
                 //Because we inverted the x-component, we also needed to alter the triangle winding.
                 sb.Append(string.Format("f {1}/{1}/{1} {0}/{0}/{0} {2}/{2}/{2}\n",
-                    triangles[i] + 1 + vertexOffset, triangles[i + 1] + 1 + normalOffset, triangles[i + 2] + 1 + uvOffset));
+                    triangles[index] + 1 + vertexOffset, triangles[index + 1] + 1 + normalOffset, triangles[index + 2] + 1 + uvOffset));
             }
         }
 
@@ -157,7 +157,9 @@ public class GSDObjExporter : ScriptableObject
                     int stripIndex = destinationFile.LastIndexOf('/');//FIXME: Should be Path.PathSeparator;
 
                     if (stripIndex >= 0)
+                    {
                         destinationFile = destinationFile.Substring(stripIndex + 1).Trim();
+                    }
 
 
                     string relativeFile = destinationFile;
@@ -209,9 +211,9 @@ public class GSDObjExporter : ScriptableObject
         {
             sw.Write("mtllib ./" + filename + ".mtl\n");
 
-            for (int i = 0; i < mf.Length; i++)
+            for (int index = 0; index < mf.Length; index++)
             {
-                sw.Write(MeshToString(mf[i], materialList));
+                sw.Write(MeshToString(mf[index], materialList));
             }
         }
 
@@ -239,7 +241,9 @@ public class GSDObjExporter : ScriptableObject
     static void ExportSelectionToSeparate()
     {
         if (!CreateTargetFolder())
+        {
             return;
+        }
 
         Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
@@ -251,21 +255,25 @@ public class GSDObjExporter : ScriptableObject
 
         int exportedObjects = 0;
 
-        for (int i = 0; i < selection.Length; i++)
+        for (int index = 0; index < selection.Length; index++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
+            Component[] meshfilter = selection[index].GetComponentsInChildren(typeof(MeshFilter));
 
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                MeshToFile((MeshFilter) meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m);
+                MeshToFile((MeshFilter) meshfilter[m], targetFolder, selection[index].name + "_" + index + "_" + m);
             }
         }
 
         if (exportedObjects > 0)
+        {
             EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects", "");
+        }
         else
+        {
             EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
+        }
     }
 
 
@@ -290,9 +298,9 @@ public class GSDObjExporter : ScriptableObject
 
         ArrayList mfList = new ArrayList();
 
-        for (int i = 0; i < selection.Length; i++)
+        for (int index = 0; index < selection.Length; index++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
+            Component[] meshfilter = selection[index].GetComponentsInChildren(typeof(MeshFilter));
 
             for (int m = 0; m < meshfilter.Length; m++)
             {
@@ -305,9 +313,9 @@ public class GSDObjExporter : ScriptableObject
         {
             MeshFilter[] mf = new MeshFilter[mfList.Count];
 
-            for (int i = 0; i < mfList.Count; i++)
+            for (int index = 0; index < mfList.Count; index++)
             {
-                mf[i] = (MeshFilter) mfList[i];
+                mf[index] = (MeshFilter) mfList[index];
             }
 
 
@@ -352,9 +360,9 @@ public class GSDObjExporter : ScriptableObject
         int exportedObjects = 0;
 
 
-        for (int i = 0; i < selection.Length; i++)
+        for (int index = 0; index < selection.Length; index++)
         {
-            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
+            Component[] meshfilter = selection[index].GetComponentsInChildren(typeof(MeshFilter));
 
             MeshFilter[] mf = new MeshFilter[meshfilter.Length];
 
@@ -364,7 +372,7 @@ public class GSDObjExporter : ScriptableObject
                 mf[m] = (MeshFilter) meshfilter[m];
             }
 
-            MeshesToFile(mf, targetFolder, selection[i].name + "_" + i);
+            MeshesToFile(mf, targetFolder, selection[index].name + "_" + index);
         }
 
         if (exportedObjects > 0)

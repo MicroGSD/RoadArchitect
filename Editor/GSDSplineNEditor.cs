@@ -26,7 +26,8 @@ public class GSDSplineNEditor : Editor
     bool bRemoveAll = false;
     float HorizRoadMax = 0;
 
-    //Button icons:
+
+    #region Button icons:
     Texture btnDeleteText = null;
     Texture btnCopyText = null;
     Texture btnSaveText = null;
@@ -40,6 +41,8 @@ public class GSDSplineNEditor : Editor
     Texture2D GSDTextAreaBG = null;
     Texture2D LoadBtnBGGlow = null;
     Texture2D ManualBG = null;
+    #endregion
+
 
     public bool bLoadingEOS = false;
     public int LoadingEOSIndex = 0;
@@ -60,6 +63,7 @@ public class GSDSplineNEditor : Editor
     GSD.Roads.Splination.SplinatedMeshMaker SMM = null;
 
 
+    #region "Enums"
     public enum EndObjectsDefaultsEnum
     {
         None,
@@ -177,6 +181,7 @@ public class GSDSplineNEditor : Editor
 
 
     public enum EOMDefaultsEnum { None, Custom, StreetLightSingle, StreetLightDouble };
+    #endregion
 
 
     //GSD.Roads.Splination.CollisionTypeEnum tCollisionTypeSpline = GSD.Roads.Splination.CollisionTypeEnum.SimpleMeshTriangle;
@@ -610,9 +615,13 @@ public class GSDSplineNEditor : Editor
         {// || GUILayout.Button(btnLoadText,GSDImageButton,GUILayout.Width(16f))){
             GSDWizard tWiz = EditorWindow.GetWindow<GSDWizard>();
             if (tSceneRect.x < 0)
-            { tSceneRect.x = 0f; }
+            {
+                tSceneRect.x = 0f;
+            }
             if (tSceneRect.y < 0)
-            { tSceneRect.y = 0f; }
+            {
+                tSceneRect.y = 0f;
+            }
             tWiz.xRect = tSceneRect;
             if (tNode.bIsBridgeStart)
             {
@@ -780,10 +789,10 @@ public class GSDSplineNEditor : Editor
 
         }
 
-        for (int i = 0; i < tNode.SplinatedObjects.Count; i++)
+        for (int index = 0; index < tNode.SplinatedObjects.Count; index++)
         {
             currentCount += 1;
-            SMM = tNode.SplinatedObjects[i];
+            SMM = tNode.SplinatedObjects[index];
             if (SMM.EM == null)
             {
                 SMM.EM = new GSD.Roads.Splination.SplinatedMeshMaker.SplinatedMeshEditorMaker();
@@ -795,7 +804,9 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.BeginVertical("TextArea");
 
             if (SMM.bNeedsUpdate)
-            { SMM.Setup(true); }
+            {
+                SMM.Setup(true);
+            }
 
 
             EditorGUILayout.BeginHorizontal();
@@ -825,12 +836,15 @@ public class GSDSplineNEditor : Editor
             if (GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
             {
                 Undo.RecordObject(tNode, "Delete");
-                tNode.RemoveSplinatedObject(i);
+                tNode.RemoveSplinatedObject(index);
                 EditorUtility.SetDirty(tNode);
             }
             EditorGUILayout.EndHorizontal();
             if (!SMM.bToggle)
-            { EditorGUILayout.EndVertical(); continue; }
+            {
+                EditorGUILayout.EndVertical();
+                continue;
+            }
 
             GUILayout.Space(8f);
             EditorGUILayout.BeginHorizontal();
@@ -1079,7 +1093,9 @@ public class GSDSplineNEditor : Editor
 
             //Horizontal curve:
             if (SMM.HorizontalCurve == null || SMM.HorizontalCurve.keys.Length < 2)
-            { EnforceCurve(ref SMM.HorizontalCurve); }
+            {
+                EnforceCurve(ref SMM.HorizontalCurve);
+            }
 
             EditorGUILayout.BeginHorizontal();
             SMM.EM.HorizontalCurve = EditorGUILayout.CurveField("Curve: ", SMM.HorizontalCurve);
@@ -1306,9 +1322,9 @@ public class GSDSplineNEditor : Editor
             tNode.SplinatedObjects = new List<GSD.Roads.Splination.SplinatedMeshMaker>();
         }
         eCount = tNode.SplinatedObjects.Count;
-        for (int i = 0; i < eCount; i++)
+        for (int index = 0; index < eCount; index++)
         {
-            SMM = tNode.SplinatedObjects[i];
+            SMM = tNode.SplinatedObjects[index];
             if (SMM.EM != null)
             {
                 if (!SMM.EM.IsEqualToSMM(SMM))
@@ -1352,16 +1368,16 @@ public class GSDSplineNEditor : Editor
         }
 
         //Destroy all children:
-        for (int i = tNode.transform.childCount - 1; i >= 0; i--)
+        for (int index = tNode.transform.childCount - 1; index >= 0; index--)
         {
-            Object.DestroyImmediate(tNode.transform.GetChild(i).gameObject);
+            Object.DestroyImmediate(tNode.transform.GetChild(index).gameObject);
         }
 
         //Re-setup the SMM:
         eCount = tNode.SplinatedObjects.Count;
-        for (int i = 0; i < eCount; i++)
+        for (int index = 0; index < eCount; index++)
         {
-            SMM = tNode.SplinatedObjects[i];
+            SMM = tNode.SplinatedObjects[index];
             SMM.UpdatePositions();
             //if(SMM.bIsStretch != SMM.bIsStretch){ 
             if (SMM.bIsStretch)
@@ -1399,9 +1415,9 @@ public class GSDSplineNEditor : Editor
 
         EOM = null;
 
-        for (int i = 0; i < tNode.EdgeObjects.Count; i++)
+        for (int index = 0; index < tNode.EdgeObjects.Count; index++)
         {
-            EOM = tNode.EdgeObjects[i];
+            EOM = tNode.EdgeObjects[index];
             if (EOM.EM == null)
             {
                 EOM.EM = new GSD.Roads.EdgeObjects.EdgeObjectMaker.EdgeObjectEditorMaker();
@@ -1439,13 +1455,13 @@ public class GSDSplineNEditor : Editor
             if (GUILayout.Button(btnCopyText, GSDImageButton, GUILayout.Width(16f)))
             {
                 Undo.RecordObject(tNode, "Copy");
-                tNode.CopyEdgeObject(i);
+                tNode.CopyEdgeObject(index);
                 EditorUtility.SetDirty(tNode);
             }
             if (GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
             {
                 Undo.RecordObject(tNode, "Delete");
-                tNode.RemoveEdgeObject(i);
+                tNode.RemoveEdgeObject(index);
                 EditorUtility.SetDirty(tNode);
             }
             EditorGUILayout.EndHorizontal();
@@ -1640,9 +1656,13 @@ public class GSDSplineNEditor : Editor
             if (!EOM.bSingle)
             {
                 if (EOM.EM.StartTime < tNode.MinSplination)
-                { EOM.EM.StartTime = tNode.MinSplination; }
+                {
+                    EOM.EM.StartTime = tNode.MinSplination;
+                }
                 if (EOM.EM.EndTime > tNode.MaxSplination)
-                { EOM.EM.EndTime = tNode.MaxSplination; }
+                {
+                    EOM.EM.EndTime = tNode.MaxSplination;
+                }
 
 
                 #region Start param
@@ -1709,7 +1729,9 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.EndHorizontal();
 
             if (EOM.VerticalCurve == null || EOM.VerticalCurve.keys.Length < 2)
-            { EnforceCurve(ref EOM.VerticalCurve); }
+            {
+                EnforceCurve(ref EOM.VerticalCurve);
+            }
             EditorGUILayout.BeginHorizontal();
             EOM.EM.VerticalCurve = EditorGUILayout.CurveField("Curve: ", EOM.VerticalCurve);
             if (GUILayout.Button(btnDefaultText, GSDImageButton, GUILayout.Width(16f)))
@@ -1837,9 +1859,9 @@ public class GSDSplineNEditor : Editor
             return;
         }
         eCount = tNode.EdgeObjects.Count;
-        for (int i = 0; i < tNode.EdgeObjects.Count; i++)
+        for (int index = 0; index < tNode.EdgeObjects.Count; index++)
         {
-            EOM = tNode.EdgeObjects[i];
+            EOM = tNode.EdgeObjects[index];
             if (EOM.EM != null)
             {
                 if (!EOM.EM.IsEqual(EOM))
@@ -1861,9 +1883,9 @@ public class GSDSplineNEditor : Editor
             return;
         }
         eCount = tNode.EdgeObjects.Count;
-        for (int i = 0; i < tNode.EdgeObjects.Count; i++)
+        for (int index = 0; index < tNode.EdgeObjects.Count; index++)
         {
-            EOM = tNode.EdgeObjects[i];
+            EOM = tNode.EdgeObjects[index];
             EOM.Setup();
         }
     }
@@ -2196,10 +2218,10 @@ public class GSDSplineNEditor : Editor
         {
             ExtrusionQuickAdd_Do();
         }
-        catch (System.Exception e)
+        catch (System.Exception exception)
         {
             tSMMQuickAdd = SMMDefaultsEnum.None;
-            throw e;
+            throw exception;
         }
     }
 
@@ -2234,15 +2256,21 @@ public class GSDSplineNEditor : Editor
         else
         {
             if (tNode.bIsBridgeStart)
-            { SMM.VerticalRaise = -0.01f; }
+            {
+                SMM.VerticalRaise = -0.01f;
+            }
         }
 
         SMM.bFlipRotation = bFlipRot;
         SMM.Axis = tAxis;
         if (SMM.StartTime < tNode.MinSplination)
-        { SMM.StartTime = tNode.MinSplination; }
+        {
+            SMM.StartTime = tNode.MinSplination;
+        }
         if (SMM.EndTime > tNode.MaxSplination)
-        { SMM.EndTime = tNode.MaxSplination; }
+        {
+            SMM.EndTime = tNode.MaxSplination;
+        }
         SMM.tName = tName;
     }
     #endregion
@@ -2283,7 +2311,9 @@ public class GSDSplineNEditor : Editor
         }
 
         if (controlID != tNode.GetHashCode())
-        { tNode.bEditorSelected = false; }
+        {
+            tNode.bEditorSelected = false;
+        }
 
         //Drag with left click:
         if (Event.current.type == EventType.MouseDrag && Event.current.button == 0)
@@ -2301,9 +2331,13 @@ public class GSDSplineNEditor : Editor
                 if (Vector3.Distance(xNode.transform.position, tNode.transform.position) < 2f)
                 {
                     if (xNode == tNode)
-                    { continue; }
+                    {
+                        continue;
+                    }
                     if (tNode.bSpecialEndNode || xNode.bSpecialEndNode)
-                    { continue; }
+                    {
+                        continue;
+                    }
                     if (xNode.bIsEndPoint && tNode.bIsEndPoint)
                     {
                         //End point connection.
@@ -2314,11 +2348,17 @@ public class GSDSplineNEditor : Editor
                         break;
                     }
                     if (xNode.bIsIntersection)
-                    { continue; }
+                    {
+                        continue;
+                    }
                     if (xNode.bNeverIntersect)
-                    { continue; }
+                    {
+                        continue;
+                    }
                     if (tNode.bIsEndPoint && xNode.bIsEndPoint)
-                    { continue; }
+                    {
+                        continue;
+                    }
                     if (xNode.GSDSpline == tNode.GSDSpline)
                     { //Don't let intersection be created on consecutive nodes:
                         if ((tNode.idOnSpline + 1) == xNode.idOnSpline || (tNode.idOnSpline - 1) == xNode.idOnSpline)
@@ -2341,7 +2381,9 @@ public class GSDSplineNEditor : Editor
                 if (Vector3.Distance(connector.transform.position, tNode.transform.position) < 2f)
                 {
                     if (connector.connectedNode != null)
+                    {
                         continue;
+                    }
                     connector.ConnectToNode(tNode);
                     break;
                 }

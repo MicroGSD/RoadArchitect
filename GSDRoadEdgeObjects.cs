@@ -160,9 +160,9 @@ namespace GSD.Roads.EdgeObjects
             EOM.VerticalCurve = new AnimationCurve();
             if (VerticalCurve != null && VerticalCurve.keys.Length > 0)
             {
-                for (int i = 0; i < VerticalCurve.keys.Length; i++)
+                for (int index = 0; index < VerticalCurve.keys.Length; index++)
                 {
-                    EOM.VerticalCurve.AddKey(VerticalCurve.keys[i]);
+                    EOM.VerticalCurve.AddKey(VerticalCurve.keys[index]);
                 }
             }
 
@@ -333,7 +333,9 @@ namespace GSD.Roads.EdgeObjects
         {
 #if UNITY_EDITOR
             if (!tNode.GSDSpline.tRoad.GSDRS.opt_bSaveMeshes)
-            { return; }
+            {
+                return;
+            }
 
             //string tSceneName = System.IO.Path.GetFileName(UnityEditor.EditorApplication.currentScene).ToLower().Replace(".unity","");
             string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
@@ -643,61 +645,111 @@ namespace GSD.Roads.EdgeObjects
             public bool IsEqual(EdgeObjectMaker EOM)
             {
                 if (EOM.EdgeObject != EdgeObject)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bMaterialOverride != bMaterialOverride)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.EdgeMaterial1 != EdgeMaterial1)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.EdgeMaterial2 != EdgeMaterial2)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (EOM.bCombineMesh != bCombineMesh)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bCombineMeshCollider != bCombineMeshCollider)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.SubType != SubType)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.MeterSep, MeterSep, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 //				if(EOM.bToggle != bToggle)
                 //              { return false; }
 
                 if (!GSDRootUtil.IsApproximately(EOM.HorizontalSep, HorizontalSep, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.HorizontalCurve != HorizontalCurve)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.VerticalRaise, VerticalRaise, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.VerticalCurve != VerticalCurve)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bMatchTerrain != bMatchTerrain)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (EOM.CustomRotation != CustomRotation)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.CustomScale != CustomScale)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bOncomingRotation != bOncomingRotation)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bStatic != bStatic)
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bSingle != bSingle)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (!GSDRootUtil.IsApproximately(EOM.SinglePosition, SinglePosition, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.StartTime, StartTime, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.EndTime, EndTime, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.tName != tName)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.SingleOnlyBridgePercent, SingleOnlyBridgePercent, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (EOM.bStartMatchRoadDefinition != bStartMatchRoadDefinition)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(EOM.StartMatchRoadDef, StartMatchRoadDef, 0.001f))
-                { return false; }
+                {
+                    return false;
+                }
 
                 return true;
             }
@@ -713,19 +765,19 @@ namespace GSD.Roads.EdgeObjects
             {
                 Setup_Do(bCollect, ref tErrorObjs);
             }
-            catch (System.Exception e)
+            catch (System.Exception exception)
             {
                 if (tErrorObjs != null && tErrorObjs.Count > 0)
                 {
                     int tCount = tErrorObjs.Count;
-                    for (int i = 0; i < tCount; i++)
+                    for (int index = 0; index < tCount; index++)
                     {
-                        if (tErrorObjs[i] != null)
+                        if (tErrorObjs[index] != null)
                         {
-                            Object.DestroyImmediate(tErrorObjs[i]);
+                            Object.DestroyImmediate(tErrorObjs[index]);
                         }
                     }
-                    throw e;
+                    throw exception;
                 }
             }
 #endif
@@ -796,7 +848,7 @@ namespace GSD.Roads.EdgeObjects
                     else
                     {
                         tObj = GameObject.Instantiate(EdgeObject, EdgeObjectLocations[j], Quaternion.LookRotation(EdgeObjectRotations[j]));
-                        // (GameObject) removed; FH Experimental 25.01.19
+                        // (GameObject) removed, since Instantiate returns a GameObject anyway; FH Experimental 25.01.19
                         tErrorObjs.Add(tObj);
                     }
                     //					OrigRot = tObj.transform.rotation;
@@ -899,18 +951,20 @@ namespace GSD.Roads.EdgeObjects
                     System.Array.Copy(kUV, hUV[j], OrigMVL);
 
                     Vector3 tVect = default(Vector3);
-                    for (int i = 0; i < OrigMVL; i++)
+                    for (int index = 0; index < OrigMVL; index++)
                     {
-                        tVect = hVerts[j][i];
-                        hVerts[j][i] = tTrans.rotation * tVect;
-                        hVerts[j][i] += tTrans.localPosition;
+                        tVect = hVerts[j][index];
+                        hVerts[j][index] = tTrans.rotation * tVect;
+                        hVerts[j][index] += tTrans.localPosition;
                     }
                 }
 
                 GameObject xObj = new GameObject(tName);
                 MeshRenderer MR = xObj.GetComponent<MeshRenderer>();
                 if (MR == null)
-                { MR = xObj.AddComponent<MeshRenderer>(); }
+                {
+                    MR = xObj.AddComponent<MeshRenderer>();
+                }
                 xObj.isStatic = bStatic;
                 xObj.transform.parent = MasterObj.transform;
                 tErrorObjs.Add(xObj);
@@ -1012,6 +1066,7 @@ namespace GSD.Roads.EdgeObjects
         }
 
 
+        // FH_Tag Optimizable
         private void SetupLocations()
         {
             float OrigHeight = 0f;
@@ -1071,8 +1126,11 @@ namespace GSD.Roads.EdgeObjects
             Ray tRay = default(Ray);
             RaycastHit[] tRayHit = null;
             float[] tRayYs = null;
-            if (bSingle)
+            if (bSingle)    
             {
+                // If the Object is a SingleObject  // FH 03.02.19
+
+
                 tNode.GSDSpline.GetSplineValue_Both(SinglePosition, out tVect, out POS);
                 OrigHeight = tVect.y;
 
@@ -1118,6 +1176,7 @@ namespace GSD.Roads.EdgeObjects
             }
             else
             {
+                // If this Object is not marked as a single Object  // FH 03.02.19
 
                 //Get the vector series that this mesh is interpolated on:
                 List<float> tTimes = new List<float>();
@@ -1136,15 +1195,22 @@ namespace GSD.Roads.EdgeObjects
                     fHeight = HorizontalCurve.Evaluate((cTime - FakeStartTime) / pDiffTime);
                     CurrentH = fHeight * HorizontalSep;
 
+                    // FH 06.02.19
+                    // Hoirzontal1:
                     if (CurrentH < 0f)
                     {
-                        CurrentH *= -1f;
-                        tVect = (tVect + new Vector3(CurrentH * -POS.normalized.z, 0, CurrentH * POS.normalized.x));
+                        CurrentH *= -1f;    // So we get a positiv Number again
+                        tVect = (tVect + new Vector3(CurrentH * (-POS.normalized.x + (POS.normalized.y / 2)), 0, CurrentH * (POS.normalized.z + +(POS.normalized.y / 2))));
+                        // I implemented the POS.normalized.y value to make sure we get to a value of 1 overall to ensure 50m distance, is this mathematicly correct?? FH 10.02.19
+                        // Original: tVect = (tVect + new Vector3(CurrentH * -POS.normalized.z, 0, CurrentH * POS.normalized.x));
                     }
                     else if (CurrentH > 0f)
                     {
-                        tVect = (tVect + new Vector3(CurrentH * POS.normalized.z, 0, CurrentH * -POS.normalized.x));
+                        tVect = (tVect + new Vector3(CurrentH * (-POS.normalized.x + (POS.normalized.y / 2)), 0, CurrentH * (POS.normalized.z + (POS.normalized.y / 2))));
+                        // I implemented the POS.normalized.y value to make sure we get to a value of 1 overall to ensure 50m distance, is this mathematicly correct?? FH 10.02.19
+                        //Original: tVect = (tVect + new Vector3(CurrentH * POS.normalized.z, 0, CurrentH * -POS.normalized.x));
                     }
+                    // FH 06.02.19
 
                     xVect = (POS.normalized * MeterSep) + tVect;
 
@@ -1162,22 +1228,27 @@ namespace GSD.Roads.EdgeObjects
                 float mMin = FakeStartTime;
                 float mMax = EndTime;
                 float tPercent = 0;
-                for (int i = 0; i < vSeriesCount; i++)
+                for (int index = 0; index < vSeriesCount; index++)
                 {
-                    tNode.GSDSpline.GetSplineValue_Both(tTimes[i], out tVect, out POS);
+                    tNode.GSDSpline.GetSplineValue_Both(tTimes[index], out tVect, out POS);
 
-                    tPercent = ((tTimes[i] - mMin) / (mMax - mMin));
+                    tPercent = ((tTimes[index] - mMin) / (mMax - mMin));
 
                     //Horiz:
                     CurrentH = (HorizontalCurve.Evaluate(tPercent) * HorizontalSep);
                     if (CurrentH < 0f)
                     {
                         CurrentH *= -1f;
-                        tVect = (tVect + new Vector3(CurrentH * -POS.normalized.z, 0, CurrentH * POS.normalized.x));
+                        // FH 03.02.19 // Why has this Code a "wrong" logic, it multiplies z to x and x to z.
+                        // Original Code: tVect = (tVect + new Vector3(CurrentH * -POS.normalized.z, 0, CurrentH * POS.normalized.x));
+                        tVect = (tVect + new Vector3(CurrentH * (-POS.normalized.z + (POS.normalized.y / 2)), 0, CurrentH * (POS.normalized.x + (POS.normalized.y / 2))));
                     }
                     else if (CurrentH > 0f)
                     {
-                        tVect = (tVect + new Vector3(CurrentH * POS.normalized.z, 0, CurrentH * -POS.normalized.x));
+                        // FH 03.02.19
+                        // Original Code: tVect = (tVect + new Vector3(CurrentH * POS.normalized.z, 0, CurrentH * -POS.normalized.x));
+                        // Look at the Bug embeddedt/RoadArchitect/issues/4
+                        tVect = (tVect + new Vector3(CurrentH * (POS.normalized.z + (POS.normalized.y / 2)), 0, CurrentH * (-POS.normalized.x + (POS.normalized.y / 2))));
                     }
 
                     //Vertical:
@@ -1196,14 +1267,16 @@ namespace GSD.Roads.EdgeObjects
                         }
                     }
 
-                    tVect.y += (VerticalCurve.Evaluate(tPercent) * VerticalRaise);
+                    tVect.y += (VerticalCurve.Evaluate(tPercent) * VerticalRaise);  // Adds the Height to the Node including the VerticalRaise
 
+                    // Adds the Vector and the POS to the List of the EdgeObjects, so they can be created
                     EdgeObjectLocations.Add(tVect);
                     EdgeObjectRotations.Add(POS);
                 }
                 StartPos = tNode.GSDSpline.GetSplineValue(StartTime);
                 EndPos = tNode.GSDSpline.GetSplineValue(EndTime);
             }
+            // FH_Tag Optimizable
         }
 
 
@@ -1226,9 +1299,9 @@ namespace GSD.Roads.EdgeObjects
 
                 if (j > 0)
                 {
-                    for (int i = 0; i < OrigTriCount; i++)
+                    for (int index = 0; index < OrigTriCount; index++)
                     {
-                        hTris[j][i] += CurrentMVLIndex;
+                        hTris[j][index] += CurrentMVLIndex;
                     }
                 }
 

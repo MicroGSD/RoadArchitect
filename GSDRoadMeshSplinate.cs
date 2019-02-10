@@ -64,6 +64,7 @@ namespace GSD.Roads.Splination
         public bool bBCFlipX = false;
         public bool bBCFlipZ = false;
 
+
         #region Horizontal offsets:
         public float HorizontalSep = 0f;
         public AnimationCurve HorizontalCurve;
@@ -1149,166 +1150,306 @@ namespace GSD.Roads.Splination
             public bool IsEqualToSMM(SplinatedMeshMaker SMM)
             {
                 if (SMM.CurrentSplination != CurrentSplination)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CurrentSplinationCap1 != CurrentSplinationCap1)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CurrentSplinationCap2 != CurrentSplinationCap2)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (!GSDRootUtil.IsApproximately(SMM.CapHeightOffset1, CapHeightOffset1, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.CapHeightOffset2, CapHeightOffset2, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.bMaterialOverride != bMaterialOverride)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.SplinatedMaterial1 != SplinatedMaterial1)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.SplinatedMaterial2 != SplinatedMaterial2)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.bExactSplination != bExactSplination)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bMatchRoadDefinition != bMatchRoadDefinition)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bMatchRoadIncrements != bMatchRoadIncrements)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bTrimStart != bTrimStart)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bTrimEnd != bTrimEnd)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bMatchTerrain != bMatchTerrain)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.MinMaxMod, MinMaxMod, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bIsBridge != bIsBridge)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.VertexMatchingPrecision, VertexMatchingPrecision, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.bIsStretch != bIsStretch)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bStretchLocOffset != bStretchLocOffset)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bStretchSize != bStretchSize)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.StretchBC_LocOffset != StretchBC_LocOffset)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.StretchBC_Size != StretchBC_Size)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.Stretch_UVThreshold, Stretch_UVThreshold, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bStraightLineMatchStartEnd != bStraightLineMatchStartEnd)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bBCFlipX != bBCFlipX)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bBCFlipZ != bBCFlipZ)
-                { return false; }
+                {
+                    return false;
+                }
 
                 //Horizontal offsets:
                 if (!GSDRootUtil.IsApproximately(SMM.HorizontalSep, HorizontalSep, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.HorizontalCurve != HorizontalCurve)
-                { return false; }
+                {
+                    return false;
+                }
                 //Vertical offset:
                 if (!GSDRootUtil.IsApproximately(SMM.VerticalRaise, VerticalRaise, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.VerticalCurve != VerticalCurve)
-                { return false; }
+                {
+                    return false;
+                }
                 //Vertical cutoff:
                 if (!GSDRootUtil.IsApproximately(SMM.VerticalCutoff, VerticalCutoff, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bVerticalCutoff != bVerticalCutoff)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bVerticalCutoffDownwards != bVerticalCutoffDownwards)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bVerticalMeshCutoff_OppositeDir != bVerticalMeshCutoff_OppositeDir)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.VerticalMeshCutoffOffset, VerticalMeshCutoffOffset, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bVerticalCutoff_MatchZero != bVerticalCutoff_MatchZero)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (!GSDRootUtil.IsApproximately(SMM.RoadRaise, RoadRaise, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CustomRotation != CustomRotation)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bFlipRotation != bFlipRotation)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bStatic != bStatic)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.StartTime, StartTime, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.EndTime, EndTime, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.Axis != Axis)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.RepeatUVType != RepeatUVType)
-                { return false; }
+                {
+                    return false;
+                }
 
                 //Ending objects:
                 if (SMM.EndCapStart != EndCapStart)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.EndCapEnd != EndCapEnd)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.bEndCapCustomMatchStart != bEndCapCustomMatchStart)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.EndCapCustomOffsetStart != EndCapCustomOffsetStart)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.EndCapCustomOffsetEnd != EndCapCustomOffsetEnd)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.EndCapCustomRotOffsetStart != EndCapCustomRotOffsetStart)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.EndCapCustomRotOffsetEnd != EndCapCustomRotOffsetEnd)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bEndObjectsMatchGround != bEndObjectsMatchGround)
-                { return false; }
+                {
+                    return false;
+                }
 
                 //Endings down:
                 if (SMM.bStartDown != bStartDown)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bStartTypeDownOverride != bStartTypeDownOverride)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.StartTypeDownOverride, StartTypeDownOverride, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bEndDown != bEndDown)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bEndTypeDownOverride != bEndTypeDownOverride)
-                { return false; }
+                {
+                    return false;
+                }
                 if (!GSDRootUtil.IsApproximately(SMM.EndTypeDownOverride, EndTypeDownOverride, 0.0001f))
-                { return false; }
+                {
+                    return false;
+                }
 
                 //Collision:
                 if (SMM.CollisionType != CollisionType)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bCollisionConvex != bCollisionConvex)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bSimpleCollisionAutomatic != bSimpleCollisionAutomatic)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.bCollisionTrigger != bCollisionTrigger)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.CollisionBoxBL != CollisionBoxBL)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CollisionBoxBR != CollisionBoxBR)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CollisionBoxTL != CollisionBoxTL)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CollisionBoxTR != CollisionBoxTR)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (SMM.CollisionTriBL != CollisionTriBL)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CollisionTriBR != CollisionTriBR)
-                { return false; }
+                {
+                    return false;
+                }
                 if (SMM.CollisionTriT != CollisionTriT)
-                { return false; }
+                {
+                    return false;
+                }
 
                 if (string.CompareOrdinal(SMM.tName, tName) != 0)
-                { return false; }
+                {
+                    return false;
+                }
 
                 return true;
             }
@@ -1329,9 +1470,9 @@ namespace GSD.Roads.Splination
         {
             int tCount = tVects.Length;
             Vector3 mVect = default(Vector3);
-            for (int i = 0; i < tCount; i++)
+            for (int index = 0; index < tCount; index++)
             {
-                mVect += tVects[i];
+                mVect += tVects[index];
             }
             mVect /= tCount;
             return mVect;
@@ -1341,7 +1482,9 @@ namespace GSD.Roads.Splination
         private static bool FloatsNear(float tNear, float tVal1, float tVal2)
         {
             if (GSDRootUtil.IsApproximately(tVal1, tVal2, tNear))
-            { return true; }
+            {
+                return true;
+            }
 
             if (tVal1 < (tVal2 + tNear) && tVal1 > (tVal2 - tNear))
             {
@@ -1368,9 +1511,9 @@ namespace GSD.Roads.Splination
             tTris[tCounter] = 1;
             tCounter += 1;
             int tMod = -1;
-            for (int i = 0; i < (MeshCount); i++)
+            for (int index = 0; index < (MeshCount); index++)
             {
-                tMod = (i * 3);
+                tMod = (index * 3);
                 //Bottom side: ***
                 tTris[tCounter] = 1 + tMod;
                 tCounter += 1;
@@ -1443,9 +1586,9 @@ namespace GSD.Roads.Splination
             tCounter += 1;
 
             int tMod = -1;
-            for (int i = 0; i < (MeshCount); i++)
+            for (int index = 0; index < (MeshCount); index++)
             {
-                tMod = (i * 4);
+                tMod = (index * 4);
                 //Bottom side: ***
                 tTris[tCounter] = tMod + 1;
                 tCounter += 1;
@@ -1683,19 +1826,19 @@ namespace GSD.Roads.Splination
             {
                 SplinateMesh_Do(bGetStrings, ref tObj, bCollect);
             }
-            catch (System.Exception e)
+            catch (System.Exception exception)
             {
                 if (tObj != null)
                 {
-                    for (int i = 0; i < 5; i++)
+                    for (int index = 0; index < 5; index++)
                     {
-                        if (tObj[i] != null)
+                        if (tObj[index] != null)
                         {
-                            Object.DestroyImmediate(tObj[i]);
+                            Object.DestroyImmediate(tObj[index]);
                         }
                     }
                 }
-                throw e;
+                throw exception;
             }
 #endif
         }
@@ -1757,21 +1900,35 @@ namespace GSD.Roads.Splination
             {
                 CurrentSplinationString = GSDRootUtil.GetPrefabString(CurrentSplination);
                 if (CurrentSplinationCap1 != null)
-                { CurrentSplinationCap1String = GSDRootUtil.GetPrefabString(CurrentSplinationCap1); }
+                {
+                    CurrentSplinationCap1String = GSDRootUtil.GetPrefabString(CurrentSplinationCap1);
+                }
                 if (CurrentSplinationCap2 != null)
-                { CurrentSplinationCap2String = GSDRootUtil.GetPrefabString(CurrentSplinationCap2); }
+                {
+                    CurrentSplinationCap2String = GSDRootUtil.GetPrefabString(CurrentSplinationCap2);
+                }
                 if (EndCapStart != null)
-                { EndCapStartString = GSDRootUtil.GetPrefabString(EndCapStart); }
+                {
+                    EndCapStartString = GSDRootUtil.GetPrefabString(EndCapStart);
+                }
                 if (EndCapEnd != null)
-                { EndCapEndString = GSDRootUtil.GetPrefabString(EndCapEnd); }
+                {
+                    EndCapEndString = GSDRootUtil.GetPrefabString(EndCapEnd);
+                }
                 if (SplinatedMaterial1 != null)
-                { SplinatedMaterial1String = UnityEditor.AssetDatabase.GetAssetPath(SplinatedMaterial1); }
+                {
+                    SplinatedMaterial1String = UnityEditor.AssetDatabase.GetAssetPath(SplinatedMaterial1);
+                }
                 if (SplinatedMaterial2 != null)
-                { SplinatedMaterial2String = UnityEditor.AssetDatabase.GetAssetPath(SplinatedMaterial2); }
+                {
+                    SplinatedMaterial2String = UnityEditor.AssetDatabase.GetAssetPath(SplinatedMaterial2);
+                }
             }
 
             if (CurrentSplination == null)
-            { return; }
+            {
+                return;
+            }
             GameObject tObj = (GameObject) GameObject.Instantiate(CurrentSplination);
             ErrortObj[0] = tObj;
 
@@ -1842,15 +1999,23 @@ namespace GSD.Roads.Splination
                 tVect1 = new Vector3(0f, 180f, 0f);
                 tObj.transform.Rotate(tVect1, Space.World);
                 if (Cap1 != null)
-                { Cap1.transform.Rotate(tVect1, Space.World); }
+                {
+                    Cap1.transform.Rotate(tVect1, Space.World);
+                }
                 if (Cap2 != null)
-                { Cap2.transform.Rotate(tVect1, Space.World); }
+                {
+                    Cap2.transform.Rotate(tVect1, Space.World);
+                }
             }
             tObj.transform.Rotate(CustomRotation, Space.World);
             if (Cap1 != null)
-            { Cap1.transform.Rotate(CustomRotation, Space.World); }
+            {
+                Cap1.transform.Rotate(CustomRotation, Space.World);
+            }
             if (Cap2 != null)
-            { Cap2.transform.Rotate(CustomRotation, Space.World); }
+            {
+                Cap2.transform.Rotate(CustomRotation, Space.World);
+            }
 
             if (tMesh == null)
             {
@@ -1880,12 +2045,12 @@ namespace GSD.Roads.Splination
             //Transform vertices:
             Vector3[] OrigNormals = tMesh.normals;
             bool bCheckingNormal = true;
-            for (int i = 0; i < OrigMVL; i++)
+            for (int index = 0; index < OrigMVL; index++)
             {
-                OrigVerts[i] = tObj.transform.TransformPoint(OrigVerts[i]);
+                OrigVerts[index] = tObj.transform.TransformPoint(OrigVerts[index]);
                 if (bCheckingNormal)
                 {
-                    if (!V3EqualToNone(OrigNormals[i]))
+                    if (!V3EqualToNone(OrigNormals[index]))
                     {
                         bCheckingNormal = false;
                     }
@@ -1908,9 +2073,9 @@ namespace GSD.Roads.Splination
             int CapTriCount2 = 0;
             if (CapMesh1 != null)
             {
-                for (int i = 0; i < CapOrigMVL1; i++)
+                for (int index = 0; index < CapOrigMVL1; index++)
                 {
-                    CapOrigVerts1[i] = Cap1.transform.TransformPoint(CapOrigVerts1[i]);
+                    CapOrigVerts1[index] = Cap1.transform.TransformPoint(CapOrigVerts1[index]);
                 }
 
                 float[] oMinMaxX = new float[CapOrigMVL1];
@@ -1929,20 +2094,20 @@ namespace GSD.Roads.Splination
                 //				float oMinZ = Mathf.Min(oMinMaxZ);
                 float oMaxZ = Mathf.Max(oMinMaxZ);
 
-                for (int i = 0; i < CapOrigMVL1; i++)
+                for (int index = 0; index < CapOrigMVL1; index++)
                 {
                     if (Axis == AxisTypeEnum.Z)
                     {
-                        if (GSDRootUtil.IsApproximately(CapOrigVerts1[i].z, oMaxZ, MinMaxMod))
+                        if (GSDRootUtil.IsApproximately(CapOrigVerts1[index].z, oMaxZ, MinMaxMod))
                         {
-                            tCapMatchIndices1.Add(i);
+                            tCapMatchIndices1.Add(index);
                         }
                     }
                     else
                     {
-                        if (GSDRootUtil.IsApproximately(CapOrigVerts1[i].x, oMaxX, MinMaxMod))
+                        if (GSDRootUtil.IsApproximately(CapOrigVerts1[index].x, oMaxX, MinMaxMod))
                         {
-                            tCapMatchIndices1.Add(i);
+                            tCapMatchIndices1.Add(index);
                         }
                     }
                 }
@@ -1955,19 +2120,19 @@ namespace GSD.Roads.Splination
             }
             if (CapMesh2 != null)
             {
-                for (int i = 0; i < CapOrigMVL2; i++)
+                for (int index = 0; index < CapOrigMVL2; index++)
                 {
-                    CapOrigVerts2[i] = Cap2.transform.TransformPoint(CapOrigVerts2[i]);
+                    CapOrigVerts2[index] = Cap2.transform.TransformPoint(CapOrigVerts2[index]);
                 }
 
                 float[] oMinMaxX = new float[CapOrigMVL2];
                 float[] oMinMaxY = new float[CapOrigMVL2];
                 float[] oMinMaxZ = new float[CapOrigMVL2];
-                for (int i = 0; i < CapOrigMVL2; i++)
+                for (int index = 0; index < CapOrigMVL2; index++)
                 {
-                    oMinMaxX[i] = CapOrigVerts2[i].x;
-                    oMinMaxY[i] = CapOrigVerts2[i].y;
-                    oMinMaxZ[i] = CapOrigVerts2[i].z;
+                    oMinMaxX[index] = CapOrigVerts2[index].x;
+                    oMinMaxY[index] = CapOrigVerts2[index].y;
+                    oMinMaxZ[index] = CapOrigVerts2[index].z;
                 }
                 float oMinX = Mathf.Min(oMinMaxX);
                 //				float oMaxX = Mathf.Max(oMinMaxX);
@@ -1976,20 +2141,20 @@ namespace GSD.Roads.Splination
                 float oMinZ = Mathf.Min(oMinMaxZ);
                 //				float oMaxZ = Mathf.Max(oMinMaxZ);
 
-                for (int i = 0; i < CapOrigMVL2; i++)
+                for (int index = 0; index < CapOrigMVL2; index++)
                 {
                     if (Axis == AxisTypeEnum.Z)
                     {
-                        if (GSDRootUtil.IsApproximately(CapOrigVerts2[i].z, oMinZ, MinMaxMod))
+                        if (GSDRootUtil.IsApproximately(CapOrigVerts2[index].z, oMinZ, MinMaxMod))
                         {
-                            tCapMatchIndices2.Add(i);
+                            tCapMatchIndices2.Add(index);
                         }
                     }
                     else
                     {
-                        if (GSDRootUtil.IsApproximately(CapOrigVerts2[i].x, oMinX, MinMaxMod))
+                        if (GSDRootUtil.IsApproximately(CapOrigVerts2[index].x, oMinX, MinMaxMod))
                         {
-                            tCapMatchIndices2.Add(i);
+                            tCapMatchIndices2.Add(index);
                         }
                     }
                 }
@@ -2061,28 +2226,28 @@ namespace GSD.Roads.Splination
             List<int> MaxVectorIndices = new List<int>();
             List<int> MiddleVectorIndicies = new List<int>();
             float tBuffer = 0f;
-            for (int i = 0; i < OrigMVL; i++)
+            for (int index = 0; index < OrigMVL; index++)
             {
                 if (Axis == AxisTypeEnum.X)
                 {
-                    tBuffer = OrigVerts[i].x;
+                    tBuffer = OrigVerts[index].x;
                 }
                 else
                 {
-                    tBuffer = OrigVerts[i].z;
+                    tBuffer = OrigVerts[index].z;
                 }
 
                 if (tBuffer > mMaxThreshold)
                 {
-                    MaxVectorIndices.Add(i);
+                    MaxVectorIndices.Add(index);
                 }
                 else if (tBuffer < mMinThreshold)
                 {
-                    MinVectorIndices.Add(i);
+                    MinVectorIndices.Add(index);
                 }
                 else
                 {
-                    MiddleVectorIndicies.Add(i);
+                    MiddleVectorIndicies.Add(index);
                 }
             }
             int MiddleCount = MiddleVectorIndicies.Count;
@@ -2103,9 +2268,9 @@ namespace GSD.Roads.Splination
             //				UVStep = new Dictionary<int, float>();
             //			}
             List<int> AlreadyAddedList = new List<int>();
-            for (int i = 0; i < tCount1; i++)
+            for (int index = 0; index < tCount1; index++)
             {
-                tIntBuffer1 = MaxVectorIndices[i];
+                tIntBuffer1 = MaxVectorIndices[index];
                 tVect1 = OrigVerts[tIntBuffer1];
 
                 bool bAdded = false;
@@ -2138,7 +2303,9 @@ namespace GSD.Roads.Splination
                             if (tIntBuffer2 == tIntBuffer3)
                             {
                                 if (AlreadyAddedList.Contains(tIntBuffer2))
-                                { break; }
+                                {
+                                    break;
+                                }
                                 if (IsApproxTwoThirds(ref tVect1, OrigVerts[tIntBuffer2], VertexMatchingPrecision))
                                 {
                                     MatchingIndices.Add(tIntBuffer1, tIntBuffer2);
@@ -2158,7 +2325,9 @@ namespace GSD.Roads.Splination
                             if (tIntBuffer2 == tIntBuffer4)
                             {
                                 if (AlreadyAddedList.Contains(tIntBuffer2))
-                                { break; }
+                                {
+                                    break;
+                                }
                                 if (IsApproxTwoThirds(ref tVect1, OrigVerts[tIntBuffer2], VertexMatchingPrecision))
                                 {
                                     MatchingIndices.Add(tIntBuffer1, tIntBuffer2);
@@ -2171,7 +2340,9 @@ namespace GSD.Roads.Splination
                         }
                     }
                     if (bAdded)
-                    { break; }
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -2179,11 +2350,13 @@ namespace GSD.Roads.Splination
             if (MatchingIndices.Count < MaxVectorIndices.Count)
             {
                 bool bIsZAxis = (Axis == AxisTypeEnum.Z);
-                for (int i = 0; i < tCount1; i++)
+                for (int index = 0; index < tCount1; index++)
                 {
-                    tIntBuffer1 = MaxVectorIndices[i];
+                    tIntBuffer1 = MaxVectorIndices[index];
                     if (MatchingIndices.ContainsKey(tIntBuffer1))
-                    { continue; }
+                    {
+                        continue;
+                    }
                     tVect1 = OrigVerts[tIntBuffer1];
                     if (Axis == AxisTypeEnum.Z)
                     {
@@ -2214,11 +2387,11 @@ namespace GSD.Roads.Splination
                 {
                     List<int> tList = new List<int>();
                     tVect1 = OrigVerts[KVP.Key];
-                    for (int i = 0; i < CapOrigMVL1; i++)
+                    for (int index = 0; index < CapOrigMVL1; index++)
                     {
-                        if (tCapMatchIndices1.Contains(i) && IsApproxTwoThirds(ref tVect1, CapOrigVerts1[i], VertexMatchingPrecision))
+                        if (tCapMatchIndices1.Contains(index) && IsApproxTwoThirds(ref tVect1, CapOrigVerts1[index], VertexMatchingPrecision))
                         {
-                            tList.Add(i);
+                            tList.Add(index);
                             bDidAdd = true;
                         }
                     }
@@ -2250,11 +2423,11 @@ namespace GSD.Roads.Splination
                 {
                     List<int> tList = new List<int>();
                     tVect1 = OrigVerts[KVP.Key];
-                    for (int i = 0; i < CapOrigMVL2; i++)
+                    for (int index = 0; index < CapOrigMVL2; index++)
                     {
-                        if (tCapMatchIndices2.Contains(i) && IsApproxTwoThirds(ref tVect1, CapOrigVerts2[i], VertexMatchingPrecision))
+                        if (tCapMatchIndices2.Contains(index) && IsApproxTwoThirds(ref tVect1, CapOrigVerts2[index], VertexMatchingPrecision))
                         {
-                            tList.Add(i);
+                            tList.Add(index);
                             bDidAdd = true;
                         }
                     }
@@ -2271,7 +2444,9 @@ namespace GSD.Roads.Splination
 
                     }
                     if (Cap2 != null)
-                    { Object.DestroyImmediate(Cap2); }
+                    {
+                        Object.DestroyImmediate(Cap2);
+                    }
                     CapMesh2 = null;
                     CapOrigMVL2 = 0;
                     CapTriCount2 = 0;
@@ -2313,26 +2488,26 @@ namespace GSD.Roads.Splination
                 tMinMaxX = new float[OrigMVL];
                 tMinMaxY = new float[OrigMVL];
                 tMinMaxZ = new float[OrigMVL];
-                for (int i = 0; i < OrigMVL; i++)
+                for (int index = 0; index < OrigMVL; index++)
                 {
                     if (Axis == AxisTypeEnum.X)
                     {
-                        tMinMax[i] = OrigVerts[i].x;
+                        tMinMax[index] = OrigVerts[index].x;
                     }
                     else
                     {
-                        tMinMax[i] = OrigVerts[i].z;
+                        tMinMax[index] = OrigVerts[index].z;
                     }
-                    tMinMaxX[i] = OrigVerts[i].x;
-                    tMinMaxY[i] = OrigVerts[i].y;
-                    tMinMaxZ[i] = OrigVerts[i].z;
+                    tMinMaxX[index] = OrigVerts[index].x;
+                    tMinMaxY[index] = OrigVerts[index].y;
+                    tMinMaxZ[index] = OrigVerts[index].z;
                     if (RepeatUVType == RepeatUVTypeEnum.X)
                     {
-                        tMinMaxUV[i] = OrigUV[i].x;
+                        tMinMaxUV[index] = OrigUV[index].x;
                     }
                     else if (RepeatUVType == RepeatUVTypeEnum.Y)
                     {
-                        tMinMaxUV[i] = OrigUV[i].y;
+                        tMinMaxUV[index] = OrigUV[index].y;
                     }
                 }
                 //UV Changes:
@@ -2718,40 +2893,40 @@ namespace GSD.Roads.Splination
                 tMatrix.SetTRS(tVect1, Quaternion.LookRotation(tDir), new Vector3(1f, 1f, 1f));
 
                 //Rotate and set vertex positions:
-                for (int i = 0; i < OrigMVL; i++)
+                for (int index = 0; index < OrigMVL; index++)
                 {
-                    xVect = OrigVerts[i];
-                    tVerts[vManuver + i] = tMatrix.MultiplyPoint3x4(xVect);
+                    xVect = OrigVerts[index];
+                    tVerts[vManuver + index] = tMatrix.MultiplyPoint3x4(xVect);
                     //					tVerts[vManuver+i] = (Quaternion.LookRotation(tDir)*xVect) + tVect1;
 
                     //UV:
-                    tUV[vManuver + i] = OrigUV[i];
+                    tUV[vManuver + index] = OrigUV[index];
 
                     //Vertical cutoff:
                     if (bVerticalCutoff)
                     {
-                        if (MiddleVectorIndicies.Contains(i))
+                        if (MiddleVectorIndicies.Contains(index))
                         {
-                            tFloat5 = tVerts[vManuver + i].y;
+                            tFloat5 = tVerts[vManuver + index].y;
                             if (bVerticalCutoffDownwards)
                             {
                                 if (bVerticalCutoff_MatchZero)
                                 {
                                     if (tFloat5 < tOrigHeightBuffer_Orig)
                                     {
-                                        tVerts[vManuver + i].y = tOrigHeightBuffer_Orig;
+                                        tVerts[vManuver + index].y = tOrigHeightBuffer_Orig;
                                     }
                                 }
                                 else
                                 {
                                     if (tFloat5 < tOrigHeightBuffer)
                                     {
-                                        tVerts[vManuver + i].y = tOrigHeightBuffer;
+                                        tVerts[vManuver + index].y = tOrigHeightBuffer;
                                     }
                                 }
 
                                 tFloat1 = (tOrigHeightBuffer_Orig - tOrigHeightBuffer) / mMaxHeight;
-                                tUV[vManuver + i].x *= tFloat1;
+                                tUV[vManuver + index].x *= tFloat1;
 
                             }
                             else
@@ -2760,19 +2935,19 @@ namespace GSD.Roads.Splination
                                 {
                                     if (tFloat5 > tOrigHeightBuffer_Orig)
                                     {
-                                        tVerts[vManuver + i].y = tOrigHeightBuffer_Orig;
+                                        tVerts[vManuver + index].y = tOrigHeightBuffer_Orig;
                                     }
                                 }
                                 else
                                 {
                                     if (tFloat5 > tOrigHeightBuffer)
                                     {
-                                        tVerts[vManuver + i].y = tOrigHeightBuffer;
+                                        tVerts[vManuver + index].y = tOrigHeightBuffer;
                                     }
                                 }
 
                                 tFloat1 = (tOrigHeightBuffer - tOrigHeightBuffer_Orig) / mMaxHeight;
-                                tUV[vManuver + i].x *= tFloat1;
+                                tUV[vManuver + index].x *= tFloat1;
                             }
                         }
                     }
@@ -2780,9 +2955,9 @@ namespace GSD.Roads.Splination
 
                 if (RepeatUVType != RepeatUVTypeEnum.None)
                 {
-                    for (int i = 0; i < MaxCount; i++)
+                    for (int index = 0; index < MaxCount; index++)
                     {
-                        tIntBuffer1 = MaxVectorIndices[i];
+                        tIntBuffer1 = MaxVectorIndices[index];
                         if (RepeatUVType == RepeatUVTypeEnum.X)
                         {
                             tUV[vManuver + tIntBuffer1].x = mUVDiff * (j + 1);
@@ -2792,9 +2967,9 @@ namespace GSD.Roads.Splination
                             tUV[vManuver + tIntBuffer1].y = mUVDiff * (j + 1);
                         }
                     }
-                    for (int i = 0; i < MinCount; i++)
+                    for (int index = 0; index < MinCount; index++)
                     {
-                        tIntBuffer1 = MinVectorIndices[i];
+                        tIntBuffer1 = MinVectorIndices[index];
                         if (RepeatUVType == RepeatUVTypeEnum.X)
                         {
                             tUV[vManuver + tIntBuffer1].x = mUVDiff * j;
@@ -2911,9 +3086,9 @@ namespace GSD.Roads.Splination
                 }
 
                 //Triangles:
-                for (int i = 0; i < OrigTriCount; i++)
+                for (int index = 0; index < OrigTriCount; index++)
                 {
-                    tTris[i + TriManuver] = OrigTris[i] + vManuver;
+                    tTris[index + TriManuver] = OrigTris[index] + vManuver;
                 }
 
                 //Vert cut reverse:
@@ -2924,16 +3099,16 @@ namespace GSD.Roads.Splination
                         VertCutBuffer1 = tVerts[vManuver + VertCutTriIndex1];
                         VertCutBuffer2 = tVerts[vManuver + VertCutTriIndex2];
 
-                        for (int i = 0; i < MiddleCount; i++)
+                        for (int index = 0; index < MiddleCount; index++)
                         {
-                            VertCutBuffer3 = tVerts[vManuver + MiddleVectorIndicies[i]];
+                            VertCutBuffer3 = tVerts[vManuver + MiddleVectorIndicies[index]];
 
                             if (!bVerticalCutoffDownwards)
                             {
                                 tBuffer = GetVHeightAtXY(ref VertCutBuffer1, ref VertCutBuffer2, ref VertCutBuffer3) + VerticalMeshCutoffOffset;
                                 if (VertCutBuffer3.y < tBuffer)
                                 {
-                                    tVerts[vManuver + MiddleVectorIndicies[i]].y = tBuffer;
+                                    tVerts[vManuver + MiddleVectorIndicies[index]].y = tBuffer;
                                 }
                             }
                             else
@@ -2941,7 +3116,7 @@ namespace GSD.Roads.Splination
                                 tBuffer = GetVHeightAtXY(ref VertCutBuffer1, ref VertCutBuffer2, ref VertCutBuffer3) - VerticalMeshCutoffOffset;
                                 if (VertCutBuffer3.y > tBuffer)
                                 {
-                                    tVerts[vManuver + MiddleVectorIndicies[i]].y = tBuffer;
+                                    tVerts[vManuver + MiddleVectorIndicies[index]].y = tBuffer;
                                 }
                             }
                         }
@@ -2959,9 +3134,9 @@ namespace GSD.Roads.Splination
                     }
                     if (j == 0)
                     {
-                        for (int i = 0; i < MinCount; i++)
+                        for (int index = 0; index < MinCount; index++)
                         {
-                            tIntBuffer1 = MinVectorIndices[i];
+                            tIntBuffer1 = MinVectorIndices[index];
                             tVerts[vManuver + tIntBuffer1].y -= tFloat1;
                         }
 
@@ -2976,9 +3151,9 @@ namespace GSD.Roads.Splination
                             break;
                         }
 
-                        for (int i = 0; i < MiddleCount; i++)
+                        for (int index = 0; index < MiddleCount; index++)
                         {
-                            tIntBuffer1 = MiddleVectorIndicies[i];
+                            tIntBuffer1 = MiddleVectorIndicies[index];
                             float tDistTo1 = Vector3.Distance(tVerts[vManuver + tIntBuffer1], pVect1);
                             tVerts[vManuver + tIntBuffer1].y -= (tFloat1 * (tDistTo1 / tTotalDistDown));
                         }
@@ -3008,9 +3183,9 @@ namespace GSD.Roads.Splination
                     }
                     if (j == (MeshCount - 1))
                     {
-                        for (int i = 0; i < MaxCount; i++)
+                        for (int index = 0; index < MaxCount; index++)
                         {
-                            tIntBuffer1 = MaxVectorIndices[i];
+                            tIntBuffer1 = MaxVectorIndices[index];
                             tVerts[vManuver + tIntBuffer1].y -= tFloat1;
                         }
 
@@ -3168,7 +3343,9 @@ namespace GSD.Roads.Splination
 
             StretchSkip:
             if (bIsStretch)
-            { vManuver = 0; }
+            {
+                vManuver = 0;
+            }
 
             //End/Start for stretch:
             if (bIsStretch)
@@ -3229,32 +3406,32 @@ namespace GSD.Roads.Splination
                 foreach (KeyValuePair<int, List<int>> KVP in MatchingIndices_Min_Cap)
                 {
                     int wCount = KVP.Value.Count;
-                    for (int i = 0; i < wCount; i++)
+                    for (int index = 0; index < wCount; index++)
                     {
                         if (bcapstart)
                         {
-                            tVect1 = cap1_verts[KVP.Value[i]] - tVerts[KVP.Key];
+                            tVect1 = cap1_verts[KVP.Value[index]] - tVerts[KVP.Key];
                         }
-                        cap1_verts[KVP.Value[i]] = tVerts[KVP.Key];
-                        cap1_hit[KVP.Value[i]] = true;
+                        cap1_verts[KVP.Value[index]] = tVerts[KVP.Key];
+                        cap1_hit[KVP.Value[index]] = true;
                         if (bcapstart)
                         {
-                            tHeight = tSpline.GetSplineValue(tSpline.GetClosestParam(cap1_verts[KVP.Value[i]]), false).y;
+                            tHeight = tSpline.GetSplineValue(tSpline.GetClosestParam(cap1_verts[KVP.Value[index]]), false).y;
                             bcapstart = false;
                         }
                     }
                 }
 
                 float tParam = 0f;
-                for (int i = 0; i < CapOrigMVL1; i++)
+                for (int index = 0; index < CapOrigMVL1; index++)
                 {
-                    if (!cap1_hit[i])
+                    if (!cap1_hit[index])
                     {
-                        cap1_verts[i] -= tVect1;
-                        tParam = tSpline.GetClosestParam(cap1_verts[i]);
+                        cap1_verts[index] -= tVect1;
+                        tParam = tSpline.GetClosestParam(cap1_verts[index]);
                         tVect2 = tSpline.GetSplineValue(tParam, false);
-                        cap1_verts[i].y -= (tHeight - tVect2.y);
-                        cap1_verts[i].y += CapHeightOffset1;
+                        cap1_verts[index].y -= (tHeight - tVect2.y);
+                        cap1_verts[index].y += CapHeightOffset1;
                     }
                 }
 
@@ -3275,9 +3452,9 @@ namespace GSD.Roads.Splination
                 System.Array.Copy(tTris, 0, nTris, CapTriCount1, OldTriCount);
                 System.Array.Copy(tUV, 0, nUV, CapOrigMVL1, OldMVL);
 
-                for (int i = CapTriCount1; i < (CapTriCount1 + OldTriCount); i++)
+                for (int index = CapTriCount1; index < (CapTriCount1 + OldTriCount); index++)
                 {
-                    nTris[i] += CapOrigMVL1;
+                    nTris[index] += CapOrigMVL1;
                 }
 
                 tVerts = nVerts;
@@ -3303,34 +3480,34 @@ namespace GSD.Roads.Splination
                 foreach (KeyValuePair<int, List<int>> KVP in MatchingIndices_Max_Cap)
                 {
                     int wCount = KVP.Value.Count;
-                    for (int i = 0; i < wCount; i++)
+                    for (int index = 0; index < wCount; index++)
                     {
                         if (bcapstart)
                         {
-                            tVect1 = cap2_verts[KVP.Value[i]] - tVerts[vManuver + KVP.Key + CapOrigMVL1];
+                            tVect1 = cap2_verts[KVP.Value[index]] - tVerts[vManuver + KVP.Key + CapOrigMVL1];
                         }
-                        cap2_verts[KVP.Value[i]] = tVerts[vManuver + KVP.Key + CapOrigMVL1];
-                        cap2_hit[KVP.Value[i]] = true;
+                        cap2_verts[KVP.Value[index]] = tVerts[vManuver + KVP.Key + CapOrigMVL1];
+                        cap2_hit[KVP.Value[index]] = true;
 
                         if (bcapstart)
                         {
-                            tHeight = tSpline.GetSplineValue(tSpline.GetClosestParam(cap2_verts[KVP.Value[i]]), false).y;
+                            tHeight = tSpline.GetSplineValue(tSpline.GetClosestParam(cap2_verts[KVP.Value[index]]), false).y;
                             bcapstart = false;
                         }
                     }
                 }
 
                 float tParam = 0f;
-                for (int i = 0; i < CapOrigMVL2; i++)
+                for (int index = 0; index < CapOrigMVL2; index++)
                 {
 
-                    if (!cap2_hit[i])
+                    if (!cap2_hit[index])
                     {
-                        cap2_verts[i] -= tVect1;
-                        tParam = tSpline.GetClosestParam(cap2_verts[i]);
+                        cap2_verts[index] -= tVect1;
+                        tParam = tSpline.GetClosestParam(cap2_verts[index]);
                         tVect2 = tSpline.GetSplineValue(tParam, false);
-                        cap2_verts[i].y -= (tHeight - tVect2.y);
-                        cap2_verts[i].y += CapHeightOffset2;
+                        cap2_verts[index].y -= (tHeight - tVect2.y);
+                        cap2_verts[index].y += CapHeightOffset2;
                     }
                 }
 
@@ -3351,9 +3528,9 @@ namespace GSD.Roads.Splination
                 System.Array.Copy(cap2_tris, 0, nTris, OldTriCount, CapTriCount2);
                 System.Array.Copy(cap2_uv, 0, nUV, OldMVL, CapOrigMVL2);
 
-                for (int i = OldTriCount; i < nTris.Length; i++)
+                for (int index = OldTriCount; index < nTris.Length; index++)
                 {
-                    nTris[i] += OldMVL;
+                    nTris[index] += OldMVL;
                 }
 
                 tVerts = nVerts;
@@ -3363,16 +3540,16 @@ namespace GSD.Roads.Splination
             }
 
             int tVertCount = tVerts.Length;
-            for (int i = 0; i < tVertCount; i++)
+            for (int index = 0; index < tVertCount; index++)
             {
-                tVerts[i] -= tNode.pos;
+                tVerts[index] -= tNode.pos;
             }
             if (cVerts != null)
             {
                 int cVertCount = cVerts.Length;
-                for (int i = 0; i < cVertCount; i++)
+                for (int index = 0; index < cVertCount; index++)
                 {
-                    cVerts[i] -= tNode.pos;
+                    cVerts[index] -= tNode.pos;
                 }
             }
 
@@ -3393,7 +3570,9 @@ namespace GSD.Roads.Splination
                     vManuver = j * OrigMVL;
                     vManuver_Prev = (j - 1) * OrigMVL;
                     if (CapMesh1 != null)
-                    { tIntBuffer1 = CapOrigMVL1; }
+                    {
+                        tIntBuffer1 = CapOrigMVL1;
+                    }
                     foreach (KeyValuePair<int, int> KVP in MatchingIndices_Min)
                     {
                         tAvgNormal = (tNormals[tIntBuffer1 + vManuver + KVP.Key] + tNormals[tIntBuffer1 + vManuver_Prev + KVP.Value]) * 0.5f;
@@ -3431,7 +3610,9 @@ namespace GSD.Roads.Splination
                 cMesh.triangles = cTris;
                 cMesh.normals = new Vector3[cVerts.Length];
                 if (MC != null)
-                { MC.sharedMesh = cMesh; }
+                {
+                    MC.sharedMesh = cMesh;
+                }
                 if (MC != null)
                 {
                     MC.convex = bCollisionConvex;
@@ -3452,7 +3633,9 @@ namespace GSD.Roads.Splination
                 cMesh.triangles = cTris;
                 cMesh.normals = new Vector3[cVerts.Length];
                 if (MC != null)
-                { MC.sharedMesh = cMesh; }
+                {
+                    MC.sharedMesh = cMesh;
+                }
                 if (MC != null)
                 {
                     MC.convex = bCollisionConvex;
@@ -3469,7 +3652,9 @@ namespace GSD.Roads.Splination
             {
                 MC = Output.AddComponent<MeshCollider>();
                 if (MC != null)
-                { MC.sharedMesh = xMesh; }
+                {
+                    MC.sharedMesh = xMesh;
+                }
                 if (MC != null)
                 {
                     MC.convex = bCollisionConvex;
@@ -3601,11 +3786,17 @@ namespace GSD.Roads.Splination
 
             //Destroy the instantiated prefab:
             if (tObj != null)
-            { Object.DestroyImmediate(tObj); }
+            {
+                Object.DestroyImmediate(tObj);
+            }
             if (Cap1 != null)
-            { Object.DestroyImmediate(Cap1); }
+            {
+                Object.DestroyImmediate(Cap1);
+            }
             if (Cap2 != null)
-            { Object.DestroyImmediate(Cap2); }
+            {
+                Object.DestroyImmediate(Cap2);
+            }
 
             Material[] fMats = MR.sharedMaterials;
 
@@ -3619,7 +3810,9 @@ namespace GSD.Roads.Splination
 
                 MeshRenderer eMR = EndCapStartObj.GetComponent<MeshRenderer>();
                 if (eMR == null)
-                { eMR = EndCapStartObj.AddComponent<MeshRenderer>(); }
+                {
+                    eMR = EndCapStartObj.AddComponent<MeshRenderer>();
+                }
                 if (eMR.sharedMaterials == null || (eMR.sharedMaterial != null && eMR.sharedMaterial.name.ToLower().Contains("default-diffuse")))
                 {
                     eMR.sharedMaterials = fMats;
@@ -3631,7 +3824,9 @@ namespace GSD.Roads.Splination
                 EndCapEndOutput = EndCapEndObj;
                 MeshRenderer eMR = EndCapEndObj.GetComponent<MeshRenderer>();
                 if (eMR == null)
-                { eMR = EndCapEndObj.AddComponent<MeshRenderer>(); }
+                {
+                    eMR = EndCapEndObj.AddComponent<MeshRenderer>();
+                }
                 if (eMR.sharedMaterials == null || (eMR.sharedMaterial != null && eMR.sharedMaterial.name.ToLower().Contains("default-diffuse")))
                 {
                     eMR.sharedMaterials = fMats;
@@ -3650,7 +3845,9 @@ namespace GSD.Roads.Splination
         {
 #if UNITY_EDITOR
             if (!tNode.GSDSpline.tRoad.GSDRS.opt_bSaveMeshes)
-            { return; }
+            {
+                return;
+            }
             //string tSceneName = System.IO.Path.GetFileName(UnityEditor.EditorApplication.currentScene).ToLower().Replace(".unity","");
             string tSceneName = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().name;
             tSceneName = tSceneName.Replace("/", "");
@@ -3725,30 +3922,30 @@ namespace GSD.Roads.Splination
             float NewDiff = Vector3.Distance(tVect1, tVect2);
             float UVMod = NewDiff / mMaxDiff;
             Vector3 xVect = default(Vector3);
-            for (int i = 0; i < OrigMVL; i++)
+            for (int index = 0; index < OrigMVL; index++)
             {
-                xVect = OrigVerts[i];
-                if (MaxVectorIndices.Contains(i))
+                xVect = OrigVerts[index];
+                if (MaxVectorIndices.Contains(index))
                 {
-                    tVerts[i] = tMatrixEnd.MultiplyPoint3x4(xVect);
+                    tVerts[index] = tMatrixEnd.MultiplyPoint3x4(xVect);
                 }
                 else
                 {
-                    tVerts[i] = tMatrixStart.MultiplyPoint3x4(xVect);
+                    tVerts[index] = tMatrixStart.MultiplyPoint3x4(xVect);
                 }
 
                 if (RepeatUVType == RepeatUVTypeEnum.X)
                 {
-                    if (OrigUV[i].x > Stretch_UVThreshold)
+                    if (OrigUV[index].x > Stretch_UVThreshold)
                     {
-                        tUV[i].x = OrigUV[i].x * UVMod;
+                        tUV[index].x = OrigUV[index].x * UVMod;
                     }
                 }
                 else
                 {
-                    if (OrigUV[i].y > Stretch_UVThreshold)
+                    if (OrigUV[index].y > Stretch_UVThreshold)
                     {
-                        tUV[i].y = OrigUV[i].y * UVMod;
+                        tUV[index].y = OrigUV[index].y * UVMod;
                     }
                 }
             }
@@ -3777,9 +3974,9 @@ namespace GSD.Roads.Splination
 
             List<Vector3> xVects = new List<Vector3>();
 
-            for (int i = 0; i < 8; i++)
+            for (int index = 0; index < 8; index++)
             {
-                tRay = new Ray(tVects[i] + new Vector3(0f, 1f, 0f), Vector3.down);
+                tRay = new Ray(tVects[index] + new Vector3(0f, 1f, 0f), Vector3.down);
                 tRayHit = Physics.RaycastAll(tRay);
                 tHitIndex = -1;
                 tHitY = -1f;
@@ -3806,9 +4003,9 @@ namespace GSD.Roads.Splination
             }
 
 
-            for (int i = 0; i < xVects.Count; i++)
+            for (int index = 0; index < xVects.Count; index++)
             {
-                tHitNormal += xVects[i];
+                tHitNormal += xVects[index];
             }
             tHitNormal /= xVects.Count;
 

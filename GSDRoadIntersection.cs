@@ -205,17 +205,17 @@ public class GSDRoadIntersection : MonoBehaviour
     public void DeleteRelevantChildren(GSDSplineN tNode, string tString)
     {
         int cCount = transform.childCount;
-        for (int i = cCount - 1; i >= 0; i--)
+        for (int index = cCount - 1; index >= 0; index--)
         {
-            if (transform.GetChild(i).name.ToLower().Contains(tString.ToLower()))
+            if (transform.GetChild(index).name.ToLower().Contains(tString.ToLower()))
             {
-                Object.DestroyImmediate(transform.GetChild(i).gameObject);
+                Object.DestroyImmediate(transform.GetChild(index).gameObject);
             }
             else if (tNode == Node1)
             {
-                if (transform.GetChild(i).name.ToLower().Contains("centermarkers"))
+                if (transform.GetChild(index).name.ToLower().Contains("centermarkers"))
                 {
-                    Object.DestroyImmediate(transform.GetChild(i).gameObject);
+                    Object.DestroyImmediate(transform.GetChild(index).gameObject);
                 }
             }
         }
@@ -256,7 +256,9 @@ public class GSDRoadIntersection : MonoBehaviour
     {
         Vector2 vVect = new Vector2(tVect.x, tVect.z);
         if (BoundsRect == null)
-        { ConstructBoundsRect(); }
+        {
+            ConstructBoundsRect();
+        }
         return BoundsRect.Contains(ref vVect);
     }
 
@@ -271,18 +273,18 @@ public class GSDRoadIntersection : MonoBehaviour
         tVects[0] = tVect1;
         float mMod = 0f;
         float fcounter = 1f;
-        for (int i = 1; i < (MaxDef - 1); i++)
+        for (int index = 1; index < (MaxDef - 1); index++)
         {
             mMod = fcounter / MaxDefF;
-            tVects[i] = ((tVect2 - tVect1) * mMod) + tVect1;
+            tVects[index] = ((tVect2 - tVect1) * mMod) + tVect1;
             fcounter += 1f;
         }
         tVects[MaxDef - 1] = tVect2;
 
         Vector2 xVect = default(Vector2);
-        for (int i = 0; i < MaxDef; i++)
+        for (int index = 0; index < MaxDef; index++)
         {
-            xVect = new Vector2(tVects[i].x, tVects[i].z);
+            xVect = new Vector2(tVects[index].x, tVects[index].z);
             if (BoundsRect.Contains(ref xVect))
             {
                 return true;
@@ -298,13 +300,19 @@ public class GSDRoadIntersection : MonoBehaviour
         Vector2 tVectEnd = new Vector2(tVect2.x, tVect2.z);
         bool bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerRR_2D, ref CornerRL_2D);
         if (bIntersects)
-        { return true; }
+        {
+            return true;
+        }
         bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerRL_2D, ref CornerLL_2D);
         if (bIntersects)
-        { return true; }
+        {
+            return true;
+        }
         bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerLL_2D, ref CornerLR_2D);
         if (bIntersects)
-        { return true; }
+        {
+            return true;
+        }
         bIntersects = Intersects2D(ref tVectStart, ref tVectEnd, ref CornerLR_2D, ref CornerRR_2D);
         return bIntersects;
     }
@@ -339,7 +347,9 @@ public class GSDRoadIntersection : MonoBehaviour
     void OnDrawGizmos()
     {
         if (!bDrawGizmo)
-        { return; }
+        {
+            return;
+        }
         Gizmos.color = Color.blue;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 5f, 0f), new Vector3(2f, 11f, 2f));
     }
@@ -372,9 +382,15 @@ public class GSDRoadIntersection : MonoBehaviour
         GSDTrafficLightSequence SMaker = null;
         FixedTimeSequenceList = new List<GSDTrafficLightSequence>();
         if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength); FixedTimeSequenceList.Add(SMaker); }
+        {
+            SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength);
+            FixedTimeSequenceList.Add(SMaker);
+        }
         if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker); }
+        {
+            SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength);
+            FixedTimeSequenceList.Add(SMaker);
+        }
         SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength);
         FixedTimeSequenceList.Add(SMaker);
         SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength);
@@ -385,9 +401,15 @@ public class GSDRoadIntersection : MonoBehaviour
         FixedTimeSequenceList.Add(SMaker);
 
         if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength); FixedTimeSequenceList.Add(SMaker); }
+        {
+            SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_LeftTurnLightLength);
+            FixedTimeSequenceList.Add(SMaker);
+        }
         if (rType != RoadTypeEnum.NoTurnLane)
-        { SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength); FixedTimeSequenceList.Add(SMaker); }
+        {
+            SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.LeftTurn, GSDTrafficLightController.iLightSubStatusEnum.Yellow, opt_FixedTime_YellowLightLength);
+            FixedTimeSequenceList.Add(SMaker);
+        }
         SMaker = new GSDTrafficLightSequence(true, GSDTrafficLightController.iLightControllerEnum.Red, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_AllRedLightLength);
         FixedTimeSequenceList.Add(SMaker);
         SMaker = new GSDTrafficLightSequence(false, GSDTrafficLightController.iLightControllerEnum.Regular, GSDTrafficLightController.iLightSubStatusEnum.Green, opt_FixedTime_RegularLightLength);
@@ -414,7 +436,9 @@ public class GSDRoadIntersection : MonoBehaviour
         GSDTrafficLightSequence SMaker = FixedTimeSequenceList[FixedTimeIndex];
         FixedTimeIndex += 1;
         if (FixedTimeIndex > (FixedTimeSequenceList.Count - 1))
-        { FixedTimeIndex = 0; }
+        {
+            FixedTimeIndex = 0;
+        }
 
         GSDTrafficLightController Lights1 = null;
         GSDTrafficLightController Lights2 = null;
@@ -1221,12 +1245,12 @@ public class GSDRoadIntersection : MonoBehaviour
         MeshRenderer MR = null;
         Material[] tMats = new Material[1];
         tMats[0] = TrafficLightMaterial;
-        for (int i = 0; i < cCount; i++)
+        for (int index = 0; index < cCount; index++)
         {
-            tName = transform.GetChild(i).name.ToLower();
+            tName = transform.GetChild(index).name.ToLower();
             if (tName.Contains("trafficlight"))
             {
-                MR = transform.GetChild(i).GetComponent<MeshRenderer>();
+                MR = transform.GetChild(index).GetComponent<MeshRenderer>();
                 MR.materials = tMats;
             }
         }
@@ -1239,11 +1263,11 @@ public class GSDRoadIntersection : MonoBehaviour
         int cCount = transform.childCount;
         Light[] fLights = null;
         Transform tTrans = null;
-        for (int i = 0; i < cCount; i++)
+        for (int index = 0; index < cCount; index++)
         {
-            if (transform.GetChild(i).name.ToLower().Contains("trafficlight"))
+            if (transform.GetChild(index).name.ToLower().Contains("trafficlight"))
             {
-                tTrans = transform.GetChild(i);
+                tTrans = transform.GetChild(index);
                 int kCount = tTrans.childCount;
                 for (int k = 0; k < kCount; k++)
                 {

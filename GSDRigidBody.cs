@@ -5,15 +5,16 @@ public class GSDRigidBody : MonoBehaviour
 {
     public float MinCollVelocity = 2f;
     //	bool bIsForcedSleeping = false;
-    Rigidbody rigidbody;            // Formerly RB // FH 29.01.19
+    Rigidbody rigidBody;            // Formerly RB // FH 29.01.19
     //	bool bIgnoreRB = false;
+
 
     void Awake()
     {
-        rigidbody = transform.GetComponent<Rigidbody>();
-        if (rigidbody != null)
+        rigidBody = transform.GetComponent<Rigidbody>();
+        if (rigidBody != null)
         {
-            DestroyImmediate(rigidbody);
+            DestroyImmediate(rigidBody);
         }
     }
 

@@ -137,6 +137,7 @@ public class GSDRoadSystemEditor : Editor
         }
     }
 
+
     void InitChecks()
     {
         if (WarningLabelBG == null)
@@ -179,6 +180,7 @@ public class GSDRoadSystemEditor : Editor
         }
     }
 
+
     //	void DoInter(){
     //		//View intersection
     //		if(!bHasInterInit){
@@ -200,6 +202,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
     //	
+    //
     //	void IncrementIntersection(){
     //		if(tInters != null && tInters.Length > 0){
     //			tInterIndex+=1;
@@ -208,6 +211,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
     //	
+    //
     //	void DoBridges(){
     //		//View bridges
     //		if(!bHasBridgeInit){
@@ -275,6 +279,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
     //	
+    //
     //	void IncrementBridge(){
     //		if(tBridges != null && tBridges.Length > 0){
     //			tBridgesIndex+=1;
@@ -283,6 +288,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
     //	
+    //
     //	void ShowIntersection(int i){	
     //		if(EditorApplication.isPlaying && GSDRS.EditorPlayCamera != null){
     //			GSDRS.EditorPlayCamera.transform.position = tInters[i].transform.position + new Vector3(-40f,20f,-40f);
@@ -293,6 +299,7 @@ public class GSDRoadSystemEditor : Editor
     //		}
     //	}
     //	
+    //
     //	void ShowBridge(int i){
     //		if(EditorApplication.isPlaying && GSDRS.EditorPlayCamera != null){
     //			Vector3 tBridgePos = ((tBridges[i].pos - tBridges[i].BridgeCounterpartNode.pos)*0.5f)+tBridges[i].BridgeCounterpartNode.pos;

@@ -99,22 +99,22 @@ public class GSDTrafficLightController
         Lights_R = new Light[mCount];
         Lights_Y = new Light[mCount];
         Lights_G = new Light[mCount];
-        for (int i = 0; i < mCount; i++)
+        for (int index = 0; index < mCount; index++)
         {
-            tLights = LightsObj[i].transform.GetComponentsInChildren<Light>();
+            tLights = LightsObj[index].transform.GetComponentsInChildren<Light>();
             foreach (Light tLight in tLights)
             {
                 if (tLight.transform.name.ToLower().Contains("redlight"))
                 {
-                    Lights_R[i] = tLight;
+                    Lights_R[index] = tLight;
                 }
                 if (tLight.transform.name.ToLower().Contains("yellowlight"))
                 {
-                    Lights_Y[i] = tLight;
+                    Lights_Y[index] = tLight;
                 }
                 if (tLight.transform.name.ToLower().Contains("greenl"))
                 {
-                    Lights_G[i] = tLight;
+                    Lights_G[index] = tLight;
                 }
             }
         }
@@ -157,9 +157,9 @@ public class GSDTrafficLightController
         if (bMain)
         {
             MRChange(ref MR_Main, iLightSubStatus);
-            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            for (int index = 1; index < MR_MainsStorage.Length; index++)
             {
-                MRChange(ref MR_MainsStorage[i], iLightSubStatus);
+                MRChange(ref MR_MainsStorage[index], iLightSubStatus);
             }
             LightChange(0, iLightSubStatus);
         }
@@ -234,9 +234,9 @@ public class GSDTrafficLightController
         if (bMain)
         {
             MRChange(ref MR_Main, iLightSubStatus);
-            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            for (int index = 1; index < MR_MainsStorage.Length; index++)
             {
-                MRChange(ref MR_MainsStorage[i], iLightSubStatus);
+                MRChange(ref MR_MainsStorage[index], iLightSubStatus);
             }
             LightChange(0, iLightSubStatus);
         }
@@ -265,9 +265,9 @@ public class GSDTrafficLightController
         if (bMain)
         {
             MRChange(ref MR_Main, iLightSubStatusEnum.Red);
-            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            for (int index = 1; index < MR_MainsStorage.Length; index++)
             {
-                MRChange(ref MR_MainsStorage[i], iLightSubStatusEnum.Red);
+                MRChange(ref MR_MainsStorage[index], iLightSubStatusEnum.Red);
             }
             LightChange(0, iLightSubStatusEnum.Red);
         }
@@ -289,9 +289,9 @@ public class GSDTrafficLightController
         if (bMain)
         {
             MRChange(ref MR_Main, iLightSubStatusEnum.Red);
-            for (int i = 1; i < MR_MainsStorage.Length; i++)
+            for (int index = 1; index < MR_MainsStorage.Length; index++)
             {
-                MRChange(ref MR_MainsStorage[i], iLightSubStatusEnum.Red);
+                MRChange(ref MR_MainsStorage[index], iLightSubStatusEnum.Red);
             }
             LightChange(0, iLightSubStatusEnum.Red);
         }
@@ -400,11 +400,11 @@ public class GSDTrafficLightController
         if (!bLightsEnabled)
         {
             int mCount = MR_MainsStorage.Length;
-            for (int i = 0; i < mCount; i++)
+            for (int index = 0; index < mCount; index++)
             {
-                Lights_R[i].enabled = false;
-                Lights_Y[i].enabled = false;
-                Lights_G[i].enabled = false;
+                Lights_R[index].enabled = false;
+                Lights_Y[index].enabled = false;
+                Lights_G[index].enabled = false;
             }
             if (LightLeft_R != null)
             {
@@ -437,9 +437,9 @@ public class GSDTrafficLightController
         {
             //Main:
             int mCount = MR_MainsStorage.Length;
-            for (int i = 0; i < mCount; i++)
+            for (int index = 0; index < mCount; index++)
             {
-                LightChangeHelper(ref Lights_R[i], ref Lights_Y[i], ref Lights_G[i], iLSSE);
+                LightChangeHelper(ref Lights_R[index], ref Lights_Y[index], ref Lights_G[index], iLSSE);
             }
         }
         else if (tIndex == 1)
@@ -494,24 +494,28 @@ public class GSDTrafficLightController
     private void SetupMainObjects()
     {
         if (MR_Main == null)
-        { return; }
+        {
+            return;
+        }
         int mCount = MR_MainsStorage.Length;
         if (mCount == 0)
-        { return; }
+        {
+            return;
+        }
         SetupObject(MR_Main);
         if (mCount > 1)
         {
-            for (int i = 1; i < mCount; i++)
+            for (int index = 1; index < mCount; index++)
             {
                 if (bUseSharedMaterial)
                 {
-                    MR_MainsStorage[i].sharedMaterial = MR_Main.sharedMaterial;
+                    MR_MainsStorage[index].sharedMaterial = MR_Main.sharedMaterial;
                 }
                 else
                 {
                     Material[] materials = new Material[1];
                     materials[0] = MR_Main.materials[0];
-                    MR_MainsStorage[i].materials = materials;
+                    MR_MainsStorage[index].materials = materials;
 
                 }
 
@@ -523,7 +527,9 @@ public class GSDTrafficLightController
     private void SetupObject(MeshRenderer MR)
     {
         if (MR != null)
-        { MR.material = MR.material; }
+        {
+            MR.material = MR.material;
+        }
     }
     #endregion
 }

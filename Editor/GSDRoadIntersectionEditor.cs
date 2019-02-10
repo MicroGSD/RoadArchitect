@@ -1,7 +1,9 @@
+#region "Imports"
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using GSD;
+#endregion
 
 
 [CustomEditor(typeof(GSDRoadIntersection))]
@@ -262,7 +264,9 @@ public class GSDRoadIntersectionEditor : Editor
                 EditorGUILayout.BeginHorizontal();
                 t_opt_FixedTime_RegularLightLength.floatValue = EditorGUILayout.Slider("Green length: ", tInter.opt_FixedTime_RegularLightLength, 0.1f, 180f);
                 if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
-                { t_opt_FixedTime_RegularLightLength.floatValue = 30f; }
+                {
+                    t_opt_FixedTime_RegularLightLength.floatValue = 30f;
+                }
                 EditorGUILayout.EndHorizontal();
 
                 if (tInter.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane)
@@ -270,20 +274,26 @@ public class GSDRoadIntersectionEditor : Editor
                     EditorGUILayout.BeginHorizontal();
                     t_opt_FixedTime_LeftTurnLightLength.floatValue = EditorGUILayout.Slider("Left turn only length: ", tInter.opt_FixedTime_LeftTurnLightLength, 0.1f, 180f);
                     if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
-                    { t_opt_FixedTime_LeftTurnLightLength.floatValue = 10f; }
+                    {
+                        t_opt_FixedTime_LeftTurnLightLength.floatValue = 10f;
+                    }
                     EditorGUILayout.EndHorizontal();
                 }
 
                 EditorGUILayout.BeginHorizontal();
                 t_opt_FixedTime_AllRedLightLength.floatValue = EditorGUILayout.Slider("All red length: ", tInter.opt_FixedTime_AllRedLightLength, 0.1f, 180f);
                 if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
-                { t_opt_FixedTime_AllRedLightLength.floatValue = 1f; }
+                {
+                    t_opt_FixedTime_AllRedLightLength.floatValue = 1f;
+                }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 t_opt_FixedTime_YellowLightLength.floatValue = EditorGUILayout.Slider("Yellow light length: ", tInter.opt_FixedTime_YellowLightLength, 0.1f, 180f);
                 if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
-                { t_opt_FixedTime_YellowLightLength.floatValue = 3f; }
+                {
+                    t_opt_FixedTime_YellowLightLength.floatValue = 3f;
+                }
                 EditorGUILayout.EndHorizontal();
             }
         }
@@ -1103,7 +1113,9 @@ public class GSDRoadIntersectionEditor : Editor
             //Do nothing	
         }
         if (GUI.changed)
-        { EditorUtility.SetDirty(tInter); }
+        {
+            EditorUtility.SetDirty(tInter);
+        }
     }
 
 
