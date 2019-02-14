@@ -83,7 +83,7 @@ public class GSDTerrainEditor : Editor
         //Online manual button:
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
-            Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
         EditorGUILayout.EndHorizontal();
         GUILayout.Space(6f);

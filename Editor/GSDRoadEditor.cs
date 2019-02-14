@@ -287,7 +287,7 @@ public class GSDRoadEditor : Editor
         t_opt_GizmosEnabled.boolValue = EditorGUILayout.Toggle("Gizmos: ", RS.opt_GizmosEnabled);
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
-            Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
         EditorGUILayout.EndHorizontal();
 
@@ -446,7 +446,7 @@ public class GSDRoadEditor : Editor
             EditorGUILayout.LabelField("Road options quick help:", EditorStyles.boldLabel);
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.HelpBox(tOnlineHelpDesc, MessageType.Info);
@@ -623,7 +623,7 @@ public class GSDRoadEditor : Editor
             EditorGUILayout.LabelField("Terrain options quick help:", EditorStyles.boldLabel);
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.HelpBox(tOnlineHelpDesc, MessageType.Info);
@@ -722,7 +722,7 @@ public class GSDRoadEditor : Editor
             EditorGUILayout.LabelField("Road splitting quick help:", EditorStyles.boldLabel);
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.HelpBox(tOnlineHelpDesc, MessageType.Info);
@@ -840,7 +840,7 @@ public class GSDRoadEditor : Editor
             EditorGUILayout.LabelField("Editor camera quick help:", EditorStyles.boldLabel);
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.HelpBox(tOnlineHelpDesc, MessageType.Info);

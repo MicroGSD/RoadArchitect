@@ -401,7 +401,7 @@ public class GSDSplineNEditor : Editor
 
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(128f)))
         {
-            Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");        // formerly, which redirect to the master github http://microgsd.com/Support/RoadArchitectManual.aspx
         }
         EditorGUILayout.EndHorizontal();
         #endregion
@@ -851,7 +851,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.LabelField("General options:");
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
 
@@ -1477,7 +1477,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.LabelField("General options:");
             if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
             {
-                Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.EndHorizontal();
 

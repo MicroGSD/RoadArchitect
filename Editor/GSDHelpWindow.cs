@@ -17,14 +17,15 @@ public class GSDHelpWindow : EditorWindow
 
         if (GUILayout.Button("Click here to open online manual", EditorStyles.miniButton, GUILayout.Width(300f)))
         {
-            Application.OpenURL("http://microgsd.com/Support.aspx");
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
 
-        EditorGUILayout.LabelField("http://microgsd.com/Support.aspx", EditorStyles.miniLabel);
+        EditorGUILayout.LabelField("https://github.com/MicroGSD/RoadArchitect/wiki", EditorStyles.miniLabel);
         GUILayout.Space(4f);
         EditorGUILayout.LabelField("Please visit the online manual for help.", EditorStyles.miniLabel);
         GUILayout.Space(4f);
         EditorGUILayout.LabelField("Please visit our unity forum thread or contact support@microgsd.com with any questions or comments.", EditorStyles.miniLabel);
+        // Maybe remove the line above by this? "Please visit our Github with any questions or comments"
     }
 
 

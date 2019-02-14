@@ -96,7 +96,7 @@ public class GSDRoadSystemEditor : Editor
         GUILayout.Space(4f);
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
-            Application.OpenURL("http://microgsd.com/Support/RoadArchitectManual.aspx");
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");  // formerly http://microgsd.com/Support/RoadArchitectManual.aspx
         }
 
         if (GSDRS.EditorPlayCamera == null)
