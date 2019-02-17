@@ -37,7 +37,7 @@ public class GSDTerrain : MonoBehaviour
     public string RoadSingleChoiceUID = "";
 
 
-    void OnEnable()
+    private void OnEnable()
     {
         CheckID();
         if (!tTerrain)
@@ -100,7 +100,7 @@ public class GSDTerrain : MonoBehaviour
 #endif
 
 
-    void Start()
+    private void Start()
     {
 #if UNITY_EDITOR
         this.enabled = true;

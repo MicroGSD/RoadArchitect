@@ -5,11 +5,11 @@ public class GSDRigidBody : MonoBehaviour
 {
     public float MinCollVelocity = 2f;
     //	bool bIsForcedSleeping = false;
-    Rigidbody rigidBody;            // Formerly RB // FH 29.01.19
+    private Rigidbody rigidBody;            // Formerly RB // FH 29.01.19
     //	bool bIgnoreRB = false;
 
 
-    void Awake()
+    private void Awake()
     {
         rigidBody = transform.GetComponent<Rigidbody>();
         if (rigidBody != null)
@@ -20,7 +20,7 @@ public class GSDRigidBody : MonoBehaviour
 
 
     /*
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if ( bIgnoreRB || !bIsForcedSleeping )
         {
@@ -43,7 +43,7 @@ public class GSDRigidBody : MonoBehaviour
     }
 
 
-    void OnCollisionExit(Collision collisionInfo)
+    private void OnCollisionExit(Collision collisionInfo)
     {
         if ( bIgnoreRB || !bIsForcedSleeping )
         { return; }
@@ -58,7 +58,7 @@ public class GSDRigidBody : MonoBehaviour
     float TimerNow = 0f;
 
 
-    void Update()
+    private void Update()
     {
         if ( bIsForcedSleeping )
         {

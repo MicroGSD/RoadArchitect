@@ -17,14 +17,14 @@ public class GSDRoadConnector : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadColor;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 6f, 0f), new Vector3(2f, 11f, 2f));
     }
 
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadSelectedColor;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 6.25f, 0f), new Vector3(3.5f, 12.5f, 3.5f));
@@ -41,7 +41,7 @@ public class GSDRoadConnector : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (connectedNode != null)
         {

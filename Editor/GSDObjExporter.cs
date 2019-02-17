@@ -238,7 +238,7 @@ public class GSDObjExporter : ScriptableObject
 
 
     [MenuItem("Window/Road Architect/Export/Export all MeshFilters in selection to separate OBJs")]
-    static void ExportSelectionToSeparate()
+    private static void ExportSelectionToSeparate()
     {
         if (!CreateTargetFolder())
         {
@@ -278,7 +278,7 @@ public class GSDObjExporter : ScriptableObject
 
 
     [MenuItem("Window/Road Architect/Export/Export whole selection to single OBJ")]
-    static void ExportWholeSelectionToSingle()
+    private static void ExportWholeSelectionToSingle()
     {
         if (!CreateTargetFolder())
         {
@@ -340,9 +340,8 @@ public class GSDObjExporter : ScriptableObject
     }
 
 
-
     [MenuItem("Window/Road Architect/Export/Export each selected to single OBJ")]
-    static void ExportEachSelectionToSingle()
+    private static void ExportEachSelectionToSingle()
     {
         if (!CreateTargetFolder())
         {
@@ -387,7 +386,7 @@ public class GSDObjExporter : ScriptableObject
 
 
     [MenuItem("Window/Road Architect/Export/Exporters by Hrafnkell Freyr Hlooversson from Unity3D wiki")]
-    static void DoNothing1()
+    private static void DoNothing1()
     {
         Application.OpenURL("http://wiki.unity3d.com/index.php?title=ObjExporter");
     }

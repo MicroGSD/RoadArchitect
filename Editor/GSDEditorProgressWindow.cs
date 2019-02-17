@@ -11,13 +11,13 @@ using UnityEngine;
 /// </summary>
 public class GSDEditorProgressWindow : EditorWindow
 {
-    float secs = 10.0f;
-    float startVal = 0f;
-    float progress = 0f;
+    private float secs = 10.0f;
+    private float startVal = 0f;
+    private float progress = 0f;
 
 
 #if UNITY_EDITOR
-    static void Init()
+    private static void Init()
     {
         GSDEditorProgressWindow window = (GSDEditorProgressWindow) EditorWindow.GetWindow(typeof(GSDEditorProgressWindow));
         window.Show();
@@ -26,7 +26,7 @@ public class GSDEditorProgressWindow : EditorWindow
 
 
 #if UNITY_EDITOR
-    void OnGUI()
+    private void OnGUI()
     {
         secs = EditorGUILayout.FloatField("Time to wait:", secs);
         if (GUILayout.Button("Display bar"))
@@ -55,7 +55,7 @@ public class GSDEditorProgressWindow : EditorWindow
     }
 
 
-    void OnInspectorUpdate()
+    private void OnInspectorUpdate()
     {
         Repaint();
     }

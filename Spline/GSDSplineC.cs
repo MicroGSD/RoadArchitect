@@ -36,13 +36,13 @@ public class GSDSplineC : MonoBehaviour
 
 
     #region Vars for intersections:
-    const float MetersToCheck_NoTurnLane = 75f;
-    const float MetersToCheck_NoTurnLaneSQ = 5625f;
-    const float MetersToCheck_TurnLane = 125f;
-    const float MetersToCheck_TurnLaneSQ = 15625f;
-    const float MetersToCheck_BothTurnLane = 125f;
-    const float MetersToCheck_BothTurnLaneSQ = 15625f;
-    const bool bUseSQ = true;
+    private const float MetersToCheck_NoTurnLane = 75f;
+    private const float MetersToCheck_NoTurnLaneSQ = 5625f;
+    private const float MetersToCheck_TurnLane = 125f;
+    private const float MetersToCheck_TurnLaneSQ = 15625f;
+    private const float MetersToCheck_BothTurnLane = 125f;
+    private const float MetersToCheck_BothTurnLaneSQ = 15625f;
+    private const bool bUseSQ = true;
     #endregion
 
 
@@ -1319,7 +1319,7 @@ public class GSDSplineC : MonoBehaviour
     private float GizmoDrawMeters = 1f;
 
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         //		if(!bGizmoDraw){ return; }
         if (mNodes == null || mNodes.Count < 2)
@@ -1700,7 +1700,7 @@ public class GSDSplineC : MonoBehaviour
     }
 
 
-    void DestroyIntersection(GSDSplineN tNode)
+    private void DestroyIntersection(GSDSplineN tNode)
     {
         if (tNode != null)
         {
@@ -2400,7 +2400,7 @@ public class GSDSplineC : MonoBehaviour
 
 
     #region "Start"
-    void Start()
+    private void Start()
     {
 #if UNITY_EDITOR
         //CachedPoints = null;

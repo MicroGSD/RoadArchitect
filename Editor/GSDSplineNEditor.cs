@@ -17,30 +17,30 @@ public class GSDSplineNEditor : Editor
 {
     #region "Vars"
     protected GSDSplineN tNode { get { return (GSDSplineN) target; } }
-    const string tOnlineHelpDesc = "Visit the online manual for the most effective help.";
-    bool bMouseDragHasProcessed = true;
-    int eCount = -1;
-    int currentCount = 0;
+    private const string tOnlineHelpDesc = "Visit the online manual for the most effective help.";
+    private bool bMouseDragHasProcessed = true;
+    private int eCount = -1;
+    private int currentCount = 0;
     public bool bSplinatedObjectHelp = false;
     public bool bEdgeObjectHelp = false;
-    bool bRemoveAll = false;
-    float HorizRoadMax = 0;
+    private bool bRemoveAll = false;
+    private float HorizRoadMax = 0;
 
 
     #region Button icons:
-    Texture btnDeleteText = null;
-    Texture btnCopyText = null;
-    Texture btnSaveText = null;
-    Texture btnLoadText = null;
-    Texture btnExtrudeText = null;
-    Texture btnEdgeText = null;
-    Texture btnHelpText = null;
-    Texture btnRefreshText = null;
-    Texture btnDefaultText = null;
-    Texture2D LoadBtnBG = null;
-    Texture2D GSDTextAreaBG = null;
-    Texture2D LoadBtnBGGlow = null;
-    Texture2D ManualBG = null;
+    private Texture btnDeleteText = null;
+    private Texture btnCopyText = null;
+    private Texture btnSaveText = null;
+    private Texture btnLoadText = null;
+    private Texture btnExtrudeText = null;
+    private Texture btnEdgeText = null;
+    private Texture btnHelpText = null;
+    private Texture btnRefreshText = null;
+    private Texture btnDefaultText = null;
+    private Texture2D LoadBtnBG = null;
+    private Texture2D GSDTextAreaBG = null;
+    private Texture2D LoadBtnBGGlow = null;
+    private Texture2D ManualBG = null;
     #endregion
 
 
@@ -55,12 +55,12 @@ public class GSDSplineNEditor : Editor
     public List<string> LoadingEOMPaths = null;
 
     //Checkers:
-    //	float ChangeChecker = -1f;
-    //	bool bChangeChecker = false;
-    //	Vector3 vChangeChecker = default(Vector3);
-    //	GameObject tObj = null;
-    //	Material tMat = null;
-    GSD.Roads.Splination.SplinatedMeshMaker SMM = null;
+    //	private float ChangeChecker = -1f;
+    //	private bool bChangeChecker = false;
+    //	private Vector3 vChangeChecker = default(Vector3);
+    //	private GameObject tObj = null;
+    //	private Material tMat = null;
+    private GSD.Roads.Splination.SplinatedMeshMaker SMM = null;
 
 
     #region "Enums"
@@ -79,7 +79,7 @@ public class GSDSplineNEditor : Editor
     };
 
 
-    EndObjectsDefaultsEnum tEndObjectAdd = EndObjectsDefaultsEnum.None;
+    private EndObjectsDefaultsEnum tEndObjectAdd = EndObjectsDefaultsEnum.None;
 
 
     private static string[] EndObjectsDefaultsEnumDesc = new string[]{
@@ -111,7 +111,7 @@ public class GSDSplineNEditor : Editor
     };
 
 
-    SMMDefaultsEnum tSMMQuickAdd = SMMDefaultsEnum.None;
+    private SMMDefaultsEnum tSMMQuickAdd = SMMDefaultsEnum.None;
 
 
     public enum BridgeTopBaseDefaultsEnum
@@ -124,7 +124,7 @@ public class GSDSplineNEditor : Editor
     };
 
 
-    BridgeTopBaseDefaultsEnum tBridgeTopBaseQuickAdd = BridgeTopBaseDefaultsEnum.None;
+    private BridgeTopBaseDefaultsEnum tBridgeTopBaseQuickAdd = BridgeTopBaseDefaultsEnum.None;
 
 
     public enum BridgeBottomBaseDefaultsEnum
@@ -142,7 +142,7 @@ public class GSDSplineNEditor : Editor
     };
 
 
-    BridgeBottomBaseDefaultsEnum tBridgeBottomBaseQuickAdd = BridgeBottomBaseDefaultsEnum.None;
+    private BridgeBottomBaseDefaultsEnum tBridgeBottomBaseQuickAdd = BridgeBottomBaseDefaultsEnum.None;
 
 
     public enum BridgeWizardDefaultsEnum
@@ -177,7 +177,7 @@ public class GSDSplineNEditor : Editor
     };
 
 
-    HorizMatchingDefaultsEnum tHorizMatching = HorizMatchingDefaultsEnum.None;
+    private HorizMatchingDefaultsEnum tHorizMatching = HorizMatchingDefaultsEnum.None;
 
 
     public enum EOMDefaultsEnum { None, Custom, StreetLightSingle, StreetLightDouble };
@@ -186,7 +186,7 @@ public class GSDSplineNEditor : Editor
 
     //GSD.Roads.Splination.CollisionTypeEnum tCollisionTypeSpline = GSD.Roads.Splination.CollisionTypeEnum.SimpleMeshTriangle;
     //GSD.Roads.Splination.RepeatUVTypeEnum tRepeatUVType = GSD.Roads.Splination.RepeatUVTypeEnum.None;
-    GSD.Roads.EdgeObjects.EdgeObjectMaker EOM = null;
+    private GSD.Roads.EdgeObjects.EdgeObjectMaker EOM = null;
 
 
     private static string[] TheAxisDescriptions_Spline = new string[]{
@@ -214,28 +214,28 @@ public class GSDSplineNEditor : Editor
     private string[] HorizMatchSubTypeDescriptions;
     #endregion
 
-    GUIStyle GSDImageButton = null;
-    GUIStyle GSDLoadButton = null;
-    GUIStyle GSDManualButton = null;
-    GUIStyle GSDUrl = null;
+    private GUIStyle GSDImageButton = null;
+    private GUIStyle GSDLoadButton = null;
+    private GUIStyle GSDManualButton = null;
+    private GUIStyle GSDUrl = null;
 
-    bool bSceneRectSet = false;
-    Rect tSceneRect = default(Rect);
+    private bool bSceneRectSet = false;
+    private Rect tSceneRect = default(Rect);
 
-    bool bHasInit = false;
+    private bool bHasInit = false;
 
     //Buffers:
-    //	bool t_opt_GizmosEnabled = false;
-    bool t_opt_GizmosEnabled = false;
+    //	private bool t_opt_GizmosEnabled = false;
+    private bool t_opt_GizmosEnabled = false;
 
     // Bridge
-    bool t_bIsBridgeStart = false;
-    bool t_bIsBridgeEnd = false;
+    private bool t_bIsBridgeStart = false;
+    private bool t_bIsBridgeEnd = false;
 
-    bool t_bRoadCut = false;
+    private bool t_bRoadCut = false;
 
 
-    void Init()
+    private void Init()
     {
         bHasInit = true;
         EditorStyles.label.wordWrap = true;
@@ -356,9 +356,9 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    GSDSplineN iNode1 = null;
-    GSDSplineN iNode2 = null;
-    bool bCreateIntersection = false;
+    private GSDSplineN iNode1 = null;
+    private GSDSplineN iNode2 = null;
+    private bool bCreateIntersection = false;
 
 
     public override void OnInspectorGUI()
@@ -567,7 +567,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    void OnSelectionChanged()
+    private void OnSelectionChanged()
     {
         Repaint();
     }
@@ -576,7 +576,7 @@ public class GSDSplineNEditor : Editor
     //GUIStyle SectionBG;
 
 
-    void DoExtAndEdgeOverview()
+    private void DoExtAndEdgeOverview()
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Extrusion & edge objects", EditorStyles.boldLabel);
@@ -748,7 +748,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    void DoStats()
+    private void DoStats()
     {
         EditorGUILayout.LabelField("Statistics:");
         EditorGUILayout.BeginVertical("box");
@@ -2490,7 +2490,7 @@ public class GSDSplineNEditor : Editor
 
 
     #region Optimizable // LineGUILayout
-    void Line()
+    private void Line()
     {
         GUILayout.Space(4f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
@@ -2498,7 +2498,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    void LineSmall()
+    private void LineSmall()
     {
         GUILayout.Space(2f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
@@ -2506,7 +2506,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    void BigLine()
+    private void BigLine()
     {
         GUILayout.Space(4f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(4f)); //Horizontal bar
@@ -2515,7 +2515,7 @@ public class GSDSplineNEditor : Editor
     #endregion
 
 
-    void ResetCurve(ref AnimationCurve tCurve)
+    private void ResetCurve(ref AnimationCurve tCurve)
     {
         tCurve = null;
         tCurve = new AnimationCurve();
@@ -2523,7 +2523,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    bool V3Equal(ref Vector3 V1, ref Vector3 V2)
+    private bool V3Equal(ref Vector3 V1, ref Vector3 V2)
     {
         if (!GSDRootUtil.IsApproximately(V1.x, V2.x, 0.001f))
         {
@@ -2541,7 +2541,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    void EnforceCurve(ref AnimationCurve tCurve)
+    private void EnforceCurve(ref AnimationCurve tCurve)
     {
         if (tCurve == null)
         {
@@ -2560,7 +2560,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    GameObject GetEndObjectQuickAdd()
+    private GameObject GetEndObjectQuickAdd()
     {
         string tPath = "";
         if (tEndObjectAdd == EndObjectsDefaultsEnum.WarningSign1_Static)

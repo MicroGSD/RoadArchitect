@@ -4257,7 +4257,7 @@ namespace GSD.Roads
         }
 
 
-        //		static void TerrainHistorySerialize(ref GSDRoad tRoad) {
+        //		private static void TerrainHistorySerialize(ref GSDRoad tRoad) {
         //			MemoryStream ms = new MemoryStream();
         //	        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
         //			formatter.Serialize(ms,tRoad.TerrainHistory);
@@ -4266,7 +4266,7 @@ namespace GSD.Roads
         //	        ms = null;
         //	    }
         //		
-        //		static void TerrainHistoryDeserialize(ref GSDRoad tRoad) {
+        //		private static void TerrainHistoryDeserialize(ref GSDRoad tRoad) {
         //			MemoryStream ms = new MemoryStream(tRoad.TerrainHistoryRaw);
         //	        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
         //			tRoad.TerrainHistory = (List<GSDTerrainHistoryMaker>)formatter.Deserialize(ms);
@@ -4373,13 +4373,13 @@ namespace GSD.Roads
             }
 
 
-            static bool IsApproximately(float a, float b)
+            private static bool IsApproximately(float a, float b)
             {
                 return IsApproximately(a, b, 0.01f);
             }
 
 
-            static bool IsApproximately(float a, float b, float tolerance)
+            private static bool IsApproximately(float a, float b, float tolerance)
             {
                 return Mathf.Abs(a - b) < tolerance;
             }
@@ -4559,9 +4559,9 @@ namespace GSD.Roads
         public class Construction2DRect
         {
             public Vector2 P1, P2, P3, P4;
-            const float NearDist = 0.15f;
-            const float NearDistSQ = 0.0225f;
-            Vector2[] poly;
+            private const float NearDist = 0.15f;
+            private const float NearDistSQ = 0.0225f;
+            private Vector2[] poly;
             public float MaxDistance = 200f;
             public float MaxDistanceSQ = 200f;
             public float Height = 0f;
@@ -4569,13 +4569,13 @@ namespace GSD.Roads
             public float MaxI = 0f;
 
 
-            static bool IsApproximately(float a, float b)
+            private static bool IsApproximately(float a, float b)
             {
                 return IsApproximately(a, b, 0.01f);
             }
 
 
-            static bool IsApproximately(float a, float b, float tolerance)
+            private static bool IsApproximately(float a, float b, float tolerance)
             {
                 return Mathf.Abs(a - b) < tolerance;
             }
@@ -4836,11 +4836,11 @@ namespace GSD.Roads
 
 
 
-            Vector2 x1 = default(Vector2);
-            Vector2 x2 = default(Vector2);
-            Vector2 oldPoint = default(Vector2);
-            Vector2 newPoint = default(Vector2);
-            bool inside = false;
+            private Vector2 x1 = default(Vector2);
+            private Vector2 x2 = default(Vector2);
+            private Vector2 oldPoint = default(Vector2);
+            private Vector2 newPoint = default(Vector2);
+            private bool inside = false;
 
             //				public bool Contains(ref Vector2 p){
             //					return Contains_Do(ref p);
@@ -5401,13 +5401,13 @@ namespace GSD.Roads
 
     public static class GSDIntersectionObjects
     {
-        static bool IsApproximately(float a, float b)
+        private static bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
 
 
-        static bool IsApproximately(float a, float b, float tolerance)
+        private static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }

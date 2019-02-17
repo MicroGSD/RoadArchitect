@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class GSDHelpWindow : EditorWindow
 {
-    void OnGUI()
+    private void OnGUI()
     {
         EditorStyles.label.wordWrap = true;
         EditorStyles.miniLabel.wordWrap = true;

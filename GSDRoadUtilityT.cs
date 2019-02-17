@@ -25,7 +25,7 @@ namespace GSD.Threaded
 
 
         /*
-        static Vector3 ProcessLineHeights_PrevVect = new Vector3(0f, 0f, 0f);
+        private static Vector3 ProcessLineHeights_PrevVect = new Vector3(0f, 0f, 0f);
 
 
         public static float ProcessLineHeights(GSDSplineC tSpline, ref Vector3 tVect, ref Vector3 POS, float tDistance, GSD.Roads.GSDTerraforming.TempTerrainData TTD, float PrevDesiredHeight)
@@ -8474,19 +8474,19 @@ namespace GSD.Threaded
         }
 
 
-        bool IsApproximately(float a, float b)
+        private bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
 
 
-        bool IsApproximately(float a, float b, float tolerance)
+        private bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
 
 
-        int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
+        private int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
         {
             return a.Key.CompareTo(b.Key);
         }
@@ -8555,19 +8555,19 @@ namespace GSD.Threaded
         }
 
 
-        static bool IsApproximately(float a, float b)
+        private static bool IsApproximately(float a, float b)
         {
             return IsApproximately(a, b, 0.01f);
         }
 
 
-        static bool IsApproximately(float a, float b, float tolerance)
+        private static bool IsApproximately(float a, float b, float tolerance)
         {
             return Mathf.Abs(a - b) < tolerance;
         }
 
 
-        static int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
+        private static int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
         {
             return a.Key.CompareTo(b.Key);
         }

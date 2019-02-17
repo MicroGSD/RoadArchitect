@@ -47,13 +47,13 @@ public class GSDTerrainEditor : Editor
     };
 
     //Editor only variables:
-    string[] tRoads = null;
-    string[] tRoadsString = null;
-    Texture btnRefreshText = null;
-    GUIStyle GSDImageButton = null;
-    Texture2D LoadBtnBG = null;
-    Texture2D LoadBtnBGGlow = null;
-    GUIStyle GSDLoadButton = null;
+    private string[] tRoads = null;
+    private string[] tRoadsString = null;
+    private Texture btnRefreshText = null;
+    private GUIStyle GSDImageButton = null;
+    private Texture2D LoadBtnBG = null;
+    private Texture2D LoadBtnBGGlow = null;
+    private GUIStyle GSDLoadButton = null;
 
 
     private void OnEnable()
@@ -212,7 +212,7 @@ public class GSDTerrainEditor : Editor
     }
 
 
-    void InitNullChecks()
+    private void InitNullChecks()
     {
         if (btnRefreshText == null)
         {
@@ -292,7 +292,7 @@ public class GSDTerrainEditor : Editor
     }
 
 
-    void Line()
+    private void Line()
     {
         GUILayout.Space(4f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1)); //Horizontal bar

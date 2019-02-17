@@ -22,73 +22,73 @@ public class GSDRoadEditor : Editor
     protected GSDRoad RS { get { return (GSDRoad) target; } }
 
     //Serialized properties:
-    SerializedProperty t_opt_GizmosEnabled;
-    SerializedProperty t_opt_Lanes;
-    SerializedProperty t_opt_LaneWidth;
-    SerializedProperty t_opt_bShouldersEnabled;
-    SerializedProperty t_opt_ShoulderWidth;
-    SerializedProperty t_opt_RoadDefinition;
-    SerializedProperty t_opt_UseDefaultMaterials;
-    SerializedProperty t_opt_bMaxGradeEnabled;
-    SerializedProperty t_opt_MaxGrade;
-    SerializedProperty t_opt_bMultithreading;
-    SerializedProperty t_opt_bSaveMeshes;
-    SerializedProperty t_opt_TerrainSubtract_Match;
-    SerializedProperty t_opt_MagnitudeThreshold;
-    SerializedProperty t_opt_HeightModEnabled;
-    SerializedProperty t_opt_DetailModEnabled;
-    SerializedProperty t_opt_TreeModEnabled;
-    SerializedProperty t_opt_MatchHeightsDistance;
-    SerializedProperty t_opt_ClearDetailsDistance;
-    SerializedProperty t_opt_ClearDetailsDistanceHeight;
-    SerializedProperty t_opt_ClearTreesDistance;
-    SerializedProperty t_opt_ClearTreesDistanceHeight;
-    SerializedProperty t_opt_SaveTerrainHistoryOnDisk;
-    SerializedProperty t_opt_bRoadCuts;
-    SerializedProperty t_opt_bDynamicCuts;
-    SerializedProperty t_opt_bShoulderCuts;
-    SerializedProperty t_bEditorCameraRotate;
-    SerializedProperty t_EditorCameraMetersPerSecond;
-    SerializedProperty t_opt_bUseMeshColliders;
-    SerializedProperty t_opt_tRoadMaterialDropdown;
-    SerializedProperty t_opt_bIsStatic;
-    SerializedProperty t_opt_bIsLightmapped;
+    private SerializedProperty t_opt_GizmosEnabled;
+    private SerializedProperty t_opt_Lanes;
+    private SerializedProperty t_opt_LaneWidth;
+    private SerializedProperty t_opt_bShouldersEnabled;
+    private SerializedProperty t_opt_ShoulderWidth;
+    private SerializedProperty t_opt_RoadDefinition;
+    private SerializedProperty t_opt_UseDefaultMaterials;
+    private SerializedProperty t_opt_bMaxGradeEnabled;
+    private SerializedProperty t_opt_MaxGrade;
+    private SerializedProperty t_opt_bMultithreading;
+    private SerializedProperty t_opt_bSaveMeshes;
+    private SerializedProperty t_opt_TerrainSubtract_Match;
+    private SerializedProperty t_opt_MagnitudeThreshold;
+    private SerializedProperty t_opt_HeightModEnabled;
+    private SerializedProperty t_opt_DetailModEnabled;
+    private SerializedProperty t_opt_TreeModEnabled;
+    private SerializedProperty t_opt_MatchHeightsDistance;
+    private SerializedProperty t_opt_ClearDetailsDistance;
+    private SerializedProperty t_opt_ClearDetailsDistanceHeight;
+    private SerializedProperty t_opt_ClearTreesDistance;
+    private SerializedProperty t_opt_ClearTreesDistanceHeight;
+    private SerializedProperty t_opt_SaveTerrainHistoryOnDisk;
+    private SerializedProperty t_opt_bRoadCuts;
+    private SerializedProperty t_opt_bDynamicCuts;
+    private SerializedProperty t_opt_bShoulderCuts;
+    private SerializedProperty t_bEditorCameraRotate;
+    private SerializedProperty t_EditorCameraMetersPerSecond;
+    private SerializedProperty t_opt_bUseMeshColliders;
+    private SerializedProperty t_opt_tRoadMaterialDropdown;
+    private SerializedProperty t_opt_bIsStatic;
+    private SerializedProperty t_opt_bIsLightmapped;
 
-    SerializedProperty t_RoadMaterial1;
-    SerializedProperty t_RoadMaterial2;
-    SerializedProperty t_RoadMaterial3;
-    SerializedProperty t_RoadMaterial4;
-    SerializedProperty t_RoadMaterialMarker1;
-    SerializedProperty t_RoadMaterialMarker2;
-    SerializedProperty t_RoadMaterialMarker3;
-    SerializedProperty t_RoadMaterialMarker4;
-    SerializedProperty t_ShoulderMaterial1;
-    SerializedProperty t_ShoulderMaterial2;
-    SerializedProperty t_ShoulderMaterial3;
-    SerializedProperty t_ShoulderMaterial4;
-    SerializedProperty t_ShoulderMaterialMarker1;
-    SerializedProperty t_ShoulderMaterialMarker2;
-    SerializedProperty t_ShoulderMaterialMarker3;
-    SerializedProperty t_ShoulderMaterialMarker4;
-    SerializedProperty t_RoadPhysicMaterial;
-    SerializedProperty t_ShoulderPhysicMaterial;
+    private SerializedProperty t_RoadMaterial1;
+    private SerializedProperty t_RoadMaterial2;
+    private SerializedProperty t_RoadMaterial3;
+    private SerializedProperty t_RoadMaterial4;
+    private SerializedProperty t_RoadMaterialMarker1;
+    private SerializedProperty t_RoadMaterialMarker2;
+    private SerializedProperty t_RoadMaterialMarker3;
+    private SerializedProperty t_RoadMaterialMarker4;
+    private SerializedProperty t_ShoulderMaterial1;
+    private SerializedProperty t_ShoulderMaterial2;
+    private SerializedProperty t_ShoulderMaterial3;
+    private SerializedProperty t_ShoulderMaterial4;
+    private SerializedProperty t_ShoulderMaterialMarker1;
+    private SerializedProperty t_ShoulderMaterialMarker2;
+    private SerializedProperty t_ShoulderMaterialMarker3;
+    private SerializedProperty t_ShoulderMaterialMarker4;
+    private SerializedProperty t_RoadPhysicMaterial;
+    private SerializedProperty t_ShoulderPhysicMaterial;
 
     //Editor only variables:
-    string status = "Show help";
-    const string tOnlineHelpDesc = "Visit the online manual for the most effective help.";
-    bool bShowCutsHelp = false;
-    bool bShowMatsHelp = false;
-    bool bShowHelpRoad = false;
-    bool bShowHelpTerrain = false;
-    bool bShowCameraHelp = false;
-    GUIStyle GSDLoadButton = null;
-    bool bResetTH = false;
+    private string status = "Show help";
+    private const string tOnlineHelpDesc = "Visit the online manual for the most effective help.";
+    private bool bShowCutsHelp = false;
+    private bool bShowMatsHelp = false;
+    private bool bShowHelpRoad = false;
+    private bool bShowHelpTerrain = false;
+    private bool bShowCameraHelp = false;
+    private GUIStyle GSDLoadButton = null;
+    private bool bResetTH = false;
     public enum tempEnum { Two, Four, Six };
-    Texture btnRefreshText = null;
-    Texture btnDeleteText = null;
-    Texture btnRefreshTextReal = null;
-    tempEnum LanesEnum = tempEnum.Two;
-    tempEnum tLanesEnum = tempEnum.Two;
+    private Texture btnRefreshText = null;
+    private Texture btnDeleteText = null;
+    private Texture btnRefreshTextReal = null;
+    private tempEnum LanesEnum = tempEnum.Two;
+    private tempEnum tLanesEnum = tempEnum.Two;
 
     private static string[] tempEnumDescriptions = new string[]{
         "Two",
@@ -96,21 +96,21 @@ public class GSDRoadEditor : Editor
         "Six"
     };
 
-    GUIStyle WarningLabelStyle;
-    Texture2D WarningLabelBG;
-    GUIStyle GSDImageButton = null;
-    GUIStyle GSDMaybeButton = null;
-    bool bHasInit = false;
-    Texture2D LoadBtnBG = null;
-    Texture2D LoadBtnBGGlow = null;
+    private GUIStyle WarningLabelStyle;
+    private Texture2D WarningLabelBG;
+    private GUIStyle GSDImageButton = null;
+    private GUIStyle GSDMaybeButton = null;
+    private bool bHasInit = false;
+    private Texture2D LoadBtnBG = null;
+    private Texture2D LoadBtnBGGlow = null;
 
     //Buffers:
-    //float TempChangeChecker = 0f;
-    //bool bMatChange = false;
-    bool bNeedRoadUpdate = false;
-    bool bSetDefaultMats = false;
-    bool bApplyMatsCheck = false;
-    bool t_bApplyMatsCheck = false;
+    //private float TempChangeChecker = 0f;
+    //private bool bMatChange = false;
+    private bool bNeedRoadUpdate = false;
+    private bool bSetDefaultMats = false;
+    private bool bApplyMatsCheck = false;
+    private bool t_bApplyMatsCheck = false;
 
 
     private void OnEnable()
@@ -168,7 +168,7 @@ public class GSDRoadEditor : Editor
     }
 
 
-    void Init()
+    private void Init()
     {
         bHasInit = true;
         EditorStyles.label.wordWrap = true;
@@ -1475,7 +1475,7 @@ public class GSDRoadEditor : Editor
     }
 
 
-    void SetSelectionToRoad()
+    private void SetSelectionToRoad()
     {
         GameObject[] tObjs = new GameObject[1];
         tObjs[0] = RS.transform.gameObject;
@@ -1493,7 +1493,7 @@ public class GSDRoadEditor : Editor
     /// <param name='tL'>
     /// Label of the progress bar.
     /// </param>
-    void GSDProgressBar(float tV, string tL)
+    private void GSDProgressBar(float tV, string tL)
     {
         // Get a rect for the progress bar using the same margins as a textfield:
         Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
@@ -1504,7 +1504,7 @@ public class GSDRoadEditor : Editor
 
 
     // FH_Tag Optimizable
-    void Line()
+    private void Line()
     {
         GUILayout.Space(4f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
@@ -1512,7 +1512,7 @@ public class GSDRoadEditor : Editor
     }
 
 
-    void LineSmall()
+    private void LineSmall()
     {
         GUILayout.Space(1f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar

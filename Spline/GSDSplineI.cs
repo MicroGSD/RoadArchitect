@@ -146,7 +146,7 @@ public class GSDSplineI : MonoBehaviour
     private float GizmoDrawMeters = 1f;
 
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (!bGizmoDraw)
         {
@@ -491,7 +491,7 @@ public int GetNodeCount()
 
 
 #region "Start"
-void Start()
+private void Start()
 {
 #if UNITY_EDITOR
     //Do nothing.

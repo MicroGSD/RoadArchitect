@@ -10,17 +10,17 @@ using System.Collections;
 /// </summary>
 public class GSDNotification : EditorWindow
 {
-    string notification = "This is a Notification";
+    private string notification = "This is a Notification";
 
 
-    static void Initialize()
+    private static void Initialize()
     {
         GSDNotification window = EditorWindow.GetWindow<GSDNotification>();
         window.Show();
     }
 
 
-    void OnGUI()
+    private void OnGUI()
     {
         notification = EditorGUILayout.TextField(notification);
         if (GUILayout.Button("Show Notification"))

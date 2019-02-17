@@ -10,10 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 
 
 ### Changed
-- 
+- Changed links, which redirected to Github, with the Github Wiki Link of the Master. Closed embeddedt/RoadArchitect/issues/6
 
 ### Added
-- 
+- Added missing private attribute on some Vars and Functions
 
 ### Fixed
 - 

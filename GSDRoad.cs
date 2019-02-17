@@ -132,7 +132,7 @@ public class GSDRoad : MonoBehaviour
     public float EditorConstructionStartTime = 0f;
 
 
-    void CleanRunTime()
+    private void CleanRunTime()
     {
         //Make sure unused items are not using memory space in runtime:
         TerrainHistory = null;
@@ -144,7 +144,7 @@ public class GSDRoad : MonoBehaviour
     public System.Exception tError = null;
 
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (!Application.isEditor)
         {
@@ -187,17 +187,17 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    int EditorTimer = 0;
-    int EditorTimerMax = 0;
-    int EditorTimerSpline = 0;
-    const int EditorTimerSplineMax = 2;
+    private int EditorTimer = 0;
+    private int EditorTimerMax = 0;
+    private int EditorTimerSpline = 0;
+    private const int EditorTimerSplineMax = 2;
     [System.NonSerialized]
     public int EditorProgress = 0;
-    const int GizmoNodeTimerMax = 2;
+    private const int GizmoNodeTimerMax = 2;
     public bool EditorUpdateMe = false;
     public bool bTriggerGC = false;
-    bool bTriggerGC_Happening;
-    float TriggerGC_End = 0f;
+    private bool bTriggerGC_Happening;
+    private float TriggerGC_End = 0f;
 
 
     private void EditorUpdate()
@@ -322,22 +322,22 @@ public class GSDRoad : MonoBehaviour
     [System.NonSerialized]
     public float EditorCameraPos = 0f;
     //	float EditorCameraPos_Full = 0f;
-    const float EditorCameraTimeUpdateInterval = 0.015f;
-    float EditorCameraNextMove = 0f;
-    bool bEditorCameraSetup = false;
-    float EditorCameraStartPos = 0f;
-    float EditorCameraEndPos = 1f;
-    float EditorCameraIncrementDistance = 0f;
-    float EditorCameraIncrementDistance_Full = 0f;
+    private const float EditorCameraTimeUpdateInterval = 0.015f;
+    private float EditorCameraNextMove = 0f;
+    private bool bEditorCameraSetup = false;
+    private float EditorCameraStartPos = 0f;
+    private float EditorCameraEndPos = 1f;
+    private float EditorCameraIncrementDistance = 0f;
+    private float EditorCameraIncrementDistance_Full = 0f;
     public float EditorCameraMetersPerSecond = 60f;
     public bool bEditorCameraRotate = false;
-    Vector3 EditorCameraV1 = default(Vector3);
-    Vector3 EditorCameraV2 = default(Vector3);
+    private Vector3 EditorCameraV1 = default(Vector3);
+    private Vector3 EditorCameraV2 = default(Vector3);
     [System.NonSerialized]
     public Vector3 EditorCameraOffset = new Vector3(0f, 5f, 0f);
     [System.NonSerialized]
     public Camera EditorPlayCamera = null;
-    Vector3 EditorCameraBadVec = default(Vector3);
+    private Vector3 EditorCameraBadVec = default(Vector3);
 
 
     public void DoEditorCameraLoop()
@@ -476,7 +476,7 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    void RoadUpdateProgressBar()
+    private void RoadUpdateProgressBar()
     {
         if (Editor_bIsConstructing)
         {
@@ -796,6 +796,8 @@ public class GSDRoad : MonoBehaviour
             }
         }
     }
+
+
     public void ConstructRoad_ResetTerrainHistory()
     {
         GSDRoad tRoad = this;
@@ -808,6 +810,8 @@ public class GSDRoad : MonoBehaviour
             GSDRoadUtil.ConstructRoad_ResetTerrainHistory(ref tRoad);
         }
     }
+
+
     public void ConstructRoad_LoadTerrainHistory(bool bForce = false)
     {
         if (opt_SaveTerrainHistoryOnDisk || bForce)
@@ -922,6 +926,7 @@ public class GSDRoad : MonoBehaviour
         RoadCalcsJob1.Start();
     }
 
+
     private void ConstructRoad3()
     {
         EditorProgress = 84;
@@ -934,6 +939,7 @@ public class GSDRoad : MonoBehaviour
         RoadCalcsJob2.Start();
         EditorProgress = 98;
     }
+
 
     private void ConstructRoad4()
     {
@@ -1071,7 +1077,7 @@ public class GSDRoad : MonoBehaviour
     public readonly Color Color_NodeInter = new Color(0f, 1f, 0f, 0.75f);
 
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (Editor_MouseTerrainHit)
         {
@@ -1091,11 +1097,11 @@ public class GSDRoad : MonoBehaviour
 
 #if UNITY_EDITOR
     public float EditorCameraTimer = 0f;
-    float EditorTestTimer = 0f;
-    bool bEditorTestTimer = true;
+    private float EditorTestTimer = 0f;
+    private bool bEditorTestTimer = true;
 
 
-    void Update()
+    private void Update()
     {
         if (Application.isEditor && bEditorCameraMoving)
         {
@@ -1129,7 +1135,7 @@ public class GSDRoad : MonoBehaviour
 
 
     // TODO: Needs a proper Name, who did this anyway? // FH 29.01.19
-    static void akjsdfkajlgffdghfsdghsdf()
+    private static void akjsdfkajlgffdghfsdghsdf()
     {
         int LoopMax = 1000;
         DoShort(LoopMax);
@@ -1138,7 +1144,7 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    static void DoShort(int LoopMax)
+    private static void DoShort(int LoopMax)
     {
         ushort[] tSubject = new ushort[25000];
         //		int tInt = 0;
@@ -1153,7 +1159,7 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    static void DoInt(int LoopMax)
+    private static void DoInt(int LoopMax)
     {
         int[] tSubject = new int[25000];
         //		int tInt = 0;
@@ -1168,7 +1174,7 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    static void DoLong(int LoopMax)
+    private static void DoLong(int LoopMax)
     {
         long[] tSubject = new long[25000];
         //		int tInt = 0;
@@ -1521,7 +1527,7 @@ public class GSDRoad : MonoBehaviour
 
 
     #region "Materials"
-    void CheckMats()
+    private void CheckMats()
     {
         if (!opt_UseDefaultMaterials)
         {
@@ -1702,7 +1708,7 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-    void Wireframes_Toggle_Help(ref MeshRenderer[] tMRs)
+    private void Wireframes_Toggle_Help(ref MeshRenderer[] tMRs)
     {
         int tCount = tMRs.Length;
         for (int i = 0; i < tCount; i++)
@@ -1715,7 +1721,7 @@ public class GSDRoad : MonoBehaviour
 #endif
 
 
-    void Start()
+    private void Start()
     {
 #if UNITY_EDITOR
         if (Application.isPlaying)

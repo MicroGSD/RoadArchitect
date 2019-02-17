@@ -35,12 +35,12 @@ public class GSDTrafficLightController
     public iLightStatusEnum iLightStatus = iLightStatusEnum.Red;
     public iLightSubStatusEnum iLightSubStatus = iLightSubStatusEnum.Green;
 
-    bool bLeft = false;
-    bool bRight = false;
-    bool bMain = false;
-    bool bUseSharedMaterial = false;
-    bool bLeftTurnYieldOnGreen = true;
-    bool bLightsEnabled = true;
+    private bool bLeft = false;
+    private bool bRight = false;
+    private bool bMain = false;
+    private bool bUseSharedMaterial = false;
+    private bool bLeftTurnYieldOnGreen = true;
+    private bool bLightsEnabled = true;
 
 
     #region "Constructor"

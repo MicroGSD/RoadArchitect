@@ -9,7 +9,7 @@ public class GSDSplineCEditor : Editor
 {
     protected GSDSplineC tSpline { get { return (GSDSplineC) target; } }
 
-    int browseNode = 0;
+    private int browseNode = 0;
 
 
     public override void OnInspectorGUI()

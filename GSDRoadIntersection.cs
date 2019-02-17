@@ -344,7 +344,7 @@ public class GSDRoadIntersection : MonoBehaviour
 
 
     #region "Gizmos"
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (!bDrawGizmo)
         {
@@ -358,7 +358,7 @@ public class GSDRoadIntersection : MonoBehaviour
 
 
     #region "Traffic light controlling"
-    void Start()
+    private void Start()
     {
         LightsRR.Setup(bLeftTurnYieldOnGreen);
         LightsRL.Setup(bLeftTurnYieldOnGreen);
@@ -428,7 +428,7 @@ public class GSDRoadIntersection : MonoBehaviour
     }
 
 
-    int FixedTimeIndex = 0;
+    private int FixedTimeIndex = 0;
 
 
     private void FixedTime_Increment()

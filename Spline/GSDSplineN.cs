@@ -593,7 +593,7 @@ public class GSDSplineN : MonoBehaviour
     public bool bGizmoDrawIntersectionHighlight = false;
 
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (GSDSpline == null)
         {
@@ -642,7 +642,7 @@ public class GSDSplineN : MonoBehaviour
     }
 
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (!GSDSpline.tRoad.opt_GizmosEnabled)
         {
@@ -1791,7 +1791,7 @@ public class GSDSplineN : MonoBehaviour
     #endregion
 
 
-    void Start()
+    private void Start()
     {
 #if UNITY_EDITOR
         //Do nothing.

@@ -3873,7 +3873,7 @@ namespace GSD.Roads.Splination
         }
 
 
-        void DoStretch(ref Vector3[] OrigVerts, ref Vector2[] OrigUV, ref int[] OrigTris, ref List<int> MaxVectorIndices, ref List<int> MinVectorIndices, float mMaxDiff, out Vector3[] tVerts, out Vector2[] tUV, out Vector3[] tNormals, out int[] tTris)
+        private void DoStretch(ref Vector3[] OrigVerts, ref Vector2[] OrigUV, ref int[] OrigTris, ref List<int> MaxVectorIndices, ref List<int> MinVectorIndices, float mMaxDiff, out Vector3[] tVerts, out Vector2[] tUV, out Vector3[] tNormals, out int[] tTris)
         {
             Vector3 tVect1 = tNode.pos;
             Vector3 tVect2 = default(Vector3);
@@ -3952,7 +3952,7 @@ namespace GSD.Roads.Splination
         }
 
 
-        Vector3 GetAverageNormalToGround(GameObject tObj)
+        private Vector3 GetAverageNormalToGround(GameObject tObj)
         {
             Ray tRay = default(Ray);
             RaycastHit[] tRayHit = null;

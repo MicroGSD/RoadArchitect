@@ -45,20 +45,20 @@ public class GSDWizard : EditorWindow
     };
 
 
-    WindowTypeEnum tWindowType = WindowTypeEnum.Extrusion;
-    WindowTypeEnum xWindowType = WindowTypeEnum.Extrusion;
-    WindowTypeEnumShort StWindowType = WindowTypeEnumShort.Extrusion;
-    WindowTypeEnumShort SxWindowType = WindowTypeEnumShort.Extrusion;
-    static string xPath = "";
+    private WindowTypeEnum tWindowType = WindowTypeEnum.Extrusion;
+    private WindowTypeEnum xWindowType = WindowTypeEnum.Extrusion;
+    private WindowTypeEnumShort StWindowType = WindowTypeEnumShort.Extrusion;
+    private WindowTypeEnumShort SxWindowType = WindowTypeEnumShort.Extrusion;
+    private static string xPath = "";
 
-    GUIStyle ThumbStyle;
-    Vector2 scrollPos = new Vector2(0f, 25f);
-    GSDSplineN tNode = null;
-    List<GSDRoadUtil.WizardObject> oList = null;
-    bool bNoGUI = false;
+    private GUIStyle ThumbStyle;
+    private Vector2 scrollPos = new Vector2(0f, 25f);
+    private GSDSplineN tNode = null;
+    private List<GSDRoadUtil.WizardObject> oList = null;
+    private bool bNoGUI = false;
 
 
-    void OnGUI()
+    private void OnGUI()
     {
         DoGUI();
     }
@@ -244,7 +244,7 @@ public class GSDWizard : EditorWindow
     }
 
 
-    bool DoItem(int x1, int y1, int i)
+    private bool DoItem(int x1, int y1, int i)
     {
         if (oList[i].Thumb != null)
         {
@@ -990,7 +990,7 @@ public class GSDWizard : EditorWindow
     }
 
 
-    void oListSort()
+    private void oListSort()
     {
         oList.Sort((GSDRoadUtil.WizardObject t1, GSDRoadUtil.WizardObject t2) =>
         {

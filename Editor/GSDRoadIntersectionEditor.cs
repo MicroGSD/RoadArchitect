@@ -11,63 +11,63 @@ public class GSDRoadIntersectionEditor : Editor
 {
     protected GSDRoadIntersection tInter { get { return (GSDRoadIntersection) target; } }
 
-    SerializedProperty t_opt_AutoUpdateIntersections;
-    SerializedProperty t_bDrawGizmo;
-    SerializedProperty t_bLeftTurnYieldOnGreen;
-    SerializedProperty t_opt_FixedTime_RegularLightLength;
-    SerializedProperty t_opt_FixedTime_LeftTurnLightLength;
-    SerializedProperty t_opt_FixedTime_AllRedLightLength;
-    SerializedProperty t_opt_FixedTime_YellowLightLength;
-    SerializedProperty t_bTrafficPoleStreetLight;
-    SerializedProperty t_bTrafficLightGray;
-    SerializedProperty t_bRegularPoleAlignment;
-    SerializedProperty t_bLightsEnabled;
-    SerializedProperty t_StreetLight_Range;
-    SerializedProperty t_StreetLight_Intensity;
-    SerializedProperty t_StreetLight_Color;
-    SerializedProperty t_ScalingSense;
-    SerializedProperty t_GradeMod;
-    SerializedProperty t_bUseDefaultMaterials;
-    SerializedProperty t_MarkerCenter1;
-    SerializedProperty t_MarkerCenter2;
-    SerializedProperty t_MarkerCenter3;
-    SerializedProperty t_MarkerExt_Stretch1;
-    SerializedProperty t_MarkerExt_Stretch2;
-    SerializedProperty t_MarkerExt_Stretch3;
-    SerializedProperty t_MarkerExt_Tiled1;
-    SerializedProperty t_MarkerExt_Tiled2;
-    SerializedProperty t_MarkerExt_Tiled3;
-    SerializedProperty t_Lane0Mat1;
-    SerializedProperty t_Lane0Mat2;
-    SerializedProperty t_Lane1Mat1;
-    SerializedProperty t_Lane1Mat2;
-    SerializedProperty t_Lane2Mat1;
-    SerializedProperty t_Lane2Mat2;
-    SerializedProperty t_Lane3Mat1;
-    SerializedProperty t_Lane3Mat2;
-    SerializedProperty t_rType;
-    SerializedProperty t_iStopType;
-    SerializedProperty t_lType;
+    private SerializedProperty t_opt_AutoUpdateIntersections;
+    private SerializedProperty t_bDrawGizmo;
+    private SerializedProperty t_bLeftTurnYieldOnGreen;
+    private SerializedProperty t_opt_FixedTime_RegularLightLength;
+    private SerializedProperty t_opt_FixedTime_LeftTurnLightLength;
+    private SerializedProperty t_opt_FixedTime_AllRedLightLength;
+    private SerializedProperty t_opt_FixedTime_YellowLightLength;
+    private SerializedProperty t_bTrafficPoleStreetLight;
+    private SerializedProperty t_bTrafficLightGray;
+    private SerializedProperty t_bRegularPoleAlignment;
+    private SerializedProperty t_bLightsEnabled;
+    private SerializedProperty t_StreetLight_Range;
+    private SerializedProperty t_StreetLight_Intensity;
+    private SerializedProperty t_StreetLight_Color;
+    private SerializedProperty t_ScalingSense;
+    private SerializedProperty t_GradeMod;
+    private SerializedProperty t_bUseDefaultMaterials;
+    private SerializedProperty t_MarkerCenter1;
+    private SerializedProperty t_MarkerCenter2;
+    private SerializedProperty t_MarkerCenter3;
+    private SerializedProperty t_MarkerExt_Stretch1;
+    private SerializedProperty t_MarkerExt_Stretch2;
+    private SerializedProperty t_MarkerExt_Stretch3;
+    private SerializedProperty t_MarkerExt_Tiled1;
+    private SerializedProperty t_MarkerExt_Tiled2;
+    private SerializedProperty t_MarkerExt_Tiled3;
+    private SerializedProperty t_Lane0Mat1;
+    private SerializedProperty t_Lane0Mat2;
+    private SerializedProperty t_Lane1Mat1;
+    private SerializedProperty t_Lane1Mat2;
+    private SerializedProperty t_Lane2Mat1;
+    private SerializedProperty t_Lane2Mat2;
+    private SerializedProperty t_Lane3Mat1;
+    private SerializedProperty t_Lane3Mat2;
+    private SerializedProperty t_rType;
+    private SerializedProperty t_iStopType;
+    private SerializedProperty t_lType;
 
 
     #region "Editor only variables"
     //Editor only variables
-    const bool bDebug = false;
-    bool bShowMarkerStretch = false;
-    bool bShowMarkerTiled = false;
-    bool bShowMarkerCenter = false;
-    bool bShowTLSense = false;
-    bool bShowTLPole = false;
-    bool bShowLightHelp = false;
-    bool bShowLanes = false;
-    bool bGradeCorrect = false;
-    bool bShowDefaultMatHelp = false;
-    bool bShowHelpLeftTurnGreen = false;
-    string status = "Show help";
+    private const bool bDebug = false;
+    private bool bShowMarkerStretch = false;
+    private bool bShowMarkerTiled = false;
+    private bool bShowMarkerCenter = false;
+    private bool bShowTLSense = false;
+    private bool bShowTLPole = false;
+    private bool bShowLightHelp = false;
+    private bool bShowLanes = false;
+    private bool bGradeCorrect = false;
+    private bool bShowDefaultMatHelp = false;
+    private bool bShowHelpLeftTurnGreen = false;
+    private string status = "Show help";
 
-    GUIStyle GSDImageButton = null;
-    Texture btnRefreshText = null;
-    Texture btnDeleteText = null;
+    private GUIStyle GSDImageButton = null;
+    private Texture btnRefreshText = null;
+    private Texture btnDeleteText = null;
 
 
     private static string[] rTypeDescriptions = new string[]{
@@ -97,14 +97,14 @@ public class GSDRoadIntersectionEditor : Editor
     };
 
 
-    const string HelpText1 = "Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.";
+    private const string HelpText1 = "Each material added is rendered on top of the previous. Combine with transparent shaders which accept shadows to allow for easy marking.";
 
     //Checkers:
-    Texture2D LoadBtnBG = null;
-    Texture2D LoadBtnBGGlow = null;
+    private Texture2D LoadBtnBG = null;
+    private Texture2D LoadBtnBGGlow = null;
 
-    GUIStyle GSDLoadButton = null;
-    bool bHasInit = false;
+    private GUIStyle GSDLoadButton = null;
+    private bool bHasInit = false;
     #endregion
 
 
@@ -1141,7 +1141,7 @@ public class GSDRoadIntersectionEditor : Editor
     }
 
 
-    void Init()
+    private void Init()
     {
         EditorStyles.label.wordWrap = true;
         bHasInit = true;
@@ -1186,7 +1186,7 @@ public class GSDRoadIntersectionEditor : Editor
     }
 
 
-    void DoDefaultHelpMat()
+    private void DoDefaultHelpMat()
     {
         GUILayout.Space(4f);
         EditorGUILayout.BeginHorizontal();
@@ -1199,7 +1199,7 @@ public class GSDRoadIntersectionEditor : Editor
     }
 
 
-    void DoDeleteHelpMat()
+    private void DoDeleteHelpMat()
     {
         GUILayout.Space(4f);
         EditorGUILayout.BeginHorizontal();
@@ -1212,7 +1212,7 @@ public class GSDRoadIntersectionEditor : Editor
     }
 
 
-    void Line()
+    private void Line()
     {
         GUILayout.Space(4f);
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1)); //Horizontal bar
