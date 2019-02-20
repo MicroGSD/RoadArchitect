@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Version: 1.9_FH] - 2019.xx.xx
 ### Improvements
-- 
+- Improved the Help Window with new Layout and Links
 
 ### Changed
 - Changed links, which redirected to Github, with the Github Wiki Link of the Master. Closed embeddedt/RoadArchitect/issues/6
