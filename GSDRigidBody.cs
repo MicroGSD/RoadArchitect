@@ -1,4 +1,6 @@
+#region "Imports"
 using UnityEngine;
+#endregion
 
 
 public class GSDRigidBody : MonoBehaviour

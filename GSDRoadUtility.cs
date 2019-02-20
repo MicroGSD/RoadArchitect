@@ -1,12 +1,14 @@
+#region "Imports"
 using UnityEngine;
 #if UNITY_EDITOR
 using System.Collections.Generic;
-using System.Collections;
+//using System.Collections;                     // Unused
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 #endif
+#endregion
 
 
 // TODO: Remove // comments with /**/  // FH 29.01.19 

@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿#region "Imports"
+using UnityEngine;
 #if UNITY_EDITOR
 using System.Collections.Generic;
-using System.Collections;
-using System.IO;
-using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
+//using System.Collections;                                                         // Unused
+//using System.IO;                                                                      // Unused
+//using System.Text;                                                                    // Unused
+//using System.Runtime.Serialization.Formatters.Binary;             // Unused
+//using System.Runtime.Serialization;                                           // Unused
 #endif
+#endregion
 
 
 namespace GSD.Roads

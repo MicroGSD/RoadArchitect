@@ -1,7 +1,7 @@
-#region Imports
+#region "Imports"
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
+//using System.Collections;               // Unused
 #endregion
 
 
