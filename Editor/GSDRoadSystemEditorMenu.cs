@@ -130,4 +130,11 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         }
         Debug.Log(string.Format("{0:n0}", lineCount) + " lines of code in Road Architect.");
     }
+
+
+    [MenuItem("Window/Road Architect/Report a Bug")]
+    public static void ReportBug()
+    {
+        Application.OpenURL("https://github.com/embeddedt/RoadArchitect/issues");
+    }
 }

@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added missing private attribute on some Vars and Functions
 - Added "Imports" Regions in the Scripts for better overview
+- Added a "Report a Bug" MenuItem, which links to https://github.com/embeddedt/RoadArchitect/issues
 
 ### Fixed
 - 
