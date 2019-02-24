@@ -346,118 +346,118 @@ public class GSDSplineI : MonoBehaviour
         {
             idx = 0;
         }
-    //}    // FH 03.02.19 // Do note, that someone outcommented stuff here, for whatever Reason, but why?
+        //}    // FH 03.02.19 // Do note, that someone outcommented stuff here, for whatever Reason, but why?
 
-    float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
-    param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
+        float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
+        param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
         return GetHermiteInternal(idx, param, _isTangent);
-}
-
-
-public Vector3 GetSplineValue_SkipOpt(float _value, bool _isTangent = false)    // FH 03.02.19 // former VarNames: f = _value; b = _isTangent
-{
-    int index;
-    int idx = -1;
-
-    if (mNodes.Count == 0)
-    {
-        return default(Vector3);
-    }
-    if (mNodes.Count == 1)
-    {
-        return mNodes[0].pos;
     }
 
-    //		if(GSDRootUtil.IsApproximately(_value,0f,0.00001f)){
-    //			if(_isTangent){
-    //				return mNodes[0].tangent;
-    //			}else{
-    //				return mNodes[0].pos;	
-    //			}
-    //		}else 
-    //		if(GSDRootUtil.IsApproximately(_value,1f,0.00001f) || _value > 1f){
-    //			if(_isTangent){
-    //				return mNodes[mNodes.Count-1].tangent;
-    //			}else{
-    //				return mNodes[mNodes.Count-1].pos;	
-    //			}
-    //		}else{
-    for (index = 1; index < mNodes.Count; index++)
+
+    public Vector3 GetSplineValue_SkipOpt(float _value, bool _isTangent = false)    // FH 03.02.19 // former VarNames: f = _value; b = _isTangent
     {
-        if (index == mNodes.Count - 1)
+        int index;
+        int idx = -1;
+
+        if (mNodes.Count == 0)
         {
-            idx = index - 1;
-            break;
+            return default(Vector3);
         }
-        if (mNodes[index].tTime >= _value)
+        if (mNodes.Count == 1)
         {
-            idx = index - 1;
-            break;
+            return mNodes[0].pos;
         }
+
+        //		if(GSDRootUtil.IsApproximately(_value,0f,0.00001f)){
+        //			if(_isTangent){
+        //				return mNodes[0].tangent;
+        //			}else{
+        //				return mNodes[0].pos;	
+        //			}
+        //		}else 
+        //		if(GSDRootUtil.IsApproximately(_value,1f,0.00001f) || _value > 1f){
+        //			if(_isTangent){
+        //				return mNodes[mNodes.Count-1].tangent;
+        //			}else{
+        //				return mNodes[mNodes.Count-1].pos;	
+        //			}
+        //		}else{
+        for (index = 1; index < mNodes.Count; index++)
+        {
+            if (index == mNodes.Count - 1)
+            {
+                idx = index - 1;
+                break;
+            }
+            if (mNodes[index].tTime >= _value)
+            {
+                idx = index - 1;
+                break;
+            }
+        }
+        if (idx < 0)
+        {
+            idx = 0;
+        }
+        // }      
+
+        float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
+        param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
+        return GetHermiteInternal(idx, param, _isTangent);
     }
-    if (idx < 0)
+
+
+    private Vector3 GetHermiteInternal(int i, double t, bool bTangent = false)
     {
-        idx = 0;
-    }
-    // }      
+        double t2, t3;
+        float BL0, BL1, BL2, BL3, tension;
 
-    float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
-    param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
-    return GetHermiteInternal(idx, param, _isTangent);
-}
+        if (!bTangent)
+        {
+            t2 = t * t;
+            t3 = t2 * t;
+        }
+        else
+        {
+            t2 = t * t;
+            t = t * 2.0;
+            t2 = t2 * 3.0;
+            t3 = 0; //Necessary for compiler error.
+        }
 
+        //Vectors:
+        Vector3 P0 = mNodes[NGI(i, NI[0])].pos;
+        Vector3 P1 = mNodes[NGI(i, NI[1])].pos;
+        Vector3 P2 = mNodes[NGI(i, NI[2])].pos;
+        Vector3 P3 = mNodes[NGI(i, NI[3])].pos;
 
-private Vector3 GetHermiteInternal(int i, double t, bool bTangent = false)
-{
-    double t2, t3;
-    float BL0, BL1, BL2, BL3, tension;
+        //Tension:
+        tension = 0.5f; // 0.5 equivale a catmull-rom
 
-    if (!bTangent)
-    {
-        t2 = t * t;
-        t3 = t2 * t;
-    }
-    else
-    {
-        t2 = t * t;
-        t = t * 2.0;
-        t2 = t2 * 3.0;
-        t3 = 0; //Necessary for compiler error.
-    }
+        //Tangents:
+        P2 = (P1 - P2) * tension;
+        P3 = (P3 - P0) * tension;
 
-    //Vectors:
-    Vector3 P0 = mNodes[NGI(i, NI[0])].pos;
-    Vector3 P1 = mNodes[NGI(i, NI[1])].pos;
-    Vector3 P2 = mNodes[NGI(i, NI[2])].pos;
-    Vector3 P3 = mNodes[NGI(i, NI[3])].pos;
+        if (!bTangent)
+        {
+            BL0 = (float) (CM[0] * t3 + CM[1] * t2 + CM[2] * t + CM[3]);
+            BL1 = (float) (CM[4] * t3 + CM[5] * t2 + CM[6] * t + CM[7]);
+            BL2 = (float) (CM[8] * t3 + CM[9] * t2 + CM[10] * t + CM[11]);
+            BL3 = (float) (CM[12] * t3 + CM[13] * t2 + CM[14] * t + CM[15]);
+        }
+        else
+        {
+            BL0 = (float) (CM[0] * t2 + CM[1] * t + CM[2]);
+            BL1 = (float) (CM[4] * t2 + CM[5] * t + CM[6]);
+            BL2 = (float) (CM[8] * t2 + CM[9] * t + CM[10]);
+            BL3 = (float) (CM[12] * t2 + CM[13] * t + CM[14]);
+        }
 
-    //Tension:
-    tension = 0.5f; // 0.5 equivale a catmull-rom
-
-    //Tangents:
-    P2 = (P1 - P2) * tension;
-    P3 = (P3 - P0) * tension;
-
-    if (!bTangent)
-    {
-        BL0 = (float) (CM[0] * t3 + CM[1] * t2 + CM[2] * t + CM[3]);
-        BL1 = (float) (CM[4] * t3 + CM[5] * t2 + CM[6] * t + CM[7]);
-        BL2 = (float) (CM[8] * t3 + CM[9] * t2 + CM[10] * t + CM[11]);
-        BL3 = (float) (CM[12] * t3 + CM[13] * t2 + CM[14] * t + CM[15]);
-    }
-    else
-    {
-        BL0 = (float) (CM[0] * t2 + CM[1] * t + CM[2]);
-        BL1 = (float) (CM[4] * t2 + CM[5] * t + CM[6]);
-        BL2 = (float) (CM[8] * t2 + CM[9] * t + CM[10]);
-        BL3 = (float) (CM[12] * t2 + CM[13] * t + CM[14]);
+        return BL0 * P0 + BL1 * P1 + BL2 * P2 + BL3 * P3;
     }
 
-    return BL0 * P0 + BL1 * P1 + BL2 * P2 + BL3 * P3;
-}
 
-
-private static readonly double[] CM = new double[] {
+    private static readonly double[] CM = new double[] {
          2.0, -3.0,  0.0,  1.0,
         -2.0,  3.0,  0.0,  0.0,
          1.0, -2.0,  1.0,  0.0,
@@ -465,39 +465,39 @@ private static readonly double[] CM = new double[] {
     };
 
 
-private static readonly int[] NI = new int[] { 0, 1, -1, 2 };
+    private static readonly int[] NI = new int[] { 0, 1, -1, 2 };
 
 
-private int NGI(int i, int o)
-{
-    int NGITI = i + o;
-    if (bClosed)
+    private int NGI(int i, int o)
     {
-        return (NGITI % mNodes.Count + mNodes.Count) % mNodes.Count;
+        int NGITI = i + o;
+        if (bClosed)
+        {
+            return (NGITI % mNodes.Count + mNodes.Count) % mNodes.Count;
+        }
+        else
+        {
+            return Mathf.Clamp(NGITI, 0, mNodes.Count - 1);
+        }
     }
-    else
+    #endregion
+
+
+    public int GetNodeCount()
     {
-        return Mathf.Clamp(NGITI, 0, mNodes.Count - 1);
+        return mNodes.Count;
     }
-}
-#endregion
-
-
-public int GetNodeCount()
-{
-    return mNodes.Count;
-}
 #endif
 
 
-#region "Start"
-private void Start()
-{
+    #region "Start"
+    private void Start()
+    {
 #if UNITY_EDITOR
-    //Do nothing.
+        //Do nothing.
 #else
 			this.enabled = false;
 #endif
-}
+    }
     #endregion
 }

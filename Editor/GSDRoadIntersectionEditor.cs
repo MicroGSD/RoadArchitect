@@ -357,7 +357,6 @@ public class GSDRoadIntersectionEditor : Editor
                 if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
                 {
                     t_StreetLight_Color.colorValue = new Color(1f, 0.7451f, 0.27451f, 1f);
-                    ;
                 }
                 EditorGUILayout.EndHorizontal();
             }
@@ -496,7 +495,9 @@ public class GSDRoadIntersectionEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PropertyField(t_MarkerCenter1, new GUIContent("  Mat #1: "));
         if (tInter.MarkerCenter1 != null && GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
-        { tInter.MarkerCenter1 = null; }
+        {
+            tInter.MarkerCenter1 = null;
+        }
         EditorGUILayout.EndHorizontal();
 
         if (tInter.MarkerCenter1 != null)
@@ -504,7 +505,9 @@ public class GSDRoadIntersectionEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(t_MarkerCenter2, new GUIContent("  Mat #2: "));
             if (tInter.MarkerCenter2 != null && GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
-            { tInter.MarkerCenter2 = null; }
+            {
+                tInter.MarkerCenter2 = null;
+            }
             EditorGUILayout.EndHorizontal();
         }
         if (tInter.MarkerCenter2 != null && tInter.MarkerCenter1 != null)
@@ -512,7 +515,9 @@ public class GSDRoadIntersectionEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(t_MarkerCenter3, new GUIContent("  Mat #3: "));
             if (tInter.MarkerCenter3 != null && GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
-            { tInter.MarkerCenter3 = null; }
+            {
+                tInter.MarkerCenter3 = null;
+            }
             EditorGUILayout.EndHorizontal();
         }
 
@@ -668,7 +673,9 @@ public class GSDRoadIntersectionEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(t_Lane1Mat2, new GUIContent("Lane section 1 mat #2:"));
             if (tInter.Lane1Mat2 != null && GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
-            { tInter.Lane1Mat2 = null; }
+            {
+                tInter.Lane1Mat2 = null;
+            }
             EditorGUILayout.EndHorizontal();
         }
 
@@ -687,7 +694,9 @@ public class GSDRoadIntersectionEditor : Editor
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(t_Lane2Mat2, new GUIContent("Lane section 2 mat #2:"));
                 if (tInter.Lane2Mat2 != null && GUILayout.Button(btnDeleteText, GSDImageButton, GUILayout.Width(16f)))
-                { tInter.Lane2Mat2 = null; }
+                {
+                    tInter.Lane2Mat2 = null;
+                }
                 EditorGUILayout.EndHorizontal();
             }
         }
