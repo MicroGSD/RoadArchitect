@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Outcommented unused using directives
 - Changed LICENSE to an md file
 - Minor Layout changes
+- Deleted GSDEditorSkin, since it has no purpose at all
 
 ### Added
 - Added missing private attribute on some Vars and Functions
