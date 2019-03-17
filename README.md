@@ -1,17 +1,17 @@
 # RoadArchitect
-[![GitHub release](https://img.shields.io/github/release/embeddedt/RoadArchitect.svg)]()
-[![Github All Releases](https://img.shields.io/github/downloads/embeddedt/RoadArchitect/total.svg)]()
-[![GitHub contributors](https://img.shields.io/github/contributors/embeddedt/RoadArchitect.svg)]()
+[![GitHub release](https://img.shields.io/github/release/FritzsHero/RoadArchitect.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/FritzsHero/RoadArchitect/total.svg)]()
+[![GitHub contributors](https://img.shields.io/github/contributors/FritzsHero/RoadArchitect.svg)]()
 [![Join the chat at https://gitter.im/NewRoadArchitect/community](https://badges.gitter.im/NewRoadArchitect/community.svg)](https://gitter.im/NewRoadArchitect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
-Road Architect is currently being developed with Unity 2018.2.0f1. If interested in contributing please open an issue or pull request.
+Road Architect is currently being developed with Unity 2018.3.8f1. If interested in contributing please open an issue or pull request.
 
-- Currently, I recommend downloading the main git repository by either using `git clone https://github.com/embeddedt/RoadArchitect.git` or downloading a ZIP from GitHub.
+- Currently, I recommend downloading the main git repository by either using `git clone https://github.com/FritzsHero/RoadArchitect.git` or using Embeddedt's Repo: `git clone https://github.com/embeddedt/RoadArchitect.git`  downloading a ZIP from GitHub.
 - The resulting folder should be copied to the root of your Assets directory and may need to be renamed to RoadArchitect (instead of RoadArchitect-master).
-- The previously recommended way to install Road Architect was to use the unity package on the releases page, but I have not yet made a release since forking from the original RoadArchitect in October 2018.
-- https://github.com/embeddedt/RoadArchitect/releases
+- A preview for upcoming versions should be availible under downloads
+- https://github.com/FritzsHero/RoadArchitect/releases
 - Documentation https://github.com/embeddedt/RoadArchitect/wiki/Documentation
    - Note: The Road Architect menu is located under the "Window" menu.
 
