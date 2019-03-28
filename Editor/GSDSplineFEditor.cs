@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 //using UnityEngine;                    // Unused
 using UnityEditor;
@@ -15,3 +16,4 @@ public class GSDSplineFEditor : Editor
         //Intentionally left empty.
     }
 }
+#endif

@@ -11,7 +11,7 @@ http://wiki.unity3d.com/index.php?title=ObjExporter
 http://wiki.unity3d.com/index.php/User:KeliHlodversson
 */
 
-
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -391,3 +391,4 @@ public class GSDObjExporter : ScriptableObject
         Application.OpenURL("http://wiki.unity3d.com/index.php?title=ObjExporter");
     }
 }
+#endif

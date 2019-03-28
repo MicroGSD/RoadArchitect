@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -2607,3 +2608,4 @@ public class GSDSplineNEditor : Editor
         return (GameObject) UnityEditor.AssetDatabase.LoadAssetAtPath(tPath, typeof(GameObject)) as GameObject;
     }
 }
+#endif

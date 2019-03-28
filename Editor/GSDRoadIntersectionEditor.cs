@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -1228,3 +1229,4 @@ public class GSDRoadIntersectionEditor : Editor
         GUILayout.Space(4f);
     }
 }
+#endif

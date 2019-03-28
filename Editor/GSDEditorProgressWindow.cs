@@ -1,7 +1,6 @@
-#region "Imports"
 #if UNITY_EDITOR
+#region "Imports"
 using UnityEditor;
-#endif
 using UnityEngine;
 #endregion
 
@@ -16,16 +15,13 @@ public class GSDEditorProgressWindow : EditorWindow
     private float progress = 0f;
 
 
-#if UNITY_EDITOR
     private static void Init()
     {
         GSDEditorProgressWindow window = (GSDEditorProgressWindow) EditorWindow.GetWindow(typeof(GSDEditorProgressWindow));
         window.Show();
     }
-#endif
 
 
-#if UNITY_EDITOR
     private void OnGUI()
     {
         secs = EditorGUILayout.FloatField("Time to wait:", secs);
@@ -59,5 +55,6 @@ public class GSDEditorProgressWindow : EditorWindow
     {
         Repaint();
     }
-#endif
+
 }
+#endif

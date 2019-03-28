@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -299,3 +300,4 @@ public class GSDTerrainEditor : Editor
         GUILayout.Space(4f);
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -96,3 +97,4 @@ public class GSDHelpWindow : EditorWindow
     }
     #endregion
 }
+#endif

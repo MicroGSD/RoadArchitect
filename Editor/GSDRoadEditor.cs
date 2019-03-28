@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #region "Imports"
 using UnityEngine;
 using UnityEditor;
@@ -1520,3 +1521,4 @@ public class GSDRoadEditor : Editor
     }
     // FH_Tag Optimizable
 }
+#endif
