@@ -1,9 +1,6 @@
 #region "Imports"
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections.Generic;
-using GSD;
-#endif
 #endregion
 
 
@@ -349,7 +346,7 @@ public class GSDSplineI : MonoBehaviour
         //}    // FH 03.02.19 // Do note, that someone outcommented stuff here, for whatever Reason, but why?
 
         float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
-        param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
+        param = GSD.GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
         return GetHermiteInternal(idx, param, _isTangent);
     }
 
@@ -402,7 +399,7 @@ public class GSDSplineI : MonoBehaviour
         // }      
 
         float param = (_value - mNodes[idx].tTime) / (mNodes[idx + 1].tTime - mNodes[idx].tTime);
-        param = GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
+        param = GSD.GSDRootUtil.Ease(param, mNodes[idx].EaseIO.x, mNodes[idx].EaseIO.y);
         return GetHermiteInternal(idx, param, _isTangent);
     }
 

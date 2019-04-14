@@ -1,8 +1,6 @@
 #region "Imports"
 using UnityEngine;
-#if UNITY_EDITOR
 using System.Collections.Generic;
-#endif
 #endregion
 
 
