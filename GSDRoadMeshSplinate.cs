@@ -63,7 +63,7 @@ namespace GSD.Roads.Splination
         public bool bBCFlipZ = false;
 
 
-        #region Horizontal offsets:
+        #region "Horizontal offsets"
         public float HorizontalSep = 0f;
         public AnimationCurve HorizontalCurve;
         public float HorizCurve_tempchecker1 = 0f;
@@ -77,7 +77,7 @@ namespace GSD.Roads.Splination
         #endregion
 
 
-        #region Vertical offsets:
+        #region "Vertical offsets"
         public float VerticalRaise = 0f;
         public AnimationCurve VerticalCurve;
         public float VerticalCurve_tempchecker1 = 0f;
@@ -91,7 +91,7 @@ namespace GSD.Roads.Splination
         #endregion
 
 
-        #region Vertical cutoff
+        #region "Vertical cutoff"
         public float VerticalCutoff = 0f;
         public bool bVerticalCutoff = false;
         public bool bVerticalCutoffDownwards = false;
@@ -124,7 +124,7 @@ namespace GSD.Roads.Splination
         public bool bNoCenterMode = true;
 
 
-        #region End objects:
+        #region "End objects"
         public GameObject EndCapStart = null;
         public GameObject EndCapEnd = null;
         public GameObject EndCapStartOutput = null;
@@ -140,7 +140,7 @@ namespace GSD.Roads.Splination
         #endregion
 
 
-        #region Endings down:
+        #region "Endings down"
         public bool bStartDown = false;
         public bool bStartTypeDownOverride = false;
         public float StartTypeDownOverride = 0f;
@@ -150,7 +150,7 @@ namespace GSD.Roads.Splination
         #endregion
 
 
-        #region Collision:
+        #region "Collision"
         public CollisionTypeEnum CollisionType = CollisionTypeEnum.SimpleMeshTriangle;
         public bool bCollisionConvex = false;
         public bool bSimpleCollisionAutomatic = true;

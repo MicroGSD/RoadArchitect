@@ -512,7 +512,9 @@ public class GSDRoad : MonoBehaviour
 
 
         if (bProfiling)
-        { UnityEngine.Profiling.Profiler.BeginSample("UpdateRoadPrelim"); }
+        {
+            UnityEngine.Profiling.Profiler.BeginSample("UpdateRoadPrelim");
+        }
         opt_RoadDefinition = Mathf.Clamp(opt_RoadDefinition, 1f, 50f);
         opt_LaneWidth = Mathf.Clamp(opt_LaneWidth, 0.2f, 500f);
         EditorConstructionStartTime = Time.realtimeSinceStartup;
@@ -530,7 +532,9 @@ public class GSDRoad : MonoBehaviour
 
         bProfiling = true;
         if (GSDRS.opt_bMultithreading)
-        { bProfiling = false; }
+        {
+            bProfiling = false;
+        }
 
         //Set all terrains to height 0:
         GSD.Roads.GSDTerraforming.CheckAllTerrainsHeight0();
@@ -540,11 +544,20 @@ public class GSDRoad : MonoBehaviour
         if (Editor_bIsConstructing)
         {
             if (TerrainCalcsJob != null)
-            { TerrainCalcsJob.Abort(); TerrainCalcsJob = null; }
+            {
+                TerrainCalcsJob.Abort();
+                TerrainCalcsJob = null;
+            }
             if (RoadCalcsJob1 != null)
-            { RoadCalcsJob1.Abort(); RoadCalcsJob1 = null; }
+            {
+                RoadCalcsJob1.Abort();
+                RoadCalcsJob1 = null;
+            }
             if (RoadCalcsJob2 != null)
-            { RoadCalcsJob2.Abort(); RoadCalcsJob2 = null; }
+            {
+                RoadCalcsJob2.Abort();
+                RoadCalcsJob2 = null;
+            }
             Editor_bIsConstructing = false;
         }
 
@@ -673,29 +686,53 @@ public class GSDRoad : MonoBehaviour
         {
             //Delete old objs and return:
             if (MainMeshes != null)
-            { Object.DestroyImmediate(MainMeshes); }
+            {
+                Object.DestroyImmediate(MainMeshes);
+            }
             if (MeshRoad != null)
-            { Object.DestroyImmediate(MeshRoad); }
+            {
+                Object.DestroyImmediate(MeshRoad);
+            }
             if (MeshShoR != null)
-            { Object.DestroyImmediate(MeshShoR); }
+            {
+                Object.DestroyImmediate(MeshShoR);
+            }
             if (MeshShoL != null)
-            { Object.DestroyImmediate(MeshShoL); }
+            {
+                Object.DestroyImmediate(MeshShoL);
+            }
             if (MeshiLanes != null)
-            { Object.DestroyImmediate(MeshiLanes); }
+            {
+                Object.DestroyImmediate(MeshiLanes);
+            }
             if (MeshiLanes0 != null)
-            { Object.DestroyImmediate(MeshiLanes0); }
+            {
+                Object.DestroyImmediate(MeshiLanes0);
+            }
             if (MeshiLanes1 != null)
-            { Object.DestroyImmediate(MeshiLanes1); }
+            {
+                Object.DestroyImmediate(MeshiLanes1);
+            }
             if (MeshiLanes2 != null)
-            { Object.DestroyImmediate(MeshiLanes2); }
+            {
+                Object.DestroyImmediate(MeshiLanes2);
+            }
             if (MeshiLanes3 != null)
-            { Object.DestroyImmediate(MeshiLanes3); }
+            {
+                Object.DestroyImmediate(MeshiLanes3);
+            }
             if (MeshiMainPlates != null)
-            { Object.DestroyImmediate(MeshiMainPlates); }
+            {
+                Object.DestroyImmediate(MeshiMainPlates);
+            }
             if (MeshiMarkerPlates != null)
-            { Object.DestroyImmediate(MeshiMarkerPlates); }
+            {
+                Object.DestroyImmediate(MeshiMarkerPlates);
+            }
             if (bProfiling)
-            { UnityEngine.Profiling.Profiler.EndSample(); }
+            {
+                UnityEngine.Profiling.Profiler.EndSample();
+            }
             return;
         }
 
@@ -740,7 +777,9 @@ public class GSDRoad : MonoBehaviour
         tTerrain = null;
 
         if (bProfiling)
-        { UnityEngine.Profiling.Profiler.EndSample(); }
+        {
+            UnityEngine.Profiling.Profiler.EndSample();
+        }
 
         if (GSDRS.opt_bMultithreading)
         {

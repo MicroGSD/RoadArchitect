@@ -28,7 +28,7 @@ public class GSDSplineNEditor : Editor
     private float HorizRoadMax = 0;
 
 
-    #region Button icons:
+    #region "Button icons"
     private Texture btnDeleteText = null;
     private Texture btnCopyText = null;
     private Texture btnSaveText = null;
@@ -396,7 +396,7 @@ public class GSDSplineNEditor : Editor
 
         Line();
 
-        #region Online Manual on Top of SplineN Scripts
+        #region "Online Manual on Top of SplineN Scripts"
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField(tNode.EditorDisplayString, EditorStyles.boldLabel);
 
@@ -419,7 +419,7 @@ public class GSDSplineNEditor : Editor
         #endregion
 
 
-        #region Option: Manual road cut:
+        #region "Option: Manual road cut"
         if (tNode.idOnSpline > 0 && tNode.idOnSpline < (tNode.GSDSpline.GetNodeCount() - 1) && !tNode.bIsIntersection && !tNode.bSpecialEndNode)
         { // && !cNode.bIsBridge_PreNode && !cNode.bIsBridge_PostNode){
             if (tNode.GSDSpline.tRoad.opt_bDynamicCuts)
@@ -1025,7 +1025,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.EndVertical();
 
 
-            #region Vertical offset:
+            #region "Vertical offset"
             EditorGUILayout.LabelField("Vertical options:");
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
@@ -1038,9 +1038,11 @@ public class GSDSplineNEditor : Editor
             #endregion
 
 
-            #region Vertical curve:
+            #region "Vertical curve"
             if (SMM.VerticalCurve == null || SMM.VerticalCurve.keys.Length < 2)
-            { EnforceCurve(ref SMM.VerticalCurve); }
+            {
+                EnforceCurve(ref SMM.VerticalCurve);
+            }
             EditorGUILayout.BeginHorizontal();
             SMM.EM.VerticalCurve = EditorGUILayout.CurveField("Curve: ", SMM.VerticalCurve);
             if (GUILayout.Button(btnDefaultText, GSDImageButton, GUILayout.Width(16f)))
@@ -1052,7 +1054,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.EndVertical();
 
 
-            #region Horizontal offsets:
+            #region "Horizontal offsets"
             SMM.EM.HorizontalSep = SMM.HorizontalSep;
             EditorGUILayout.LabelField("Horizontal offset options:");
             EditorGUILayout.BeginVertical("box");
@@ -1495,7 +1497,7 @@ public class GSDSplineNEditor : Editor
             }
 
 
-            #region Material override:
+            #region "Material override"
             EOM.EM.bMaterialOverride = EditorGUILayout.Toggle("Material override: ", EOM.bMaterialOverride);
             if (!EOM.bMaterialOverride)
             {
@@ -1582,7 +1584,7 @@ public class GSDSplineNEditor : Editor
             #endregion
 
 
-            #region Combine Mesh / MeshCollider
+            #region "Combine Mesh / MeshCollider"
             if (EOM.bSingle)
             {
                 EOM.EM.bCombineMesh = false;
@@ -1599,7 +1601,7 @@ public class GSDSplineNEditor : Editor
             #endregion
 
 
-            #region SingleObject
+            #region "SingleObject"
             EOM.EM.bSingle = EditorGUILayout.Toggle("Single object only: ", EOM.bSingle);
             if (EOM.EM.bSingle != EOM.bSingle)
             {
@@ -1641,7 +1643,7 @@ public class GSDSplineNEditor : Editor
             }
 
 
-            #region Match Road
+            #region "Match Road"
             EOM.EM.bStartMatchRoadDefinition = EditorGUILayout.Toggle("Match road definition: ", EOM.bStartMatchRoadDefinition);
             if (EOM.bStartMatchRoadDefinition)
             {
@@ -1666,7 +1668,7 @@ public class GSDSplineNEditor : Editor
                 }
 
 
-                #region Start param
+                #region "Start param"
                 EditorGUILayout.BeginHorizontal();
                 EOM.EM.StartTime = EditorGUILayout.Slider("Start param: ", EOM.StartTime, tNode.MinSplination, EOM.EndTime);  // EndTime = 1f??
 
@@ -1684,7 +1686,7 @@ public class GSDSplineNEditor : Editor
                 #endregion
 
 
-                #region End param
+                #region "End param"
                 EditorGUILayout.BeginHorizontal();
                 EOM.EM.EndTime = EditorGUILayout.Slider("End param: ", EOM.EndTime, EOM.StartTime, tNode.MaxSplination);
                 //Mathf.Clamp(EditorGUILayout.Slider( "End param: ", EOM.EndTime, 0f/*EOM.StartTime*/, 1f/*tNode.MaxSplination*/ ), 0f, 1f);
@@ -1717,7 +1719,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.EndVertical();
 
 
-            #region Vertical offset:
+            #region "Vertical offset"
             EditorGUILayout.LabelField("Vertical options:");
             EditorGUILayout.BeginVertical("box");
 
@@ -1744,7 +1746,7 @@ public class GSDSplineNEditor : Editor
             #endregion
 
 
-            #region Horizontal offsets:
+            #region "Horizontal offsets"
             EditorGUILayout.LabelField("Horizontal offset options:");
             EditorGUILayout.BeginVertical("box");
             tHorizMatching = HorizMatchingDefaultsEnum.None;
@@ -1817,7 +1819,7 @@ public class GSDSplineNEditor : Editor
             #endregion
 
 
-            #region Rotation/scale options
+            #region "Rotation/scale options"
             EditorGUILayout.LabelField("Rotation/scale options:");
             EditorGUILayout.BeginVertical("box");
             if (EOM.HorizontalSep < 0f)
@@ -2464,7 +2466,7 @@ public class GSDSplineNEditor : Editor
     }
 
 
-    #region Triggers Interesctions; Connections; Update
+    #region "Triggers Interesctions; Connections; Update"
     private void TriggerRoadConnection(GSDSplineN tNode1, GSDSplineN tNode2)
     {
         tNode.GSDSpline.ActivateEndNodeConnection(tNode1, tNode2);
@@ -2490,7 +2492,7 @@ public class GSDSplineNEditor : Editor
     #endregion
 
 
-    #region Optimizable // LineGUILayout
+    #region "Optimizable // LineGUILayout"
     private void Line()
     {
         GUILayout.Space(4f);

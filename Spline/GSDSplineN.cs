@@ -75,7 +75,7 @@ public class GSDSplineN : MonoBehaviour
     public bool opt_GizmosEnabled = true;
 
 
-    #region Tunnels:
+    #region "Tunnels"
     public bool bIsTunnel = false;
     public bool bIsTunnelStart = false;
     public bool bIsTunnelEnd = false;

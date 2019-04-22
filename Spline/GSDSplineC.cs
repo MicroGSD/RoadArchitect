@@ -20,7 +20,7 @@ public class GSDSplineC : MonoBehaviour
     public GSDSplineI PreviewSplineInsert;
 
 
-    #region Nav data Vars
+    #region "Nav data Vars"
     public float RoadWidth;
     public int Lanes;
     public List<int> id_connected;
@@ -35,7 +35,7 @@ public class GSDSplineC : MonoBehaviour
     #endregion
 
 
-    #region Vars for intersections:
+    #region "Vars for intersections"
     private const float MetersToCheck_NoTurnLane = 75f;
     private const float MetersToCheck_NoTurnLaneSQ = 5625f;
     private const float MetersToCheck_TurnLane = 125f;
@@ -46,7 +46,7 @@ public class GSDSplineC : MonoBehaviour
     #endregion
 
 
-    #region Road connections and 3-way intersections:
+    #region "Road connections and 3-way intersections"
     public bool bSpecialStartControlNode = false;
     public bool bSpecialEndControlNode = false;
     public bool bSpecialEndNode_IsStart_Delay = false;
@@ -168,7 +168,7 @@ public class GSDSplineC : MonoBehaviour
         RenameNodes();
 
 
-        #region Setup bridge params:
+        #region "Setup bridge params"
         if (BridgeParams != null)
         {
             BridgeParams.Clear();

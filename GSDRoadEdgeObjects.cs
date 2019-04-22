@@ -46,7 +46,7 @@ namespace GSD.Roads.EdgeObjects
         public bool bIsBridge = false;
 
 
-        #region Horizontal offsets:
+        #region "Horizontal offsets"
         public float HorizontalSep = 5f;
         public AnimationCurve HorizontalCurve;
         public float HorizCurve_tempchecker1 = 0f;
@@ -60,7 +60,7 @@ namespace GSD.Roads.EdgeObjects
         #endregion
 
 
-        #region Vertical offsets:
+        #region "Vertical offsets"
         public float VerticalRaise = 0f;
         public AnimationCurve VerticalCurve;
         public float VerticalCurve_tempchecker1 = 0f;

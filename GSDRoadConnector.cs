@@ -17,6 +17,7 @@ public class GSDRoadConnector : MonoBehaviour
 
 
 #if UNITY_EDITOR
+    #region "Gizmos"
     private void OnDrawGizmos()
     {
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadColor;
@@ -29,6 +30,7 @@ public class GSDRoadConnector : MonoBehaviour
         Gizmos.color = GSDOffRoadObject.Color_NodeOffRoadSelectedColor;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 6.25f, 0f), new Vector3(3.5f, 12.5f, 3.5f));
     }
+    #endregion
 
 
     public void ConnectToNode(GSDSplineN node)
