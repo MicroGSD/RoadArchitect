@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Version: 2.0_FH] - 2019.xx.xx
 ### Improvements
--
+- Refactor of Editor code
 
 
 ## [Version: 1.9_FH] - 2019.04.22

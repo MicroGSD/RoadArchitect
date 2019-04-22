@@ -171,7 +171,7 @@ public class GSDRoadIntersectionEditor : Editor
             Init();
         }
 
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         {
             GSDRoad road1 = tInter.Node1.GSDSpline.transform.parent.GetComponent<GSDRoad>();
@@ -180,7 +180,7 @@ public class GSDRoadIntersectionEditor : Editor
             EditorGUILayout.LabelField("Second road: " + road2.name + " node: " + tInter.Node2.name);
         }
         EditorGUILayout.EndHorizontal();
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Intersection options", EditorStyles.boldLabel);
         if (GUILayout.Button("Update intersection", GSDLoadButton))
@@ -210,7 +210,7 @@ public class GSDRoadIntersectionEditor : Editor
             Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
         EditorGUILayout.EndHorizontal();
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginVertical();
         if (GUILayout.Button("Access objects on first road node"))
         {
@@ -222,7 +222,7 @@ public class GSDRoadIntersectionEditor : Editor
         }
         EditorGUILayout.EndVertical();
         //Option: Intersection turn lane options
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.LabelField("Intersection turn lane options:");
         if (tInter.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
         {
@@ -246,7 +246,7 @@ public class GSDRoadIntersectionEditor : Editor
                 EditorGUILayout.EndVertical();
             }
         }
-        Line();
+        RAEditorUtilitys.Line();
 
 
         //Option: Intersection stop type:
@@ -303,7 +303,7 @@ public class GSDRoadIntersectionEditor : Editor
         if (tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight1 || tInter.iStopType == GSDRoadIntersection.iStopTypeEnum.TrafficLight2)
         {
             //Option: Traffic light poles:
-            Line();
+            RAEditorUtilitys.Line();
             EditorGUILayout.LabelField("Traffic light poles:");
             t_bTrafficPoleStreetLight.boolValue = EditorGUILayout.Toggle("Street lights: ", tInter.bTrafficPoleStreetLight);
 
@@ -325,7 +325,7 @@ public class GSDRoadIntersectionEditor : Editor
             }
 
             //Option: Point lights enabled:
-            Line();
+            RAEditorUtilitys.Line();
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Point lights:");
             EditorGUILayout.EndHorizontal();
@@ -380,7 +380,7 @@ public class GSDRoadIntersectionEditor : Editor
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
             }
-            Line();
+            RAEditorUtilitys.Line();
 
             //Option: Traffic light scaling sensitivity:
             EditorGUILayout.LabelField("Traffic light scaling sensitivity: *Does not auto-update");
@@ -417,7 +417,7 @@ public class GSDRoadIntersectionEditor : Editor
         }
 
         //Option: Grade correction modifier:
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Grade correction factor: *Does not auto-update");
         EditorGUILayout.EndHorizontal();
@@ -455,7 +455,7 @@ public class GSDRoadIntersectionEditor : Editor
         }
 
         //Option: Use default materials:
-        Line();
+        RAEditorUtilitys.Line();
         t_bUseDefaultMaterials.boolValue = EditorGUILayout.Toggle("Use default materials:", tInter.bUseDefaultMaterials);
         bShowDefaultMatHelp = EditorGUILayout.Foldout(bShowDefaultMatHelp, status);
         if (bShowDefaultMatHelp)
@@ -466,7 +466,7 @@ public class GSDRoadIntersectionEditor : Editor
         }
 
 
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Center marker material(s):");
         if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
@@ -531,7 +531,7 @@ public class GSDRoadIntersectionEditor : Editor
             DoDeleteHelpMat();
             EditorGUILayout.EndVertical();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //Options: Marker ext stretched materials:
         EditorGUILayout.BeginHorizontal();
@@ -580,7 +580,7 @@ public class GSDRoadIntersectionEditor : Editor
             DoDeleteHelpMat();
             EditorGUILayout.EndVertical();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //Options: Marker ext tiled materials:
         EditorGUILayout.BeginHorizontal();
@@ -630,7 +630,7 @@ public class GSDRoadIntersectionEditor : Editor
             DoDeleteHelpMat();
             EditorGUILayout.EndVertical();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //Option: Lane section 0:
         EditorGUILayout.BeginHorizontal();
@@ -752,7 +752,7 @@ public class GSDRoadIntersectionEditor : Editor
             DoDeleteHelpMat();
             EditorGUILayout.EndVertical();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //		if(bDebug){
         //			Line();
@@ -1219,14 +1219,6 @@ public class GSDRoadIntersectionEditor : Editor
         }
         EditorGUILayout.LabelField(" = Removes material(s) from intersection.");
         EditorGUILayout.EndHorizontal();
-    }
-
-
-    private void Line()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1)); //Horizontal bar
-        GUILayout.Space(4f);
     }
 }
 #endif

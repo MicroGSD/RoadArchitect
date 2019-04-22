@@ -77,7 +77,7 @@ public class GSDTerrainEditor : Editor
         serializedObject.Update();
         InitNullChecks();
 
-        Line();
+        RAEditorUtilitys.DrawLine();
         EditorGUILayout.BeginHorizontal();
         //Main label:
         EditorGUILayout.LabelField("Splat map generation:", EditorStyles.boldLabel);
@@ -290,14 +290,6 @@ public class GSDTerrainEditor : Editor
             }
             tBytes = null;
         }
-    }
-
-
-    private void Line()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1)); //Horizontal bar
-        GUILayout.Space(4f);
     }
 }
 #endif

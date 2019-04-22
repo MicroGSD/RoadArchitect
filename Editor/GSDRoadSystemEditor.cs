@@ -60,12 +60,12 @@ public class GSDRoadSystemEditor : Editor
         InitChecks();
 
         //Add road button:
-        Line();
+        RAEditorUtilitys.Line();
         if (GUILayout.Button("Add road", GSDLoadButton, GUILayout.Width(128f)))
         {// || GUILayout.Button(btnLoadText,GSDImageButton,GUILayout.Width(16f))){
             Selection.activeObject = GSDRS.AddRoad();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //Multi-threading input:
         EditorGUILayout.BeginHorizontal();
@@ -104,7 +104,7 @@ public class GSDRoadSystemEditor : Editor
         {
             GSDRS.EditorCameraSetSingle();
         }
-        Line();
+        RAEditorUtilitys.Line();
 
         //		bHasDoneEither = false;
 
@@ -327,14 +327,6 @@ public class GSDRoadSystemEditor : Editor
     //        	SceneView.lastActiveSceneView.Repaint();
     //		}
     //	}
-
-
-    private void Line()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1)); //Horizontal bar
-        GUILayout.Space(4f);
-    }
 
 
     //	bool bCtrl = false;

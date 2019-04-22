@@ -266,7 +266,7 @@ public class GSDRoadEditor : Editor
 
 
 
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField(RS.transform.name, EditorStyles.boldLabel);
         if (GUILayout.Button("Update road", GSDLoadButton))
@@ -746,7 +746,7 @@ public class GSDRoadEditor : Editor
             GUILayout.Space(4f);
 
 
-            Line();
+            RAEditorUtilitys.Line();
             EditorGUILayout.LabelField("Manual splitting information: ");
             GUILayout.Space(4f);
             EditorGUILayout.LabelField("Choosing manual splitting will force the user to select individual nodes to cut instead of the cuts being performed automatically. This option is recommended if bigger mesh colliders do not cause a slowdown in performance, as it lowers the overall gameobject count.");
@@ -1111,7 +1111,7 @@ public class GSDRoadEditor : Editor
         EditorGUILayout.EndVertical();
 
         //Reset terrain history:
-        Line();
+        RAEditorUtilitys.Line();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Reset road's terrain history:");
         bResetTH = EditorGUILayout.Toggle(bResetTH, GUILayout.Width(20f));
@@ -1502,23 +1502,5 @@ public class GSDRoadEditor : Editor
         EditorGUILayout.Space();
     }
     #endregion
-
-
-    // FH_Tag Optimizable
-    private void Line()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
-        GUILayout.Space(4f);
-    }
-
-
-    private void LineSmall()
-    {
-        GUILayout.Space(1f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
-        GUILayout.Space(1f);
-    }
-    // FH_Tag Optimizable
 }
 #endif

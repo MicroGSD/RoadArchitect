@@ -394,7 +394,7 @@ public class GSDSplineNEditor : Editor
             Init();
         }
 
-        Line();
+        RAEditorUtilitys.Line();
 
         #region "Online Manual on Top of SplineN Scripts"
         EditorGUILayout.BeginHorizontal();
@@ -424,10 +424,10 @@ public class GSDSplineNEditor : Editor
         { // && !cNode.bIsBridge_PreNode && !cNode.bIsBridge_PostNode){
             if (tNode.GSDSpline.tRoad.opt_bDynamicCuts)
             {
-                Line();
+                RAEditorUtilitys.Line();
                 t_bRoadCut = EditorGUILayout.Toggle("Cut road at this node: ", tNode.bRoadCut);
             }
-            Line();
+            RAEditorUtilitys.Line();
         }
         #endregion
 
@@ -451,7 +451,7 @@ public class GSDSplineNEditor : Editor
 
             if (bDidBridge)
             {
-                Line();
+                RAEditorUtilitys.Line();
             }
         }
 
@@ -500,7 +500,7 @@ public class GSDSplineNEditor : Editor
                 EditorGUILayout.LabelField(tNode.SpecialNodeCounterpart.GSDSpline.tRoad.transform.name + " to " + tNode.SpecialNodeCounterpart.SpecialNodeCounterpart.GSDSpline.tRoad.transform.name);
             }
             EditorGUILayout.LabelField("To break this road connection, click the \"Break road connection\" button.");
-            Line();
+            RAEditorUtilitys.Line();
         }
 
         //Statistics:
@@ -698,7 +698,7 @@ public class GSDSplineNEditor : Editor
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
-            Line();
+            RAEditorUtilitys.Line();
         }
         currentCount = 0;
 
@@ -745,7 +745,7 @@ public class GSDSplineNEditor : Editor
 
             EditorGUILayout.EndHorizontal();
         }
-        Line();
+        RAEditorUtilitys.Line();
     }
 
 
@@ -1308,8 +1308,8 @@ public class GSDSplineNEditor : Editor
             SMM.EM.bExactSplination = EditorGUILayout.Toggle("Directional extrusion: ", SMM.bExactSplination);
 
             EditorGUILayout.EndVertical();
-            BigLine();
-            BigLine();
+            RAEditorUtilitys.Line(4f, 4f);  // Big Lines
+            RAEditorUtilitys.Line(4f, 4f);
         }
     }
 
@@ -2488,32 +2488,6 @@ public class GSDSplineNEditor : Editor
         {
             tNode.GSDSpline.tRoad.EditorUpdateMe = true;
         }
-    }
-    #endregion
-
-
-    #region "Optimizable // LineGUILayout"
-    private void Line()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
-        GUILayout.Space(4f);
-    }
-
-
-    private void LineSmall()
-    {
-        GUILayout.Space(2f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1f)); //Horizontal bar
-        GUILayout.Space(2f);
-    }
-
-
-    private void BigLine()
-    {
-        GUILayout.Space(4f);
-        GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(4f)); //Horizontal bar
-        GUILayout.Space(4f);
     }
     #endregion
 
