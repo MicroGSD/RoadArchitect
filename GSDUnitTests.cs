@@ -170,11 +170,11 @@ namespace GSD.Roads
             float StartLocYSep = 200f;
             float tHeight = 20f;
             GSDRoad bRoad = null;
-            if (bRoad == null)
-            { } //Buffer
             GSDRoad tRoad = null;
-            if (tRoad == null)
-            { } //Buffer
+            //if (bRoad == null)
+            //{ } //Buffer
+            //if (tRoad == null)
+            //{ } //Buffer
 
             //Create base road:
             List<Vector3> nodeLocations = new List<Vector3>();

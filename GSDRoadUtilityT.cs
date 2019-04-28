@@ -1224,55 +1224,31 @@ namespace GSD.Threaded
             Vector3 RampR_L = default(Vector3);
             Vector3 RampL_R = default(Vector3);
             Vector3 RampL_L = default(Vector3);
+#pragma warning disable CS0219
             float ShoulderR_OuterAngle = 0f;
-            if (ShoulderR_OuterAngle < 0f)
-            { }
             float ShoulderL_OuterAngle = 0f;
-            if (ShoulderL_OuterAngle < 0f)
-            { }
+
             //			Vector3 ShoulderR_OuterDirection = default(Vector3);
             //			Vector3 ShoulderL_OuterDirection = default(Vector3);
 
             //Previous temp storage values:
             Vector3 tVect_Prev = default(Vector3);
-            if (tVect_Prev == default(Vector3))
-            { } //Prev step storage of road variable.
             Vector3 rVect_Prev = default(Vector3);
-            if (rVect_Prev == default(Vector3))
-            { }//Prev step storage of road variable.
             Vector3 lVect_Prev = default(Vector3);
-            if (lVect_Prev == default(Vector3))
-            { }//Prev step storage of road variable.
             Vector3 ShoulderR_PrevLVect = default(Vector3);
-            if (ShoulderR_PrevLVect == default(Vector3))
-            { }//Prev step storage of shoulder variable.
             Vector3 ShoulderL_PrevRVect = default(Vector3);
-            if (ShoulderL_PrevRVect == default(Vector3))
-            { }//Prev step storage of shoulder variable.
             Vector3 ShoulderR_PrevRVect = default(Vector3);
-            if (ShoulderR_PrevRVect == default(Vector3))
-            { }//Prev step storage of shoulder variable.
             Vector3 ShoulderL_PrevLVect = default(Vector3);
-            if (ShoulderL_PrevLVect == default(Vector3))
-            { }//Prev step storage of shoulder variable.
-               //			Vector3 ShoulderR_PrevRVect2 = default(Vector3);	//Prev storage of shoulder variable (2 step history).
-               //			Vector3 ShoulderL_PrevLVect2 = default(Vector3);	//Prev storage of shoulder variable (2 step history).
-               //			Vector3 ShoulderR_PrevRVect3 = default(Vector3);	//Prev storage of shoulder variable (3 step history).
-               //			Vector3 ShoulderL_PrevLVect3 = default(Vector3);	//Prev storage of shoulder variable (3 step history).
+            //			Vector3 ShoulderR_PrevRVect2 = default(Vector3);	//Prev storage of shoulder variable (2 step history).
+            //			Vector3 ShoulderL_PrevLVect2 = default(Vector3);	//Prev storage of shoulder variable (2 step history).
+            //			Vector3 ShoulderR_PrevRVect3 = default(Vector3);	//Prev storage of shoulder variable (3 step history).
+            //			Vector3 ShoulderL_PrevLVect3 = default(Vector3);	//Prev storage of shoulder variable (3 step history).
             Vector3 RampR_PrevR = default(Vector3);
-            if (RampR_PrevR == default(Vector3))
-            { }//Prev storage of ramp variables (outer shoulder).
             Vector3 RampR_PrevL = default(Vector3);
-            if (RampR_PrevL == default(Vector3))
-            { }//Prev storage of ramp variables (outer shoulder).
             Vector3 RampL_PrevR = default(Vector3);
-            if (RampL_PrevR == default(Vector3))
-            { }//Prev storage of ramp variables (outer shoulder).
             Vector3 RampL_PrevL = default(Vector3);
-            if (RampL_PrevL == default(Vector3))
-            { }//Prev storage of ramp variables (outer shoulder).
-               //			Vector3 ShoulderR_OuterDirectionPrev = default(Vector3);	//Prev storage of outer shoulder direction (euler).
-               //			Vector3 ShoulderL_OuterDirectionPrev = default(Vector3);	//Prev storage of outer shoulder direction (euler).
+            //			Vector3 ShoulderR_OuterDirectionPrev = default(Vector3);	//Prev storage of outer shoulder direction (euler).
+            //			Vector3 ShoulderL_OuterDirectionPrev = default(Vector3);	//Prev storage of outer shoulder direction (euler).
 
             //Height and angle variables, used to change certain parameters of road depending on past & future angle and height changes.
             //			float tAngle = 0f;
@@ -1292,57 +1268,33 @@ namespace GSD.Threaded
             //			bool bTempYWasNegative = false;
             //			Vector3 tY = new Vector3(0f,0f,0f);
             float tHeightAdded = 0f;
-            if (tHeightAdded < 0f)
-            { }
             //			float[] HeightChecks = new float[5];
             Vector3 gHeight = default(Vector3);
 
+#pragma warning disable CS0219
+
             //Bridge variables:
             bool bIsBridge = false;
-            if (bIsBridge == false)
-            { }
             bool bTempbridge = false;
-            if (bTempbridge == false)
-            { }
             bool bBridgeInitial = false;
-            if (bBridgeInitial == false)
-            { }
             bool bBridgeLast = false;
-            if (bBridgeLast == false)
-            { }
             float BridgeUpComing;
             //			int BridgeLIndex;
             //			int BridgeRIndex;
 
             //Tunnel variables:	
             bool bIsTunnel = false;
-            if (bIsTunnel == false)
-            { }
             bool bTempTunnel = false;
-            if (bTempTunnel == false)
-            { }
             bool bTunnelInitial = false;
-            if (bTunnelInitial == false)
-            { }
             bool bTunnelLast = false;
-            if (bTunnelLast == false)
-            { }
             float TunnelUpComing = 0f;
-            if (TunnelUpComing < 0f)
-            { }
             //			int TunnelLIndex;
             //			int TunnelRIndex;
 
-            //Intersection variables and buffers:
+            //Intersection variables:
             float tIntHeight = 0f;
-            if (tIntHeight < 0f)
-            { }
             float tIntStrength = 0f;
-            if (tIntStrength < 0f)
-            { }
             float tIntStrength_temp = 0f;
-            if (tIntStrength_temp < 0f)
-            { }
             //			float tIntDistCheck = 75f;
             GSDRoadIntersection GSDRI = null;
             bool bIsPastInter = false;
@@ -1357,8 +1309,6 @@ namespace GSD.Threaded
             Vector3 RampL_Override = default(Vector3);
             bool bFirstInterNode = false;
             bool bInter_PrevWasCorner = false;
-            if (bInter_PrevWasCorner == false)
-            { }
             bool bInter_CurreIsCorner = false;
             bool bInter_CurreIsCornerRR = false;
             bool bInter_CurreIsCornerRL = false;
@@ -1380,59 +1330,23 @@ namespace GSD.Threaded
             Vector3 tempIVect_Prev = default(Vector3);
             Vector3 tempIVect = tVect;
             bool b0LAdded = false;
-            if (b0LAdded == false)
-            { }
             bool b1LAdded = false;
-            if (b1LAdded == false)
-            { }
             bool b2LAdded = false;
-            if (b2LAdded == false)
-            { }
             bool b3LAdded = false;
-            if (b3LAdded == false)
-            { }
             bool f0LAdded = false;
-            if (f0LAdded == false)
-            { }
             bool f1LAdded = false;
-            if (f1LAdded == false)
-            { }
             bool f2LAdded = false;
-            if (f2LAdded == false)
-            { }
             bool f3LAdded = false;
-            if (f3LAdded == false)
-            { }
             bool b0RAdded = false;
-            if (b0RAdded == false)
-            { }
             bool b1RAdded = false;
-            if (b1RAdded == false)
-            { }
             bool b2RAdded = false;
-            if (b2RAdded == false)
-            { }
             bool b3RAdded = false;
-            if (b3RAdded == false)
-            { }
             bool f0RAdded = false;
-            if (f0RAdded == false)
-            { }
             bool f1RAdded = false;
-            if (f1RAdded == false)
-            { }
             bool f2RAdded = false;
-            if (f2RAdded == false)
-            { }
             bool f3RAdded = false;
-            if (f3RAdded == false)
-            { }
             bool bInterTestAddAfterR = false;
-            if (bInterTestAddAfterR == false)
-            { }
             bool bInterTestAddAfterL = false;
-            if (bInterTestAddAfterL == false)
-            { }
             //			Vector3 InterTestVect1 = default(Vector3);
             //			Vector3 InterTestVect2 = default(Vector3);
             //			Vector3 InterTestVect3 = default(Vector3);
@@ -1451,52 +1365,24 @@ namespace GSD.Threaded
             float CullDistanceSQ = (3f * RoadWidth) * (3f * RoadWidth);
             float mCornerDist = 0f;
             Vector2 CornerRR = default(Vector2);
-            if (CornerRR == default(Vector2))
-            { }
             Vector2 CornerRL = default(Vector2);
-            if (CornerRL == default(Vector2))
-            { }
             Vector2 CornerLR = default(Vector2);
-            if (CornerLR == default(Vector2))
-            { }
             Vector2 CornerLL = default(Vector2);
-            if (CornerLL == default(Vector2))
-            { }
             Vector2 rVect2D = default(Vector2);
-            if (rVect2D == default(Vector2))
-            { }
             Vector2 lVect2D = default(Vector2);
-            if (lVect2D == default(Vector2))
-            { }
             Vector3 tempIVect_prev = default(Vector3);
-            if (tempIVect_prev == default(Vector3))
-            { }
             Vector3 POS_Next = default(Vector3);
-            if (POS_Next == default(Vector3))
-            { }
             Vector3 tVect_Next = default(Vector3);
-            if (tVect_Next == default(Vector3))
-            { }
             Vector3 rVect_Next = default(Vector3);
-            if (rVect_Next == default(Vector3))
-            { }
             Vector3 lVect_Next = default(Vector3);
-            if (lVect_Next == default(Vector3))
-            { }
             Vector3 xHeight = default(Vector3);
-            if (xHeight == default(Vector3))
-            { }
             bool bLRtoRR = false;
             bool bLLtoLR = false;
             bool bLine = false;
             bool bImmuneR = false;
             bool bImmuneL = false;
             bool bSpecAddedL = false;
-            if (bSpecAddedL == false)
-            { }
             bool bSpecAddedR = false;
-            if (bSpecAddedR == false)
-            { }
             bool bTriggerInterAddition = false;
             bool bSpecialThreeWayIgnoreR = false;
             bool bSpecialThreeWayIgnoreL = false;
@@ -1519,7 +1405,9 @@ namespace GSD.Threaded
             //			bool bBridgesOn = tRoad.RCS.bBridgesOn;
             //			if(tRoad.RCS.bRoadOn){
             bInterseOn = true;
-            //			}	
+            //			}
+#pragma warning restore CS0219
+
 
             //Prelim intersection construction and profiling:
             if (tRoad.bProfiling)
@@ -4175,8 +4063,6 @@ namespace GSD.Threaded
             float RoadSeperation = RoadWidth / 2f;
             float RoadSeperation_NoTurn = RoadWidth / 2f;
             float ShoulderSeperation = RoadSeperation + ShoulderWidth;
-            if (ShoulderSeperation < 0f)
-            { }
             float LaneWidth = tRoad.opt_LaneWidth;
             float RoadSep1Lane = (RoadSeperation + (LaneWidth * 0.5f));
             float RoadSep2Lane = (RoadSeperation + (LaneWidth * 1.5f));
@@ -4184,9 +4070,9 @@ namespace GSD.Threaded
             bool bIsPastInter = false;
             bool bOldMethod = false;
             //bool bCancel = false; if (bTempCancel) { }
+#pragma warning disable CS0219
             bool bTempCancel = false;
-            if (bTempCancel)
-            { }
+#pragma warning restore CS0219
 
             //If left collides with left, etc
 
@@ -5166,23 +5052,16 @@ namespace GSD.Threaded
 
         private static void AddIntersectionBounds(ref GSDRoad tRoad, ref GSD.Roads.RoadConstructorBufferMaker RCS)
         {
+#pragma warning disable CS0219
             bool bIsBridge = false;
             bool bBridgeInitial = false;
-            if (bBridgeInitial == false)
-            { }
             bool bTempbridge = false;
             bool bBridgeLast = false;
-            if (bBridgeLast == false)
-            { }
 
             bool bIsTunnel = false;
             bool bTunnelInitial = false;
-            if (bTunnelInitial == false)
-            { }
             bool bTempTunnel = false;
             bool bTunnelLast = false;
-            if (bTunnelLast == false)
-            { }
 
             GSDRoadIntersection GSDRI = null;
             bool bIsPastInter = false;
@@ -5196,71 +5075,35 @@ namespace GSD.Threaded
             //			float tIntDistCheck = 75f;
             bool bFirstInterNode = false;
             Vector3 tVect_Prev = default(Vector3);
-            if (tVect_Prev == default(Vector3))
-            { }
             Vector3 rVect_Prev = default(Vector3);
-            if (rVect_Prev == default(Vector3))
-            { }
             Vector3 lVect_Prev = default(Vector3);
-            if (lVect_Prev == default(Vector3))
-            { }
             Vector3 rVect = default(Vector3);
-            if (rVect == default(Vector3))
-            { }
             Vector3 lVect = default(Vector3);
-            if (lVect == default(Vector3))
-            { }
             Vector3 ShoulderR_rVect = default(Vector3);
-            if (ShoulderR_rVect == default(Vector3))
-            { }
             Vector3 ShoulderR_lVect = default(Vector3);
-            if (ShoulderR_lVect == default(Vector3))
-            { }
             Vector3 ShoulderL_rVect = default(Vector3);
-            if (ShoulderL_rVect == default(Vector3))
-            { }
             Vector3 ShoulderL_lVect = default(Vector3);
-            if (ShoulderL_lVect == default(Vector3))
-            { }
 
             Vector3 RampR_R = default(Vector3);
             Vector3 RampR_L = default(Vector3);
             Vector3 RampL_R = default(Vector3);
             Vector3 RampL_L = default(Vector3);
+
             float ShoulderR_OuterAngle = 0f;
-            if (ShoulderR_OuterAngle < 0f)
-            { }
             float ShoulderL_OuterAngle = 0f;
-            if (ShoulderL_OuterAngle < 0f)
-            { }
+#pragma warning restore CS0219
             Vector3 ShoulderR_PrevLVect = default(Vector3);
-            if (ShoulderR_PrevLVect == default(Vector3))
-            { }
             Vector3 ShoulderL_PrevRVect = default(Vector3);
-            if (ShoulderL_PrevRVect == default(Vector3))
-            { }
             Vector3 ShoulderR_PrevRVect = default(Vector3);
-            if (ShoulderR_PrevRVect == default(Vector3))
-            { }
             Vector3 ShoulderL_PrevLVect = default(Vector3);
-            if (ShoulderL_PrevLVect == default(Vector3))
-            { }
             //			Vector3 ShoulderR_PrevRVect2 = default(Vector3);
             //			Vector3 ShoulderL_PrevLVect2 = default(Vector3);
             //			Vector3 ShoulderR_PrevRVect3 = default(Vector3);
             //			Vector3 ShoulderL_PrevLVect3 = default(Vector3);
             Vector3 RampR_PrevR = default(Vector3);
-            if (RampR_PrevR == default(Vector3))
-            { }
             Vector3 RampR_PrevL = default(Vector3);
-            if (RampR_PrevL == default(Vector3))
-            { }
             Vector3 RampL_PrevR = default(Vector3);
-            if (RampL_PrevR == default(Vector3))
-            { }
             Vector3 RampL_PrevL = default(Vector3);
-            if (RampL_PrevL == default(Vector3))
-            { }
             GSDSplineC tSpline = tRoad.GSDSpline;
             //Road width:
             float RoadWidth = tRoad.RoadWidth();
@@ -5272,11 +5115,7 @@ namespace GSD.Threaded
             float RoadSep1Lane = (RoadSeperation + (LaneWidth * 0.5f));
             float RoadSep2Lane = (RoadSeperation + (LaneWidth * 1.5f));
             float ShoulderSep1Lane = (ShoulderSeperation + (LaneWidth * 0.5f));
-            if (ShoulderSep1Lane < 0f)
-            { }
             float ShoulderSep2Lane = (ShoulderSeperation + (LaneWidth * 1.5f));
-            if (ShoulderSep2Lane < 0f)
-            { }
 
             //			float tAngle = 0f;
             //			float OrigStep = 0.06f;
@@ -6116,53 +5955,21 @@ namespace GSD.Threaded
             Vector3 tVect = default(Vector3);
 
             bool biBLane0L = (iCon.iBLane0L.Count > 0);
-            if (biBLane0L == false)
-            { }
             bool biBLane0R = (iCon.iBLane0R.Count > 0);
-            if (biBLane0R == false)
-            { }
             bool biBMainPlateL = (iCon.iBMainPlateL.Count > 0);
-            if (biBMainPlateL == false)
-            { }
             bool biBMainPlateR = (iCon.iBMainPlateR.Count > 0);
-            if (biBMainPlateR == false)
-            { }
             bool biFLane0L = (iCon.iFLane0L.Count > 0);
-            if (biFLane0L == false)
-            { }
             bool biFLane0R = (iCon.iFLane0R.Count > 0);
-            if (biFLane0R == false)
-            { }
             bool biFMainPlateL = (iCon.iFMainPlateL.Count > 0);
-            if (biFMainPlateL == false)
-            { }
             bool biFMainPlateR = (iCon.iFMainPlateR.Count > 0);
-            if (biFMainPlateR == false)
-            { }
             bool biBLane2L = (iCon.iBLane2L.Count > 0);
-            if (biBLane2L == false)
-            { }
             bool biBLane2R = (iCon.iBLane2R.Count > 0);
-            if (biBLane2R == false)
-            { }
             bool biFLane2L = (iCon.iFLane2L.Count > 0);
-            if (biFLane2L == false)
-            { }
             bool biFLane2R = (iCon.iFLane2R.Count > 0);
-            if (biFLane2R == false)
-            { }
             bool biBLane3L = (iCon.iBLane3L.Count > 0);
-            if (biBLane3L == false)
-            { }
             bool biBLane3R = (iCon.iBLane3R.Count > 0);
-            if (biBLane3R == false)
-            { }
             bool biFLane3L = (iCon.iFLane3L.Count > 0);
-            if (biFLane3L == false)
-            { }
             bool biFLane3R = (iCon.iFLane3R.Count > 0);
-            if (biFLane3R == false)
-            { }
 
             mCount = tRoad.RCS.RoadVectors.Count;
             int cCount = tRoad.GSDSpline.GetNodeCount();
