@@ -1268,7 +1268,9 @@ public class GSDSplineN : MonoBehaviour
                 {
                     tNode.BridgeToggleStart();
                     if (tNode.bIsBridgeMatched && tNode.BridgeCounterpartNode == this)
-                    { return; }
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -1418,11 +1420,17 @@ public class GSDSplineN : MonoBehaviour
     public bool CanBridgeEnd()
     {
         if (bIsBridgeEnd)
-        { return true; }
+        {
+            return true;
+        }
         if (bIsBridgeStart)
-        { return false; }
+        {
+            return false;
+        }
         if (bIsEndPoint)
-        { return false; }
+        {
+            return false;
+        }
 
         int mCount = GSDSpline.GetNodeCount();
 
@@ -1588,11 +1596,17 @@ public class GSDSplineN : MonoBehaviour
     public bool CanTunnelStart()
     {
         if (bIsTunnelStart)
-        { return true; }
+        {
+            return true;
+        }
         if (bIsTunnelEnd)
-        { return false; }
+        {
+            return false;
+        }
         if (bIsEndPoint)
-        { return false; }
+        {
+            return false;
+        }
 
         int mCount = GSDSpline.GetNodeCount();
 
@@ -1639,11 +1653,17 @@ public class GSDSplineN : MonoBehaviour
     public bool CanTunnelEnd()
     {
         if (bIsTunnelEnd)
-        { return true; }
+        {
+            return true;
+        }
         if (bIsTunnelStart)
-        { return false; }
+        {
+            return false;
+        }
         if (bIsEndPoint)
-        { return false; }
+        {
+            return false;
+        }
 
         int mCount = GSDSpline.GetNodeCount();
 

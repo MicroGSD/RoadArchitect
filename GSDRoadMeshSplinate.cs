@@ -1048,6 +1048,7 @@ namespace GSD.Roads.Splination
                 tName = SMM.tName;
             }
 
+
             public void LoadToSMM(SplinatedMeshMaker SMM)
             {
 #if UNITY_EDITOR
@@ -1144,6 +1145,7 @@ namespace GSD.Roads.Splination
                 SMM.tName = tName;
 #endif
             }
+
 
             public bool IsEqualToSMM(SplinatedMeshMaker SMM)
             {

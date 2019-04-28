@@ -1529,7 +1529,6 @@ public class GSDSplineC : MonoBehaviour
                     if (bUseSQ)
                     {
                         MetersToCheck = MetersToCheck_NoTurnLaneSQ * ((tRoad.opt_LaneWidth / 5f) * (tRoad.opt_LaneWidth / 5f));
-                        ;
                     }
                     //					else{
                     //						MetersToCheck = MetersToCheck_NoTurnLane;
@@ -1540,7 +1539,6 @@ public class GSDSplineC : MonoBehaviour
                     if (bUseSQ)
                     {
                         MetersToCheck = MetersToCheck_TurnLaneSQ * ((tRoad.opt_LaneWidth / 5f) * (tRoad.opt_LaneWidth / 5f));
-                        ;
                     }
                     //					else{
                     //						MetersToCheck = MetersToCheck_TurnLane;
@@ -1551,7 +1549,6 @@ public class GSDSplineC : MonoBehaviour
                     if (bUseSQ)
                     {
                         MetersToCheck = MetersToCheck_BothTurnLaneSQ * ((tRoad.opt_LaneWidth / 5f) * (tRoad.opt_LaneWidth / 5f));
-                        ;
                     }
                     //					else{
                     //						MetersToCheck = MetersToCheck_BothTurnLane;
@@ -1745,9 +1742,13 @@ public class GSDSplineC : MonoBehaviour
             if (tNode.GSDSpline != tNode.Intersection_OtherNode.GSDSpline)
             {
                 if (tNode != null)
-                { tNode.GSDSpline.tRoad.bUpdateSpline = true; }
+                {
+                    tNode.GSDSpline.tRoad.bUpdateSpline = true;
+                }
                 if (tNode.Intersection_OtherNode != null)
-                { tNode.Intersection_OtherNode.GSDSpline.tRoad.bUpdateSpline = true; }
+                {
+                    tNode.Intersection_OtherNode.GSDSpline.tRoad.bUpdateSpline = true;
+                }
             }
             else
             {

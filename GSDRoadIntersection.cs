@@ -521,6 +521,7 @@ public class GSDRoadIntersection : MonoBehaviour
         UpdateMaterials();
     }
 
+
     public void ResetMaterials_Center(bool bUpdate = true)
     {
         string tLanes = "-2L";
@@ -599,7 +600,9 @@ public class GSDRoadIntersection : MonoBehaviour
             MarkerExt_Stretch3 = null;
         }
         if (bUpdate)
-        { UpdateMaterials(); }
+        {
+            UpdateMaterials();
+        }
     }
 
 
@@ -624,7 +627,9 @@ public class GSDRoadIntersection : MonoBehaviour
             MarkerExt_Tiled3 = null;
         }
         if (bUpdate)
-        { UpdateMaterials(); }
+        {
+            UpdateMaterials();
+        }
     }
 
 
@@ -725,7 +730,9 @@ public class GSDRoadIntersection : MonoBehaviour
         }
 
         if (bUpdate)
-        { UpdateMaterials(); }
+        {
+            UpdateMaterials();
+        }
     }
 
 

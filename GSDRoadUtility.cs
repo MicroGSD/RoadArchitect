@@ -69,7 +69,8 @@ namespace GSD.Roads
             Vector3 xVect = tNodeObj.transform.position;
             if (xVect.y < 0.03f)
             {
-                xVect.y = 0.03f; }
+                xVect.y = 0.03f;
+            }
             tNodeObj.transform.position = xVect;
 
             tNodeObj.transform.parent = RS.GSDSplineObj.transform;
@@ -6425,7 +6426,9 @@ namespace GSD.Roads
                 tRight.transform.parent = tObj.transform;
                 tRight.transform.name = "LightRight";
                 if (bScale)
-                { tRight.transform.localScale = tScale; }
+                {
+                    tRight.transform.localScale = tScale;
+                }
 
                 cCount = tRight.transform.childCount;
                 for (int index = 0; index < cCount; index++)

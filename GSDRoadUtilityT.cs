@@ -2175,7 +2175,11 @@ namespace GSD.Threaded
                             else
                             {
                                 if (f1LAdded)
-                                { xNode.iConstruction.iFLane1L.RemoveAt(xNode.iConstruction.iFLane1L.Count - 1); f1LAdded = false; f1RAdded = false; }
+                                {
+                                    xNode.iConstruction.iFLane1L.RemoveAt(xNode.iConstruction.iFLane1L.Count - 1);
+                                    f1LAdded = false;
+                                    f1RAdded = false;
+                                }
                             }
                         }
                         //}
@@ -4203,20 +4207,30 @@ namespace GSD.Threaded
                     iNode = tSpline.mNodes[j];
                     //First node set min / max float:
                     if (iNode.iConstruction == null)
-                    { iNode.iConstruction = new GSD.Roads.GSDIntersections.iConstructionMaker(); }
+                    {
+                        iNode.iConstruction = new GSD.Roads.GSDIntersections.iConstructionMaker();
+                    }
                     if (!iNode.iConstruction.tempconstruction_HasProcessed_Inter1)
                     {
                         preInterDistance = (iNode.GSDSpline.RoadWidth * PreInter_RoadWidthMod) / iNode.GSDSpline.distance;
                         iNode.iConstruction.tempconstruction_InterStart = iNode.tTime - preInterDistance;
                         iNode.iConstruction.tempconstruction_InterEnd = iNode.tTime + preInterDistance;
                         if (iNode.iConstruction.tempconstruction_InterStart > 1f)
-                        { iNode.iConstruction.tempconstruction_InterStart = 1f; }
+                        {
+                            iNode.iConstruction.tempconstruction_InterStart = 1f;
+                        }
                         if (iNode.iConstruction.tempconstruction_InterStart < 0f)
-                        { iNode.iConstruction.tempconstruction_InterStart = 0f; }
+                        {
+                            iNode.iConstruction.tempconstruction_InterStart = 0f;
+                        }
                         if (iNode.iConstruction.tempconstruction_InterEnd > 1f)
-                        { iNode.iConstruction.tempconstruction_InterEnd = 1f; }
+                        {
+                            iNode.iConstruction.tempconstruction_InterEnd = 1f;
+                        }
                         if (iNode.iConstruction.tempconstruction_InterEnd < 0f)
-                        { iNode.iConstruction.tempconstruction_InterEnd = 0f; }
+                        {
+                            iNode.iConstruction.tempconstruction_InterEnd = 0f;
+                        }
                         iNode.iConstruction.tempconstruction_HasProcessed_Inter1 = true;
                     }
 
@@ -4238,13 +4252,21 @@ namespace GSD.Threaded
                             iNode.iConstruction.tempconstruction_InterStart = iNode.tTime - preInterDistance;
                             iNode.iConstruction.tempconstruction_InterEnd = iNode.tTime + preInterDistance;
                             if (iNode.iConstruction.tempconstruction_InterStart > 1f)
-                            { iNode.iConstruction.tempconstruction_InterStart = 1f; }
+                            {
+                                iNode.iConstruction.tempconstruction_InterStart = 1f;
+                            }
                             if (iNode.iConstruction.tempconstruction_InterStart < 0f)
-                            { iNode.iConstruction.tempconstruction_InterStart = 0f; }
+                            {
+                                iNode.iConstruction.tempconstruction_InterStart = 0f;
+                            }
                             if (iNode.iConstruction.tempconstruction_InterEnd > 1f)
-                            { iNode.iConstruction.tempconstruction_InterEnd = 1f; }
+                            {
+                                iNode.iConstruction.tempconstruction_InterEnd = 1f;
+                            }
                             if (iNode.iConstruction.tempconstruction_InterEnd < 0f)
-                            { iNode.iConstruction.tempconstruction_InterEnd = 0f; }
+                            {
+                                iNode.iConstruction.tempconstruction_InterEnd = 0f;
+                            }
                             iNode.iConstruction.tempconstruction_HasProcessed_Inter1 = true;
                         }
                     }
@@ -4361,7 +4383,9 @@ namespace GSD.Threaded
 
                     //Process second node:
                     if (oNode2.iConstruction == null)
-                    { oNode2.iConstruction = new GSD.Roads.GSDIntersections.iConstructionMaker(); }
+                    {
+                        oNode2.iConstruction = new GSD.Roads.GSDIntersections.iConstructionMaker();
+                    }
                     if (!oNode2.iConstruction.tempconstruction_HasProcessed_Inter2)
                     {
                         oNode2.iConstruction.tempconstruction_R = new List<Vector2>();
@@ -4458,7 +4482,9 @@ namespace GSD.Threaded
                             }
                         }
                         if (bFlippedSet)
-                        { break; }
+                        {
+                            break;
+                        }
                     }
                     oNode1.GSDRI.bFlipped = bFlipped;
 
@@ -4784,12 +4810,18 @@ namespace GSD.Threaded
                                             eDistanceRR = oDistanceRR;
                                             tFoundVectRR = oNode1.iConstruction.tempconstruction_R[h]; //RR
                                             if (eDistanceRR < 0.07f)
-                                            { bHasBeen1mRR_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mRR_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceRR > mMax && bHasBeen1mRR)
-                                        { bHasBeen1mRR_ignore = true; }
+                                        {
+                                            bHasBeen1mRR_ignore = true;
+                                        }
                                         if (oDistanceRR < mMin)
-                                        { bHasBeen1mRR = true; }
+                                        {
+                                            bHasBeen1mRR = true;
+                                        }
                                     }
                                     //RL:
                                     if (!bHasBeen1mRL_ignore_Max && !bHasBeen1mRL_ignore && (h < N1RCount && k < N2LCount))
@@ -4800,12 +4832,18 @@ namespace GSD.Threaded
                                             eDistanceRL = oDistanceRL;
                                             tFoundVectRL = oNode1.iConstruction.tempconstruction_R[h]; //RL
                                             if (eDistanceRL < 0.07f)
-                                            { bHasBeen1mRL_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mRL_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceRL > mMax && bHasBeen1mRL)
-                                        { bHasBeen1mRL_ignore = true; }
+                                        {
+                                            bHasBeen1mRL_ignore = true;
+                                        }
                                         if (oDistanceRL < mMin)
-                                        { bHasBeen1mRL = true; }
+                                        {
+                                            bHasBeen1mRL = true;
+                                        }
                                     }
                                     //LR:
                                     if (!bHasBeen1mLR_ignore_Max && !bHasBeen1mLR_ignore && (h < N1LCount && k < N2RCount))
@@ -4816,12 +4854,18 @@ namespace GSD.Threaded
                                             eDistanceLR = oDistanceLR;
                                             tFoundVectLR = oNode1.iConstruction.tempconstruction_L[h]; //LR
                                             if (eDistanceLR < 0.07f)
-                                            { bHasBeen1mLR_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mLR_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceLR > mMax && bHasBeen1mLR)
-                                        { bHasBeen1mLR_ignore = true; }
+                                        {
+                                            bHasBeen1mLR_ignore = true;
+                                        }
                                         if (oDistanceLR < mMin)
-                                        { bHasBeen1mLR = true; }
+                                        {
+                                            bHasBeen1mLR = true;
+                                        }
                                     }
                                     //LL:
                                     if (!bHasBeen1mLL_ignore_Max && !bHasBeen1mLL_ignore && (h < N1LCount && k < N2LCount))
@@ -4832,12 +4876,18 @@ namespace GSD.Threaded
                                             eDistanceLL = oDistanceLL;
                                             tFoundVectLL = oNode1.iConstruction.tempconstruction_L[h]; //LL
                                             if (eDistanceLL < 0.07f)
-                                            { bHasBeen1mLL_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mLL_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceLL > mMax && bHasBeen1mLL)
-                                        { bHasBeen1mLL_ignore = true; }
+                                        {
+                                            bHasBeen1mLL_ignore = true;
+                                        }
                                         if (oDistanceLL < mMin)
-                                        { bHasBeen1mLL = true; }
+                                        {
+                                            bHasBeen1mLL = true;
+                                        }
                                     }
                                 }
                                 else
@@ -4851,12 +4901,18 @@ namespace GSD.Threaded
                                             eDistanceRR = oDistanceRR;
                                             tFoundVectRR = oNode1.iConstruction.tempconstruction_R[h]; //RR
                                             if (eDistanceRR < 0.07f)
-                                            { bHasBeen1mRR_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mRR_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceRR > mMax && bHasBeen1mRR)
-                                        { bHasBeen1mRR_ignore = true; }
+                                        {
+                                            bHasBeen1mRR_ignore = true;
+                                        }
                                         if (oDistanceRR < mMin)
-                                        { bHasBeen1mRR = true; }
+                                        {
+                                            bHasBeen1mRR = true;
+                                        }
                                     }
                                     //RL:
                                     if (!bHasBeen1mRL_ignore_Max && !bHasBeen1mRL_ignore && (h < N1RCount && k < N2RCount))
@@ -4867,12 +4923,18 @@ namespace GSD.Threaded
                                             eDistanceRL = oDistanceRL;
                                             tFoundVectRL = oNode1.iConstruction.tempconstruction_R[h]; //RL
                                             if (eDistanceRL < 0.07f)
-                                            { bHasBeen1mRL_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mRL_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceRL > mMax && bHasBeen1mRL)
-                                        { bHasBeen1mRL_ignore = true; }
+                                        {
+                                            bHasBeen1mRL_ignore = true;
+                                        }
                                         if (oDistanceRL < mMin)
-                                        { bHasBeen1mRL = true; }
+                                        {
+                                            bHasBeen1mRL = true;
+                                        }
                                     }
                                     //LR:
                                     if (!bHasBeen1mLR_ignore_Max && !bHasBeen1mLR_ignore && (h < N1LCount && k < N2LCount))
@@ -4883,12 +4945,18 @@ namespace GSD.Threaded
                                             eDistanceLR = oDistanceLR;
                                             tFoundVectLR = oNode1.iConstruction.tempconstruction_L[h]; //LR
                                             if (eDistanceLR < 0.07f)
-                                            { bHasBeen1mLR_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mLR_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceLR > mMax && bHasBeen1mLR)
-                                        { bHasBeen1mLR_ignore = true; }
+                                        {
+                                            bHasBeen1mLR_ignore = true;
+                                        }
                                         if (oDistanceLR < mMin)
-                                        { bHasBeen1mLR = true; }
+                                        {
+                                            bHasBeen1mLR = true;
+                                        }
                                     }
                                     //LL:
                                     if (!bHasBeen1mLL_ignore_Max && !bHasBeen1mLL_ignore && (h < N1LCount && k < N2RCount))
@@ -4899,12 +4967,18 @@ namespace GSD.Threaded
                                             eDistanceLL = oDistanceLL;
                                             tFoundVectLL = oNode1.iConstruction.tempconstruction_L[h]; //LL
                                             if (eDistanceLL < 0.07f)
-                                            { bHasBeen1mLL_ignore_Max = true; }
+                                            {
+                                                bHasBeen1mLL_ignore_Max = true;
+                                            }
                                         }
                                         if (oDistanceLL > mMax && bHasBeen1mLL)
-                                        { bHasBeen1mLL_ignore = true; }
+                                        {
+                                            bHasBeen1mLL_ignore = true;
+                                        }
                                         if (oDistanceLL < mMin)
-                                        { bHasBeen1mLL = true; }
+                                        {
+                                            bHasBeen1mLL = true;
+                                        }
                                     }
                                 }
                             }
@@ -5302,9 +5376,13 @@ namespace GSD.Threaded
                 }
 
                 if (i > 1f)
-                { break; }
+                {
+                    break;
+                }
                 if (i < 0f)
-                { i = 0f; }
+                {
+                    i = 0f;
+                }
 
                 if (IsApproximately(i, FinalMax, 0.00001f))
                 {
@@ -5410,7 +5488,6 @@ namespace GSD.Threaded
                         {
                             rVect = (tVect + new Vector3(RoadSep1Lane * POS.normalized.z, 0, RoadSep1Lane * -POS.normalized.x));
                             lVect = (tVect + new Vector3(RoadSep2Lane * -POS.normalized.z, 0, RoadSep2Lane * POS.normalized.x));
-                            ;
                         }
                         else
                         {
@@ -5434,10 +5511,15 @@ namespace GSD.Threaded
                     else
                     {
                         if (!IsApproximately(tIntStrength, 0f, 0.001f))
-                        { tVect.y = (tIntStrength * tIntHeight) + ((1 - tIntStrength) * tVect.y); }
+                        {
+                            tVect.y = (tIntStrength * tIntHeight) + ((1 - tIntStrength) * tVect.y);
+                        }
                         tIntStrength_temp = tRoad.GSDSpline.IntersectionStrength(ref rVect, ref tIntHeight, ref GSDRI, ref bIsPastInter, ref i, ref xNode);
                         if (!IsApproximately(tIntStrength_temp, 0f, 0.001f))
-                        { rVect.y = (tIntStrength_temp * tIntHeight) + ((1 - tIntStrength_temp) * rVect.y); ShoulderR_lVect = rVect; }
+                        {
+                            rVect.y = (tIntStrength_temp * tIntHeight) + ((1 - tIntStrength_temp) * rVect.y);
+                            ShoulderR_lVect = rVect;
+                        }
                     }
 
                     //Add bounds for later removal:
@@ -5859,33 +5941,93 @@ namespace GSD.Threaded
             if (GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.NoTurnLane)
             {
                 if (!bSkipB)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
                 if (!bSkipF)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
             }
             else if (GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.TurnLane)
             {
                 if (!bSkipB)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
                 if (!bSkipF)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
 
                 if (!bSkipB)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane1R, ref iCon.iBLane2L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane1R, ref iCon.iBLane2L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
                 if (!bSkipF)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane1R, ref iCon.iFLane2L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane1R, ref iCon.iFLane2L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
             }
             else if (GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes)
             {
                 if (!bSkipB)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane0R, ref iCon.iBLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
                 if (!bSkipF)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane0R, ref iCon.iFLane1L);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
 
                 if (!bSkipB)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane1R, ref iCon.iBLane2L, true, true); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane1R, ref iCon.iBLane2L, true, true);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
                 if (!bSkipF)
-                { bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane1R, ref iCon.iFLane2L, true, true); if (bError) { Debug.Log(tWarning); } }
+                {
+                    bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane1R, ref iCon.iFLane2L, true, true);
+                    if (bError)
+                    {
+                        Debug.Log(tWarning);
+                    }
+                }
 
                 //				if(!bSkipB){ bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iBLane2R, ref iCon.iBLane3L,true,false); if(bError){ Debug.Log(tWarning); } }
                 //				if(!bSkipF){ bError = Inter_OrganizeVerticesMatchEdges(ref iCon.iFLane2R, ref iCon.iFLane3L,true,false); if(bError){ Debug.Log(tWarning); } }
@@ -6070,9 +6212,13 @@ namespace GSD.Threaded
                 }
             }
             if (tStartI > mCount)
-            { tStartI = mCount - 4; }
+            {
+                tStartI = mCount - 4;
+            }
             if (tStartI < 0)
-            { tStartI = 0; }
+            {
+                tStartI = 0;
+            }
             if (tEndI < mCount)
             {
                 if (tEndI % 2 != 0)
@@ -6081,9 +6227,13 @@ namespace GSD.Threaded
                 }
             }
             if (tEndI > mCount)
-            { tEndI = mCount - 4; }
+            {
+                tEndI = mCount - 4;
+            }
             if (tEndI < 0)
-            { tEndI = 0; }
+            {
+                tEndI = 0;
+            }
 
             for (int i = tStartI; i < tEndI; i += 2)
             {
@@ -6174,9 +6324,13 @@ namespace GSD.Threaded
             }
 
             if (!bSkipB)
-            { iCon.iBLane0R[0] = ((iCon.iBMainPlateR[0] - iCon.iBMainPlateL[0]) * 0.5f + iCon.iBMainPlateL[0]); }
+            {
+                iCon.iBLane0R[0] = ((iCon.iBMainPlateR[0] - iCon.iBMainPlateL[0]) * 0.5f + iCon.iBMainPlateL[0]);
+            }
             if (!bSkipF)
-            { iCon.iFLane0R[0] = ((iCon.iFMainPlateR[0] - iCon.iFMainPlateL[0]) * 0.5f + iCon.iFMainPlateL[0]); }
+            {
+                iCon.iFLane0R[0] = ((iCon.iFMainPlateR[0] - iCon.iFMainPlateL[0]) * 0.5f + iCon.iFMainPlateL[0]);
+            }
 
             //			if(tNode.GSDRI.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane){ 
             if (!bSkipB)
@@ -6195,16 +6349,24 @@ namespace GSD.Threaded
             if (tNode.GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes)
             {
                 if (!bSkipB)
-                { iCon.iBLane3L[0] = new Vector3(iCon.iBLane3L[0].x, iCon.iBLane3R[0].y, iCon.iBLane3L[0].z); }
+                {
+                    iCon.iBLane3L[0] = new Vector3(iCon.iBLane3L[0].x, iCon.iBLane3R[0].y, iCon.iBLane3L[0].z);
+                }
                 if (!bSkipF)
-                { iCon.iFLane3L[0] = new Vector3(iCon.iFLane3L[0].x, iCon.iFLane3R[0].y, iCon.iFLane3L[0].z); }
+                {
+                    iCon.iFLane3L[0] = new Vector3(iCon.iFLane3L[0].x, iCon.iFLane3R[0].y, iCon.iFLane3L[0].z);
+                }
             }
             else if (tNode.GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.TurnLane)
             {
                 if (!bSkipB)
-                { iCon.iBLane2L[0] = new Vector3(iCon.iBLane2L[0].x, iCon.iBLane2R[0].y, iCon.iBLane2L[0].z); }
+                {
+                    iCon.iBLane2L[0] = new Vector3(iCon.iBLane2L[0].x, iCon.iBLane2R[0].y, iCon.iBLane2L[0].z);
+                }
                 if (!bSkipF)
-                { iCon.iFLane2L[0] = new Vector3(iCon.iFLane2L[0].x, iCon.iFLane2R[0].y, iCon.iFLane2L[0].z); }
+                {
+                    iCon.iFLane2L[0] = new Vector3(iCon.iFLane2L[0].x, iCon.iFLane2R[0].y, iCon.iFLane2L[0].z);
+                }
             }
 
             List<Vector3> iBLane0 = null;
@@ -6216,9 +6378,13 @@ namespace GSD.Threaded
                 iBLane0 = InterVertices(iCon.iBLane0L, iCon.iBLane0R, tNode.GSDRI.Height);
                 iBLane1 = InterVertices(iCon.iBLane1L, iCon.iBLane1R, tNode.GSDRI.Height);
                 if (tNode.GSDRI.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane)
-                { iBLane2 = InterVertices(iCon.iBLane2L, iCon.iBLane2R, tNode.GSDRI.Height); }
+                {
+                    iBLane2 = InterVertices(iCon.iBLane2L, iCon.iBLane2R, tNode.GSDRI.Height);
+                }
                 if (tNode.GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes)
-                { iBLane3 = InterVertices(iCon.iBLane3L, iCon.iBLane3R, tNode.GSDRI.Height); }
+                {
+                    iBLane3 = InterVertices(iCon.iBLane3L, iCon.iBLane3R, tNode.GSDRI.Height);
+                }
             }
 
             //Front lanes:
@@ -6231,9 +6397,13 @@ namespace GSD.Threaded
                 iFLane0 = InterVertices(iCon.iFLane0L, iCon.iFLane0R, tNode.GSDRI.Height);
                 iFLane1 = InterVertices(iCon.iFLane1L, iCon.iFLane1R, tNode.GSDRI.Height);
                 if (tNode.GSDRI.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane)
-                { iFLane2 = InterVertices(iCon.iFLane2L, iCon.iFLane2R, tNode.GSDRI.Height); }
+                {
+                    iFLane2 = InterVertices(iCon.iFLane2L, iCon.iFLane2R, tNode.GSDRI.Height);
+                }
                 if (tNode.GSDRI.rType == GSDRoadIntersection.RoadTypeEnum.BothTurnLanes)
-                { iFLane3 = InterVertices(iCon.iFLane3L, iCon.iFLane3R, tNode.GSDRI.Height); }
+                {
+                    iFLane3 = InterVertices(iCon.iFLane3L, iCon.iFLane3R, tNode.GSDRI.Height);
+                }
             }
 
             //Main plates:
@@ -6319,16 +6489,24 @@ namespace GSD.Threaded
             if (tNode.GSDRI.rType != GSDRoadIntersection.RoadTypeEnum.NoTurnLane)
             {
                 if (!bSkipB)
-                { tRoad.RCS.iBLane1s_IsMiddleLane.Add(true); }
+                {
+                    tRoad.RCS.iBLane1s_IsMiddleLane.Add(true);
+                }
                 if (!bSkipF)
-                { tRoad.RCS.iFLane1s_IsMiddleLane.Add(true); }
+                {
+                    tRoad.RCS.iFLane1s_IsMiddleLane.Add(true);
+                }
             }
             else
             {
                 if (!bSkipB)
-                { tRoad.RCS.iBLane1s_IsMiddleLane.Add(false); }
+                {
+                    tRoad.RCS.iBLane1s_IsMiddleLane.Add(false);
+                }
                 if (!bSkipF)
-                { tRoad.RCS.iFLane1s_IsMiddleLane.Add(false); }
+                {
+                    tRoad.RCS.iFLane1s_IsMiddleLane.Add(false);
+                }
             }
         }
 
@@ -6342,7 +6520,9 @@ namespace GSD.Threaded
         private static List<Vector3> InterVertices(List<Vector3> tL, List<Vector3> tR, float tHeight)
         {
             if (tL.Count == 0 || tR.Count == 0)
-            { return null; }
+            {
+                return null;
+            }
 
             List<Vector3> tList = new List<Vector3>();
             int tCountL = tL.Count;
@@ -6633,7 +6813,9 @@ namespace GSD.Threaded
                     if (tRect.Contains(ref Vect2D))
                     {
                         if (ImmuneVects.Contains(tVects[j]))
-                        { continue; }
+                        {
+                            continue;
+                        }
                         //						if(Vect2D == tRect.P1){
                         //							continue;
                         //						}else if(Vect2D == tRect.P2){
@@ -6729,7 +6911,9 @@ namespace GSD.Threaded
             for (int i = 0; i < MVL; i += 4)
             {
                 if (i + 4 == MVL)
-                { break; }
+                {
+                    break;
+                }
 
                 x1 = i;
                 x2 = i + 4;
@@ -6779,7 +6963,9 @@ namespace GSD.Threaded
                 tVects.Add(tVectListSingle);
                 PrevRoadCutIndex = CurrentRoadCutIndex - 4;
                 if (PrevRoadCutIndex < 0)
-                { PrevRoadCutIndex = 0; }
+                {
+                    PrevRoadCutIndex = 0;
+                }
             }
             int mMax = RCS.RoadVectors.Count;
             tVectListSingle = new List<Vector3>();
@@ -6825,7 +7011,9 @@ namespace GSD.Threaded
                 tVects.Add(tVectListSingle);
                 PrevRoadCutIndex = CurrentRoadCutIndex - 8;
                 if (PrevRoadCutIndex < 0)
-                { PrevRoadCutIndex = 0; }
+                {
+                    PrevRoadCutIndex = 0;
+                }
             }
             int mMax = RCS.ShoulderR_Vectors.Count;
             tVectListSingle = new List<Vector3>();
@@ -6871,7 +7059,9 @@ namespace GSD.Threaded
                 tVects.Add(tVectListSingle);
                 PrevRoadCutIndex = CurrentRoadCutIndex - 8;
                 if (PrevRoadCutIndex < 0)
-                { PrevRoadCutIndex = 0; }
+                {
+                    PrevRoadCutIndex = 0;
+                }
             }
             int mMax = RCS.ShoulderL_Vectors.Count;
             tVectListSingle = new List<Vector3>();
@@ -6902,14 +7092,18 @@ namespace GSD.Threaded
             int x1, x2, x3;
             int xCount = (int) ((MVL / 2) * 0.25f * 6) - 6;
             if (xCount < 0)
-            { xCount = 0; }
+            {
+                xCount = 0;
+            }
             xCount = xCount * 2;
 
             int[] tri = new int[xCount];
             for (int i = 0; i < MVL; i += 8)
             {
                 if (i + 8 == MVL)
-                { break; }
+                {
+                    break;
+                }
 
                 x1 = i;
                 x2 = i + 8;
@@ -6963,7 +7157,9 @@ namespace GSD.Threaded
         private static void ProcessRoad_Tris_iProcessor(ref List<int[]> TriList, ref List<Vector3[]> VertexList)
         {
             if (TriList == null)
-            { TriList = new List<int[]>(); }
+            {
+                TriList = new List<int[]>();
+            }
             int vListCount = VertexList.Count;
             int[] tris;
             for (int i = 0; i < vListCount; i++)
@@ -8122,16 +8318,24 @@ namespace GSD.Threaded
 
                     tAdd1 = tDistanceLeftSum;
                     if (tAdd1 > 1f)
-                    { tAdd1 = 1f; }
+                    {
+                        tAdd1 = 1f;
+                    }
                     tAdd2 = tDistanceRightSum;
                     if (tAdd2 > 1f)
-                    { tAdd2 = 1f; }
+                    {
+                        tAdd2 = 1f;
+                    }
                     tAdd3 = tDistanceLeft + tDistanceLeftSum;
                     if (tAdd3 > 1f)
-                    { tAdd3 = 1f; }
+                    {
+                        tAdd3 = 1f;
+                    }
                     tAdd4 = tDistanceRight + tDistanceRightSum;
                     if (tAdd4 > 1f)
-                    { tAdd4 = 1f; }
+                    {
+                        tAdd4 = 1f;
+                    }
 
                     uv[i] = new Vector2(0f, tAdd1);
                     uv[i + 2] = new Vector2(1f, tAdd2);
