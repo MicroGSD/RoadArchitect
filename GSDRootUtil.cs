@@ -103,15 +103,9 @@ namespace GSD
 
 
         #region "Float comparisons"
-        public static bool IsApproximately(float a, float b)
+        public static bool IsApproximately(float a, float b, float _tolerance = 0.01f)
         {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        public static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
+            return Mathf.Abs(a - b) < _tolerance;
         }
         #endregion
 

@@ -24,18 +24,6 @@ namespace GSD.Roads
 #if UNITY_EDITOR
     public static class GSDConstruction
     {
-        private static bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
-        }
-
-
         public static GSDSplineN CreateNode(GSDRoad RS, bool bSpecialEndNode = false, Vector3 vSpecialLoc = default(Vector3), bool bInterNode = false)
         {
             Object[] tWorldNodeCount = GameObject.FindObjectsOfType(typeof(GSDSplineN));
@@ -4361,7 +4349,7 @@ namespace GSD.Roads
                 float dotDenominator = Vector3.Dot(Vector3.up.normalized, normal);
 
                 //line and plane are not parallel
-                if (!IsApproximately(0f, dotDenominator, 0.001f))
+                if (!GSDRootUtil.IsApproximately(0f, dotDenominator, 0.001f))
                 {
                     //get the coordinates of the line-plane intersection point
                     return (F1 + (Vector3.up.normalized * (dotNumerator / dotDenominator)));
@@ -4371,18 +4359,6 @@ namespace GSD.Roads
                     //output not valid
                     return default(Vector3);
                 }
-            }
-
-
-            private static bool IsApproximately(float a, float b)
-            {
-                return IsApproximately(a, b, 0.01f);
-            }
-
-
-            private static bool IsApproximately(float a, float b, float tolerance)
-            {
-                return Mathf.Abs(a - b) < tolerance;
             }
 
 
@@ -4570,18 +4546,6 @@ namespace GSD.Roads
             public float MaxI = 0f;
 
 
-            private static bool IsApproximately(float a, float b)
-            {
-                return IsApproximately(a, b, 0.01f);
-            }
-
-
-            private static bool IsApproximately(float a, float b, float tolerance)
-            {
-                return Mathf.Abs(a - b) < tolerance;
-            }
-
-
             public Construction2DRect(Vector2 _P1, Vector2 _P2, Vector2 _P3, Vector2 _P4, float tHeight = 0f)
             {
                 Construction2DRect_Do(ref _P1, ref _P2, ref _P3, ref _P4, ref tHeight);
@@ -4596,52 +4560,52 @@ namespace GSD.Roads
                 P4 = _P4;
                 Height = tHeight;
 
-                if (IsApproximately(P1.x, P2.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.x, P2.x, 0.0001f))
                 {
                     P2.x += 0.0002f;
                 }
-                if (IsApproximately(P1.x, P3.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.x, P3.x, 0.0001f))
                 {
                     P3.x += 0.0002f;
                 }
-                if (IsApproximately(P1.x, P4.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.x, P4.x, 0.0001f))
                 {
                     P4.x += 0.0002f;
                 }
-                if (IsApproximately(P2.x, P3.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P2.x, P3.x, 0.0001f))
                 {
                     P3.x += 0.0002f;
                 }
-                if (IsApproximately(P2.x, P4.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P2.x, P4.x, 0.0001f))
                 {
                     P4.x += 0.0002f;
                 }
-                if (IsApproximately(P3.x, P4.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P3.x, P4.x, 0.0001f))
                 {
                     P4.x += 0.0002f;
                 }
 
-                if (IsApproximately(P1.y, P2.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.y, P2.y, 0.0001f))
                 {
                     P2.y += 0.0002f;
                 }
-                if (IsApproximately(P1.y, P3.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.y, P3.y, 0.0001f))
                 {
                     P3.y += 0.0002f;
                 }
-                if (IsApproximately(P1.y, P4.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P1.y, P4.y, 0.0001f))
                 {
                     P4.y += 0.0002f;
                 }
-                if (IsApproximately(P2.y, P3.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P2.y, P3.y, 0.0001f))
                 {
                     P3.y += 0.0002f;
                 }
-                if (IsApproximately(P2.y, P4.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P2.y, P4.y, 0.0001f))
                 {
                     P4.y += 0.0002f;
                 }
-                if (IsApproximately(P3.y, P4.y, 0.0001f))
+                if (GSDRootUtil.IsApproximately(P3.y, P4.y, 0.0001f))
                 {
                     P4.y += 0.0002f;
                 }
@@ -4668,22 +4632,22 @@ namespace GSD.Roads
                 MinX1 = Mathf.Min(tX);
                 tX = new float[3];
                 int tCounter = 0;
-                if (!IsApproximately(MinX1, P1.x, 0.0001f))
+                if (!GSDRootUtil.IsApproximately(MinX1, P1.x, 0.0001f))
                 {
                     tX[tCounter] = P1.x;
                     tCounter += 1;
                 }
-                if (!IsApproximately(MinX1, P2.x, 0.0001f))
+                if (!GSDRootUtil.IsApproximately(MinX1, P2.x, 0.0001f))
                 {
                     tX[tCounter] = P2.x;
                     tCounter += 1;
                 }
-                if (!IsApproximately(MinX1, P3.x, 0.0001f))
+                if (!GSDRootUtil.IsApproximately(MinX1, P3.x, 0.0001f))
                 {
                     tX[tCounter] = P3.x;
                     tCounter += 1;
                 }
-                if (!IsApproximately(MinX1, P4.x, 0.0001f))
+                if (!GSDRootUtil.IsApproximately(MinX1, P4.x, 0.0001f))
                 {
                     tX[tCounter] = P4.x;
                     tCounter += 1;
@@ -4692,43 +4656,43 @@ namespace GSD.Roads
 
                 Vector2 xMin1 = default(Vector2);
                 Vector2 xMin2 = default(Vector2);
-                if (IsApproximately(MinX1, P1.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(MinX1, P1.x, 0.0001f))
                 {
                     xMin1 = P1;
                     bIgnoreP1 = true;
                 }
-                else if (IsApproximately(MinX1, P2.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX1, P2.x, 0.0001f))
                 {
                     xMin1 = P2;
                     bIgnoreP2 = true;
                 }
-                else if (IsApproximately(MinX1, P3.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX1, P3.x, 0.0001f))
                 {
                     xMin1 = P3;
                     bIgnoreP3 = true;
                 }
-                else if (IsApproximately(MinX1, P4.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX1, P4.x, 0.0001f))
                 {
                     xMin1 = P4;
                     bIgnoreP4 = true;
                 }
 
-                if (IsApproximately(MinX2, P1.x, 0.0001f))
+                if (GSDRootUtil.IsApproximately(MinX2, P1.x, 0.0001f))
                 {
                     xMin2 = P1;
                     bIgnoreP1 = true;
                 }
-                else if (IsApproximately(MinX2, P2.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX2, P2.x, 0.0001f))
                 {
                     xMin2 = P2;
                     bIgnoreP2 = true;
                 }
-                else if (IsApproximately(MinX2, P3.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX2, P3.x, 0.0001f))
                 {
                     xMin2 = P3;
                     bIgnoreP3 = true;
                 }
-                else if (IsApproximately(MinX2, P4.x, 0.0001f))
+                else if (GSDRootUtil.IsApproximately(MinX2, P4.x, 0.0001f))
                 {
                     xMin2 = P4;
                     bIgnoreP4 = true;
@@ -5402,18 +5366,6 @@ namespace GSD.Roads
 
     public static class GSDIntersectionObjects
     {
-        private static bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
-        }
-
-
         public static void CleanupIntersectionObjects(GameObject MasterGameObj)
         {
             int mCount = MasterGameObj.transform.childCount;
@@ -5950,7 +5902,7 @@ namespace GSD.Roads
             hMod = Mathf.Clamp(hMod, 1f, 20f);
 
             bool bXMod = false;
-            if (!IsApproximately(xMod, 1f, 0.0001f))
+            if (!GSDRootUtil.IsApproximately(xMod, 1f, 0.0001f))
             {
                 bXMod = true;
             }
@@ -6010,7 +5962,7 @@ namespace GSD.Roads
                 for (int index = 0; index < mCount; index++)
                 {
                     bIgnoreMe = false;
-                    if (IsApproximately(tVerts[index].y, 5f, 0.01f))
+                    if (GSDRootUtil.IsApproximately(tVerts[index].y, 5f, 0.01f))
                     {
                         tVerts[index].y = tDistance;
                         if (uv[index].y > 3.5f)
@@ -6352,14 +6304,14 @@ namespace GSD.Roads
             float tScaleSense = ((200f - GSDRI.ScalingSense) / 200f) * 200f;
             tScaleSense = Mathf.Clamp(tScaleSense * 0.1f, 0f, 20f);
             float ScaleMod = ((mDistance / 17f) + tScaleSense) * (1f / (tScaleSense + 1f));
-            if (IsApproximately(tScaleSense, 20f, 0.05f))
+            if (GSDRootUtil.IsApproximately(tScaleSense, 20f, 0.05f))
             {
                 ScaleMod = 1f;
             }
             ScaleMod = Mathf.Clamp(ScaleMod, 1f, 1.5f);
             Vector3 tScale = new Vector3(ScaleMod, ScaleMod, ScaleMod);
             bool bScale = true;
-            if (IsApproximately(ScaleMod, 1f, 0.001f))
+            if (GSDRootUtil.IsApproximately(ScaleMod, 1f, 0.001f))
             {
                 bScale = false;
             }

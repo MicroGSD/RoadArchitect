@@ -285,7 +285,7 @@ namespace GSD.Threaded
                     }
                     if (tIntStrength >= 0f)
                     {// || IsApproximately(tIntStrength,0f,0.01f)){
-                        if (IsApproximately(tIntStrength, 1f, 0.01f))
+                        if (GSDRootUtil.IsApproximately(tIntStrength, 1f, 0.01f))
                         {
                             T1SUB = tIntHeight;
                             bIntStr1_Full = true;
@@ -295,7 +295,7 @@ namespace GSD.Threaded
                         {
                             bIntStr1_Full = false;
                             bIntStr1_FullNext = (tIntStrength2 >= 1f);
-                            if (!IsApproximately(tIntStrength, 0f, 0.01f))
+                            if (!GSDRootUtil.IsApproximately(tIntStrength, 0f, 0.01f))
                             {
                                 T1SUB = (tIntStrength * tIntHeight) + ((1 - tIntStrength) * tVect1.y);
                             }
@@ -340,10 +340,10 @@ namespace GSD.Threaded
                         bIntStr1_FullPrev = bIntStr1_Full;
                     }
 
-                    if (tIntStrength2 >= 0f || IsApproximately(tIntStrength2, 0f, 0.01f))
+                    if (tIntStrength2 >= 0f || GSDRootUtil.IsApproximately(tIntStrength2, 0f, 0.01f))
                     {
                         //					if(!IsApproximately(tIntStrength,1f,0.01f)){ 
-                        if (IsApproximately(tIntStrength, 1f, 0.01f))
+                        if (GSDRootUtil.IsApproximately(tIntStrength, 1f, 0.01f))
                         {
                             bIntStr2_Full = true;
                             T2SUB = tIntHeight2;
@@ -351,8 +351,10 @@ namespace GSD.Threaded
                         else
                         {
                             bIntStr2_Full = false;
-                            if (!IsApproximately(tIntStrength2, 0f, 0.01f))
-                            { T2SUB = (tIntStrength2 * tIntHeight) + ((1 - tIntStrength2) * tVect2.y); }
+                            if (!GSDRootUtil.IsApproximately(tIntStrength2, 0f, 0.01f))
+                            {
+                                T2SUB = (tIntStrength2 * tIntHeight) + ((1 - tIntStrength2) * tVect2.y);
+                            }
                             //						if(tIntStrength2 <= 0f){ T2SUB = (tIntStrength2*tIntHeight) + ((1-tIntStrength2)*tVect2.y); }
                         }
 
@@ -566,7 +568,7 @@ namespace GSD.Threaded
                 {
                     tXY = tXYs[k];
                     tFloat = ProcessCoordinateGrabber(ref index, ref tSpline, ref TTD, ref TBMList, ref tXY, bIsBridge, bIsTunnel);
-                    if (!IsApproximately(tFloat, 0f, 0.0001f))
+                    if (!GSDRootUtil.IsApproximately(tFloat, 0f, 0.0001f))
                     {
                         tSpline.HeightHistory.Add(new KeyValuePair<float, float>(index, tFloat));
                     }
@@ -974,7 +976,9 @@ namespace GSD.Threaded
                     }
                 }
                 if (tSpline.tRoad.bProfiling)
-                { UnityEngine.Profiling.Profiler.EndSample(); }
+                {
+                    UnityEngine.Profiling.Profiler.EndSample();
+                }
             }
 
             return tRect;
@@ -1087,7 +1091,7 @@ namespace GSD.Threaded
                 }
             }
 
-            if (bIsBridge && IsApproximately(tReturnFloat, 0f, 0.0001f))
+            if (bIsBridge && GSDRootUtil.IsApproximately(tReturnFloat, 0f, 0.0001f))
             {
                 tReturnFloat = tSpline.GetSplineValue(param, false).y;
             }
@@ -1171,18 +1175,6 @@ namespace GSD.Threaded
                     }
                 }
             }
-        }
-
-
-        private static bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
         }
     }
 
@@ -1478,11 +1470,11 @@ namespace GSD.Threaded
             int spamcheckmax1 = 18000;
             int spamcheck1 = 0;
 
-            if (IsApproximately(StartMin, 0f, 0.0001f))
+            if (GSDRootUtil.IsApproximately(StartMin, 0f, 0.0001f))
             {
                 kSkip = false;
             }
-            if (IsApproximately(FinalMax, 1f, 0.0001f))
+            if (GSDRootUtil.IsApproximately(FinalMax, 1f, 0.0001f))
             {
                 kSkipFinal = true;
             }
@@ -1531,7 +1523,7 @@ namespace GSD.Threaded
                     i = 0f;
                 }
 
-                if (IsApproximately(i, FinalMax, 0.00001f))
+                if (GSDRootUtil.IsApproximately(i, FinalMax, 0.00001f))
                 {
                     bFinalEnd = true;
                 }
@@ -1823,7 +1815,7 @@ namespace GSD.Threaded
 
                     tParam2 = tSpline.TranslateInverseParamToFloat(tSpline.RoadDefKeysArray[vCount]);
                     float tInterStrNext = tRoad.GSDSpline.IntersectionStrength_Next(tSpline.GetSplineValue(tParam2, false));
-                    if (IsApproximately(tInterStrNext, 1f, 0.001f) || tInterStrNext > 1f)
+                    if (GSDRootUtil.IsApproximately(tInterStrNext, 1f, 0.001f) || tInterStrNext > 1f)
                     {
                         bIsNextInter = true;
                     }
@@ -2622,7 +2614,7 @@ namespace GSD.Threaded
                                 {
                                     if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                     {
-                                        if (!(IsApproximately(vList[m].x, GSDRI.CornerRR.x, 0.01f) && IsApproximately(vList[m].z, GSDRI.CornerRR.z, 0.01f)))
+                                        if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRR.x, 0.01f) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRR.z, 0.01f)))
                                         {
                                             eList.Add(m);
                                         }
@@ -2647,7 +2639,7 @@ namespace GSD.Threaded
                                 {
                                     if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                     {
-                                        if (!(IsApproximately(vList[m].x, GSDRI.CornerRR.x, 0.01f) && IsApproximately(vList[m].z, GSDRI.CornerRR.z, 0.01f)))
+                                        if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRR.x, 0.01f) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRR.z, 0.01f)))
                                         {
                                             eList.Add(m);
                                         }
@@ -2691,7 +2683,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerRR.x) && IsApproximately(vList[m].z, GSDRI.CornerRR.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRR.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRR.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -2739,7 +2731,7 @@ namespace GSD.Threaded
                                 {
                                     if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                     {
-                                        if (!(IsApproximately(vList[m].x, GSDRI.CornerRL.x) && IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
+                                        if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
                                         {
                                             eList.Add(m);
                                         }
@@ -2778,7 +2770,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerRL.x) && IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
                                             {
                                                 eList.Add(m);
                                                 if (m == vList.Count - 1)
@@ -2856,7 +2848,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerRL.x) && IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerRL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerRL.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -2928,7 +2920,7 @@ namespace GSD.Threaded
                                 {
                                     if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                     {
-                                        if (!(IsApproximately(vList[m].x, GSDRI.CornerLR.x) && IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
+                                        if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLR.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
                                         {
                                             eList.Add(m);
                                         }
@@ -2971,7 +2963,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerLR.x) && IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLR.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -3007,7 +2999,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerLR.x) && IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLR.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLR.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -3056,7 +3048,7 @@ namespace GSD.Threaded
                                 {
                                     if (Vector3.SqrMagnitude(vList[m] - ShoulderR_lVect) < 0.01f)
                                     {
-                                        if (!(IsApproximately(vList[m].x, GSDRI.CornerLL.x) && IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
+                                        if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
                                         {
                                             eList.Add(m);
                                         }
@@ -3106,7 +3098,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerLL.x) && IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -3134,7 +3126,7 @@ namespace GSD.Threaded
                                     {
                                         if (Vector3.SqrMagnitude(vList[m] - ShoulderL_rVect) < 0.01f)
                                         {
-                                            if (!(IsApproximately(vList[m].x, GSDRI.CornerLL.x) && IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
+                                            if (!(GSDRootUtil.IsApproximately(vList[m].x, GSDRI.CornerLL.x) && GSDRootUtil.IsApproximately(vList[m].z, GSDRI.CornerLL.z)))
                                             {
                                                 eList.Add(m);
                                             }
@@ -5181,11 +5173,11 @@ namespace GSD.Threaded
             int spamcheckmax1 = 18000;
             int spamcheck1 = 0;
 
-            if (IsApproximately(StartMin, 0f, 0.0001f))
+            if (GSDRootUtil.IsApproximately(StartMin, 0f, 0.0001f))
             {
                 kSkip = false;
             }
-            if (IsApproximately(FinalMax, 1f, 0.0001f))
+            if (GSDRootUtil.IsApproximately(FinalMax, 1f, 0.0001f))
             {
                 kSkipFinal = true;
             }
@@ -5223,7 +5215,7 @@ namespace GSD.Threaded
                     i = 0f;
                 }
 
-                if (IsApproximately(i, FinalMax, 0.00001f))
+                if (GSDRootUtil.IsApproximately(i, FinalMax, 0.00001f))
                 {
                     bFinalEnd = true;
                 }
@@ -5244,7 +5236,7 @@ namespace GSD.Threaded
                 tSpline.GetSplineValue_Both(i, out tVect, out POS);
                 bIsPastInter = false;
                 tIntStrength = tSpline.IntersectionStrength(ref tVect, ref tIntHeight, ref GSDRI, ref bIsPastInter, ref i, ref xNode);
-                if (IsApproximately(tIntStrength, 1f, 0.001f) || tIntStrength > 1f)
+                if (GSDRootUtil.IsApproximately(tIntStrength, 1f, 0.001f) || tIntStrength > 1f)
                 {
                     bMaxIntersection = true;
                 }
@@ -5349,12 +5341,12 @@ namespace GSD.Threaded
                     }
                     else
                     {
-                        if (!IsApproximately(tIntStrength, 0f, 0.001f))
+                        if (!GSDRootUtil.IsApproximately(tIntStrength, 0f, 0.001f))
                         {
                             tVect.y = (tIntStrength * tIntHeight) + ((1 - tIntStrength) * tVect.y);
                         }
                         tIntStrength_temp = tRoad.GSDSpline.IntersectionStrength(ref rVect, ref tIntHeight, ref GSDRI, ref bIsPastInter, ref i, ref xNode);
-                        if (!IsApproximately(tIntStrength_temp, 0f, 0.001f))
+                        if (!GSDRootUtil.IsApproximately(tIntStrength_temp, 0f, 0.001f))
                         {
                             rVect.y = (tIntStrength_temp * tIntHeight) + ((1 - tIntStrength_temp) * rVect.y);
                             ShoulderR_lVect = rVect;
@@ -8286,18 +8278,6 @@ namespace GSD.Threaded
         #endregion
 
 
-        private static bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
-        }
-
-
         public class RoadTerrainInfo
         {
             public Rect tBounds;
@@ -8483,18 +8463,6 @@ namespace GSD.Threaded
         }
 
 
-        private bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
-        }
-
-
         private int Compare1(KeyValuePair<float, float> a, KeyValuePair<float, float> b)
         {
             return a.Key.CompareTo(b.Key);
@@ -8561,18 +8529,6 @@ namespace GSD.Threaded
                 //				}
             }
             tSpline.HeightHistory.Sort(Compare1);
-        }
-
-
-        private static bool IsApproximately(float a, float b)
-        {
-            return IsApproximately(a, b, 0.01f);
-        }
-
-
-        private static bool IsApproximately(float a, float b, float tolerance)
-        {
-            return Mathf.Abs(a - b) < tolerance;
         }
 
 
