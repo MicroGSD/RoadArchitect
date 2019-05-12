@@ -54,9 +54,11 @@ public class GSDWizard : EditorWindow
 
     private GUIStyle ThumbStyle;
     private Vector2 scrollPos = new Vector2(0f, 25f);
-    private GSDSplineN tNode = null;
+    [UnityEngine.Serialization.FormerlySerializedAs("tNode")]
+    private GSDSplineN thisNode = null;
     private List<GSDRoadUtil.WizardObject> oList = null;
-    private bool bNoGUI = false;
+    [UnityEngine.Serialization.FormerlySerializedAs("bNoGUI")]
+    private bool useNoGUI = false;
 
 
     private void OnGUI()
@@ -67,7 +69,7 @@ public class GSDWizard : EditorWindow
 
     private void DoGUI()
     {
-        if (bNoGUI)
+        if (useNoGUI)
         {
             return;
         }
@@ -80,7 +82,7 @@ public class GSDWizard : EditorWindow
         GUILayout.Space(4f);
         EditorGUILayout.BeginHorizontal();
 
-        if (tNode.bIsBridgeStart)
+        if (thisNode.bIsBridgeStart)
         {
             xWindowType = (WindowTypeEnum) EditorGUILayout.Popup("Category: ", (int) tWindowType, WindowTypeDescBridge, GUILayout.Width(312f));
         }
@@ -119,7 +121,7 @@ public class GSDWizard : EditorWindow
 
         if (xWindowType != tWindowType)
         {
-            Initialize(xWindowType, tNode);
+            Initialize(xWindowType, thisNode);
             EditorGUILayout.EndHorizontal();
             return;
         }
@@ -199,29 +201,29 @@ public class GSDWizard : EditorWindow
             {
                 if (tWindowType == WindowTypeEnum.Extrusion)
                 {
-                    GSD.Roads.Splination.SplinatedMeshMaker SMM = tNode.AddSplinatedObject();
-                    SMM.SetDefaultTimes(tNode.bIsEndPoint, tNode.tTime, tNode.NextTime, tNode.idOnSpline, tNode.GSDSpline.distance);
+                    GSD.Roads.Splination.SplinatedMeshMaker SMM = thisNode.AddSplinatedObject();
+                    SMM.SetDefaultTimes(thisNode.bIsEndPoint, thisNode.tTime, thisNode.NextTime, thisNode.idOnSpline, thisNode.GSDSpline.distance);
                     SMM.LoadFromLibrary(oList[i].FileName, oList[i].bIsDefault);
                     SMM.bIsGSD = oList[i].bIsDefault;
                     SMM.Setup(true);
                 }
                 else if (tWindowType == WindowTypeEnum.Edge)
                 {
-                    GSD.Roads.EdgeObjects.EdgeObjectMaker EOM = tNode.AddEdgeObject();
-                    EOM.SetDefaultTimes(tNode.bIsEndPoint, tNode.tTime, tNode.NextTime, tNode.idOnSpline, tNode.GSDSpline.distance);
+                    GSD.Roads.EdgeObjects.EdgeObjectMaker EOM = thisNode.AddEdgeObject();
+                    EOM.SetDefaultTimes(thisNode.bIsEndPoint, thisNode.tTime, thisNode.NextTime, thisNode.idOnSpline, thisNode.GSDSpline.distance);
                     EOM.LoadFromLibrary(oList[i].FileName, oList[i].bIsDefault);
                     EOM.bIsGSD = oList[i].bIsDefault;
                     EOM.Setup();
                 }
                 else if (tWindowType == WindowTypeEnum.Groups)
                 {
-                    tNode.LoadWizardObjectsFromLibrary(oList[i].FileName, oList[i].bIsDefault, oList[i].bIsBridge);
+                    thisNode.LoadWizardObjectsFromLibrary(oList[i].FileName, oList[i].bIsDefault, oList[i].bIsBridge);
                 }
                 else if (tWindowType == WindowTypeEnum.BridgeComplete)
                 {
-                    tNode.LoadWizardObjectsFromLibrary(oList[i].FileName, oList[i].bIsDefault, oList[i].bIsBridge);
+                    thisNode.LoadWizardObjectsFromLibrary(oList[i].FileName, oList[i].bIsDefault, oList[i].bIsBridge);
                 }
-                tNode.bQuitGUI = true;
+                thisNode.bQuitGUI = true;
                 oList.Clear();
                 oList = null;
                 EditorGUILayout.EndHorizontal();
@@ -229,7 +231,7 @@ public class GSDWizard : EditorWindow
                 {
                     GUI.EndScrollView();
                 }
-                bNoGUI = true;
+                useNoGUI = true;
                 Close();
                 return;
             }
@@ -273,7 +275,7 @@ public class GSDWizard : EditorWindow
     public Rect xRect;
 
 
-    public void Initialize(WindowTypeEnum _tWindowType, GSDSplineN _tNode)
+    public void Initialize(WindowTypeEnum _windowType, GSDSplineN _node)
     {
         if (xRect.width < 1f && xRect.height < 1f)
         {
@@ -284,8 +286,8 @@ public class GSDWizard : EditorWindow
         }
 
         position = xRect;
-        tWindowType = _tWindowType;
-        tNode = _tNode;
+        tWindowType = _windowType;
+        thisNode = _node;
         InitWindow();
         Show();
     }
@@ -342,10 +344,10 @@ public class GSDWizard : EditorWindow
         string[] tNames = null;
         string[] tPaths = null;
         //Load user custom ones first:
-        GetGroupListing(out tNames, out tPaths, tNode.GSDSpline.tRoad.opt_Lanes, false);
+        GetGroupListing(out tNames, out tPaths, thisNode.GSDSpline.tRoad.opt_Lanes, false);
         LoadGroupObjs(ref tNames, ref tPaths, bIsBridge);
         //Load GSD ones last:
-        GetGroupListing(out tNames, out tPaths, tNode.GSDSpline.tRoad.opt_Lanes, true);
+        GetGroupListing(out tNames, out tPaths, thisNode.GSDSpline.tRoad.opt_Lanes, true);
         LoadGroupObjs(ref tNames, ref tPaths, bIsBridge);
     }
 

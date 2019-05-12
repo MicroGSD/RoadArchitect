@@ -8,8 +8,7 @@ using UnityEditor;
 [CustomEditor(typeof(GSDSplineC))]
 public class GSDSplineCEditor : Editor
 {
-    protected GSDSplineC tSpline { get { return (GSDSplineC) target; } }
-
+    protected GSDSplineC thisSpline { get { return (GSDSplineC) target; } }
     private int browseNode = 0;
 
 
@@ -21,9 +20,9 @@ public class GSDSplineCEditor : Editor
         browseNode = EditorGUILayout.IntField(browseNode);
         if (GUILayout.Button("Browse"))
         {
-            if (browseNode < tSpline.mNodes.Count)
+            if (browseNode < thisSpline.mNodes.Count)
             {
-                Selection.objects = new Object[1] { tSpline.mNodes[browseNode] };
+                Selection.objects = new Object[1] { thisSpline.mNodes[browseNode] };
             }
         }
         EditorGUILayout.EndHorizontal();

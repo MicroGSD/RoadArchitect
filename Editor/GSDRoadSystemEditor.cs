@@ -14,12 +14,16 @@ public class GSDRoadSystemEditor : Editor
     protected GSDRoadSystem GSDRS { get { return (GSDRoadSystem) target; } }
 
     //Serialized properties:
-    private SerializedProperty bTempMultithreading;
-    private SerializedProperty bTempSaveMeshAssets;
+    [UnityEngine.Serialization.FormerlySerializedAs("bTempMultithreading")]
+    private SerializedProperty isTempMultithreading;
+    [UnityEngine.Serialization.FormerlySerializedAs("bTempSaveMeshAssets")]
+    private SerializedProperty isTempSaveMeshAssets;
 
     //Editor only variables:
-    private bool bUpdateGlobal_Multithread = false;
-    private bool bUpdateGlobal_SaveMesh = false;
+    [UnityEngine.Serialization.FormerlySerializedAs("bUpdateGlobal_Multithread")]
+    private bool isUpdateGlobalMultithread = false;
+    [UnityEngine.Serialization.FormerlySerializedAs("bUpdateGlobal_SaveMesh")]
+    private bool isUpdateGlobalSaveMesh = false;
 
     //	//Editor only camera variables:
     //	private GSDRoadIntersection[] tInters = null;
@@ -38,15 +42,15 @@ public class GSDRoadSystemEditor : Editor
     //Editor only graphic variables:
     private Texture2D LoadBtnBG = null;
     private Texture2D LoadBtnBGGlow = null;
-    private GUIStyle WarningLabelStyle;
     private Texture2D WarningLabelBG;
+    private GUIStyle WarningLabelStyle;
     private GUIStyle GSDLoadButton = null;
 
 
     private void OnEnable()
     {
-        bTempMultithreading = serializedObject.FindProperty("opt_bMultithreading");
-        bTempSaveMeshAssets = serializedObject.FindProperty("opt_bSaveMeshes");
+        isTempMultithreading = serializedObject.FindProperty("opt_bMultithreading");
+        isTempSaveMeshAssets = serializedObject.FindProperty("opt_bSaveMeshes");
     }
 
 
@@ -54,8 +58,8 @@ public class GSDRoadSystemEditor : Editor
     {
         serializedObject.Update();
 
-        bUpdateGlobal_Multithread = false;
-        bUpdateGlobal_SaveMesh = false;
+        isUpdateGlobalMultithread = false;
+        isUpdateGlobalSaveMesh = false;
         EditorStyles.label.wordWrap = true;
         InitChecks();
 
@@ -69,10 +73,10 @@ public class GSDRoadSystemEditor : Editor
 
         //Multi-threading input:
         EditorGUILayout.BeginHorizontal();
-        bTempMultithreading.boolValue = EditorGUILayout.Toggle("Multi-threading enabled", GSDRS.opt_bMultithreading);
-        if (bTempMultithreading.boolValue != GSDRS.opt_bMultithreading)
+        isTempMultithreading.boolValue = EditorGUILayout.Toggle("Multi-threading enabled", GSDRS.opt_bMultithreading);
+        if (isTempMultithreading.boolValue != GSDRS.opt_bMultithreading)
         {
-            bUpdateGlobal_Multithread = true;
+            isUpdateGlobalMultithread = true;
         }
 
         //Update all roads button:
@@ -83,12 +87,12 @@ public class GSDRoadSystemEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         //Save mesh assets input:
-        bTempSaveMeshAssets.boolValue = EditorGUILayout.Toggle("Save mesh assets: ", GSDRS.opt_bSaveMeshes);
-        if (bTempSaveMeshAssets.boolValue != GSDRS.opt_bSaveMeshes)
+        isTempSaveMeshAssets.boolValue = EditorGUILayout.Toggle("Save mesh assets: ", GSDRS.opt_bSaveMeshes);
+        if (isTempSaveMeshAssets.boolValue != GSDRS.opt_bSaveMeshes)
         {
-            bUpdateGlobal_SaveMesh = true;
+            isUpdateGlobalSaveMesh = true;
         }
-        if (GSDRS.opt_bSaveMeshes || bTempSaveMeshAssets.boolValue)
+        if (GSDRS.opt_bSaveMeshes || isTempSaveMeshAssets.boolValue)
         {
             GUILayout.Label("WARNING: Saving meshes as assets is very slow and can increase road generation time by several minutes.", WarningLabelStyle);
         }
@@ -125,13 +129,13 @@ public class GSDRoadSystemEditor : Editor
             serializedObject.ApplyModifiedProperties();
 
             //Multithreading global change:
-            if (bUpdateGlobal_Multithread)
+            if (isUpdateGlobalMultithread)
             {
                 GSDRS.UpdateAllRoads_MultiThreadOptions();
             }
 
             //Save mesh assets global change:
-            if (bUpdateGlobal_SaveMesh)
+            if (isUpdateGlobalSaveMesh)
             {
                 GSDRS.UpdateAllRoads_SaveMeshesAsAssetsOptions();
             }
@@ -338,7 +342,7 @@ public class GSDRoadSystemEditor : Editor
 
     private void DoHotKeyCheck()
     {
-        bool bUsed = false;
+        bool isUsed = false;
         Event current = Event.current;
         int controlID = GUIUtility.GetControlID(GetHashCode(), FocusType.Passive);
 
@@ -352,7 +356,7 @@ public class GSDRoadSystemEditor : Editor
         //			}
         //		}
 
-        if (bUsed)
+        if (isUsed)
         {
             switch (current.type)
             {

@@ -7,25 +7,22 @@ using UnityEditor;
 
 public class GSDRoadSystemEditorMenu : ScriptableObject
 {
-    private const bool bRoadTestCubes = false;
-
-
     /// <summary>
     /// Creates the road system.
     /// </summary>
     [MenuItem("Window/Road Architect/Create road system")]
     public static void CreateRoadSystem()
     {
-        Object[] tObj = GameObject.FindObjectsOfType(typeof(GSDRoadSystem));
-        int i = (tObj.Length + 1);
-        tObj = null;
+        Object[] allRoadSystemObjects = GameObject.FindObjectsOfType(typeof(GSDRoadSystem));
+        int nextCount = (allRoadSystemObjects.Length + 1);
+        allRoadSystemObjects = null;
 
-        GameObject tRoadSystemObj = new GameObject("RoadArchitectSystem" + i.ToString());
-        GSDRoadSystem tRoadSystem = tRoadSystemObj.AddComponent<GSDRoadSystem>();   //Add road system component.
-        tRoadSystem.AddRoad(true);//Add road for new road system.
+        GameObject newRoadSystemObject = new GameObject("RoadArchitectSystem" + nextCount.ToString());
+        GSDRoadSystem newRoadSystem = newRoadSystemObject.AddComponent<GSDRoadSystem>();
+        newRoadSystem.AddRoad(true);//Add road for new road system.
 
-        GameObject IntersectionsMasterObject = new GameObject("Intersections");
-        IntersectionsMasterObject.transform.parent = tRoadSystemObj.transform;
+        GameObject masterIntersectionsObject = new GameObject("Intersections");
+        masterIntersectionsObject.transform.parent = newRoadSystemObject.transform;
     }
 
 
@@ -35,16 +32,16 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
 	[MenuItem("Window/Road Architect/Add road")]
     public static void AddRoad()
     {
-        Object[] tObjs = GameObject.FindObjectsOfType(typeof(GSDRoadSystem));
-        if (tObjs != null && tObjs.Length == 0)
+        Object[] allRoadSystemObjects = GameObject.FindObjectsOfType(typeof(GSDRoadSystem));
+        if (allRoadSystemObjects != null && allRoadSystemObjects.Length == 0)
         {
             CreateRoadSystem();
             return;
         }
         else
         {
-            GSDRoadSystem GSDRS = (GSDRoadSystem) tObjs[0];
-            Selection.activeGameObject = GSDRS.AddRoad();
+            GSDRoadSystem firstRoadSystem = (GSDRoadSystem) allRoadSystemObjects[0];
+            Selection.activeGameObject = firstRoadSystem.AddRoad();
         }
     }
 
@@ -55,32 +52,32 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
     [MenuItem("Window/Road Architect/Update All Roads")]
     public static void UpdateAllRoads()
     {
-        GSDRoad[] tRoadObjs = (GSDRoad[]) GameObject.FindObjectsOfType(typeof(GSDRoad));
+        GSDRoad[] allRoadObjects = (GSDRoad[]) GameObject.FindObjectsOfType(typeof(GSDRoad));
 
-        int RoadCount = tRoadObjs.Length;
+        int roadCount = allRoadObjects.Length;
 
-        GSDRoad tRoad = null;
+        GSDRoad singleRoad = null;
         GSDSplineC[] tPiggys = null;
-        if (RoadCount > 1)
+        if (roadCount > 1)
         {
-            tPiggys = new GSDSplineC[RoadCount - 1];
+            tPiggys = new GSDSplineC[roadCount - 1];
         }
 
-        for (int h = 0; h < RoadCount; h++)
+        for (int count = 0; count < roadCount; count++)
         {
-            tRoad = tRoadObjs[h];
-            if (h > 0)
+            singleRoad = allRoadObjects[count];
+            if (count > 0)
             {
-                tPiggys[h - 1] = tRoad.GSDSpline;
+                tPiggys[count - 1] = singleRoad.GSDSpline;
             }
         }
 
-        tRoad = tRoadObjs[0];
+        singleRoad = allRoadObjects[0];
         if (tPiggys != null && tPiggys.Length > 0)
         {
-            tRoad.PiggyBacks = tPiggys;
+            singleRoad.PiggyBacks = tPiggys;
         }
-        tRoad.UpdateRoad();
+        singleRoad.UpdateRoad();
     }
 
 
@@ -90,8 +87,8 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
     [MenuItem("Window/Road Architect/Help")]
     public static void GSDRoadsHelp()
     {
-        GSDHelpWindow tHelp = EditorWindow.GetWindow<GSDHelpWindow>();
-        tHelp.Initialize();
+        GSDHelpWindow helpWindow = EditorWindow.GetWindow<GSDHelpWindow>();
+        helpWindow.Initialize();
     }
 
 
@@ -125,9 +122,9 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
         string mainDir = Application.dataPath + "/RoadArchitect/";
         string[] files = System.IO.Directory.GetFiles(mainDir, "*.cs", System.IO.SearchOption.AllDirectories);
         int lineCount = 0;
-        foreach (string s in files)
+        foreach (string file in files)
         {
-            lineCount += System.IO.File.ReadAllLines(s).Length;
+            lineCount += System.IO.File.ReadAllLines(file).Length;
         }
         Debug.Log(string.Format("{0:n0}", lineCount) + " lines of code in Road Architect.");
     }
