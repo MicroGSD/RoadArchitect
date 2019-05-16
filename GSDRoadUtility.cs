@@ -2936,7 +2936,11 @@ namespace GSD.Roads
                     tCenter.transform.parent = tNode.GSDRI.transform;
                     if (tRoad.opt_bIsLightmapped)
                     {
+                        #if UNITY_2019_2_OR_NEWER
+                        UnityEditor.GameObjectUtility.SetStaticEditorFlags(tCenter, UnityEditor.StaticEditorFlags.ContributeGI);
+                        #else
                         UnityEditor.GameObjectUtility.SetStaticEditorFlags(tCenter, UnityEditor.StaticEditorFlags.LightmapStatic);
+                        #endif
                     }
                     if (tRoad.opt_bIsStatic)
                     {
@@ -2968,7 +2972,11 @@ namespace GSD.Roads
                     tMarker.transform.parent = tNode.GSDRI.transform;
                     if (tRoad.opt_bIsLightmapped)
                     {
+                        #if UNITY_2019_2_OR_NEWER
+                        UnityEditor.GameObjectUtility.SetStaticEditorFlags(tMarker, UnityEditor.StaticEditorFlags.ContributeGI);
+                        #else
                         UnityEditor.GameObjectUtility.SetStaticEditorFlags(tMarker, UnityEditor.StaticEditorFlags.LightmapStatic);
+                        #endif
                     }
                     if (tRoad.opt_bIsStatic)
                     {
@@ -3196,7 +3204,11 @@ namespace GSD.Roads
             }
             if (tRoad.opt_bIsLightmapped)
             {
+                #if UNITY_2019_2_OR_NEWER
+                UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.ContributeGI);
+                #else
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.LightmapStatic);
+                #endif
             }
             if (tRoad.opt_bIsStatic)
             {
@@ -3251,7 +3263,11 @@ namespace GSD.Roads
             GSD.Roads.GSDRoadUtilityEditor.SetRoadMaterial(tMat, MR);
             if (tRoad.opt_bIsLightmapped)
             {
+                #if UNITY_2019_2_OR_NEWER
+                UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.ContributeGI);
+                #else
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.LightmapStatic);
+                #endif
             }
             if (tRoad.opt_bIsStatic)
             {
@@ -3417,7 +3433,11 @@ namespace GSD.Roads
 
             if (tRoad.opt_bIsLightmapped)
             {
+                #if UNITY_2019_2_OR_NEWER
+                UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.ContributeGI);
+                #else
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(tObj, UnityEditor.StaticEditorFlags.LightmapStatic);
+                #endif
             }
             if (tRoad.opt_bIsStatic)
             {
@@ -3568,7 +3588,11 @@ namespace GSD.Roads
             }
             if (tRoad.opt_bIsLightmapped)
             {
+                #if UNITY_2019_2_OR_NEWER
+                UnityEditor.GameObjectUtility.SetStaticEditorFlags(CreatedObj, UnityEditor.StaticEditorFlags.ContributeGI);
+                #else
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(CreatedObj, UnityEditor.StaticEditorFlags.LightmapStatic);
+                #endif
             }
             if (tRoad.opt_bIsStatic)
             {
@@ -3754,7 +3778,11 @@ namespace GSD.Roads
             CreatedObj.transform.parent = MasterObj.transform;
             if (tRoad.opt_bIsLightmapped)
             {
+                #if UNITY_2019_2_OR_NEWER
+                UnityEditor.GameObjectUtility.SetStaticEditorFlags(CreatedObj, UnityEditor.StaticEditorFlags.ContributeGI);
+                #else
                 UnityEditor.GameObjectUtility.SetStaticEditorFlags(CreatedObj, UnityEditor.StaticEditorFlags.LightmapStatic);
+                #endif
             }
             if (tRoad.opt_bIsStatic)
             {
