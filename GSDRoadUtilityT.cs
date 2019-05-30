@@ -2493,11 +2493,11 @@ namespace GSD.Threaded
                 {
                     RampR_R = (tVect + new Vector3(RampOuterWidthR * POS.normalized.z, 0, RampOuterWidthR * -POS.normalized.x)) + gHeight;
                     SetVectorHeight2(ref RampR_R, ref i, ref tSpline.HeightHistory, ref tSpline);
-                    RampR_R.y -= 0.35f;
+                    RampR_R.y -= tRoad.opt_desiredRampHeight;
 
                     RampL_L = (tVect + new Vector3(RampOuterWidthL * -POS.normalized.z, 0, RampOuterWidthL * POS.normalized.x)) + gHeight;
                     SetVectorHeight2(ref RampL_L, ref i, ref tSpline.HeightHistory, ref tSpline);
-                    RampL_L.y -= 0.35f;
+                    RampL_L.y -= tRoad.opt_desiredRampHeight;
                 }
 
                 //Merge points to intersection corners if necessary:
@@ -3264,7 +3264,7 @@ namespace GSD.Threaded
                         RampR_R = RampR_Override;
                     }   //Overrides will come from intersection.
                     SetVectorHeight2(ref RampR_R, ref i, ref tSpline.HeightHistory, ref tSpline);
-                    RampR_R.y -= 0.35f;
+                    RampR_R.y -= tRoad.opt_desiredRampHeight;
 
                     RampL_L = (tVect + new Vector3(RampOuterWidthL * -POS.normalized.z, 0, RampOuterWidthL * POS.normalized.x)) + gHeight;
                     if (bOverrideRampL)
@@ -3272,7 +3272,7 @@ namespace GSD.Threaded
                         RampL_L = RampL_Override;
                     }   //Overrides will come from intersection.
                     SetVectorHeight2(ref RampL_L, ref i, ref tSpline.HeightHistory, ref tSpline);
-                    RampL_L.y -= 0.35f;
+                    RampL_L.y -= tRoad.opt_desiredRampHeight;
                     bOverrideRampR = false;
                     bOverrideRampL = false;
                 }
@@ -3642,10 +3642,10 @@ namespace GSD.Threaded
                 ShoulderL_lVect = (tVect + new Vector3(ShoulderSeperation * -POS.normalized.z, 0, ShoulderSeperation * POS.normalized.x));
                 RampR_R = (tVect + new Vector3(RampOuterWidthR * POS.normalized.z, 0, RampOuterWidthR * -POS.normalized.x));
                 SetVectorHeight2(ref RampR_R, ref i, ref tSpline.HeightHistory, ref tSpline);
-                RampR_R.y -= 0.45f;
+                RampR_R.y -= (tRoad.opt_desiredRampHeight + 0.10f);          // normal was 0.35f; Here was 0.45f
                 RampL_L = (tVect + new Vector3(RampOuterWidthL * -POS.normalized.z, 0, RampOuterWidthL * POS.normalized.x));
                 SetVectorHeight2(ref RampL_L, ref i, ref tSpline.HeightHistory, ref tSpline);
-                RampL_L.y -= 0.45f;
+                RampL_L.y -= (tRoad.opt_desiredRampHeight + 0.10f);
 
 
 
@@ -3756,10 +3756,10 @@ namespace GSD.Threaded
                 ShoulderL_lVect = (tVect + new Vector3(ShoulderSeperation * -POS.normalized.z, 0, ShoulderSeperation * POS.normalized.x));
                 RampR_R = (tVect + new Vector3(RampOuterWidthR * POS.normalized.z, 0, RampOuterWidthR * -POS.normalized.x));
                 SetVectorHeight2(ref RampR_R, ref i, ref tSpline.HeightHistory, ref tSpline);
-                RampR_R.y -= 0.35f;
+                RampR_R.y -= tRoad.opt_desiredRampHeight;
                 RampL_L = (tVect + new Vector3(RampOuterWidthL * -POS.normalized.z, 0, RampOuterWidthL * POS.normalized.x));
                 SetVectorHeight2(ref RampL_L, ref i, ref tSpline.HeightHistory, ref tSpline);
-                RampL_L.y -= 0.35f;
+                RampL_L.y -= tRoad.opt_desiredRampHeight;
 
                 //Right shoulder:
                 tRoad.RCS.ShoulderR_Vectors.Add(rVect);

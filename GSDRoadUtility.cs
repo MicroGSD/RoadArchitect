@@ -9,7 +9,6 @@ using System.Runtime.Serialization;
 #endregion
 
 
-// TODO: Remove // comments with /**/  // FH 29.01.19 
 namespace GSD.Roads
 {
     //Generic http://www.fhwa.dot.gov/bridge/bridgerail/br053504.cfm

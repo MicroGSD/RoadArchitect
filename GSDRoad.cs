@@ -82,6 +82,8 @@ public class GSDRoad : MonoBehaviour
     public bool opt_bUseMeshColliders = true;
     public bool opt_bIsStatic = false;
     public bool opt_bIsLightmapped = false;
+    public float opt_desiredRampHeight = 0.35f;
+
 
     public enum RoadMaterialDropdownEnum
     {

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed "Buffers" from Scripts
 - Refactor of IsApproximately
 - Updated RoadUtility to use Unity 2019.2 API
+- Added an option to change the desired height of the ramp
 
 
 ## [Version: 1.9_FH] - 2019.04.22

@@ -54,6 +54,7 @@ public class GSDRoadEditor : Editor
     private SerializedProperty t_opt_tRoadMaterialDropdown;
     private SerializedProperty t_opt_bIsStatic;
     private SerializedProperty t_opt_bIsLightmapped;
+    private SerializedProperty t_opt_desiredRampHeight;
 
     private SerializedProperty t_RoadMaterial1;
     private SerializedProperty t_RoadMaterial2;
@@ -147,6 +148,7 @@ public class GSDRoadEditor : Editor
         t_opt_tRoadMaterialDropdown = serializedObject.FindProperty("opt_tRoadMaterialDropdown");
         t_opt_bIsStatic = serializedObject.FindProperty("opt_bIsStatic");
         t_opt_bIsLightmapped = serializedObject.FindProperty("opt_bIsLightmapped");
+        t_opt_desiredRampHeight = serializedObject.FindProperty("opt_desiredRampHeight");
 
         t_RoadMaterial1 = serializedObject.FindProperty("RoadMaterial1");
         t_RoadMaterial2 = serializedObject.FindProperty("RoadMaterial2");
@@ -416,6 +418,7 @@ public class GSDRoadEditor : Editor
         if (RS.GSDRS != null)
         {
             t_opt_bIsLightmapped.boolValue = EditorGUILayout.Toggle("Lightmapped: ", RS.opt_bIsLightmapped);
+            t_opt_desiredRampHeight.floatValue = EditorGUILayout.FloatField("Ramp Height:", RS.opt_desiredRampHeight);
         }
 
         //Option: Save meshes as unity assets options:
