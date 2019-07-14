@@ -123,9 +123,9 @@ public class GSDSplineC : MonoBehaviour
         //Setup spline length, if more than 1 node:
         if (GetNodeCount() > 1)
         {
-            //			if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("SplineSetupLength"); }
+            //			GSDRootUtil.StartProfiling(tRoad, "SplineSetupLength");
             Setup_SplineLength();
-            //			if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
+            //			GSDRootUtil.EndProfiling(tRoad);
         }
         else if (GetNodeCount() == 1)
         {

@@ -520,11 +520,7 @@ public class GSDRoad : MonoBehaviour
         SetupUniqueIdentifier();
 
 
-
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.BeginSample("UpdateRoadPrelim");
-        }
+        GSDRootUtil.StartProfiling(this, "UpdateRoadPrelim");
         opt_RoadDefinition = Mathf.Clamp(opt_RoadDefinition, 1f, 50f);
         opt_LaneWidth = Mathf.Clamp(opt_LaneWidth, 0.2f, 500f);
         EditorConstructionStartTime = Time.realtimeSinceStartup;
@@ -631,9 +627,9 @@ public class GSDRoad : MonoBehaviour
 
 
         GSDSpline.RoadWidth = RoadWidth();
-        //		if(bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("SplineSetup"); }
+        //		GSDRootUtil.StartProfiling(this, "SplineSetup");
         GSDSpline.Setup();
-        //		if(bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
+        //		GSDRootUtil.EndProfiling(this);
         mCount = GSDSpline.GetNodeCount();
 
         if (GSDSpline == null || GSDSpline.mNodes == null)
@@ -739,10 +735,7 @@ public class GSDRoad : MonoBehaviour
             {
                 Object.DestroyImmediate(MeshiMarkerPlates);
             }
-            if (bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(this);
             return;
         }
 
@@ -788,11 +781,7 @@ public class GSDRoad : MonoBehaviour
         }
         tTerrain = null;
 
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-        }
-
+        GSDRootUtil.EndProfiling(this);
         if (GSDRS.opt_bMultithreading)
         {
             if (RCS.bTerrainOn || TerrainHistory == null)
@@ -822,15 +811,9 @@ public class GSDRoad : MonoBehaviour
 
         if (opt_SaveTerrainHistoryOnDisk && TerrainHistory != null && TerrainHistory.Count > 0)
         {
-            if (bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("TerrainHistory_Save");
-            }
+            GSDRootUtil.StartProfiling(this, "TerrainHistory_Save");
             GSDGeneralEditor.TerrainHistory_Save(TerrainHistory, this);
-            if (bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(this);
             TerrainHistory.Clear();
             TerrainHistory = null;
         }
@@ -892,10 +875,7 @@ public class GSDRoad : MonoBehaviour
     {
         if (opt_HeightModEnabled || opt_DetailModEnabled || opt_TreeModEnabled)
         {
-            if (bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Terrain");
-            }
+            GSDRootUtil.StartProfiling(this, "RoadCon_Terrain");
             if (RCS.bTerrainOn || TerrainHistory == null)
             {
                 GSDTerraforming.ProcessRoad_Terrain_Hook1(GSDSpline, this, false);
@@ -909,59 +889,28 @@ public class GSDRoad : MonoBehaviour
                 EditorTTDList = null;
                 System.GC.Collect();
             }
-            if (bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(this);
         }
 
         EditorProgress = 50;
         GSDRoad tRoad = this;
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.BeginSample("RoadCon_RoadPrelim");
-        }
+        GSDRootUtil.StartProfiling(this, "RoadCon_RoadPrelim");
 
         EditorProgress = 80;
         GSD.Threaded.GSDRoadCreationT.RoadJob_Prelim(ref tRoad);
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-            UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Road1");
-        }
+        GSDRootUtil.EndStartProfiling(this, "RoadCon_Road1");
         EditorProgress = 90;
         GSD.Threaded.RoadCalcs1_static.RunMe(ref RCS);
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-        }
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.BeginSample("MeshSetup1");
-        }
+        GSDRootUtil.EndStartProfiling(this, "MeshSetup1");
         EditorProgress = 92;
         RCS.MeshSetup1();
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-            UnityEngine.Profiling.Profiler.BeginSample("RoadCon_Road2");
-        }
+        GSDRootUtil.EndStartProfiling(this, "RoadCon_Road2");
         EditorProgress = 94;
         GSD.Threaded.RoadCalcs2_static.RunMe(ref RCS);
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-        }
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.BeginSample("MeshSetup2");
-        }
+        GSDRootUtil.EndStartProfiling(this, "MeshSetup2");
         EditorProgress = 96;
         RCS.MeshSetup2();
-        if (bProfiling)
-        {
-            UnityEngine.Profiling.Profiler.EndSample();
-        }
+        GSDRootUtil.EndProfiling(this);
         Construction_Cleanup();
     }
     #endregion

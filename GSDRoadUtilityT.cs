@@ -467,10 +467,7 @@ namespace GSD.Threaded
                 }
             }
 
-            if (tSpline.tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("DoRectsTree");
-            }
+            GSDRootUtil.StartProfiling(tSpline.tRoad, "DoRectsTree");
             if (tSpline.tRoad.opt_TreeModEnabled && TreerectList != null && TreerectList.Count > 0)
             {
                 int tCount = TTD.TreeSize;
@@ -505,10 +502,7 @@ namespace GSD.Threaded
                 }
                 TTD.TreesCurrent.RemoveAll(item => item.prototypeIndex < -1);
             }
-            if (tSpline.tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(tSpline.tRoad);
 
             if (!tSpline.tRoad.opt_HeightModEnabled)
             {
@@ -936,10 +930,7 @@ namespace GSD.Threaded
                 }
 
                 //				int DetailI = 0;
-                if (tSpline.tRoad.bProfiling)
-                {
-                    UnityEngine.Profiling.Profiler.BeginSample("Dorectsdetails");
-                }
+                GSDRootUtil.StartProfiling(tSpline.tRoad, "Dorectsdetails");
                 int tInt = 0;
                 for (int index = MinX; index <= MaxX; index++)
                 {
@@ -975,10 +966,7 @@ namespace GSD.Threaded
                         }
                     }
                 }
-                if (tSpline.tRoad.bProfiling)
-                {
-                    UnityEngine.Profiling.Profiler.EndSample();
-                }
+                GSDRootUtil.EndProfiling(tSpline.tRoad);
             }
 
             return tRect;
@@ -1402,25 +1390,12 @@ namespace GSD.Threaded
 
 
             //Prelim intersection construction and profiling:
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("RoadJob_Prelim_Inter");
-            }
+            GSDRootUtil.StartProfiling(tRoad, "RoadJob_Prelim_Inter");
             if (bInterseOn)
             {
                 RoadJob_Prelim_Inter(ref tRoad);
             }
-
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
-
-
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("RoadPrelimForLoop");
-            }
+            GSDRootUtil.EndStartProfiling(tRoad, "RoadPrelimForLoop");
 
             //Road/shoulder cuts: Init necessary since a road cut is added for the last segment after this function:
             if (tRoad.opt_bRoadCuts || tRoad.opt_bDynamicCuts)
@@ -3571,29 +3546,15 @@ namespace GSD.Threaded
 
                 //				i+=Step;//Master step incrementer.
             }
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndStartProfiling(tRoad, "RoadJob_Prelim_FinalizeInter");
 
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("RoadJob_Prelim_FinalizeInter");
-            }
             //Finalize intersection vectors:
             if (bInterseOn)
             {
                 RoadJob_Prelim_FinalizeInter(ref tRoad);
             }
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndStartProfiling(tRoad, "RoadJob_Prelim_RoadConnections");
 
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("RoadJob_Prelim_RoadConnections");
-            }
             //Creates road connections if necessary:
             //			float ExtraHeight = 0f;
             //			float RampPercent = 0.2f;
@@ -3808,10 +3769,7 @@ namespace GSD.Threaded
                 tRoad.RCS.RoadConnections_normals.Add(RoadConn_normals);
                 tRoad.RCS.RoadConnections_uv.Add(RoadConn_uv);
             }
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(tRoad);
         }
 
 
@@ -6370,12 +6328,12 @@ namespace GSD.Threaded
         public static void RoadJob1(ref GSD.Roads.RoadConstructorBufferMaker RCS)
         {
             //Triangles and normals:
-            //			if(RCS.tRoad.bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_IntersectionCleanup"); }
+            //			GSDRootUtil.StartProfiling(RCS.tRoad, "ProcessRoad_IntersectionCleanup");
             if (RCS.bInterseOn)
             {
                 ProcessRoad_IntersectionCleanup(ref RCS);
             }
-            //			if(RCS.tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
+            //			GSDRootUtil.EndProfiling(RCS.tRoad);
 
             ProcessRoad_Tris_Bulk(ref RCS);
 
@@ -8500,16 +8458,9 @@ namespace GSD.Threaded
                 //				}
 
                 //				if(tRoad.opt_MatchTerrain){
-                if (tRoad.bProfiling)
-                {
-                    UnityEngine.Profiling.Profiler.BeginSample("DoRects");
-                }
+                GSDRootUtil.StartProfiling(tRoad, "DoRects");
                 GSDTerraformingT.DoRects(tSpline, TTD);
-
-                if (tRoad.bProfiling)
-                {
-                    UnityEngine.Profiling.Profiler.EndSample();
-                }
+                GSDRootUtil.EndProfiling(tRoad);
                 //				}else{
                 //					for(float i=StartMin;i<=FinalMax;i+=Step){
                 //						if(tSpline.IsInBridgeTerrain(i)){

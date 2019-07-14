@@ -345,23 +345,14 @@ namespace GSD.Roads
 
         private static void ProcessRoad_Terrain_Hook1_Do(ref GSDSplineC tSpline, ref GSDRoad tRoad, bool bMultithreaded)
         {
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook1_Do");
-            }
+            GSDRootUtil.StartProfiling(tRoad, "ProcessRoad_Terrain_Hook1_Do");
             //First lets make sure all terrains have GSD shit on them:
             CheckAllTerrains();
 
             //Reset the terrain:
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("TerrainsReset");
-            }
+            GSDRootUtil.StartProfiling(tRoad, "TerrainsReset");
             GSDTerraforming.TerrainsReset(tRoad);
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(tRoad);
 
             float heightDistance = tRoad.opt_MatchHeightsDistance;
             //			float treeDistance = tRoad.opt_ClearTreesDistance;
@@ -448,10 +439,7 @@ namespace GSD.Roads
                     float DetailRatio = tTerrain.terrainData.detailResolution / tTerrain.terrainData.size.x;
 
                     //Heights:
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.BeginSample("Heights");
-                    }
+                    GSDRootUtil.StartProfiling(tRoad, "Heights");
                     if (tRoad.opt_HeightModEnabled)
                     {
                         aSize = (int) tSpline.distance * ((int) (heightDistance * 1.65f * TTD.HMRatio) + 2);
@@ -475,16 +463,9 @@ namespace GSD.Roads
                             TempTerrainDict.Add(tTerrain, TTD);
                         }
                     }
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.EndSample();
-                    }
 
                     //Details:
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.BeginSample("Details");
-                    }
+                    GSDRootUtil.EndStartProfiling(tRoad, "Details");
                     if (tRoad.opt_DetailModEnabled)
                     {
                         //						TTD.DetailValues = new Dictionary<int, int[,]>();
@@ -500,7 +481,7 @@ namespace GSD.Roads
 
                         // Get all of layer zero.
                         //						int[] mMinMaxDetailEntryCount = new int[TTD.DetailLayersCount];
-                        //						if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("DetailValues"); }
+                        //						GSDRootUtil.StartProfiling(tRoad, "DetailValues");
                         //						Vector3 bVect = default(Vector3);
                         //						Vector2 bVect2D = default(Vector2);
                         //						int DetailRes = tTerrain.terrainData.detailResolution;
@@ -529,7 +510,7 @@ namespace GSD.Roads
                         //								TTD.DetailHasProcessed.Add(i,new bool[tTerrain.terrainData.detailWidth,tTerrain.terrainData.detailHeight]);
                         //							}
                         //						}
-                        //						if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
+                        //						GSDRootUtil.EndProfiling(tRoad);
 
 
                         dSize = (int) tSpline.distance * ((int) (detailDistance * 3f * DetailRatio) + 2);
@@ -578,16 +559,9 @@ namespace GSD.Roads
 
 
                     }
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.EndSample();
-                    }
 
                     //Trees:
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.BeginSample("Trees");
-                    }
+                    GSDRootUtil.EndStartProfiling(tRoad, "Trees");
                     if (tRoad.opt_TreeModEnabled)
                     {
                         //						TTD.TreesCurrent = tTerrain.terrainData.treeInstances;
@@ -596,10 +570,7 @@ namespace GSD.Roads
                         TTD.TreesI = 0;
                         TTD.TreesOld = new List<TreeInstance>();
                     }
-                    if (tRoad.bProfiling)
-                    {
-                        UnityEngine.Profiling.Profiler.EndSample();
-                    }
+                    GSDRootUtil.EndProfiling(tRoad);
                 }
             }
 
@@ -616,10 +587,7 @@ namespace GSD.Roads
                 }
             }
 
-            if (tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(tRoad);
 
             //Start job now, for each relevant TTD:
             tRoad.EditorTerrainCalcs(ref EditorTTDList);
@@ -676,15 +644,9 @@ namespace GSD.Roads
 
         public static void ProcessRoad_Terrain_Hook2(GSDSplineC tSpline, ref List<TempTerrainData> TTDList)
         {
-            if (tSpline.tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.BeginSample("ProcessRoad_Terrain_Hook2");
-            }
+            GSDRootUtil.StartProfiling(tSpline.tRoad, "ProcessRoad_Terrain_Hook2");
             ProcessRoad_Terrain_Hook2_Do(ref tSpline, ref TTDList);
-            if (tSpline.tRoad.bProfiling)
-            {
-                UnityEngine.Profiling.Profiler.EndSample();
-            }
+            GSDRootUtil.EndProfiling(tSpline.tRoad);
         }
 
 
@@ -4267,9 +4229,9 @@ namespace GSD.Roads
             }
 
             //			//TerrainHistoryRaw
-            //			if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.BeginSample("TerrainHistorySerialize"); }
+            //			GSDRootUtil.StartProfiling(tRoad, "TerrainHistorySerialize");
             //			TerrainHistorySerialize(ref tRoad);
-            //			if(tRoad.bProfiling){ UnityEngine.Profiling.Profiler.EndSample(); }
+            //			GSDRootUtil.EndProfiling(tRoad);
         }
 
 

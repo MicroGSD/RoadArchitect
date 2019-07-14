@@ -388,5 +388,35 @@ namespace GSD
             Resources.UnloadUnusedAssets();
 #endif
         }
+
+
+        #region "Profiling"
+        public static void StartProfiling(GSDRoad _road, string _profileName)
+        {
+            if (_road.bProfiling)
+            {
+                UnityEngine.Profiling.Profiler.BeginSample(_profileName);
+            }
+        }
+
+
+        public static void EndProfiling(GSDRoad _road)
+        {
+            if (_road.bProfiling)
+            {
+                UnityEngine.Profiling.Profiler.EndSample();
+            }
+        }
+
+
+        public static void EndStartProfiling(GSDRoad _road, string _profileName)
+        {
+            if (_road.bProfiling)
+            {
+                UnityEngine.Profiling.Profiler.EndSample();
+                UnityEngine.Profiling.Profiler.BeginSample(_profileName);
+            }
+        }
+        #endregion
     }
 }
