@@ -285,14 +285,14 @@ public class GSDRoadEditor : Editor
 
 
         EditorGUILayout.BeginVertical("box");
-        EditorGUILayout.BeginHorizontal();
-        //Option: Gizmos input:
-        t_opt_GizmosEnabled.boolValue = EditorGUILayout.Toggle("Gizmos: ", RS.opt_GizmosEnabled);
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
             Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
-        EditorGUILayout.EndHorizontal();
+        //Option: Gizmos input:
+        t_opt_GizmosEnabled.boolValue = EditorGUILayout.Toggle("Gizmos: ", RS.opt_GizmosEnabled);
+        RS.selectedColor = EditorGUILayout.ColorField("Gizmo Selected Color: ", RS.selectedColor);
+        RS.Color_NodeDefaultColor = EditorGUILayout.ColorField("Gizmo Default Color: ", RS.Color_NodeDefaultColor);
 
         //Option: Lane count:
         if (RS.opt_Lanes == 2)

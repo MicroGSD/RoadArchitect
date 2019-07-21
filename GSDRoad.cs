@@ -1094,9 +1094,10 @@ public class GSDRoad : MonoBehaviour
     public bool Editor_bSelected = false;
     public bool Editor_MouseTerrainHit = false;
     public Vector3 Editor_MousePos = new Vector3(0f, 0f, 0f);
-    public readonly Color Color_NodeDefaultColor = new Color(0f, 1f, 1f, 0.75f);
+    public Color Color_NodeDefaultColor = new Color(0f, 1f, 1f, 0.75f);
     public readonly Color Color_NodeConnColor = new Color(0f, 1f, 0f, 0.75f);
     public readonly Color Color_NodeInter = new Color(0f, 1f, 0f, 0.75f);
+    public Color selectedColor = Color.yellow;
 
 
     private void OnDrawGizmosSelected()

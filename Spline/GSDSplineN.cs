@@ -669,7 +669,7 @@ public class GSDSplineN : MonoBehaviour
             Gizmos.color = new Color(0f, 1f, 0f, 0.6f);
             Gizmos.DrawCube(transform.position + new Vector3(0f, 2f, 0f), new Vector3(32f, 4f, 32f));
         }
-        Gizmos.color = Color.yellow;
+        Gizmos.color = GSDSpline.tRoad.selectedColor;
         Gizmos.DrawCube(transform.position + new Vector3(0f, 6.25f, 0f), new Vector3(3.5f, 12.5f, 3.5f));
     }
     #endregion
