@@ -321,7 +321,7 @@ public class GSDRoad : MonoBehaviour
 
         if (bEditorCameraMoving && EditorCameraNextMove < EditorApplication.timeSinceStartup)
         {
-            EditorCameraNextMove = (float) EditorApplication.timeSinceStartup + EditorCameraTimeUpdateInterval;
+            EditorCameraNextMove = (float)EditorApplication.timeSinceStartup + EditorCameraTimeUpdateInterval;
             DoEditorCameraLoop();
         }
     }
@@ -425,7 +425,7 @@ public class GSDRoad : MonoBehaviour
     {
         if (EditorPlayCamera == null)
         {
-            Camera[] EditorCams = (Camera[]) GameObject.FindObjectsOfType(typeof(Camera));
+            Camera[] EditorCams = (Camera[])GameObject.FindObjectsOfType(typeof(Camera));
             if (EditorCams != null && EditorCams.Length == 1)
             {
                 EditorPlayCamera = EditorCams[0];
@@ -455,8 +455,7 @@ public class GSDRoad : MonoBehaviour
         if (!Application.isEditor)
         {
 #if UNITY_2018_1_OR_NEWER
-            UnityEditor.EditorApplication.hierarchyChanged -= delegate
-            { hWindowChanged(); };
+            UnityEditor.EditorApplication.hierarchyChanged -= delegate { hWindowChanged(); };
 #else
             UnityEditor.EditorApplication.hierarchyWindowChanged -= delegate { hWindowChanged(); };
 #endif
@@ -493,7 +492,7 @@ public class GSDRoad : MonoBehaviour
             EditorUtility.DisplayProgressBar(
                 "GSD Road Update",
                 EditorTitleString,
-                ((float) EditorProgress / 100f));
+                ((float)EditorProgress / 100f));
         }
         else if (bEditorProgressBar)
         {
@@ -625,7 +624,6 @@ public class GSDRoad : MonoBehaviour
         name = transform.name;
 
 
-
         GSDSpline.RoadWidth = RoadWidth();
         //		GSDRootUtil.StartProfiling(this, "SplineSetup");
         GSDSpline.Setup();
@@ -639,21 +637,19 @@ public class GSDRoad : MonoBehaviour
         else
         {
             MostRecentNodeCount = GSDSpline.GetNodeCount();
-        }
+        }  
+
 
         if (opt_UseDefaultMaterials)
         {
             SetDefaultMats();
-        }
 
-        if (opt_UseDefaultMaterials)
-        {
             if (DetectInvalidDefaultMatsForUndo())
             {
                 SetAllCutsToCurrentMaterials();
             }
         }
-
+        
         //Hiding in hierarchy:
         for (int i = 0; i < mCount; i++)
         {
@@ -670,7 +666,7 @@ public class GSDRoad : MonoBehaviour
                 }
             }
         }
-
+        
         int cCount = transform.childCount;
         GameObject tMainMeshes = null;
         List<GameObject> tObjs = new List<GameObject>();
@@ -738,7 +734,7 @@ public class GSDRoad : MonoBehaviour
             GSDRootUtil.EndProfiling(this);
             return;
         }
-
+        
         GSDSpline.HeightHistory = new List<KeyValuePair<float, float>>();
         if (GSDRS == null)
         {
@@ -754,7 +750,6 @@ public class GSDRoad : MonoBehaviour
             Editor_bIsConstructing = false;
         }
         Editor_bConstructionID = 0;
-
 
 
         //Check if road takes place on only 1 terrain:
@@ -780,7 +775,7 @@ public class GSDRoad : MonoBehaviour
             RCS.tTerrain = null;
         }
         tTerrain = null;
-
+        
         GSDRootUtil.EndProfiling(this);
         if (GSDRS.opt_bMultithreading)
         {
@@ -1098,13 +1093,14 @@ public class GSDRoad : MonoBehaviour
     public readonly Color Color_NodeConnColor = new Color(0f, 1f, 0f, 0.75f);
     public readonly Color Color_NodeInter = new Color(0f, 1f, 0f, 0.75f);
     public Color selectedColor = Color.yellow;
+    public Color newNodePreviewColor = Color.red;
 
 
     private void OnDrawGizmosSelected()
     {
         if (Editor_MouseTerrainHit)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = newNodePreviewColor;
             Gizmos.DrawCube(Editor_MousePos, new Vector3(10f, 4f, 10f));
         }
     }
@@ -1114,7 +1110,7 @@ public class GSDRoad : MonoBehaviour
 
     public float RoadWidth()
     {
-        return (opt_LaneWidth * (float) opt_Lanes);
+        return (opt_LaneWidth * (float)opt_Lanes);
     }
 
 
@@ -1175,7 +1171,7 @@ public class GSDRoad : MonoBehaviour
         {
             for (int j = 0; j < 25000; j++)
             {
-                tSubject[j] = (ushort) (j + 1);
+                tSubject[j] = (ushort)(j + 1);
                 //				int xTemp = (int)tSubject[j];
             }
         }
@@ -1205,7 +1201,7 @@ public class GSDRoad : MonoBehaviour
         {
             for (int j = 0; j < 25000; j++)
             {
-                tSubject[j] = (long) (j + 1);
+                tSubject[j] = (long)(j + 1);
                 //				int xTemp = (int)tSubject[j];
             }
         }

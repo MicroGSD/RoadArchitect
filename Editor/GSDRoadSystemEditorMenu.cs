@@ -133,7 +133,7 @@ public class GSDRoadSystemEditorMenu : ScriptableObject
     [MenuItem("Window/Road Architect/Report a Bug")]
     public static void ReportBug()
     {
-        Application.OpenURL("https://github.com/embeddedt/RoadArchitect/issues");
+        Application.OpenURL("https://github.com/FritzsHero/RoadArchitect/issues");
     }
 }
 #endif

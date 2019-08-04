@@ -291,6 +291,7 @@ public class GSDRoadEditor : Editor
         }
         //Option: Gizmos input:
         t_opt_GizmosEnabled.boolValue = EditorGUILayout.Toggle("Gizmos: ", RS.opt_GizmosEnabled);
+        RS.newNodePreviewColor = EditorGUILayout.ColorField("Gizmo new Node preview Color: ", RS.newNodePreviewColor);
         RS.selectedColor = EditorGUILayout.ColorField("Gizmo Selected Color: ", RS.selectedColor);
         RS.Color_NodeDefaultColor = EditorGUILayout.ColorField("Gizmo Default Color: ", RS.Color_NodeDefaultColor);
 

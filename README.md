@@ -1,14 +1,14 @@
 # RoadArchitect
-[![GitHub release](https://img.shields.io/github/release/FritzsHero/RoadArchitect.svg)]()
-[![Github All Releases](https://img.shields.io/github/downloads/FritzsHero/RoadArchitect/total.svg)]()
-[![GitHub contributors](https://img.shields.io/github/contributors/FritzsHero/RoadArchitect.svg)]()
-[![Join the chat at https://gitter.im/NewRoadArchitect/community](https://badges.gitter.im/NewRoadArchitect/community.svg)](https://gitter.im/NewRoadArchitect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GitHub release](https://img.shields.io/github/release/FritzsHero/RoadArchitect.svg)](https://github.com/FritzsHero/RoadArchitect/releases/tag/v1.9_FH)
+[![Github All Releases](https://img.shields.io/github/downloads/FritzsHero/RoadArchitect/total.svg)](https://github.com/FritzsHero/RoadArchitect/releases)
+[![GitHub contributors](https://img.shields.io/github/contributors/FritzsHero/RoadArchitect.svg)](https://github.com/FritzsHero/RoadArchitect/graphs/contributors)
+
 
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.
 
-Road Architect is currently being developed with Unity 2018.3.8f1. If interested in contributing please open an issue or pull request.
+Road Architect is currently being developed with Unity 2019.2.0b9 and is working with most of the previous versions. If interested in contributing please open an issue or pull request.
 
-- Currently, I recommend downloading the main git repository by either using `git clone https://github.com/FritzsHero/RoadArchitect.git` or using Embeddedt's Repo: `git clone https://github.com/embeddedt/RoadArchitect.git`  downloading a ZIP from GitHub.
+- Currently, I recommend downloading the main git repository by either using `git clone https://github.com/FritzsHero/RoadArchitect.git` or using the Releases downloading a ZIP from GitHub.
 - The resulting folder should be copied to the root of your Assets directory and may need to be renamed to RoadArchitect (instead of RoadArchitect-master).
 - A preview for upcoming versions should be availible under downloads
 - https://github.com/FritzsHero/RoadArchitect/releases
