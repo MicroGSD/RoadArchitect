@@ -39,6 +39,40 @@ namespace GSD.Roads
         }
 
 
+        // Refactor with above function is in work
+        public static string GetRoadArchitectApplicationPath()
+        {
+            if (Directory.Exists(Application.dataPath + "/RoadArchitect"))
+            {
+                return Application.dataPath + "/RoadArchitect";
+            }
+            else if (Directory.Exists(Application.dataPath + "/RoadArchitect-master"))
+            {
+                return Application.dataPath + "/RoadArchitect-master";
+            }
+            else if (Directory.Exists(Application.dataPath + "/Resources/RoadArchitect"))
+            {
+                return Application.dataPath + "/Resources/RoadArchitect";
+            }
+            else if (Directory.Exists(Application.dataPath + "/Resources/RoadArchitect-master"))
+            {
+                return Application.dataPath + "/Resources/RoadArchitect-master";
+            }
+            else if (Directory.Exists(Application.dataPath + "/Tools/RoadArchitect"))
+            {
+                return Application.dataPath + "/Tools/RoadArchitect";
+            }
+            else if (Directory.Exists(Application.dataPath + "/Tools/RoadArchitect-master"))
+            {
+                return Application.dataPath + "/Tools/RoadArchitect-master";
+            }
+            else
+            {
+                throw new System.Exception("RoadArchitect must be placed in one of the valid folders, read the top of this script");
+            }
+        }
+
+
 #if UNITY_EDITOR
         public static void SetRoadMaterial(string tPath, MeshRenderer MR, string tPath2 = "")
         {

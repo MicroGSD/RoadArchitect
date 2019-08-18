@@ -1152,62 +1152,6 @@ public class GSDRoad : MonoBehaviour
     }
 
 
-
-    // TODO: Needs a proper Name, who did this anyway? // FH 29.01.19
-    private static void akjsdfkajlgffdghfsdghsdf()
-    {
-        int LoopMax = 1000;
-        DoShort(LoopMax);
-        DoInt(LoopMax);
-        DoLong(LoopMax);
-    }
-
-
-    private static void DoShort(int LoopMax)
-    {
-        ushort[] tSubject = new ushort[25000];
-        //		int tInt = 0;
-        for (int i = 0; i < LoopMax; i++)
-        {
-            for (int j = 0; j < 25000; j++)
-            {
-                tSubject[j] = (ushort)(j + 1);
-                //				int xTemp = (int)tSubject[j];
-            }
-        }
-    }
-
-
-    private static void DoInt(int LoopMax)
-    {
-        int[] tSubject = new int[25000];
-        //		int tInt = 0;
-        for (int i = 0; i < LoopMax; i++)
-        {
-            for (int j = 0; j < 25000; j++)
-            {
-                tSubject[j] = j + 1;
-                //				int xTemp = tSubject[j];
-            }
-        }
-    }
-
-
-    private static void DoLong(int LoopMax)
-    {
-        long[] tSubject = new long[25000];
-        //		int tInt = 0;
-        for (int i = 0; i < LoopMax; i++)
-        {
-            for (int j = 0; j < 25000; j++)
-            {
-                tSubject[j] = (long)(j + 1);
-                //				int xTemp = (int)tSubject[j];
-            }
-        }
-    }
-
-
     #region "Default materials retrieval"
     public bool DetectInvalidDefaultMatsForUndo()
     {

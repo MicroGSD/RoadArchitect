@@ -71,20 +71,18 @@ public class GSDRoadSystemEditor : Editor
         }
         RAEditorUtilitys.Line();
 
-        //Multi-threading input:
-        EditorGUILayout.BeginHorizontal();
-        isTempMultithreading.boolValue = EditorGUILayout.Toggle("Multi-threading enabled", GSDRS.opt_bMultithreading);
-        if (isTempMultithreading.boolValue != GSDRS.opt_bMultithreading)
-        {
-            isUpdateGlobalMultithread = true;
-        }
-
         //Update all roads button:
         if (GUILayout.Button("Update all roads", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
             GSDRS.UpdateAllRoads();
         }
-        EditorGUILayout.EndHorizontal();
+
+        //Multi-threading input:
+        isTempMultithreading.boolValue = EditorGUILayout.Toggle("Multi-threading enabled", GSDRS.opt_bMultithreading);
+        if (isTempMultithreading.boolValue != GSDRS.opt_bMultithreading)
+        {
+            isUpdateGlobalMultithread = true;
+        }
 
         //Save mesh assets input:
         isTempSaveMeshAssets.boolValue = EditorGUILayout.Toggle("Save mesh assets: ", GSDRS.opt_bSaveMeshes);
@@ -101,7 +99,15 @@ public class GSDRoadSystemEditor : Editor
         GUILayout.Space(4f);
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
         {
-            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");  // formerly http://microgsd.com/Support/RoadArchitectManual.aspx
+            // formerly http://microgsd.com/Support/RoadArchitectManual.aspx
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
+        }
+
+        //Offline manual button:
+        GUILayout.Space(4f);
+        if (GUILayout.Button("Offline manual", EditorStyles.miniButton, GUILayout.Width(120f)))
+        {
+            Application.OpenURL(GSD.Roads.GSDRoadUtilityEditor.GetRoadArchitectApplicationPath() + "/RoadArchitectManual.htm");
         }
 
         if (GSDRS.EditorPlayCamera == null)

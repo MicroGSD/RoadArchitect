@@ -181,13 +181,11 @@ public class GSDRoadIntersectionEditor : Editor
         }
         EditorGUILayout.EndHorizontal();
         RAEditorUtilitys.Line();
-        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Intersection options", EditorStyles.boldLabel);
         if (GUILayout.Button("Update intersection", GSDLoadButton))
         {
             TriggerRoadUpdate(true);
         }
-        EditorGUILayout.EndHorizontal();
 
         //Option: Auto update:
         t_opt_AutoUpdateIntersections.boolValue = EditorGUILayout.Toggle("Auto-update:", tInter.opt_AutoUpdateIntersections);
@@ -196,7 +194,6 @@ public class GSDRoadIntersectionEditor : Editor
         t_bDrawGizmo.boolValue = EditorGUILayout.Toggle("Gizmo:", tInter.bDrawGizmo);
 
         //UI:
-        EditorGUILayout.BeginHorizontal();
         if (tInter.iType == GSDRoadIntersection.IntersectionTypeEnum.ThreeWay)
         {
             EditorGUILayout.LabelField("Intersection type: 3 way");
@@ -209,7 +206,10 @@ public class GSDRoadIntersectionEditor : Editor
         {
             Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
-        EditorGUILayout.EndHorizontal();
+        if (GUILayout.Button("Offline manual", EditorStyles.miniButton, GUILayout.Width(120f)))
+        {
+            Application.OpenURL(GSD.Roads.GSDRoadUtilityEditor.GetRoadArchitectApplicationPath() + "/RoadArchitectManual.htm");
+        }
         RAEditorUtilitys.Line();
         EditorGUILayout.BeginVertical();
         if (GUILayout.Button("Access objects on first road node"))

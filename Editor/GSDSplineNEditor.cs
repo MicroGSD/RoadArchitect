@@ -397,14 +397,18 @@ public class GSDSplineNEditor : Editor
         RAEditorUtilitys.Line();
 
         #region "Online Manual on Top of SplineN Scripts"
-        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField(tNode.EditorDisplayString, EditorStyles.boldLabel);
 
         if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(128f)))
         {
-            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");        // formerly, which redirect to the master github http://microgsd.com/Support/RoadArchitectManual.aspx
+            // formerly, which redirect to the master github http://microgsd.com/Support/RoadArchitectManual.aspx
+            Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
         }
-        EditorGUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Offline manual", EditorStyles.miniButton, GUILayout.Width(120f)))
+        {
+            Application.OpenURL(GSD.Roads.GSDRoadUtilityEditor.GetRoadArchitectApplicationPath() + "/RoadArchitectManual.htm");
+        }
         #endregion
 
 
@@ -848,16 +852,9 @@ public class GSDSplineNEditor : Editor
             }
 
             GUILayout.Space(8f);
-            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("General options:");
-            if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
-            {
-                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
-            }
-            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginVertical("box");
-
             //Name:
             SMM.EM.tName = EditorGUILayout.TextField("Name:", SMM.tName);
 
@@ -1476,13 +1473,7 @@ public class GSDSplineNEditor : Editor
             }
 
             GUILayout.Space(8f);
-            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("General options:");
-            if (GUILayout.Button("Online manual", EditorStyles.miniButton, GUILayout.Width(120f)))
-            {
-                Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
-            }
-            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginVertical("box");
             //Name:

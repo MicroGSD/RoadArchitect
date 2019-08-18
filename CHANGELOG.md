@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added an option to change the desired height of the ramp
 - Refactor of Profiling
 - Added the ability to change default and selected gizmo color
+- Added the ability to change the preview gizmo color for a new Node
+- Added Offline Manual buttons to the Inspectors
 
 
 ## [Version: 1.9_FH] - 2019.04.22
