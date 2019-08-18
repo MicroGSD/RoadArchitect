@@ -1,7 +1,5 @@
 ﻿#if UNITY_EDITOR
 #region "Imports"
-//using System.Collections;                     // Unused
-//using System.Collections.Generic;         // Unused
 using UnityEngine;
 using UnityEditor;
 #endregion

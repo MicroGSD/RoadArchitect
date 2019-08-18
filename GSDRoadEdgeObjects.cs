@@ -1,7 +1,5 @@
 #region "Imports"
 using UnityEngine;
-//using System.Collections;                   // Unused
-//using GSD;                                          // Unused
 using System.Collections.Generic;
 using System.IO;
 #endregion

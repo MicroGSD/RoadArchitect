@@ -1,6 +1,5 @@
 #region "Imports"
 using UnityEngine;
-//using System.Collections;                                     // Unused
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;

@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using System.Text.RegularExpressions;
 using GSD;
-//using System.Collections;                         // Unused
-//using System.Collections.Generic;             // Unused
 #endregion
 
 

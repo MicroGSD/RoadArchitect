@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 #region "Imports"
-//using UnityEngine;                // Unused
 using UnityEditor;
 #endregion
 

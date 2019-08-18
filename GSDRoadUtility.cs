@@ -1,7 +1,6 @@
 #region "Imports"
 using UnityEngine;
 using System.Collections.Generic;
-//using System.Collections;                     // Unused
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
