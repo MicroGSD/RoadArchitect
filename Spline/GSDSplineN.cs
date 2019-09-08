@@ -1019,6 +1019,7 @@ public class GSDSplineN : MonoBehaviour
             if (MC != null)
             {
                 RoadCut_PhysicMat = MC.material;
+                RoadCut_PhysicMat.name = RoadCut_PhysicMat.name.Replace("(Instance)", "");
             }
             RoadCut_world = null;//Nullify reference only
         }
@@ -1033,6 +1034,7 @@ public class GSDSplineN : MonoBehaviour
             if (MC != null)
             {
                 ShoulderCutR_PhysicMat = MC.material;
+                ShoulderCutR_PhysicMat.name = ShoulderCutR_PhysicMat.name.Replace("(Instance)", "");
             }
             ShoulderCutR_world = null;
         }
@@ -1047,6 +1049,7 @@ public class GSDSplineN : MonoBehaviour
             if (MC != null)
             {
                 ShoulderCutL_PhysicMat = MC.material;
+                ShoulderCutL_PhysicMat.name = ShoulderCutL_PhysicMat.name.Replace("(Instance)", "");
             }
             ShoulderCutL_world = null;
         }

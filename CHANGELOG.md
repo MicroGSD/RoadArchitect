@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the ability to change the preview gizmo color for a new Node
 - Added Offline Manual buttons to the Inspectors
 - Removed unused using directives
+- Fixed some issues with the quick help inspector
+- Fixed an issue, which caused long names of physic materials
 
 
 ## [Version: 1.9_FH] - 2019.04.22

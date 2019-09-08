@@ -2,6 +2,7 @@
 [![GitHub release](https://img.shields.io/github/release/FritzsHero/RoadArchitect.svg)](https://github.com/FritzsHero/RoadArchitect/releases/tag/v1.9_FH)
 [![Github All Releases](https://img.shields.io/github/downloads/FritzsHero/RoadArchitect/total.svg)](https://github.com/FritzsHero/RoadArchitect/releases)
 [![GitHub contributors](https://img.shields.io/github/contributors/FritzsHero/RoadArchitect.svg)](https://github.com/FritzsHero/RoadArchitect/graphs/contributors)
+[![Chat](https://img.shields.io/badge/chat-on%20discord-lightgrey.svg)](https://discord.gg/cevveEr)
 
 
 Road Architect for Unity. Road architect is a professional quality road system creator featuring dynamic intersections, bridges and many other road objects.

@@ -266,7 +266,7 @@ public class GSDRoadIntersection : MonoBehaviour
     private bool ContainsLineOld(Vector3 tVect1, Vector3 tVect2, int LineDef = 30)
     {
         int MaxDef = LineDef;
-        float MaxDefF = (float) MaxDef;
+        float MaxDefF = (float)MaxDef;
 
         Vector3[] tVects = new Vector3[MaxDef];
 
@@ -564,7 +564,9 @@ public class GSDRoadIntersection : MonoBehaviour
             MarkerCenter3 = null;
         }
         if (bUpdate)
-        { UpdateMaterials(); }
+        {
+            UpdateMaterials();
+        }
     }
 
 
@@ -1236,6 +1238,7 @@ public class GSDRoadIntersection : MonoBehaviour
     #endregion
 
 
+    #region "TrafficLights"
     public void ToggleTrafficLightPoleColor()
     {
         Material TrafficLightMaterial = null;
@@ -1307,5 +1310,6 @@ public class GSDRoadIntersection : MonoBehaviour
         StreetLight_Color = new Color(1f, 0.7451f, 0.27451f, 1f);
         TogglePointLights(bLightsEnabled);
     }
+    #endregion
 #endif
 }

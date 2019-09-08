@@ -444,7 +444,6 @@ public class GSDRoadEditor : Editor
                 Application.OpenURL("https://github.com/MicroGSD/RoadArchitect/wiki");
             }
             EditorGUILayout.HelpBox(tOnlineHelpDesc, MessageType.Info);
-
             GUILayout.Space(4f);
             EditorGUILayout.BeginVertical();
             EditorGUILayout.LabelField("Gizmos:", EditorStyles.boldLabel);
@@ -501,9 +500,11 @@ public class GSDRoadEditor : Editor
             EditorGUILayout.LabelField("When enabled allows for multi-threaded road generation.");
             EditorGUILayout.EndVertical();
             GUILayout.Space(4f);
+
             EditorGUILayout.BeginVertical();
             EditorGUILayout.LabelField("Save mesh assets:", EditorStyles.boldLabel);
             EditorGUILayout.LabelField("When enabled saves all generated meshes as .asset files.");
+            EditorGUILayout.EndVertical();
             GUILayout.Space(4f);
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button(btnRefreshText, GSDImageButton, GUILayout.Width(16f)))
@@ -664,6 +665,7 @@ public class GSDRoadEditor : Editor
             }
             EditorGUILayout.LabelField(" = Resets settings to default.");
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
         }
         EditorGUILayout.EndVertical();
 
