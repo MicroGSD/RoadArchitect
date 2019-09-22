@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed unused using directives
 - Fixed some issues with the quick help inspector
 - Fixed an issue, which caused long names of physic materials
+- Instantiating EdgeObjects as Prefabs
 
 
 ## [Version: 1.9_FH] - 2019.04.22

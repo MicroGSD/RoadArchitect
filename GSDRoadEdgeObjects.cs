@@ -410,7 +410,7 @@ namespace GSD.Roads.EdgeObjects
                 EdgeObjectString = EOM.EdgeObjectString;
                 bCombineMesh = EOM.bCombineMesh;
                 bCombineMeshCollider = EOM.bCombineMeshCollider;
-                //				GSD.Roads.SignPlacementSubTypeEnum SubType = EOM.SubType;
+                //GSD.Roads.SignPlacementSubTypeEnum SubType = EOM.SubType;
                 MeterSep = EOM.MeterSep;
                 bToggle = EOM.bToggle;
                 bIsGSD = EOM.bIsGSD;
@@ -837,17 +837,24 @@ namespace GSD.Roads.EdgeObjects
                 {
                     if (EdgeObjectRotations[j] == default(Vector3))
                     {
-                        tObj = GameObject.Instantiate(EdgeObject);            // (GameObject) removed; FH Experimental 25.01.19
+                        // Line to instantiate the object instead of an prefab
+                        //tObj = GameObject.Instantiate(EdgeObject);
+                        // Instantiate prefab instead of object
+                        tObj = (GameObject) UnityEditor.PrefabUtility.InstantiatePrefab(EdgeObject);
                         tErrorObjs.Add(tObj);
                         tObj.transform.position = EdgeObjectLocations[j];
                     }
                     else
                     {
-                        tObj = GameObject.Instantiate(EdgeObject, EdgeObjectLocations[j], Quaternion.LookRotation(EdgeObjectRotations[j]));
-                        // (GameObject) removed, since Instantiate returns a GameObject anyway; FH Experimental 25.01.19
+                        // Line to instantiate the object instead of an prefab
+                        //tObj = GameObject.Instantiate(EdgeObject, EdgeObjectLocations[j], Quaternion.LookRotation(EdgeObjectRotations[j]));
+                        // Instantiate prefab instead of object
+                        tObj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(EdgeObject);
+                        tObj.transform.position = EdgeObjectLocations[j];
+                        tObj.transform.rotation = Quaternion.LookRotation(EdgeObjectRotations[j]);
                         tErrorObjs.Add(tObj);
                     }
-                    //					OrigRot = tObj.transform.rotation;
+                    //OrigRot = tObj.transform.rotation;
                     tObj.transform.rotation *= xRot;
                     tObj.transform.localScale = CustomScale;
                     if (bOncomingRotation && SubType == GSD.Roads.SignPlacementSubTypeEnum.Left)
@@ -1263,7 +1270,8 @@ namespace GSD.Roads.EdgeObjects
                         }
                     }
 
-                    tVect.y += (VerticalCurve.Evaluate(tPercent) * VerticalRaise);  // Adds the Height to the Node including the VerticalRaise
+                    // Adds the Height to the Node including the VerticalRaise
+                    tVect.y += (VerticalCurve.Evaluate(tPercent) * VerticalRaise);
 
                     // Adds the Vector and the POS to the List of the EdgeObjects, so they can be created
                     EdgeObjectLocations.Add(tVect);
