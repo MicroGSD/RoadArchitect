@@ -390,6 +390,7 @@ namespace GSD
 
 
         #region "Profiling"
+        #if UNITY_EDITOR
         public static void StartProfiling(GSDRoad _road, string _profileName)
         {
             if (_road.bProfiling)
@@ -416,6 +417,7 @@ namespace GSD
                 UnityEngine.Profiling.Profiler.BeginSample(_profileName);
             }
         }
+        #endif
         #endregion
     }
 }
